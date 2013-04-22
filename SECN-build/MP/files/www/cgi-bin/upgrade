@@ -1,0 +1,51 @@
+#!/usr/bin/haserl --upload-limit=32768                         
+<% echo -en "content-type: text/html\r\n\r\n" %>
+<head>
+	<title>Firmware Upgrade</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<style type="text/css">	@import url(/lib/configstyle.css); 	</style>
+	<script type="text/javascript" src="/lib/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="/lib/jquery.form.min.js"></script>
+	<script type="text/javascript" src="/lib/upgrade.js"></script>
+</head>
+
+<body>
+<div class='banner'>
+	<img class="logo" src="/images/vtlogo.png" alt="Village Telco">
+	<div class="titletext">	
+		<h1 class="textbanner">SECN Firmware Upgrade</h1> 
+	</div>
+</div>
+<div id="outer-container" class="tab-container" >
+	<div class="panel-container">
+		<a href="/cgi-bin/secn-tabs">Return to Configuration</a>
+		<form action="/cgi-bin/fwprocess" class="upload" id="fupload" method="POST" enctype="multipart/form-data" >
+			<h3>Upgrade your firmware</h3>
+			<div class="block">
+				<label>Filename</label>
+				<input class="input" type="file" name="uploadfile" size="50">
+			</div>
+			<div class="block">
+				<label>Ignore Checksum?</label>
+				<input class ="input" type="checkbox" name="tocheck"  value="ignore" id="showchecksum" data-toggles="ignore">
+			</div>
+			<div class="block" id="ignore">
+				<label>Paste checksum</label>
+				<input class="input" type="text" name="checksum" size="35">
+			</div>
+			<div class="block">
+				<input class="input" type="submit" value="Upload File to Server">
+			</div>
+		</form>
+		<div>
+			<label>Progress</label>
+			<div class="progress">
+				<div class="bar"></div >
+				<div class="percent">0%</div >
+			</div>
+			<div id="status"></div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

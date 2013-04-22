@@ -1,0 +1,21 @@
+#!/bin/ash 
+# Akshay Mishra, Elektra 
+
+#if ifconfig | grep -q br-lan
+if brctl show |grep ath0 
+
+then 
+
+/sbin/ifconfig br-lan | grep 'inet addr:' | cut -d: -f2 |  cut -d. -f1 > /tmp/octet1                
+/sbin/ifconfig br-lan | grep 'inet addr:' | cut -d: -f2 |  cut -d. -f2 > /tmp/octet2                
+/sbin/ifconfig br-lan | grep 'inet addr:' | cut -d: -f2 |  cut -d. -f3 > /tmp/octet3                
+/sbin/ifconfig br-lan | grep 'inet addr:' | cut -d: -f2 |  cut -d. -f4 | cut -d\   -f1 > /tmp/octet4
+
+else
+   
+/sbin/ifconfig ath0 | grep 'inet addr:' | cut -d: -f2 |  cut -d. -f1 > /tmp/octet1
+/sbin/ifconfig ath0 | grep 'inet addr:' | cut -d: -f2 |  cut -d. -f2 > /tmp/octet2
+/sbin/ifconfig ath0 | grep 'inet addr:' | cut -d: -f2 |  cut -d. -f3 > /tmp/octet3
+/sbin/ifconfig ath0 | grep 'inet addr:' | cut -d: -f2 |  cut -d. -f4 | cut -d\   -f1 > /tmp/octet4
+
+fi

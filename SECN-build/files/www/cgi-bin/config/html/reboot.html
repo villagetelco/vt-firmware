@@ -1,0 +1,53 @@
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
+<head>
+  <title>VT SECN Configuration Reboot</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="refresh" content="140; URL=/index.html">
+	<style type="text/css">
+	@import url(/lib/configstyle.css); 
+	</style>
+</head>
+
+<body>
+  <div class="section">
+    <div class="topbar">
+      <img src="/images/vtlogo.png" alt="Village Telco">
+	<div class="titletext">	
+	  <h1>VT SECN Configuration</h1>
+	</div>
+    </div>
+
+  <div class="box visible">
+    <div id="stylized" class="myform">
+      <FORM name="MP" class="MP" id="MP" autocomplete="off" METHOD=GET ACTION="/cgi-bin/secn-tabs">
+	<p></p>
+	<p></p>
+	<h2> Device rebooting. Please wait till restart is complete.... 
+
+	<span id="seconds">150</span>.
+	<script>
+	  var seconds = 150;
+	  setInterval(
+  	    function(){
+              document.getElementById('seconds').innerHTML = --seconds;
+            }, 1000
+          );
+	</script>
+
+	<p></p>
+	<p></p>
+
+	Return to: <a href="/cgi-bin/secn-tabs"> VT SECN Configuration </a>
+	</h2>
+
+      </FORM>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# Added for compatibility with uhttpd
+echo -en "Content-type: text/html\r\n\r\n"
+
+#  /www/cgi-bin/secn-tabs
+# This script calls config1 script to create the html file
+# /tmp/config.html then outputs the file to the browser
+
+# Generate the configuration page
+/www/cgi-bin/config/conf-get.sh
+
+# Send the page back to the browser
+cat /tmp/config.html
+
+# Remove old generated files files 
+rm /tmp/config.html >> /dev/null
+

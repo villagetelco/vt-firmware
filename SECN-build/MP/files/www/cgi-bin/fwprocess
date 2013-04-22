@@ -1,0 +1,46 @@
+#!/usr/bin/haserl  --upload-limit=32768      
+<% echo -en "content-type: text/html\r\n\r\n" %>
+<html>
+<head></head>
+<body>
+
+<% if test -n "$HASERL_uploadfile_path"; then %>
+    <div id="status"></div>
+    <p>
+    You uploaded <b><% echo -n $FORM_uploadfile_name %></b>.  
+    <p>
+    <% mv $FORM_uploadfile /tmp/$FORM_uploadfile_name %>
+    <% chmod 755 /tmp/$FORM_uploadfile_name %>
+    <% upload_md5sum=$( md5sum /tmp/$FORM_uploadfile_name | cut -d' ' -f1 ) %>
+
+    <% if [ "$FORM_tocheck" != "ignore" ]; then %>
+    <table>
+    	<tr>
+    		<td align="right">The checksum of the uploaded file is:</td>
+    		<td><% echo $upload_md5sum %></td>
+    	</tr>
+    	<tr>
+    		<td align="right">The checksum you submitted is:</td>
+    		<td><% echo $FORM_checksum %></td>
+    	</tr>
+    </table>
+    <% fi %>
+    <% if [ "$upload_md5sum" != "$FORM_checksum" ] && [ "$FORM_tocheck" != "ignore" ]; then %>
+       I'm sorry, the uploaded file does not match the checksum you submitted.  Please reload this page and try again.
+    <% else %>
+        <% if [ "$FORM_tocheck" != "ignore" ]; then %>
+	       <b>Congratulations your checksums match.  The file uploaded correctly.</b>
+        <% fi %>
+	    <form action="/cgi-bin/fwexec" method="POST">
+	    	<input type="hidden" name="firmware" value="<% echo -n /tmp/$FORM_uploadfile_name %>">
+	    	Preserve existing configuration?<br>
+	    	<input type="radio" name="preserve" value=" ">Yes<br>
+	    	<input type="radio" name="preserve" value="-n " checked>No<p>
+	        <input type="submit" value="Upgrade Firmware">
+	    </form>
+    <% fi %>
+    
+<% fi %>
+
+</body>
+</html> 

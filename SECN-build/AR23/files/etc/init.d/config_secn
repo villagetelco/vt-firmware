@@ -1,0 +1,228 @@
+
+#!/bin/sh -x
+# /etc/init.d/config_secn  
+
+# This script creates various config files based on parameters in 
+# /etc/config/secn, /etc/config/network and /etc/config/wireless
+
+# ------------------------------------------------------------------
+
+# Set up WiFi 
+
+# Get the params from uci config file /etc/config/secn and wireless
+SSID=`uci get secn.accesspoint.ssid`
+PASSPHRASE=`uci get secn.accesspoint.passphrase`
+ENCRYPTION=`uci get secn.accesspoint.encryption`
+AP_DISABLE=`uci get secn.accesspoint.ap_disable`
+MAXASSOC=`uci get secn.accesspoint.maxassoc`
+USREG_DOMAIN=`uci get secn.accesspoint.usreg_domain`
+CHANNEL=`uci get wireless.radio0.channel`
+
+# Set to WPA1 by default                                 
+ENCRYPT="psk"
+
+if [ $ENCRYPTION = "WPA2" ]; then                                   
+ENCRYPT="psk2"
+fi
+
+if [ $ENCRYPTION = "WEP" ]; then                          
+ENCRYPT="wep"                                                     
+fi
+
+if [ $ENCRYPTION = "NONE" ]; then                          
+ENCRYPT="none"                                                      
+fi
+
+#Set up Reg Domain and Country Code for 11/13 channel working
+if [ $USREG_DOMAIN = "checked" ]; then
+  # set for 11 channel
+  COUNTRY="840"
+  REGDOMAIN="0x00"
+else
+  # Set for 13 channel
+  COUNTRY="276"
+  REGDOMAIN="0x35"
+fi
+
+# Check for invalid channel and regdomain combination
+if [ $USREG_DOMAIN = "checked" ] && [ $CHANNEL -gt "11" ]; then
+  # Set to default channel 1
+  uci set wireless.radio0.channel=1
+fi
+
+uci set wireless.radio0.country=$COUNTRY
+uci set wireless.radio0.regdomain=$REGDOMAIN
+
+uci set wireless.ap_0.encryption=$ENCRYPT
+uci set wireless.ap_0.key=$PASSPHRASE
+uci set wireless.ap_0.ssid=$SSID
+uci set wireless.ap_0.mode="ap"
+uci set wireless.ap_0.hidden=$AP_DISABLE  # Can't disable without changing wlan(x), so just hide.
+uci set wireless.ap_0.maxassoc=$MAXASSOC
+
+uci commit wireless
+
+#----------------------------------------------
+# Set up DHCP server
+# Get the DHCP parameters from uci config file /etc/config/secn
+
+DHCP_ENABLE=`uci get secn.dhcp.enable`
+
+DHCP_AUTH_CHK=`uci get secn.dhcp.dhcp_auth`
+if [ $DHCP_AUTH_CHK = "checked" ]; then
+  DHCP_AUTH='1'
+else
+  DHCP_AUTH='0'
+fi
+
+STARTIP=`uci get secn.dhcp.startip | cut -d = -f 2 | cut -d . -f 4`
+ENDIP=`uci get secn.dhcp.endip | cut -d = -f 2 | cut -d . -f 4`
+LIMIT=$((ENDIP - STARTIP))
+
+MAXLEASES=`uci get secn.dhcp.maxleases`
+LEASETERM=`uci get secn.dhcp.leaseterm`
+LEASETERM=$((LEASETERM / 60))'m'
+DOMAIN=`uci get secn.dhcp.domain`
+OPTION_DNS=`uci get secn.dhcp.dns`
+OPTION_SUBNET=`uci get secn.dhcp.subnet`
+OPTION_ROUTER=`uci get secn.dhcp.router`
+
+uci set dhcp.@dnsmasq[0].dhcpleasemax=$MAXLEASES
+uci set dhcp.@dnsmasq[0].domain=$DOMAIN
+uci set dhcp.@dnsmasq[0].authoritative=$DHCP_AUTH
+uci set dhcp.@dnsmasq[0].dhcp_option="1,$OPTION_SUBNET"
+
+uci set dhcp.lan.start=$STARTIP
+uci set dhcp.lan.limit=$LIMIT
+uci set dhcp.lan.leasetime=$LEASETERM
+uci set dhcp.lan.dhcp_option="3,$OPTION_ROUTER"
+
+uci commit dhcp
+sleep 1
+
+#---------------------------------------------
+
+#Set up WAN Port
+
+# Get WAN settings
+WANPORT=`uci get secn.wan.wanport`
+ETHWANMODE=`uci get secn.wan.ethwanmode`
+WANIP=`uci get secn.wan.wanip`
+WANGATEWAY=`uci get secn.wan.wangateway`
+WANMASK=`uci get secn.wan.wanmask`
+WANDNS=`uci get secn.wan.wandns`
+WANSSID=`uci get secn.wan.wanssid`
+WANPASS=`uci get secn.wan.wanpass`
+WANENCR=`uci get secn.wan.wanencr`
+
+# Set up for default WAN disabled
+uci set network.lan.ifname='eth0'
+
+uci set network.wan.ifname=''
+uci set network.wan.proto=''
+uci set network.wan.ipaddr=''
+uci set network.wan.gateway=''
+uci set network.wan.netmask=''
+uci set network.wan.dns=''
+
+uci set network.wan.service=''
+uci set network.wan.apn=''
+uci set network.wan.username=''
+uci set network.wan.password=''
+uci set network.wan.pin=''
+uci set network.wan.device=''
+
+uci set wireless.ap_0.disabled='0'
+uci set wireless.ah_0.disabled='0'
+uci set wireless.sta_0.disabled='1'
+
+
+if [ $WANPORT = "Ethernet" ]; then
+ 	# Set up for Eth WAN port
+	uci set network.lan.ifname='eth9'  # This is a dummy
+	uci set network.wan.ifname='eth0'
+fi
+
+if [ $WANPORT = "WiFi" ]; then
+ 	# Set up for wlan0 WAN port
+	uci set wireless.ap_0.disabled='1'
+	uci set wireless.ah_0.disabled='1'
+	uci set wireless.sta_0.disabled='0'
+	uci set wireless.sta_0.ssid=$WANSSID
+	uci set wireless.sta_0.key=$WANPASS
+	uci set wireless.sta_0.encryption=$WANENCR
+	uci set network.wan.ifname='wlan0'
+fi
+
+
+# Set up for DHCP or Static
+	if [ $ETHWANMODE = "Static" ]; then
+		uci set network.wan.proto='static'
+		uci set network.wan.ipaddr=$WANIP
+		uci set network.wan.gateway=$WANGATEWAY
+		uci set network.wan.netmask=$WANMASK
+		uci set network.wan.dns=$WANDNS
+
+	else  # Set up for DHCP
+		uci set network.wan.proto='dhcp'
+		uci set network.wan.ipaddr=''
+		uci set network.wan.gateway=''
+		uci set network.wan.netmask=''
+		uci set network.wan.dns=''
+	fi
+
+uci commit network
+uci commit wireless
+uci commit secn
+
+# Make sure firewall is enabled
+/etc/init.d/firewall enable  
+
+#----------------------------------------------
+
+# Set up web server security configuration
+
+# Get checkbox values
+AUTH=`uci get secn.http.auth`
+LIMITIP=`uci get secn.http.limitip`
+ENSSL=`uci get secn.http.enssl`
+
+# Set up basic auth
+if [ $AUTH = "checked" ]; then                          
+  uci set uhttpd.main.config="/etc/http.conf"
+else
+  uci set uhttpd.main.config="/etc/http.conf.off"
+fi
+
+
+# Set up Restricted IP and SSL
+
+if [ $LIMITIP != "checked" ] && [ $ENSSL != "checked" ]; then
+  uci set uhttpd.main.listen_http="0.0.0.0:80"
+  uci set uhttpd.main.listen_https=""
+fi
+
+if [ $LIMITIP = "checked" ] && [ $ENSSL != "checked" ]; then
+  uci set uhttpd.main.listen_http="172.31.255.254:80"
+  uci set uhttpd.main.listen_https=""
+fi
+
+if [ $LIMITIP != "checked" ] && [ $ENSSL = "checked" ]; then
+      uci set uhttpd.main.listen_http=""                                                  
+      uci set uhttpd.main.listen_https="0.0.0.0:443"
+fi
+
+if [ $LIMITIP = "checked" ] && [ $ENSSL = "checked" ]; then
+    uci set uhttpd.main.listen_http=""
+    uci set uhttpd.main.listen_https="172.31.255.254:443"
+fi
+
+
+# Save the changes 
+uci commit uhttpd
+sleep 1
+
+# Note:Reboot for changes to be effective
+
+#----------------------------------------------
+

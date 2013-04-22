@@ -1,4 +1,4 @@
-vt-firmware
-===========
+SECN2-dev
+=========
 
-Village Telco firmware
+My development repo for SECN2

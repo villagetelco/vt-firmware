@@ -1,0 +1,23 @@
+#!/bin/ash
+# Author: Elektra
+
+rm /tmp/rssi*
+rm /tmp/originators
+rm /tmp/node.gsm
+echo "0" > /tmp/rssi1
+
+if grep -q \= /tmp/bat2.txt  
+
+then
+ln -s /usr/lib/asterisk/sounds/nexthop.gsm /tmp/node.gsm                      
+grep -v Gateway  /tmp/bat2.txt |grep 00 | cut -d \>  -f 2 |cut -d \( -f 1 > /tmp/originators
+
+else
+ln -s /usr/lib/asterisk/sounds/neighbor.gsm /tmp/node.gsm
+grep -v adv  /tmp/bat1.txt |  grep -v neig |grep 00 | cut -d \  -f 1 > /tmp/originators
+
+fi
+COUNTER=1
+for n in `cat /tmp/originators`; do wlanconfig ath0 list |grep -m 1 $n | cut -d M -f 2 |cut -d - -f 1 > /tmp/rssi$COUNTER && COUNTER=$((COUNTER+1)); done
+#COUNTER=$((COUNTER+1))
+echo $COUNTER > /tmp/counter

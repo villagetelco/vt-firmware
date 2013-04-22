@@ -1,0 +1,50 @@
+config interface 'loopback'
+	option ifname 'lo'
+	option proto 'static'
+	option ipaddr '127.0.0.1'
+	option netmask '255.0.0.0'
+
+config interface 'lan'
+	option type 'bridge'
+	option ifname 'eth0.1'  # Also wlan0,1 and bat0 added on startup
+	option proto 'static'
+	option ipaddr '10.130.1.20'
+	option netmask '255.255.255.0'
+	option gateway '10.130.1.1'
+	option dns '8.8.8.8'
+
+config interface
+	option ifname 'bat0'
+
+config interface 'mesh_0'
+	option proto 'static'
+	option ipaddr '10.10.1.20'
+	option netmask '255.255.255.0'
+	option mtu '1528'
+
+config interface 'mesh_1'
+	option proto 'static'
+	option ipaddr '10.10.2.20'
+	option netmask '255.255.255.0'
+	option mtu '1528'
+
+config interface 'wan'
+	option ifname 'eth0.2'
+	option proto 'dhcp'
+
+config switch
+	option name 'eth0'
+	option reset '1'
+	option enable_vlan '1'
+
+config switch_vlan
+	option device 'eth0'
+	option vlan '1'
+	option ports '0t 2 3 4 5'
+
+config switch_vlan
+	option device 'eth0'
+	option vlan '2'
+	option ports '0t 1'
+
+

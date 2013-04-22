@@ -1,0 +1,82 @@
+#!/bin/sh /etc/rc.common
+# Copyright (C) 2006 OpenWrt.org
+# /etc/init.d/asterisk
+# Adapted for Village Telco devices with **Asterisk 1.4**
+# Elektra, T Gillett, K Williamson 2011
+
+START=99 
+DEST=
+DEFAULT=$DEST/etc/default/asterisk
+OPTIONS=""
+
+
+restart() {
+  # kill asterisk
+  [ -f $DEST/var/run/asterisk.pid ] && kill $(cat $DEST/var/run/asterisk.pid) >/dev/null 2>&1
+  sleep 2
+
+  # restart asterisk
+  $DEST/usr/sbin/asterisk -f 2>&1 > /dev/null &
+}
+
+
+reload() {
+  # reload dialplan
+  $DEST/usr/sbin/asterisk -rx 'reload' > /dev/null
+
+  # it takes asterisk a few moments to update peer status
+  sleep 4
+}
+
+
+start() {
+
+	# Check to see if Asterisk is already running
+	if [ -f $DEST/var/run/asterisk.pid ]; then
+		exit
+	fi
+
+	mknod /dev/ttyS0 c 4 64
+	mknod -m 666 /dev/8250mp c 33 0
+	mknod -m 666 /dev/mp c 34 0
+  
+# create asterisk directories
+  [ -f $DEFAULT ] && . $DEFAULT
+  [ -d $DEST/var/run ] || mkdir -p $DEST/var/run
+  [ -d  /tmp/log/asterisk/cdr-csv ] || mkdir -p /tmp/log/asterisk/cdr-csv
+
+  [ -d $DEST/var/log/asterisk ] || mkdir -p $DEST/var/log/asterisk
+  [ -d $DEST/var/spool/asterisk ] || mkdir -p $DEST/var/spool/asterisk
+  [ -d /var/spool/asterisk ] || mkdir -p /var/spool/asterisk
+  [ -h $DEST/usr/lib/asterisk/astdb ] || ln -sf /var/spool/asterisk/astdb $DEST/usr/lib/asterisk/astdb
+
+  # Check whether /etc/resolv.conf is present, if not,
+  # create one pointing at localhost to make Asterisk happy.
+  
+  if grep -q nameserver /etc/resolv.conf                                   
+    then                                          
+      echo "/etc/resolv.conf is present"                                
+    else                                                                  
+      echo "nameserver 127.0.0.1" > /tmp/resolv.conf              
+  fi   
+  
+  # Check whether the first DNS IP is reachable, if this fails we'll cheat a bit ;-)
+  # Asterisk needs to be able to ping the DNS nameserver address
+  # Check if nameserver can be pinged
+  DNS=`grep -m 1  nameserver /etc/resolv.conf | cut -d \  -f 2` # Find first nameserver address
+  if  ping -c 1 $DNS 
+	then                           
+	  $DEST/usr/sbin/asterisk -f 2>&1 > /dev/null &   # Success, so start Asterisk
+	else
+	  cp /tmp/resolv.conf /tmp/resolv.conf-backup     # Fail, so backup resolv.conf
+	  echo "nameserver 127.0.0.1" > /tmp/resolv.conf  # Make a temp copy
+	  $DEST/usr/sbin/asterisk -f 2>&1 > /dev/null &   # Start Asterisk
+	  cat /tmp/resolv.conf-backup > /tmp/resolv.conf  # Restore resolv.conf
+fi	  
+}
+
+
+stop() {
+  [ -f $DEST/var/run/asterisk.pid ] && kill $(cat $DEST/var/run/asterisk.pid) >/dev/null 2>&1
+}
+
