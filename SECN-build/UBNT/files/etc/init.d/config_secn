@@ -138,9 +138,15 @@ uci set wireless.sta_0.disabled='1'
 
 
 if [ $WANPORT = "Ethernet" ]; then
- 	# Set up for Eth WAN port
-	uci set network.lan.ifname='eth0'
-	uci set network.wan.ifname='eth1'
+	# Set up for WAN port on eth 0 or eth1
+	# Check to see if eth1 exists eg for NanoStation M
+	if [ `ls /proc/sys/net/ipv4/conf | grep eth1` ]; then
+		uci set network.lan.ifname='eth0'  # make eth0 LAN
+		uci set network.wan.ifname='eth1'  # make eth1 WAN
+	else
+		uci set network.lan.ifname='eth9'  # dummy LAN
+		uci set network.wan.ifname='eth0'  # make etho WAN
+	fi
 fi
 
 if [ $WANPORT = "WiFi" ]; then

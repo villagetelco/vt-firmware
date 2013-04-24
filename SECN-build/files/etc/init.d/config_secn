@@ -225,7 +225,7 @@ uci set wireless.ap_0.encryption=$ENCRYPT
 uci set wireless.ap_0.key=$PASSPHRASE
 uci set wireless.ap_0.ssid=$SSID
 uci set wireless.ap_0.mode="ap"
-uci set wireless.ap_0.hidden=$AP_DISABLE # Can't disable without changing wlan(x), so just hide.
+uci set wireless.ap_0.disabled=$AP_DISABLE
 uci set wireless.ap_0.maxassoc=$MAXASSOC
 
 uci commit wireless
