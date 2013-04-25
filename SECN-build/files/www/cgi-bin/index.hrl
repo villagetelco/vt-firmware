@@ -25,8 +25,8 @@ ENABLE=`uci get secn.asterisk.enable`
 REGISTER=`uci get secn.asterisk.register`
 HOST=`uci get secn.asterisk.host`
 REGHOST=`uci get secn.asterisk.reghost`
-#SECRET=`uci get secn.asterisk.secret` # Do not display secret
-SECRET="****"
+SECRET=`uci get secn.asterisk.secret`
+
 USERNAME=`uci get secn.asterisk.username`
 DIALOUT=`uci get secn.asterisk.dialout`
 CODEC1=`uci get secn.asterisk.codec1`
@@ -108,7 +108,6 @@ if [ $REG_STATUS = "Registered" ]; then
 else
   REG_STATUS="Not Registered"
 fi
-
 # Get WAN settings
 WANPORT=`uci get secn.wan.wanport`
 ETHWANMODE=`uci get secn.wan.ethwanmode`
@@ -116,7 +115,6 @@ WANIP=`uci get secn.wan.wanip`
 WANGATEWAY=`uci get secn.wan.wangateway`
 WANMASK=`uci get secn.wan.wanmask`
 WANDNS=`uci get secn.wan.wandns`
-
 WANSSID=`uci get secn.wan.wanssid`
 WANENCR=`uci get secn.wan.wanencr`
 WANPASS=`uci get secn.wan.wanpass`
@@ -153,8 +151,8 @@ MODEMPORT=`uci get secn.modem.modemport`
   <img class="logo" src="/images/vtlogo.png" alt="Village Telco">
   <div class="titletext"> 
     <h1 class="textbanner">SECN Configuration</h1> 
-    <p>Firmware: $VERSION</p>
-    <p>Date: $DATE</p>
+    <p>Firmware:<%=  $VERSION %></p>
+    <p>Date:<%=  $DATE %></p>
   </div>
 </div>
 
@@ -183,19 +181,19 @@ MODEMPORT=`uci get secn.modem.modemport`
               <td class="field"><input type="text" name="BR_GATEWAY" id="br_gateway" value="<%= $BR_GATEWAY %>"></td>
 
 
-              <td class="label"><label for="Test"> Find Gateway </label></td>
-              <td class="field"> <INPUT TYPE="SUBMIT" name="BUTTON" value="Test" > </td>
+              <td class="label"></td>
+              <td class="field"></td>
             </tr>
         </table>
         <table>
           <tr>
-          <td class="ast_reg"> $GATEWAY_STATUS </td>
+          <td class="ast_reg"><%= $GATEWAY_STATUS %></td>
           </tr>
           </table>
         </fieldset>
 
         <fieldset class="wifi">
-          <legend>WiFi Access Point ($ENCRYPTION)</legend>
+          <legend>WiFi Access Point (<%= $ENCRYPTION %>)</legend>
           <table>
             <tr>
               <td class="label"><label for="ssid"> Station ID </label></td>
@@ -207,7 +205,7 @@ MODEMPORT=`uci get secn.modem.modemport`
               <td class="label"><label for="CHANNEL"> Channel </label></td>
               <td class="field">
               <SELECT name="CHANNEL" id="CHANNEL" >
-              <option selected="$CHANNEL">$CHANNEL</option>
+              <option selected="<%= $CHANNEL %>"><%= $CHANNEL %></option>
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -234,7 +232,7 @@ MODEMPORT=`uci get secn.modem.modemport`
               <td class="field"><input type="text" name="USER" id="user" value="<%= $USERNAME %>"> </td>
 
               <td class="label"><label>Password</label></td>
-              <td class="field"><input  type="text" name="SECRET" id="secret" value="<%= $SECRET %>"></td>
+              <td class="field"><input  type="password" name="SECRET" id="secret" value="<%= $SECRET %>"></td>
             </tr>
             <tr>
               <td class="label"><label for="host">SIP Host</label></td>
@@ -242,7 +240,7 @@ MODEMPORT=`uci get secn.modem.modemport`
               <td class="label"><label>Dialout Code</label></td>
               <td class="field">
                 <SELECT name="DIALOUT" id="dialout">
-                <option selected="$DIALOUT">$DIALOUT</option>
+                <option selected="<%= $DIALOUT %>"><%= $DIALOUT %></option>
                 <option value="#"> # </option>
                 <option value="9"> 9 </option>
                 <option value="0"> 0 </option>
@@ -253,7 +251,7 @@ MODEMPORT=`uci get secn.modem.modemport`
               <td class="field"><input  type="checkbox" name="ENABLE" id="enable" value="checked" "<%= $ENABLE %>" ></td>
 
               <td class="label"><label> SIP Status </label> </td>
-              <td class="ast_reg"> <label> $REG_STATUS </label> </td>
+              <td class="ast_reg"> <label><%=  $REG_STATUS %></label> </td>
             </tr>
           </table>
         </fieldset>
@@ -273,7 +271,7 @@ MODEMPORT=`uci get secn.modem.modemport`
           </table>
           <table>
             <tr>
-              <td class="ast_reg"> $PASSWORD_STATUS </td>
+              <td class="ast_reg"><%= $PASSWORD_STATUS %></td>
             </tr>
           </table>
         </fieldset>
@@ -322,7 +320,7 @@ MODEMPORT=`uci get secn.modem.modemport`
           <div id="tab-adv">
             <form name="MP-ADV" id="MP-ADV" method=GET action="/cgi-bin/config/conf-sub-adv.sh">
 
-              Time: $UPTIME  TZ: $TZ
+              Time: <%= $UPTIME %>  TZ: <%= $TZ %>
 
               <fieldset class="network-adv">
                 <legend>Network</legend>
@@ -353,7 +351,7 @@ MODEMPORT=`uci get secn.modem.modemport`
           <td class="label"><label for="CHANNEL">Channel</label></td>
           <td class="field">
           <SELECT name="CHANNEL" id="CHANNEL" >
-          <option selected="$CHANNEL">$CHANNEL</option>
+          <option selected="<%= $CHANNEL %>"><%= $CHANNEL %></option>
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -375,7 +373,7 @@ MODEMPORT=`uci get secn.modem.modemport`
             <input type="checkbox" name="USREG_DOMAIN" id="usreg_domain" value="checked" $USREG_DOMAIN ></td>
 
           <td class="label"><label for="ATH0_TXPOWER"> Tx Power 1-20</label></td>
-          <td class="field"><input type="text" name="ATH0_TXPOWER" id="ath0_txpower" value=$ATH0_TXPOWER ></td>
+          <td class="field"><input type="text" name="ATH0_TXPOWER" id="ath0_txpower" value="<%= $ATH0_TXPOWER %>"></td>
         </tr>
       </table>
 
@@ -384,7 +382,7 @@ MODEMPORT=`uci get secn.modem.modemport`
           <td class="label"><label for="RADIOMODE">Wifi Mode</label></td>
           <td class="field">
           <SELECT name="RADIOMODE" id="radiomode">
-            <option selected="$RADIOMODE">$RADIOMODE</option>
+            <option selected="<%= $RADIOMODE %>"><%= $RADIOMODE %></option>
             <option value="802.11G">802.11G</option>
             <option value="802.11N-G">802.11N-G</option>
           </SELECT>
@@ -393,7 +391,7 @@ MODEMPORT=`uci get secn.modem.modemport`
           <td class="label"><label for="CHANBW">Chan BW</label></td>
           <td class="field">
           <SELECT name="CHANBW" id="chanbw">
-            <option selected="$CHANBW">$CHANBW</option>
+            <option selected="<%= $CHANBW %>"><%= $CHANBW %></option>
             <option value="5">5MHz</option>
             <option value="10">10MHz</option>
             <option value="20">20MHz</option>
@@ -424,7 +422,7 @@ MODEMPORT=`uci get secn.modem.modemport`
           <td class="label"><label>Encryption</label></td>
           <td class="field">
           <SELECT name="ENCRYPTION" id="encryption">
-            <option selected="$ENCRYPTION">$ENCRYPTION</option>
+            <option selected="<%= $ENCRYPTION %>"><%= $ENCRYPTION %></option>
             <option value="WPA1">WPA1</option>
             <option value="WPA2">WPA2</option>
             <option value="WEP">WEP</option>
@@ -435,7 +433,7 @@ MODEMPORT=`uci get secn.modem.modemport`
           <td class="label"><label for="MAXASSOC">AP Connections</label></td>
           <td class="field">
           <SELECT name="MAXASSOC" id="MAXASSOC" >
-          <option selected="$MAXASSOC">$MAXASSOC</option>
+          <option selected="<%= $MAXASSOC %>"><%= $MAXASSOC %></option>
           <option value="0">Disabled</option>
           <option value="1">1</option>
           <option value="2">2</option>
@@ -456,21 +454,21 @@ MODEMPORT=`uci get secn.modem.modemport`
       <table>
         <tr>
           <td class="label"><label for="ATH0_IPADDR">IP Address</label></td>
-          <td class="field"><input type="text" name="ATH0_IPADDR" id="ath0_ipaddr" value=$ATH0_IPADDR ></td>
+          <td class="field"><input type="text" name="ATH0_IPADDR" id="ath0_ipaddr" value="<%= $ATH0_IPADDR %>"></td>
           <td class="label"><label for="ATH0_NETMASK">Netmask</label></td>
-          <td class="field"><input type="text" name="ATH0_NETMASK" id="ath0_netmask" value=$ATH0_NETMASK ></td>
+          <td class="field"><input type="text" name="ATH0_NETMASK" id="ath0_netmask" value="<%= $ATH0_NETMASK %>"></td>
         </tr>
         <tr>
           <td class="label"><label for="ATH0_SSID"> SSID </label></td>
-          <td class="field"><input type="text" name="ATH0_SSID" id="ath0_ssid" value=$ATH0_SSID ></td>
+          <td class="field"><input type="text" name="ATH0_SSID" id="ath0_ssid" value="<%= $ATH0_SSID %>"></td>
           <td class="label"><label for="ATH0_BSSID"> BSSID </label></td>
-          <td class="field"><input type="text" name="ATH0_BSSID" id="ath0_bssid" value=$ATH0_BSSID ></td>
+          <td class="field"><input type="text" name="ATH0_BSSID" id="ath0_bssid" value="<%= $ATH0_BSSID %>"></td>
         </tr>
         <tr>
           <td class="label"><label>Gateway Mode</label></td>
           <td class="field">
           <SELECT name="MPGW" id="mpgw"/>
-            <option selected="$MPGW">$MPGW</option>
+            <option selected="<%= $MPGW %>"><%= $MPGW %></option>
             <option value="OFF">OFF</option>
             <option value="CLIENT">CLIENT</option>
             <option value="SERVER">SERVER</option>
@@ -485,7 +483,7 @@ MODEMPORT=`uci get secn.modem.modemport`
           <td class="field">
           <SELECT name="MESH_ENCR" id="MESH_ENCR" >
             <option selected="off">OFF</option>
-<!--        <option selected="$MESH_ENCR">$MESH_ENCR</option>
+<!--        <option selected="<%= $MESH_ENCR %>"><%= $MESH_ENCR %></option>
             <option value="off">OFF</option>
             <option value="psk">WPA</option>
             <option value="psk2">WPA2</option> -->
@@ -506,7 +504,7 @@ MODEMPORT=`uci get secn.modem.modemport`
                     <td class="label"><label>Softphone Support</label></td>
                     <td class="field">
                       <SELECT name="SOFTPH" id="softph">
-                        <option selected="$SOFTPH">$SOFTPH</option>
+                        <option selected="<%= $SOFTPH %>"><%= $SOFTPH %></option>
                         <option value="OFF"> OFF </option>
                         <option value="CLIENT"> CLIENT </option>
                         <option value="MASTER"> MASTER </option>
@@ -517,7 +515,7 @@ MODEMPORT=`uci get secn.modem.modemport`
                     <td class="label"><label>Codec1</label></td>
                     <td class="field">
                       <SELECT name="CODEC1" id="codec1">
-                        <option selected="$CODEC1">$CODEC1</option>
+                        <option selected="<%= $CODEC1 %>"><%= $CODEC1 %></option>
                         <option value="gsm">gsm</option>
                         <option value="ulaw">ulaw</option>
                         <option value="alaw">alaw</option>
@@ -525,7 +523,7 @@ MODEMPORT=`uci get secn.modem.modemport`
                     <td class="label"><label>Codec2</label></td>
                     <td class="field">
                       <SELECT name="CODEC2" id="codec2">
-                        <option selected="$CODEC2">$CODEC2</option>
+                        <option selected="<%= $CODEC2 %>"><%= $CODEC2 %></option>
                         <option value="gsm">gsm</option>
                         <option value="ulaw">ulaw</option>
                         <option value="alaw">alaw</option>
@@ -534,7 +532,7 @@ MODEMPORT=`uci get secn.modem.modemport`
                     <td class="label"><label>Codec3</label></td>
                     <td class="field">
                       <SELECT name="CODEC3" id="codec3">
-                        <option selected="$CODEC3">$CODEC3</option>
+                        <option selected="<%= $CODEC3 %>"><%= $CODEC3 %></option>
                         <option value="gsm">gsm</option>
                         <option value="ulaw">ulaw</option>
                         <option value="alaw">alaw</option>
@@ -543,15 +541,15 @@ MODEMPORT=`uci get secn.modem.modemport`
                   </tr>
                     <tr>
                     <td class="label"><label>SIP Enable</label> </td>
-                    <td class="field"><input  type="checkbox" name="ENABLE" id="enable" value="checked" $ENABLE > </td>
+                    <td class="field"><input  type="checkbox" name="ENABLE" id="enable" value="checked" <%= $ENABLE %> > </td>
 
                     <td class="label"><label>SIP Register</label></td>
-                    <td class="field"><input  type="checkbox" name="REGISTER" id="register" value="checked" $REGISTER > </td>
+                    <td class="field"><input  type="checkbox" name="REGISTER" id="register" value="checked" <%= $REGISTER %> > </td>
 
                     <td class="label"><label>Dialout Code</label></td>
                     <td class="field">
                       <SELECT name="DIALOUT" id="dialout">
-                        <option selected="$DIALOUT">$DIALOUT</option>
+                        <option selected="<%= $DIALOUT %>"><%= $DIALOUT %></option>
                         <option value="#"> # </option>
                         <option value="9"> 9 </option>
                         <option value="0"> 0 </option>
@@ -563,7 +561,7 @@ MODEMPORT=`uci get secn.modem.modemport`
                 <table>
                   <tr>  
                     <td class="label"><label> SIP Status </label> </td>
-                    <td class="ast_reg"> $REG_STATUS $REG_ACCT </td>
+                    <td class="ast_reg"><%=  $REG_STATUS $REG_ACCT %></td>
                   </tr>
                 </table>
 
@@ -652,7 +650,7 @@ MODEMPORT=`uci get secn.modem.modemport`
                     <td class="label"><label> WAN Port</label></td>
                     <td class="field">
                     <SELECT name="WANPORT" id="wanport">
-                      <option selected="$WANPORT">$WANPORT</option>
+                      <option selected="<%= $WANPORT %>"><%= $WANPORT %></option>
                       <option value="Disable"> Disable </option>
                       <option value="Ethernet"> Ethernet </option>
                       <option value="USB-Modem"> USB-Modem </option>
@@ -668,7 +666,7 @@ MODEMPORT=`uci get secn.modem.modemport`
                     <td class="label"><label>WAN IP Mode</label></td>
                     <td class="field">
                     <SELECT name="ETHWANMODE" id="ethwanmode">
-                      <option selected="$ETHWANMODE">$ETHWANMODE</option>
+                      <option selected="<%= $ETHWANMODE %>"><%= $ETHWANMODE %></option>
                       <option value="DHCP"> DHCP </option>
                       <option value="Static"> Static </option>
                     </SELECT>
@@ -714,7 +712,7 @@ MODEMPORT=`uci get secn.modem.modemport`
                     <td class="label"><label>Encryption</label></td>
                     <td class="field">
                     <SELECT name="WANENCR" id="wanencr">
-                      <option selected="$WANENCR">$WANENCR</option>
+                      <option selected="<%= $WANENCR %>"><%= $WANENCR %></option>
                       <option value="psk">WPA1</option>
                       <option value="psk2">WPA2</option>
                       <option value="wep">WEP</option>
@@ -732,7 +730,7 @@ MODEMPORT=`uci get secn.modem.modemport`
                     <td class="label"><label>USB Modem Service</label></td>
                     <td class="field">
                     <SELECT name="MODEMSERVICE" id="modemservice">
-                      <option selected="$MODEMSERVICE">$MODEMSERVICE</option>
+                      <option selected="<%= $MODEMSERVICE %>"><%= $MODEMSERVICE %></option>
                       <option value="umts"> UMTS </option>
                       <option value="gprs"> GPRS </option>
                       <option value="cdma"> CDMA </option>
@@ -772,7 +770,7 @@ MODEMPORT=`uci get secn.modem.modemport`
                     <td class="label"><label>USB Serial Port</label></td>
                     <td class="field">
                     <SELECT name="MODEMPORT" id="modemport">
-                      <option selected="$MODEMPORT">$MODEMPORT</option>
+                      <option selected="<%= $MODEMPORT %>"><%= $MODEMPORT %></option>
                       <option value="0"> 0 </option>
                       <option value="1"> 1 </option>
                       <option value="2"> 2 </option>
@@ -789,21 +787,21 @@ MODEMPORT=`uci get secn.modem.modemport`
                 <table>
                   <tr>  
                     <td class="label"><label> USB Device Detected</label> </td>
-                    <td class="ast_reg"> $USBMODEM </td>
+                    <td class="ast_reg"><%= $USBMODEM %></td>
                   </tr>
                 </table>
 
                 <table>
                   <tr>  
                     <td class="label"><label> USB Serial Ports Detected</label> </td>
-                    <td class="ast_reg"> $USBSERIAL </td>
+                    <td class="ast_reg"><%= $USBSERIAL %></td>
                   </tr>
                 </table>
 
                 <table>
                   <tr>  
                     <td class="label"><label>USB Modem Status</label> </td>
-                    <td class="ast_reg"> $USBSTATUS </td>
+                    <td class="ast_reg"><%= $USBSTATUS %></td>
                   </tr>
                 </table>
               </fieldset>
