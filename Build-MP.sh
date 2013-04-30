@@ -17,9 +17,19 @@ fi
 
 echo "Start build process"
 
-# Set up version strings
-VER="Version 2.0 Beta 1g"
-DIRVER="Beta-1g"
+echo "Set up version strings"
+VER="Version 2.0 xxxx (rv297)"
+DIRVER="xxxx"
+
+###########################
+
+echo "Copy files from Git repo into build folder"
+rm -rf ./files
+cp -rp ~/Git/vt-firmware/SECN-build/MP/files    .
+
+echo "Copy driver code from Git repo into build folder"
+rm -rf ./drivers
+cp -rp ~/Git/vt-firmware/SECN-build/MP/drivers  .
 
 ###########################
 
@@ -37,39 +47,43 @@ touch ./bin/atheros/builds/build-$DIR/md5sums
 ###########################
 
 echo '----------------------------'
+echo "Make MP channel driver"
+cd ./drivers/asterisk
+make
+echo "Copy files"
+cp ./gentone       ../../files/usr/lib/asterisk/modules
+cp ./chan_mp.so    ../../files/usr/lib/asterisk/modules
+cd ../..
 
-echo "Copy files from Git repo into build folder"
-rm -r ./files
-cp -r -f ~/Git/vt-firmware/SECN-build/MP/files .
+echo '----------------------------'
+echo "Make 8250 driver"
+cd ./drivers/driver
+make
+echo "Copy files"
+cp ./8250mp.ko   ../../files/lib/modules/*
+cp ./mp.ko       ../../files/lib/modules/*
+cd ../..
 
-echo "Copy .config from Git repo into build folder"
-cp -r -f ~/Git/vt-firmware/SECN-build/MP/.config .
+echo '----------------------------'
+echo "Set up files for MP-1"
+DEVICE="MeshPotato-1"
 
-###########################
-
-echo " Run defconfig"
-make defconfig > /dev/null
-
-# Get target device from .config file
-TARGET=`cat .config | grep "CONFIG_TARGET" | grep "=y" | grep "_generic_" | cut -d _ -f 5 | cut -d = -f 1 `
-
-echo "Check .config version"
-cat ./.config | grep "OpenWrt version"
-echo "Target:  " $TARGET
-
-./FactoryRestore.sh			; echo "Build Factory Restore tar file"
+./FactoryRestore.sh                     ; echo "Build Factory Restore tar file"
 
 echo "Check files "
 ls -al ./files   
 echo ""
 
 # Set up version file
-echo "Version: "  $VER $TARGET
-echo $VER  $TARGET               > ./files/etc/secn_version
+echo "Version: "  $VER $DEVICE
+echo $VER  " " $DEVICE           > ./files/etc/secn_version
 echo "Date stamp the version file: " $DATE
 echo "Build date " $DATE         >> ./files/etc/secn_version
 echo " "                         >> ./files/etc/secn_version
- 
+
+# Check
+echo "Check .config version"
+cat ./.config | grep "OpenWrt version"
 echo "Check banner version"
 cat ./files/etc/secn_version | grep "Version"
 echo ""
