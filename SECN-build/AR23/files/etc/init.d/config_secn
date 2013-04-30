@@ -150,7 +150,7 @@ if [ $WANPORT = "WiFi" ]; then
 	uci set wireless.sta_0.ssid=$WANSSID
 	uci set wireless.sta_0.key=$WANPASS
 	uci set wireless.sta_0.encryption=$WANENCR
-	uci set network.wan.ifname='wlan0'
+	uci set network.wan.ifname='ath0'
 fi
 
 
