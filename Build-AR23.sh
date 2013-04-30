@@ -77,7 +77,7 @@ echo "Target:  " $TARGET
 echo "Set up files for AR23 "
 rm -r ./files/*
 cp -r ./SECN-build/files       .        ; echo "Copy generic files"
-cp -r ./SECN-build/AR23/files .        ; echo "Overlay device specific files"
+cp -r ./SECN-build/AR23/files  .        ; echo "Overlay device specific files"
 ./FactoryRestore.sh			; echo "Build Factory Restore tar file"
 
 echo "Check files "
