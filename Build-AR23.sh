@@ -18,14 +18,14 @@ fi
 echo "Start build process"
 
 # Set up version strings
-VER="Version 2.0 Beta 1g"
-DIRVER="Beta-1g"
+VER="Version 2.0 xxxx"
+DIRVER="xxxx"
 
 ###########################
 
 echo "Copy files from Git repo into build folder"
-rm -r ./SECN-build/files/*
-cp -r -f ~/Git/vt-firmware/SECN-build/* ./SECN-build/
+rm -rf ./SECN-build/files/*
+cp -rp ~/Git/vt-firmware/SECN-build/ .
 
 ###########################
 
