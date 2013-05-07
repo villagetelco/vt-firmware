@@ -216,6 +216,8 @@ uci commit network
 uci commit wireless
 uci commit secn
 
+sleep 1
+
 # Note:Reboot for changes to be effective
 
 #----------------------------------------------
