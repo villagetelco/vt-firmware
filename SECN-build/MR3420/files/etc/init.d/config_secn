@@ -379,6 +379,7 @@ DIALSTR=` echo $DIALSTR  | sed 's/'%23'/'#'/' `
 DIALSTR=` echo $DIALSTR  | sed 's/'%23'/'#'/' `
 DIALSTR=` echo $DIALSTR  | sed 's/'%23'/'#'/' `
 
+uci set secn.modem.dialstr=$DIALSTR
 
 # Set up dialstring line
 DIALSTR2='"ATD'$DIALSTR'"'
