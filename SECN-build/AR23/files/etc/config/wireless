@@ -1,3 +1,4 @@
+
 config wifi-device 'radio0'
 	option type 'mac80211'
 	option phy 'phy0'
