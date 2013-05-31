@@ -67,7 +67,7 @@ config mesh wan
 	option wanssid 'host-ssid'
 	option wanpass 'host-password'
 	option wanencr 'psk'
-	option wanport 'Ethernet'
+	option wanport 'Disable'
 	option ethwanmode 'DHCP'
 
 
