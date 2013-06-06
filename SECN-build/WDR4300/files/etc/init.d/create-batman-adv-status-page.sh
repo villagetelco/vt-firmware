@@ -10,7 +10,8 @@ ln -s /tmp/bat1.txt /www/bat1.txt
 touch /tmp/bat2.txt
 ln -s /tmp/bat2.txt /www/bat2.txt
 
-# Generate the txt file every 10 seconds
+# Generate the txt files every 10 seconds
+# Get batman-adv info
 while (true); do \
 batctl o > /tmp/bat1 &&\
 batctl gwl > /tmp/bat2 &&\
@@ -30,3 +31,4 @@ iwinfo wlan1 assoclist >> /tmp/wifi.txt
 
 sleep 10; \
 done &
+

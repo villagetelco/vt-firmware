@@ -18,13 +18,13 @@ fi
 echo "Start build process"
 
 # Set up version strings
-VER="Version 2.0 xxxx"
-DIRVER="xxxx"
+VER="Version 2.0 Beta 2b-2-Ath5k"
+DIRVER="Beta-2b-2-Ath5k"
 
 ###########################
 
 echo "Copy files from Git repo into build folder"
-rm -rf ./SECN-build/files/*
+rm -rf ./SECN-build/
 cp -rp ~/Git/vt-firmware/SECN-build/ .
 
 ###########################
@@ -77,7 +77,7 @@ echo "Target:  " $TARGET
 echo "Set up files for AR23 "
 rm -r ./files/*
 cp -r ./SECN-build/files       .        ; echo "Copy generic files"
-cp -r ./SECN-build/AR23/files  .        ; echo "Overlay device specific files"
+cp -r ./SECN-build/AR23/files .        ; echo "Overlay device specific files"
 ./FactoryRestore.sh			; echo "Build Factory Restore tar file"
 
 echo "Check files "
