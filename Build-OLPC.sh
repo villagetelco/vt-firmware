@@ -18,8 +18,8 @@ fi
 echo "Start build process"
 
 # Set up version strings
-VER="OLPC SECN Version 2.0 Beta 2b-2"
-DIRVER="Beta-2b-2"
+VER="OLPC SECN Version 2.0 xxxx"
+DIRVER="xxxx"
 
 ###########################
 

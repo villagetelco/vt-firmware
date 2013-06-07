@@ -18,8 +18,8 @@ fi
 echo "Start build process"
 
 # Set up version strings
-VER="Version 2.0 Beta 2b-2-Ath5k"
-DIRVER="Beta-2b-2-Ath5k"
+VER="Version 2.0 xxxx"
+DIRVER="xxxx"
 
 ###########################
 
