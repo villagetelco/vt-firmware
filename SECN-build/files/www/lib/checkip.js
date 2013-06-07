@@ -131,7 +131,7 @@ $(document).ready( function() {
 			IP4Checker: true
 			},
 			ATH0_TXPOWER: {
-			range: [10, 20]
+			range: [0, 20]
 			},
 			ENCRYPTION: {
 			required: true
