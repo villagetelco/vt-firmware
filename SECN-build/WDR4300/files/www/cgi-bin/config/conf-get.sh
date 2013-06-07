@@ -79,6 +79,8 @@ LEASETERM=`uci get secn.dhcp.leaseterm`
 DOMAIN=`uci get secn.dhcp.domain`
 OPTION_SUBNET=`uci get secn.dhcp.subnet`
 OPTION_ROUTER=`uci get secn.dhcp.router`
+OPTION_DNS=`uci get secn.dhcp.dns`
+OPTION_DNS2=`uci get secn.dhcp.dns2`
 
 # MPGW setting
 MPGW=`uci get secn.mpgw.mode`

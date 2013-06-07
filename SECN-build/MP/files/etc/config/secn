@@ -18,7 +18,6 @@ config mesh 'asterisk'
 
 config mesh 'accesspoint'
 	option ssid 'VT-SECN-AP'
-	option wpa_key_mgmt 'WPA-PSK'
 	option encryption 'WPA1'
 	option passphrase 'potato-potato'
 	option ap_disable '0'
@@ -32,9 +31,11 @@ config mesh 'dhcp'
 	option leaseterm '7200'
 	option domain 'lan'
 	option subnet '255.255.255.0'
-	option router '10.130.1.1'
+	option router '10.130.1.254'
 	option maxleases '40'
 	option dhcp_auth '0'
+	option dns '8.8.8.8'
+	option dns2 '8.8.4.4'
 
 config mesh 'mpgw'
 	option mode 'OFF'
@@ -58,4 +59,5 @@ config mesh wan
 	option wanencr 'psk'
 	option wanport 'Disable'
 	option ethwanmode 'DHCP'
+
 

@@ -355,6 +355,12 @@ cat > /tmp/config.html << EOF
 									<tr>
 										<td class="label"><label for="DOMAIN"> Domain </label></td>
 										<td class="field"><input type="text" name="DOMAIN" id="domain" VALUE=$DOMAIN ></td>
+
+										<td class="label"><label for="OPTION_DNS"> DNS Server1 </label></td>
+										<td class="field"><input type="text" name="OPTION_DNS" id="option_dns" VALUE=$OPTION_DNS ></td>
+										<td class="label"><label for="OPTION_DNS2"> DNS Server2 </label></td>
+										<td class="field"><input type="text" name="OPTION_DNS2" id="option_dns2" VALUE=$OPTION_DNS2 ></td>
+
 									</tr>
 								</table>
 							</fieldset>
@@ -388,7 +394,7 @@ cat > /tmp/config.html << EOF
 											<option value="WiFi"> WiFi </option>
 											</SELECT>
 										</td>
-										<td class="label"><label> Note: If WiFi WAN port is selected, Mesh and AP interfaces are disabled on that port. </label> </td>
+										<td class="label"><label> Note: If a WiFi WAN port is selected, Mesh and AP interfaces are disabled on that port. </label> </td>
 									</tr>
 								</table>
 
@@ -401,7 +407,7 @@ cat > /tmp/config.html << EOF
 											<option value="DHCP"> DHCP </option>
 											<option value="Static"> Static </option>
 										</SELECT>
-									</td>
+										</td>
 									</tr>
 
 									<tr>	

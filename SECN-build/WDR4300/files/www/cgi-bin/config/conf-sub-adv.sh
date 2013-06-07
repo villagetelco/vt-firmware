@@ -235,6 +235,8 @@ uci set secn.dhcp.domain=\$DOMAIN
 uci set secn.dhcp.dns=\$OPTION_DNS
 uci set secn.dhcp.subnet=\$OPTION_SUBNET
 uci set secn.dhcp.router=\$OPTION_ROUTER
+uci set secn.dhcp.dns=\$OPTION_DNS
+uci set secn.dhcp.dns2=\$OPTION_DNS2
 
 # Write the MPGW display setting into /etc/config/secn
 uci set secn.mpgw.mode=\$MPGW
@@ -290,7 +292,7 @@ uci commit network
 uci commit wireless
 uci commit batman-adv
 
-# Set DHCP subnet to current subnet for Softphone Support
+# Set DHCP subnet to current subnet 
 /bin/setdhcpsubnet.sh > /dev/null
 
 # Create new config files
@@ -299,7 +301,7 @@ uci commit batman-adv
 # Make sure file writing is complete
 sleep 2
 
-# Save and Reboot the MP
+# Save and Reboot
 if [ \$BUTTON = "Reboot" ]; then
   # Output the reboot screen
   echo -en "Content-type: text/html\r\n\r\n"

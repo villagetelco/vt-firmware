@@ -24,7 +24,7 @@ DIRVER="xxxx"
 ###########################
 
 echo "Copy files from Git repo into build folder"
-rm -rf ./SECN-build/files/*
+rm -rf ./SECN-build/
 cp -rp ~/Git/vt-firmware/SECN-build/ .
 
 ###########################

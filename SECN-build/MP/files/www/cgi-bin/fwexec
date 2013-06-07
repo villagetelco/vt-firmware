@@ -27,11 +27,15 @@
   <h2>Time remaining:	<span id="seconds">145</span>.</h2>
 	<script>
 	  var seconds = 145;
-	  setInterval(
-  	    function(){
-              document.getElementById('seconds').innerHTML = --seconds;
-            }, 1000
-          );
+    setInterval(
+      function(){
+        if (seconds<=0){
+          window.location = 'http://10.130.1.20/index.html';
+        } else {
+          document.getElementById('seconds').innerHTML = --seconds;
+        }
+      }, 1000
+    );
 	</script>
 
 	<p></p>
