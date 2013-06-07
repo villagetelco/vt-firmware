@@ -284,19 +284,18 @@ LEASETERM=`uci get secn.dhcp.leaseterm`
 LEASETERM=$((LEASETERM / 60))'m'
 DOMAIN=`uci get secn.dhcp.domain`
 OPTION_DNS=`uci get secn.dhcp.dns`
+OPTION_DNS2=`uci get secn.dhcp.dns2`
 OPTION_SUBNET=`uci get secn.dhcp.subnet`
 OPTION_ROUTER=`uci get secn.dhcp.router`
 
-uci set dhcp.@dnsmasq[0].dhcpleasemax=$MAXLEASES
-uci set dhcp.@dnsmasq[0].domain=$DOMAIN
-uci set dhcp.@dnsmasq[0].authoritative=$DHCP_AUTH
-uci set dhcp.@dnsmasq[0].dhcp_option="1,$OPTION_SUBNET"
+uci set dhcp.setup.dhcpleasemax=$MAXLEASES
+uci set dhcp.setup.domain=$DOMAIN
+uci set dhcp.setup.authoritative=$DHCP_AUTH
 
 uci set dhcp.lan.start=$STARTIP
 uci set dhcp.lan.limit=$LIMIT
 uci set dhcp.lan.leasetime=$LEASETERM
-uci set dhcp.lan.dhcp_option="3,$OPTION_ROUTER"
-
+uci set dhcp.lan.dhcp_option="1,$OPTION_SUBNET  3,$OPTION_ROUTER  6,$OPTION_DNS,$OPTION_DNS2"
 
 #---------------------------------------------
 
@@ -384,23 +383,24 @@ if [ $WANPORT = "5.0GHz_WiFi" ]; then
 fi
 
 # Set up for DHCP or Static
-	if [ $ETHWANMODE = "Static" ]; then
-		uci set network.wan.proto='static'
-		uci set network.wan.ipaddr=$WANIP
-		uci set network.wan.gateway=$WANGATEWAY
-		uci set network.wan.netmask=$WANMASK
-		uci set network.wan.dns=$WANDNS
+if [ $ETHWANMODE = "Static" ]; then
+	uci set network.wan.proto='static'
+	uci set network.wan.ipaddr=$WANIP
+	uci set network.wan.gateway=$WANGATEWAY
+	uci set network.wan.netmask=$WANMASK
+	uci set network.wan.dns=$WANDNS
 
-	else  # Set up for DHCP
-		uci set network.wan.proto='dhcp'
-		uci set network.wan.ipaddr=''
-		uci set network.wan.gateway=''
-		uci set network.wan.netmask=''
-		uci set network.wan.dns=''
-	fi
+else  # Set up for DHCP
+	uci set network.wan.proto='dhcp'
+	uci set network.wan.ipaddr=''
+	uci set network.wan.gateway=''
+	uci set network.wan.netmask=''
+	uci set network.wan.dns=''
+fi
 
 # Set up for 3G Modem
 if [ $WANPORT = "USB-Modem" ]; then
+	uci set network.lan.gateway='255.255.255.255'
 	uci set network.wan.ifname='ppp0'
 	uci set network.wan.proto='3g'
 	uci set network.wan.service=$SERVICE
@@ -411,9 +411,9 @@ if [ $WANPORT = "USB-Modem" ]; then
 	uci set network.wan.device=$TTY
 fi
 
-
 # Make sure firewall is enabled
 /etc/init.d/firewall enable  
+#--------------------------------
 
 # Set up modem chat scripts
 # Fix # characters in dialstr
@@ -425,6 +425,7 @@ DIALSTR=` echo $DIALSTR  | sed 's/'%23'/'#'/' `
 DIALSTR=` echo $DIALSTR  | sed 's/'%23'/'#'/' `
 DIALSTR=` echo $DIALSTR  | sed 's/'%23'/'#'/' `
 
+uci set secn.modem.dialstr=$DIALSTR
 
 # Set up dialstring line
 DIALSTR2='"ATD'$DIALSTR'"'
