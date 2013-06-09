@@ -310,14 +310,14 @@ fi
 
 if [ $WANPORT = "WiFi" ]; then
     uci set network.lan.gateway='255.255.255.255'
-    # Set up for wlan0 WAN port
+    # Set up for ath0 WAN port
 	uci set wireless.ap_0.disabled='1'
 	uci set wireless.ah_0.disabled='1'
 	uci set wireless.sta_0.disabled='0'
 	uci set wireless.sta_0.ssid=$WANSSID
 	uci set wireless.sta_0.key=$WANPASS
 	uci set wireless.sta_0.encryption=$WANENCR
-	uci set network.wan.ifname='wlan0'
+	uci set network.wan.ifname='ath0'
 fi
 
 
