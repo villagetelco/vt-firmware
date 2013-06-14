@@ -1,0 +1,43 @@
+#!/usr/bin/haserl --upload-limit=32768                         
+<% echo -en "content-type: text/html\r\n\r\n" %>
+<head>
+	<title>Firmware Upgrade</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<style type="text/css">	@import url(/lib/configstyle.css); 	</style>
+	<script type="text/javascript" src="/lib/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="/lib/jquery.form.min.js"></script>
+	<script type="text/javascript" src="/lib/upgrade.js"></script>
+</head>
+
+<body>
+<div class='banner'>
+	<img class="logo" src="/images/vtlogo.png" alt="Village Telco">
+	<div class="titletext">	
+		<h1 class="textbanner">SECN Firmware Upgrade</h1> 
+	</div>
+</div>
+<div id="outer-container" class="tab-container" >
+	<div class="panel-container">
+		<a href="/cgi-bin/secn-tabs">Return to Configuration</a>
+		<form action="/cgi-bin/mp_upgrade" id="preupload" method="POST">
+			<h3>Upgrade your Mesh Potato firmware</h3>
+			<div class="block">
+				If you click "Proceed with Upgrade" the upgrade process will be begin by closing
+				down any non-essential running programs.  This includes telnet, sshd, hostapd, ntpd
+				and others.  This is done in order to free sufficient ram for the ugprade.  If even 
+				you do not proceed after the next stage, you will still need to reboot in order to 
+				restore full functionality to the Mesh Potato.
+			</div>
+			<p></p>
+			<div class="block">
+        <input type="hidden" name="preup" value="go">
+				<input class="input" type="submit" value="Proceed with upgrade">
+			</div>
+		</form>
+		<div>
+			<div id="status"></div>
+		</div>
+	</div>
+</div>
+</body>
+</html>
