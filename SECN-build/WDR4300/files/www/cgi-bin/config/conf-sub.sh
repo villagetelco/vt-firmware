@@ -144,7 +144,7 @@ uci commit wireless
 # Make sure file writing is complete
 sleep 2
 
-# Save and Reboot the MP
+# Save and Reboot
 if [ \$BUTTON = "Reboot" ]; then
   # Output the reboot screen
   echo -en "Content-type: text/html\r\n\r\n"

@@ -1,4 +1,3 @@
-
 config 'wifi-device' 'radio0'
 	option 'type' 'atheros'
 	option 'phy' 'wifi0'
@@ -13,6 +12,7 @@ config 'wifi-device' 'radio0'
 
 config 'wifi-iface' 'ap_0'
 	option 'device' 'radio0'
+	option ifname 'ath0'
 	option 'network' 'lan'
 	option 'mode' 'ap'
 	option 'key' 'potato-potato'
@@ -23,6 +23,7 @@ config 'wifi-iface' 'ap_0'
 
 config 'wifi-iface' 'ah_0'
 	option 'device' 'radio0'
+	option ifname 'ath0-1'
 	option 'sw_merge' '1'
 	option 'encryption' 'none'
 	option 'mode' 'ahdemo'

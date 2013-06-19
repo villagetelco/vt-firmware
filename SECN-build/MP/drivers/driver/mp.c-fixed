@@ -1,0 +1,1021 @@
+/*
+   mp.c
+   David Rowe 17 May 2009
+   
+   Mesh Potato kernel mode driver for the Si Labs 3215 FXS chipset.  A
+   bit bashed SPI interface is constructed using the Atheros AR2317
+   (aka AR5315) SoC GPIO pins.  The SPI port is used for
+   initialisation and signalling of the FXS port, the TDM speech data
+   is transferred through the SoC RS232 port (via a hacked version of
+   8250.c driver).
+
+   Credits: lots of SPI code and Si labs init code borrowed from
+   Zaptel wcfxs.c driver (Wildcard TDM400P TDM FXS/FXO Interface
+   Driver) written by Mark Spencer and Matthew Fredrickson.
+*/
+
+/*
+  Copyright (C) 2009 Shuttleworth Foundation
+  Copyright (C) 2001, Linux Support Services, Inc.
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program; if not, write to the Free Software
+  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+*/
+
+
+
+/* Includes in the previous version:
+#include <linux/module.h>
+#include <linux/kernel.h>
+#include <ar531x.h>
+#include <linux/proc_fs.h>
+#include <linux/delay.h>
+#include "proslic.h"
+#include "mp.h"
+*/
+
+
+
+#include <linux/module.h>
+#include <linux/kernel.h>
+#include <ar2315_regs.h>
+#include <ar231x.h> 
+#include <ar231x_platform.h>  
+#include <gpio.h>  
+#include <reset.h> 
+#include <war.h>
+#include <linux/proc_fs.h>
+#include <linux/delay.h>
+#include "proslic.h"
+#include "mp.h"
+#include <linux/smp_lock.h> 
+
+#define FLAG_3215       (1 << 0)
+#define NUM_CAL_REGS 12
+
+#define sysRegRead(phys)        \
+        (*(volatile u32 *)KSEG1ADDR(phys))
+        
+#define sysRegWrite(phys, val)  \
+        ((*(volatile u32 *)KSEG1ADDR(phys)) = (val))
+                
+                
+
+
+struct calregs_t {
+	unsigned char vals[NUM_CAL_REGS];
+};
+
+static struct calregs_t calregs;
+
+/* 
+   These defines map SPI pins to GPIOs, may change for different
+   implementations.
+*/
+
+#ifdef DIR_300
+
+/* DIR-300 mapping */
+
+/*      Signal GPIO  */
+/*      -----------  */
+  
+#define RESET  7
+#define SCLK   1
+#define SDI    2   /* output from SoC, input to FXS chipset */
+#define nCS    3
+#define SDO    4   /* output from FXS chipset, input to SoC */
+
+#else
+
+/* Mesh Potato mapping */
+
+/*      Signal GPIO  */
+/*      -----------  */
+  
+#define RESET  5
+#define SCLK   0
+#define SDI    3   /* output from SoC, input to FXS chipset */
+#define nCS    4
+#define SDO    1   /* output from FXS chipset, input to SoC */
+
+#endif
+
+/* static vaiables */
+
+static int  debug        = 0;
+static int  lowpower     = 0;
+static int  boostringer  = 0;
+static int  flags        = 0;
+static int loopcurrent   = 20;
+
+static alpha  indirect_regs[] =
+{
+{0,255,"DTMF_ROW_0_PEAK",0x55C2},
+{1,255,"DTMF_ROW_1_PEAK",0x51E6},
+{2,255,"DTMF_ROW2_PEAK",0x4B85},
+{3,255,"DTMF_ROW3_PEAK",0x4937},
+{4,255,"DTMF_COL1_PEAK",0x3333},
+{5,255,"DTMF_FWD_TWIST",0x0202},
+{6,255,"DTMF_RVS_TWIST",0x0202},
+{7,255,"DTMF_ROW_RATIO_TRES",0x0198},
+{8,255,"DTMF_COL_RATIO_TRES",0x0198},
+{9,255,"DTMF_ROW_2ND_ARM",0x0611},
+{10,255,"DTMF_COL_2ND_ARM",0x0202},
+{11,255,"DTMF_PWR_MIN_TRES",0x00E5},
+{12,255,"DTMF_OT_LIM_TRES",0x0A1C},
+{13,0,"OSC1_COEF",0x7B30},
+{14,1,"OSC1X",0x0063},
+{15,2,"OSC1Y",0x0000},
+{16,3,"OSC2_COEF",0x7870},
+{17,4,"OSC2X",0x007D},
+{18,5,"OSC2Y",0x0000},
+{19,6,"RING_V_OFF",0x0000},
+{20,7,"RING_OSC",0x7EF0},
+{21,8,"RING_X",0x0160},
+{22,9,"RING_Y",0x0000},
+{23,255,"PULSE_ENVEL",0x2000},
+{24,255,"PULSE_X",0x2000},
+{25,255,"PULSE_Y",0x0000},
+//{26,13,"RECV_DIGITAL_GAIN",0x4000},	// playback volume set lower
+{26,13,"RECV_DIGITAL_GAIN",0x2000},	// playback volume set lower
+{27,14,"XMIT_DIGITAL_GAIN",0x4000},
+//{27,14,"XMIT_DIGITAL_GAIN",0x2000},
+{28,15,"LOOP_CLOSE_TRES",0x1000},
+{29,16,"RING_TRIP_TRES",0x3600},
+{30,17,"COMMON_MIN_TRES",0x1000},
+{31,18,"COMMON_MAX_TRES",0x0200},
+{32,19,"PWR_ALARM_Q1Q2",0x07C0},
+{33,20,"PWR_ALARM_Q3Q4",0x2600},
+{34,21,"PWR_ALARM_Q5Q6",0x1B80},
+{35,22,"LOOP_CLOSURE_FILTER",0x8000},
+{36,23,"RING_TRIP_FILTER",0x0320},
+{37,24,"TERM_LP_POLE_Q1Q2",0x008C},
+{38,25,"TERM_LP_POLE_Q3Q4",0x0100},
+{39,26,"TERM_LP_POLE_Q5Q6",0x0010},
+{40,27,"CM_BIAS_RINGING",0x0C00},
+{41,64,"DCDC_MIN_V",0x0C00},
+{42,255,"DCDC_XTRA",0x1000},
+{43,66,"LOOP_CLOSE_TRES_LOW",0x1000},
+};
+
+/*----------------------------------------------------------------------------*\
+
+                         Router hardware-specific functions
+
+\*----------------------------------------------------------------------------*/
+
+/* 
+   Following functions contain the Atheros 2317 (aka 5315) hardware
+   specific code.  If you would like to use another processor
+   hopefully you should only need to change these functions.
+*/
+
+/* 
+   reset() - Set state of FXS chipset RESET line.  This also controls
+   access to RS232 UART.  When RESET line is L (asserted), the FXS
+   interface CPLD takes the RS232 RX line hi-Z.  When RESET is H
+   (de-asserted), the CPLD drives the RS232 UART RX line.  Thus if you
+   need to use the RS232 RX line for a console, make sure RESET is L.
+*/
+
+inline void reset(u8 state)
+{
+    u32 x;
+
+    x = sysRegRead(AR2315_GPIO_DO) & ~(1<<RESET);
+    x |= (state<<RESET);
+    sysRegWrite(AR2315_GPIO_DO, x);
+}
+
+inline void sclk(u8 state)
+{
+    u32 x;
+
+    x = sysRegRead(AR2315_GPIO_DO) & ~(1<<SCLK);
+    x |= (state<<SCLK);
+    sysRegWrite(AR2315_GPIO_DO, x);
+}
+
+inline void sdi(u8 state)
+{
+    u32 x;
+
+    x = sysRegRead(AR2315_GPIO_DO) & ~(1<<SDI);
+    x |= (state<<SDI);
+    sysRegWrite(AR2315_GPIO_DO, x);
+}
+
+inline void ncs(u8 state)
+{
+    u32 x;
+
+    x = sysRegRead(AR2315_GPIO_DO) & ~(1<<nCS);
+    x |= (state<<nCS);
+    sysRegWrite(AR2315_GPIO_DO, x);
+}
+
+inline int sdo(void)
+{
+    return sysRegRead(AR2315_GPIO_DI) & (1<<SDO);
+}
+
+static int spi_init(void) 
+{ 
+    u32 mask;
+
+    /* create and apply the bit mask for GPIO control word */
+
+    mask = sysRegRead(AR2315_GPIO_CR);
+    mask |= (1<<RESET) | (1<<SCLK) | (1<<SDI) | (1<<nCS);
+    mask &= ~(1<<SDO);
+    sysRegWrite(AR2315_GPIO_CR, mask);
+    printk("mask: 0x%x\n", mask);
+    printk("CR: 0x%x\n", sysRegRead(AR2315_GPIO_CR));
+
+    /* check mask is OK */
+
+    if (mask != sysRegRead(AR2315_GPIO_CR)) {
+	printk("spi_init: mask doesn't match!\n");
+	return -1;
+    }
+
+    /* check IRQ register - don't want spurious interrupts  */
+    
+    printk("INT: 0x%x\n", (int)sysRegRead(AR2315_GPIO_INT));
+
+    /* set initial state of RESET and nCS */
+
+    reset(0);
+    ncs(1);
+
+    return 0;
+}
+
+/*----------------------------------------------------------------------------*\
+
+                         Basic SPI Access functions
+
+\*----------------------------------------------------------------------------*/
+
+static u8 spi_read_8_bits(void)
+{
+    u8 res=0;
+    int x;
+
+    sclk(1);
+    ncs(0);
+    for (x=0;x<8;x++) {
+	res <<= 1;
+	sclk(0);	
+	if (sdo())
+	    res |= 1;
+	sclk(1);
+    }
+    ncs(1);
+    sclk(0);
+
+    return res;
+}
+
+static void spi_write_8_bits(u8 bits)
+{
+    int x;
+ 
+    sclk(1);
+    ncs(0);
+    for (x=0;x<8;x++) {
+	if (bits & 0x80)
+	    sdi(1);
+	else
+	    sdi(0);
+	sclk(0);
+	sclk(1);
+	bits <<= 1;
+    }
+    ncs(1);
+}
+
+/*----------------------------------------------------------------------------*\
+
+                         Si Labs 3215 functions
+
+\*----------------------------------------------------------------------------*/
+
+static void fxs_setreg(u8 reg, u8 value)
+{
+    spi_write_8_bits(reg & 0x7f);
+    spi_write_8_bits(value);
+}
+
+static u8 fxs_getreg(u8 reg)
+{
+    spi_write_8_bits(reg | 0x80);
+    return spi_read_8_bits();
+}
+
+static int fxs_proslic_insane(void)
+{
+    int blah,insane_report;
+    insane_report=0;
+
+    blah = fxs_getreg(0);
+    if (debug) {
+	printk("Testing for ProSLIC blah = 0x%x\n", blah);
+    }
+
+    if (((blah & 0xf) == 0) || ((blah & 0xf) == 0xf)) {
+	if (debug) {
+	    printk("  ProSLIC not loaded...\n");
+	}
+	return -1;
+    }
+    if (debug) {
+	printk("ProSLIC module 0, product %d, version %d\n", (blah & 0x30) >> 4, (blah & 0xf));
+    }
+    if ((blah & 0xf) < 2) {
+	printk("ProSLIC 3210 version %d is too old\n", blah & 0xf);
+	return -1;
+    }
+    if (fxs_getreg(1) & 0x80){
+	/* ProSLIC 3215, not a 3210 */
+	flags |= FLAG_3215;
+	printk("ProSLIC module is Si3215\n");
+    }
+    blah = fxs_getreg(8);
+    if (blah != 0x2) {
+	printk("ProSLIC on module 0 insane (1) %d should be 2\n", blah);
+	return -1;
+    } else if ( insane_report)
+	printk("ProSLIC on module 0 Reg 8 Reads %d Expected is 0x2\n",blah);
+
+    blah = fxs_getreg(64);
+    if (blah != 0x0) {
+	printk("ProSLIC on module 0 insane (2)\n");
+	return -1;
+    } else if ( insane_report)
+	printk("ProSLIC on module 0 Reg 64 Reads %d Expected is 0x0\n",blah);
+
+    blah = fxs_getreg(11);
+    if (blah != 0x33) {
+	printk("ProSLIC on module 0 insane (3)\n");
+	return -1;
+    } else if ( insane_report)
+	printk("ProSLIC on module 0 Reg 11 Reads %d Expected is 0x33\n",blah);
+
+    /* Just be sure it's setup right. */
+    fxs_setreg(30, 0);
+
+    if (debug) 
+	printk("ProSLIC on module 0 seems sane.\n");
+    return 0;
+}
+
+//Hier Baustelle
+static int __wait_access(void)
+{
+  
+   unsigned char data=0;
+    long origjiffies;
+    int count = 0;
+  
+#define MAX 6000 /* attempts */
+
+    origjiffies = jiffies;
+    /* Wait for indirect access */
+    while (count++ < MAX)
+	{
+	    data = fxs_getreg(I_STATUS);
+
+	    if (!data)
+		return 0;
+
+	}
+
+    if(count > (MAX-1)) printk(" ##### Loop error (%02x) #####\n", data);
+
+    return 0;
+}
+
+static unsigned char translate_3215(unsigned char address)
+{
+    int x;
+    for (x=0;x<sizeof(indirect_regs)/sizeof(indirect_regs[0]);x++) {
+	if (indirect_regs[x].address == address) {
+	    address = indirect_regs[x].altaddr;
+	    break;
+	}
+    }
+    return address;
+}
+
+static int fxs_proslic_setreg_indirect(u8 address, u16 data)
+{
+    int res = -1;
+
+    /* Translate 3215 addresses */
+
+    if (flags & FLAG_3215) {
+	address = translate_3215(address);
+	if (address == 255)
+	    return 0;
+    }
+
+    if(!__wait_access()) {
+	fxs_setreg(IDA_LO,(unsigned char)(data & 0xFF));
+	fxs_setreg(IDA_HI,(unsigned char)((data & 0xFF00)>>8));
+	fxs_setreg(IAA,address);
+	res = 0;
+    };
+
+    return res;
+}
+
+static int fxs_proslic_getreg_indirect(u8 address)
+{ 
+    int res = -1;
+    char *p=NULL;
+
+    /* Translate 3215 addresses */
+
+    if (flags & FLAG_3215) {
+	address = translate_3215(address);
+	if (address == 255)
+	    return 0;
+    }
+
+    if (!__wait_access()) {
+	fxs_setreg(IAA, address);
+	if (!__wait_access()) {
+	    unsigned char data1, data2;
+	    data1 = fxs_getreg(IDA_LO);
+	    data2 = fxs_getreg(IDA_HI);
+	    res = data1 | (data2 << 8);
+	} else
+	    p = "Failed to wait inside\n";
+    } else
+	p = "failed to wait\n";
+    if (p)
+	printk(p);
+    return res;
+}
+
+static int fxs_proslic_init_indirect_regs(void)
+{
+    unsigned char i;
+
+    for (i=0; i<sizeof(indirect_regs) / sizeof(indirect_regs[0]); i++)
+	{
+	    if(fxs_proslic_setreg_indirect(indirect_regs[i].address,indirect_regs[i].initial))
+		return -1;
+	}
+
+    return 0;
+}
+
+static int fxs_powerup_proslic(int fast)
+{
+    unsigned char vbat;
+    unsigned long origjiffies;
+    int lim;
+
+    /* Set period of DC-DC converter to 1/64 khz */
+    fxs_setreg(92, 0xff);
+
+    /* Wait for VBat to powerup */
+    origjiffies = jiffies;
+
+    /* Disable powerdown */
+    fxs_setreg(14, 0);
+
+    /* If fast, don't bother checking anymore */
+    if (fast)
+	return 0;
+
+    while((vbat = fxs_getreg(82)) < 0xc0) {
+	/* Wait no more than 500ms */
+	if ((jiffies - origjiffies) > HZ/2) {
+	    break;
+	}
+    }
+
+    if (vbat < 0xc0) {
+	printk("ProSLIC on module %d failed to powerup within %d ms (%d mV only)\n\n -- DID YOU REMEMBER TO PLUG IN THE HD POWER CABLE TO THE TDM400P??\n",
+	       0, (int)(((jiffies - origjiffies) * 1000 / HZ)),
+	       vbat * 375);
+	return -1;
+    } else if (debug) {
+	printk("ProSLIC on module %d powered up to -%d volts (%02x) in %d ms\n",
+	       0, vbat * 376 / 1000, vbat, (int)(((jiffies - origjiffies) * 1000 / HZ)));
+    }
+
+    /* Proslic max allowed loop current, reg 71 LOOP_I_LIMIT */
+    /* If out of range, just set it to the default value     */
+    lim = (loopcurrent - 20) / 3;
+    if ( loopcurrent > 41 ) {
+	lim = 0;
+	if (debug)
+	    printk("Loop current out of range! Setting to default 20mA!\n");
+    }
+    else if (debug)
+	printk("Loop current set to %dmA!\n",(lim*3)+20);
+    fxs_setreg(LOOP_I_LIMIT,lim);
+
+    /* Engage DC-DC converter */
+    fxs_setreg(93, 0x19);
+
+    return 0;
+}
+
+static int fxs_proslic_powerleak_test(void)
+{
+    unsigned long origjiffies;
+    unsigned char vbat;
+
+    /* Turn off linefeed */
+    fxs_setreg(64, 0);
+
+    /* Power down */
+    fxs_setreg(14, 0x10);
+
+    /* Wait for one second */
+    origjiffies = jiffies;
+
+    while((vbat = fxs_getreg(82)) > 0x6) {
+	if ((jiffies - origjiffies) >= (HZ/2))
+	    break;;
+    }
+
+    if (vbat < 0x06) {
+	printk("Excessive leakage detected on module %d: %d volts (%02x) after %d ms\n", 0,
+	       376 * vbat / 1000, vbat, (int)((jiffies - origjiffies) * 1000 / HZ));
+	return -1;
+    } else if (debug) {
+	printk("Post-leakage voltage: %d volts\n", 376 * vbat / 1000);
+    }
+    return 0;
+}
+
+static int fxs_proslic_manual_calibrate(void) {
+    unsigned long origjiffies;
+    unsigned char i;
+
+    printk("Start manual calibration\n");
+
+    fxs_setreg(21, 0);//(0)  Disable all interupts in DR21
+    fxs_setreg(22, 0);//(0)Disable all interupts in DR21
+    fxs_setreg(23, 0);//(0)Disable all interupts in DR21
+    fxs_setreg(64, 0);//(0)
+
+    fxs_setreg(97, 0x18); //(0x18)Calibrations without the ADC and DAC offset and without common mode calibration.
+    fxs_setreg(96, 0x47); //(0x47)	Calibrate common mode and differential DAC mode DAC + ILIM
+
+    origjiffies=jiffies;
+    while( fxs_getreg(96)!=0 ){
+	if((jiffies-origjiffies)>80)
+	    return -1;
+    }
+    //Initialized DR 98 and 99 to get consistant results.
+    // 98 and 99 are the results registers and the search should have same intial conditions.
+
+    /*******************************The following is the manual gain mismatch calibration****************************/
+    /*******************************This is also available as a function *******************************************/
+    // Delay 10ms
+    origjiffies=jiffies; 
+    while((jiffies-origjiffies)<1);
+    fxs_proslic_setreg_indirect(88,0);
+    fxs_proslic_setreg_indirect(89,0);
+    fxs_proslic_setreg_indirect(90,0);
+    fxs_proslic_setreg_indirect(91,0);
+    fxs_proslic_setreg_indirect(92,0);
+    fxs_proslic_setreg_indirect(93,0);
+
+    fxs_setreg(98,0x10); // This is necessary if the calibration occurs other than at reset time
+    fxs_setreg(99,0x10);
+
+    for ( i=0x1f; i>0; i--)
+	{
+	    fxs_setreg(98,i);
+	    origjiffies=jiffies; 
+	    while((jiffies-origjiffies)<4);
+	    if((fxs_getreg(88)) == 0)
+		break;
+	} // for
+
+    for ( i=0x1f; i>0; i--)
+	{
+	    fxs_setreg(99,i);
+	    origjiffies=jiffies; 
+	    while((jiffies-origjiffies)<4);
+	    if((fxs_getreg(89)) == 0)
+		break;
+	}//for
+
+    /*******************************The preceding is the manual gain mismatch calibration****************************/
+    /**********************************The following is the longitudinal Balance Cal***********************************/
+    fxs_setreg(64,1);
+    while((jiffies-origjiffies)<10); // Sleep 100?
+
+    fxs_setreg(64, 0);
+    fxs_setreg(23, 0x4);  // enable interrupt for the balance Cal
+    fxs_setreg(97, 0x1); // this is a singular calibration bit for longitudinal calibration
+    fxs_setreg(96,0x40);
+
+    fxs_getreg(96); /* Read Reg 96 just cause */
+
+    fxs_setreg(21, 0xFF);
+    fxs_setreg(22, 0xFF);
+    fxs_setreg(23, 0xFF);
+
+    /**The preceding is the longitudinal Balance Cal***/
+    return(0);
+
+}
+
+static int fxs_proslic_calibrate(void)
+{
+    unsigned long origjiffies;
+    int x;
+
+    printk("Start automatic calibration\n");
+
+    /* Perform all calibrations */
+    fxs_setreg(97, 0x1f);
+	
+    /* Begin, no speedup */
+    fxs_setreg(96, 0x5f);
+
+    /* Wait for it to finish */
+    origjiffies = jiffies;
+    while(fxs_getreg(96)) {
+	if ((jiffies - origjiffies) > 2 * HZ) {
+	    printk("Timeout waiting for calibration of module %d\n", 0);
+	    return -1;
+	}
+    }
+	
+    if (debug) {
+	/* Print calibration parameters */
+	printk("Calibration Vector Regs 98 - 107: \n");
+	for (x=98;x<108;x++) {
+	    printk("%d: %02x\n", x, fxs_getreg(x));
+	}
+    }
+    return 0;
+}
+
+static int fxs_proslic_verify_indirect_regs(void)
+{ 
+    int passed = 1;
+    unsigned short i, initial;
+    int j;
+
+    for (i=0; i<sizeof(indirect_regs) / sizeof(indirect_regs[0]); i++) 
+	{
+	    if((j = fxs_proslic_getreg_indirect((unsigned char) indirect_regs[i].address)) < 0) {
+		printk("Failed to read indirect register %d\n", i);
+		return -1;
+	    }
+	    initial= indirect_regs[i].initial;
+
+	    if ( j != initial && (!(flags & FLAG_3215) || (indirect_regs[i].altaddr != 255)))
+		{
+		    printk("!!!!!!! %s  iREG %X = %X  should be %X\n",
+			   indirect_regs[i].name,indirect_regs[i].address,j,initial );
+		    passed = 0;
+		}	
+	}
+
+    if (passed) {
+	if (debug)
+	    printk("Init Indirect Registers completed successfully.\n");
+    } else {
+	printk(" !!!!! Init Indirect Registers UNSUCCESSFULLY.\n");
+	return -1;
+    }
+    return 0;
+}
+
+static int fxs_init_proslic(int fast, int manual, int sane)
+{
+    unsigned short tmp[5];
+    unsigned char r19;
+    int x;
+
+    manual = 1;
+
+    /* Sanity check the ProSLIC */
+
+    if (!sane && fxs_proslic_insane())
+	return -2;
+	
+    if (sane) {
+	/* Make sure we turn off the DC->DC converter to prevent anything from blowing up */
+	fxs_setreg(14, 0x10);
+    }
+
+    if (fxs_proslic_init_indirect_regs()) {
+	printk(KERN_INFO "Indirect Registers failed to initialize on module %d.\n", 0);
+	return -1;
+    }
+
+    /* Clear scratch pad area */
+    fxs_proslic_setreg_indirect(97,0);
+
+    /* Clear digital loopback */
+    fxs_setreg(8, 0);
+
+    /* Revision C optimization */
+    fxs_setreg(108, 0xeb);
+
+    /* Disable automatic VBat switching for safety to prevent
+       Q7 from accidently turning on and burning out. */
+    fxs_setreg(67, 0x17);
+
+    /* Turn off Q7 */
+    fxs_setreg(66, 1);
+
+    /* Flush ProSLIC digital filters by setting to clear, while
+       saving old values */
+    for (x=0;x<5;x++) {
+	tmp[x] = fxs_proslic_getreg_indirect(x + 35);
+	fxs_proslic_setreg_indirect(x + 35, 0x8000);
+    }
+
+    /* Power up the DC-DC converter */
+    if (fxs_powerup_proslic(fast)) {
+	printk("Unable to do INITIAL ProSLIC powerup on module %d\n", 0);
+	return -1;
+    }
+
+    if (!fast) {
+
+	/* Check for power leaks */
+	if (fxs_proslic_powerleak_test()) {
+	    printk("ProSLIC module %d failed leakage test.  Check for short circuit\n", 0);
+	}
+	/* Power up again */
+	if (fxs_powerup_proslic(fast)) {
+	    printk("Unable to do FINAL ProSLIC powerup on module\n");
+	    return -1;
+	}
+#ifndef NO_CALIBRATION
+	/* Perform calibration */
+	if(manual) {
+	    if (fxs_proslic_manual_calibrate()) {
+		//printk("Proslic failed on Manual Calibration\n");
+		if (fxs_proslic_manual_calibrate()) {
+		    printk("Proslic Failed on Second Attempt to Calibrate Manually. (Try -DNO_CALIBRATION in Makefile)\n");
+		    return -1;
+		}
+		printk("Proslic Passed Manual Calibration on Second Attempt\n");
+	    }
+	}
+	else {
+	    if(fxs_proslic_calibrate())  {
+		//printk("ProSlic died on Auto Calibration.\n");
+		if (fxs_proslic_calibrate()) {
+		    printk("Proslic Failed on Second Attempt to Auto Calibrate\n");
+		    return -1;
+		}
+		printk("Proslic Passed Auto Calibration on Second Attempt\n");
+	    }
+	}
+	/* Perform DC-DC calibration */
+	fxs_setreg(93, 0x99);
+	r19 = fxs_getreg(107);
+	if ((r19 < 0x2) || (r19 > 0xd)) {
+	    printk("DC-DC cal has a surprising direct 107 of 0x%02x!\n", r19);
+	    fxs_setreg(107, 0x8);
+	}
+
+	/* Save calibration vectors */
+	for (x=0;x<NUM_CAL_REGS;x++)
+	    calregs.vals[x] = fxs_getreg(96 + x);
+#endif
+
+    } else {
+	/* Restore calibration registers */
+	for (x=0;x<NUM_CAL_REGS;x++)
+	    fxs_setreg(96 + x, calregs.vals[x]);
+    }
+    /* Calibration complete, restore original values */
+    for (x=0;x<5;x++) {
+	fxs_proslic_setreg_indirect(x + 35, tmp[x]);
+    }
+
+    if (fxs_proslic_verify_indirect_regs()) {
+	printk(KERN_INFO "Indirect Registers failed verification.\n");
+	return -1;
+    }
+
+    fxs_setreg(1, 0x28);
+    // U-Law 8-bit interface
+    fxs_setreg(2, 0);             // Tx Start count low byte  0
+    fxs_setreg(3, 0);             // Tx Start count high byte 0
+    fxs_setreg(4, 0);             // Rx Start count low byte  0
+    fxs_setreg(5, 0);             // Rx Start count high byte 0
+    fxs_setreg(18, 0xff);         // clear all interrupt
+    fxs_setreg(19, 0xff);
+    fxs_setreg(20, 0xff);
+    fxs_setreg(73, 0x04);
+
+    if (lowpower)
+    	fxs_setreg(72, 0x10);
+
+    /* Beef up Ringing voltage to 89V */
+
+    if (boostringer) {
+	if (fxs_proslic_setreg_indirect(21, 0x1d1)) 
+	    return -1;
+	printk("Boosting ringinger on slot 0 (89V peak)\n");
+    } else if (lowpower) {
+	if (fxs_proslic_setreg_indirect(21, 0x108)) 
+	    return -1;
+	printk("Reducing ring power on slot 0 (50V peak)\n");
+    }
+    fxs_setreg(64, 0x01);
+
+    return 0;
+}
+
+static int hook(void)
+{
+    return fxs_getreg(68) & 1;
+}
+
+/*----------------------------------------------------------------------------*\
+
+                         User Mode Interface
+
+\*----------------------------------------------------------------------------*/
+
+static int mp_open (struct inode *inode, struct file *file) {
+    printk("mp_open\n");
+
+    return 0;
+}
+
+static int mp_release (struct inode *inode, struct file *file) {
+    printk("mp_release\n");
+
+    return 0;
+}
+
+
+// Hier Baustelle:
+//static long mp_ioctl(struct inode *inode, struct file *file,
+static long mp_ioctl(struct file *file,
+		    unsigned int cmd, unsigned long arg) {
+    int retval = 0;
+    int data;
+    lock_kernel();
+
+    switch ( cmd ) {
+    case MP_RING:/* start ringing */
+	if (copy_from_user(&data, (int *)arg, sizeof(int))) {
+	    unlock_kernel();
+	    return -EFAULT;
+	}
+	fxs_setreg(64, data);
+	break;
+    case MP_HOOK:/* read value of hook switch */
+	data = hook();
+	if (copy_to_user((int *)arg, &data, sizeof(int))) {
+	    unlock_kernel();
+	    return -EFAULT;
+	}
+	break;
+    default:
+	retval = -EINVAL;
+    }
+    unlock_kernel();
+    return retval;
+}
+
+/* define which file operations are supported */
+
+struct file_operations mp_fops = {
+       .owner  =       THIS_MODULE,
+       .llseek =       NULL,
+       .read   =       NULL,
+       .write  =       NULL,
+       .readdir=       NULL,
+       .poll   =       NULL,
+       .unlocked_ioctl  =       mp_ioctl,
+       .mmap   =       NULL,
+       .open   =       mp_open,
+       .flush  =       NULL,
+       .release=       mp_release,
+       .fsync  =       NULL,
+       .fasync =       NULL,
+       .lock   =       NULL,
+};
+
+#define MP_NAME  "mp"
+#define MP_MAJOR 34
+
+
+/*----------------------------------------------------------------------------*\
+
+                         Driver init and exit
+
+\*----------------------------------------------------------------------------*/
+
+static int __init mp_init(void)
+{
+    int sane, ret, readi;
+    u8 reg0, part, revision;
+
+    spi_init();
+    udelay(100);
+    reset(1);
+    udelay(1000);
+
+    reg0 = fxs_getreg(0x0);
+    part = (reg0 >> 4) & 0x3;
+    revision = part & 0xf;
+    printk("mp: checking reg0 of 3215:\n");
+    printk("mp:  reg0.....: 0x%x\n", reg0);
+    if (reg0 & 0xc0) {
+	printk("mp:  bit 7 or 8 of reg 0 should not be set just after reset!\n");
+	printk("mp:  This means a problem talking to SPI bus on 3215\n");
+    }
+    printk("mp:  part number: 0x%x\n", part);
+    printk("mp:  revision...: 0x%x\n", revision);
+
+    /* Init FXS chipset with Automatic Calibration */
+
+    sane = 0;
+    if (!(ret = fxs_init_proslic(0, 0, sane))) {
+	if (debug) {
+	    readi = fxs_getreg(LOOP_I_LIMIT);
+	    printk("Proslic module %d loop current is %dmA\n",0,
+		   ((readi*3)+20));
+	}
+	printk("Module %d: Installed -- AUTO FXS\n",0);
+    } 
+    else {
+	if(ret != -2) {
+	    sane=1;
+
+	    /* Init with Manual Calibration */
+
+	    if (!fxs_init_proslic(0, 1, sane)) {
+		if (debug) {
+		    readi = fxs_getreg(LOOP_I_LIMIT);
+		    printk("Proslic module %d loop current is %dmA\n",0,
+			   ((readi*3)+20));
+		}
+		printk("Module %d: Installed -- MANUAL FXS\n",0);
+	    } 
+	    else {
+		printk("Module %d: FAILED FXS\n", 0);
+	    } 
+	} 
+    } 
+
+    /* Register driver */ 
+
+    if ((ret = register_chrdev (MP_MAJOR, MP_NAME, &mp_fops))) {
+	printk(KERN_ERR "Unable to register %s char driver on %d\n", 
+	       MP_NAME, MP_MAJOR);
+	return ret;
+    }
+    printk(KERN_INFO "Registered %s char driver on major %d\n", 
+	   MP_NAME, MP_MAJOR);
+
+    return 0;
+}
+
+static void __exit mp_exit(void)
+{
+    /* unregister char driver */
+
+    unregister_chrdev(MP_MAJOR, MP_NAME);
+
+    /* Leave FXS interface with RESET asserted to free up UART, e.g. for
+       serial console */
+
+    reset(0);
+}
+
+module_init(mp_init);
+module_exit(mp_exit);
+
+MODULE_LICENSE("GPL");
+MODULE_DESCRIPTION("Mesh Potato driver for the Si Labs 3215 FXS chipset");
+
+module_param(debug, int, 0600);
+
