@@ -1,5 +1,5 @@
 
-config dnsmasq
+config dnsmasq setup
 	option domainneeded '1'
 	option boguspriv '1'
 	option filterwin2k '0' # enable for dial on demand
@@ -15,7 +15,6 @@ config dnsmasq
 	option leasefile '/tmp/dhcp.leases'
 	option resolvfile '/tmp/resolv.conf.auto'
 	option authoritative '0'
-	option dhcp_option '1,255.255.255.0'
 	option dhcpleasemax '40'
 	#list server		'/mycompany.local/1.2.3.4'
 	#option nonwildcard	1
@@ -29,7 +28,7 @@ config dhcp 'lan'
 	option leasetime '120m'
 	option start '200'
 	option limit '40'
-	option dhcp_option '3,10.130.1.1'
+	option dhcp_option '1,255.255.255.0  3,10.130.1.254  6,8.8.8.8,8.8.4.4'
 
 config dhcp 'wan'
 	option interface 'wan'

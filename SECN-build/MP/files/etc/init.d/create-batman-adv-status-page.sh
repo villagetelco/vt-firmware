@@ -5,7 +5,7 @@ RADIO=`uci get wireless.radio0.type`
 if [ $RADIO = "atheros" ]; then 
   WIRELESS="ath"  # atheros
 else
-  WIRELESS="wlan" # mac80211
+	WIRELESS="wlan" # mac80211
 fi
 
 # Set up symbolic links to txt files from /www
@@ -35,3 +35,4 @@ iwinfo $WIRELESS'0' assoclist >> /tmp/wifi.txt
 
 sleep 10; \
 done &
+

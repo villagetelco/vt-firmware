@@ -18,14 +18,14 @@ fi
 echo "Start build process"
 
 # Set up version strings
-VER="Version 2.0 Beta 1f"
-DIRVER="Beta-1f"
+VER="SECN Version 2.0 xxxx"
+DIRVER="xxxx"
 
 ###########################
 
 echo "Copy files from Git repo into build folder"
-rm -r ./SECN-build/files/*
-cp -r -f ~/Git/SECN2-test/SECN-build/* ./SECN-build/
+rm -rf ./SECN-build/
+cp -rp ~/Git/vt-firmware/SECN-build/ .
 
 ###########################
 
@@ -46,34 +46,39 @@ touch ./bin/ar71xx/builds/build-$DIR/md5sums
 
 echo '----------------------------'
 
-echo "Set up files for WR842 "
-DEVICE="WR842"
+echo "Set up .config for TL-WR842"
+rm ./.config
+cp ./SECN-build/WR842/.config  ./.config
+echo " Run defconfig"
+make defconfig > /dev/null
+## Use for first build on a new revision to update .config file
+cp ./.config ./SECN-build/WR842/.config 
 
+# Get target device from .config file
+TARGET=`cat .config | grep "CONFIG_TARGET" | grep "=y" | grep "_generic_" | cut -d _ -f 5 | cut -d = -f 1 `
+
+echo "Check .config version"
+cat ./.config | grep "OpenWrt version"
+echo "Target:  " $TARGET
+
+echo "Set up files for TL-WR842 "
 rm -r ./files/*
 cp -r ./SECN-build/files       .        ; echo "Copy generic files"
 cp -r ./SECN-build/WR842/files .        ; echo "Overlay device specific files"
-./FactoryRestore.sh											; echo "Build Factory Restore tar file"
+
+./FactoryRestore.sh			; echo "Build Factory Restore tar file"
 
 echo "Check files "
 ls -al ./files   
 echo ""
 
 # Set up version file
-echo "Version: "  $VER $DEVICE
-echo $VER  " TP-Link " $DEVICE   > ./files/etc/secn_version
+echo "Version: "  $VER $TARGET
+echo $VER  $TARGET               > ./files/etc/secn_version
 echo "Date stamp the version file: " $DATE
 echo "Build date " $DATE         >> ./files/etc/secn_version
 echo " "                         >> ./files/etc/secn_version
-
-echo "Set up .config for WR842"
-rm ./.config
-cp ./SECN-build/WR842/.config  ./.config
-make defconfig > /dev/null
-## Use for first build on a new revision to update .config file
-cp ./.config ./SECN-build/WR842/.config 
-
-echo "Check .config version"
-cat ./.config | grep "OpenWrt version"
+ 
 echo "Check banner version"
 cat ./files/etc/secn_version | grep "Version"
 echo ""
@@ -98,8 +103,22 @@ echo ""
 
 echo '----------------------------'
 
-echo "Set up files for MR3020 "
-DEVICE="MR3020"
+echo "Set up .config for TL-MR3020"
+rm ./.config
+cp ./SECN-build/MR3020/.config  ./.config
+echo " Run defconfig"
+make defconfig > /dev/null
+## Use for first build on a new revision to update .config file
+cp ./.config ./SECN-build/MR3020/.config 
+
+# Get target device from .config file
+TARGET=`cat .config | grep "CONFIG_TARGET" | grep "=y" | grep "_generic_" | cut -d _ -f 5 | cut -d = -f 1 `
+
+echo "Check .config version"
+cat ./.config | grep "OpenWrt version"
+echo "Target:  " $TARGET
+
+echo "Set up files for TL-MR3020 "
 rm -r ./files/*
 cp -r ./SECN-build/files       .        ; echo "Copy generic files"
 cp -r ./SECN-build/MR3020/files .       ; echo "Overlay device specific files"
@@ -109,21 +128,12 @@ ls -al ./files
 echo ""
 
 # Set up version file
-echo "Version: "  $VER $DEVICE
-echo $VER  " TP-Link " $DEVICE   > ./files/etc/secn_version
+echo "Version: "  $VER $TARGET
+echo $VER  $TARGET               > ./files/etc/secn_version
 echo "Date stamp the version file: " $DATE
 echo "Build date " $DATE         >> ./files/etc/secn_version
 echo " "                         >> ./files/etc/secn_version
-
-echo "Set up .config for MR3020 "
-rm ./.config
-cp ./SECN-build/MR3020/.config  ./.config
-make defconfig > /dev/null
-## Use for first build on a new revision to update .config file
-cp ./.config ./SECN-build/MR3020/.config 
-
-echo "Check .config version"
-cat ./.config | grep "OpenWrt version"
+ 
 echo "Check banner version"
 cat ./files/etc/secn_version | grep "Version"
 echo ""
@@ -147,36 +157,38 @@ echo ""
 
 echo '----------------------------'
 
-echo "Set up files for WR703 "
-DEVICE="WR703"
-
-rm -r ./files/*
-cp -r ./SECN-build/files       .        ; echo "Copy generic files"
-cp -r ./SECN-build/WR703/files .        ; echo "Overlay device specific files"
-
-./FactoryRestore.sh											; echo "Build Factory Restore tar file"
-
-echo "Check files "
-ls -al ./files   
-echo " "
-
-# Set up version file
-echo "Version: "  $VER $DEVICE
-echo $VER  " TP-Link " $DEVICE   > ./files/etc/secn_version
-echo "Date stamp the version file: " $DATE
-echo "Build date " $DATE         >> ./files/etc/secn_version
-echo " "                         >> ./files/etc/secn_version
-
-echo "Set up .config for WR703 "
+echo "Set up .config for TL-WR703"
 rm ./.config
 cp ./SECN-build/WR703/.config  ./.config
+echo " Run defconfig"
 make defconfig > /dev/null
 ## Use for first build on a new revision to update .config file
 cp ./.config ./SECN-build/WR703/.config 
 
-echo "Check .config version and target"
+# Get target device from .config file
+TARGET=`cat .config | grep "CONFIG_TARGET" | grep "=y" | grep "_generic_" | cut -d _ -f 5 | cut -d = -f 1 `
+
+echo "Check .config version"
 cat ./.config | grep "OpenWrt version"
-cat ./.config | grep "CONFIG_TARGET" | grep "generic_" | grep "=y"
+echo "Target:  " $TARGET
+
+echo "Set up files for TL-WR703 "
+rm -r ./files/*
+cp -r ./SECN-build/files       .        ; echo "Copy generic files"
+cp -r ./SECN-build/WR703/files .        ; echo "Overlay device specific files"
+./FactoryRestore.sh			; echo "Build Factory Restore tar file"
+
+echo "Check files "
+ls -al ./files   
+echo ""
+
+# Set up version file
+echo "Version: "  $VER $TARGET
+echo $VER  $TARGET               > ./files/etc/secn_version
+echo "Date stamp the version file: " $DATE
+echo "Build date " $DATE         >> ./files/etc/secn_version
+echo " "                         >> ./files/etc/secn_version
+ 
 echo "Check banner version"
 cat ./files/etc/secn_version | grep "Version"
 echo ""
@@ -201,33 +213,38 @@ echo ""
 
 echo '----------------------------'
 
-echo "Set up files for WDR4300"
-DEVICE="WDR4300"
+echo "Set up .config for TL-WDR4300"
+rm ./.config
+cp ./SECN-build/WDR4300/.config  ./.config
+echo " Run defconfig"
+make defconfig > /dev/null
+## Use for first build on a new revision to update .config file
+cp ./.config ./SECN-build/WDR4300/.config 
 
+# Get target device from .config file
+TARGET=`cat .config | grep "CONFIG_TARGET" | grep "=y" | grep "_generic_" | cut -d _ -f 5 | cut -d = -f 1 `
+
+echo "Check .config version"
+cat ./.config | grep "OpenWrt version"
+echo "Target:  " $TARGET
+
+echo "Set up files for TL-WDR4300 "
 rm -r ./files/*
-cp -r ./SECN-build/files         .        ; echo "Copy generic files"
-cp -r ./SECN-build/WDR4300/files .        ; echo "Overlay device specific files"
-./FactoryRestore.sh					  						; echo "Build Factory Restore tar file"
+cp -r ./SECN-build/files          .       ; echo "Copy generic files"
+cp -r ./SECN-build/WDR4300/files  .       ; echo "Overlay device specific files"
+./FactoryRestore.sh			  ; echo "Build Factory Restore tar file"
+
 echo "Check files "
 ls -al ./files   
 echo ""
 
 # Set up version file
-echo "Version: "  $VER $DEVICE
-echo $VER  " TP-Link " $DEVICE   > ./files/etc/secn_version
+echo "Version: "  $VER $TARGET
+echo $VER  $TARGET               > ./files/etc/secn_version
 echo "Date stamp the version file: " $DATE
 echo "Build date " $DATE         >> ./files/etc/secn_version
 echo " "                         >> ./files/etc/secn_version
-
-echo "Set up .config for WDR4300 "
-rm ./.config
-cp ./SECN-build/WDR4300/.config  ./.config
-make defconfig > /dev/null
-## Use for first build on a new revision to update .config file
-cp ./.config ./SECN-build/WDR4300/.config 
-
-echo "Check .config version"
-cat ./.config | grep "OpenWrt version"
+ 
 echo "Check banner version"
 cat ./files/etc/secn_version | grep "Version"
 echo ""
@@ -252,33 +269,38 @@ echo ""
 
 echo '----------------------------'
 
+echo "Set up .config for TL-MR11U"
+rm ./.config
+cp ./SECN-build/MR11U/.config  ./.config
+echo " Run defconfig"
+make defconfig > /dev/null
+## Use for first build on a new revision to update .config file
+cp ./.config ./SECN-build/MR11U/.config 
 
-echo "Set up files for MR11U "
-DEVICE="MR11U"
+# Get target device from .config file
+TARGET=`cat .config | grep "CONFIG_TARGET" | grep "=y" | grep "_generic_" | cut -d _ -f 5 | cut -d = -f 1 `
+
+echo "Check .config version"
+cat ./.config | grep "OpenWrt version"
+echo "Target:  " $TARGET
+
+echo "Set up files for TL-MR11U"
 rm -r ./files/*
-cp -r ./SECN-build/files       .        ; echo "Copy generic files"
-cp -r ./SECN-build/MR11U/files .        ; echo "Overlay device specific files"
-./FactoryRestore.sh											; echo "Build Factory Restore tar file"
+cp -r ./SECN-build/files          .       ; echo "Copy generic files"
+cp -r ./SECN-build/MR11U/files    .       ; echo "Overlay device specific files"
+./FactoryRestore.sh			  ; echo "Build Factory Restore tar file"
+
 echo "Check files "
 ls -al ./files   
 echo ""
 
 # Set up version file
-echo "Version: "  $VER $DEVICE
-echo $VER  " TP-Link " $DEVICE   > ./files/etc/secn_version
+echo "Version: "  $VER $TARGET
+echo $VER  $TARGET               > ./files/etc/secn_version
 echo "Date stamp the version file: " $DATE
 echo "Build date " $DATE         >> ./files/etc/secn_version
 echo " "                         >> ./files/etc/secn_version
-
-echo "Set up .config for MR11U "
-rm ./.config
-cp ./SECN-build/MR11U/.config  ./.config
-make defconfig > /dev/null
-## Use for first build on a new revision to update .config file
-cp ./.config ./SECN-build/MR11U/.config 
-
-echo "Check .config version"
-cat ./.config | grep "OpenWrt version"
+ 
 echo "Check banner version"
 cat ./files/etc/secn_version | grep "Version"
 echo ""
@@ -302,34 +324,38 @@ echo ""
 
 echo '----------------------------'
 
+echo "Set up .config for TL-MR3420"
+rm ./.config
+cp ./SECN-build/MR3420/.config  ./.config
+echo " Run defconfig"
+make defconfig > /dev/null
+## Use for first build on a new revision to update .config file
+cp ./.config ./SECN-build/MR3420/.config 
 
-echo "Set up files for MR3420 "
-DEVICE="MR3420"
+# Get target device from .config file
+TARGET=`cat .config | grep "CONFIG_TARGET" | grep "=y" | grep "_generic_" | cut -d _ -f 5 | cut -d = -f 1 `
 
+echo "Check .config version"
+cat ./.config | grep "OpenWrt version"
+echo "Target:  " $TARGET
+
+echo "Set up files for TL-MR3420"
 rm -r ./files/*
-cp -r ./SECN-build/files        .       ; echo "Copy generic files"
-cp -r ./SECN-build/MR3420/files .       ; echo "Overlay device specific files"
-./FactoryRestore.sh											; echo "Build Factory Restore tar file"
+cp -r ./SECN-build/files          .       ; echo "Copy generic files"
+cp -r ./SECN-build/MR3420/files   .       ; echo "Overlay device specific files"
+./FactoryRestore.sh			  ; echo "Build Factory Restore tar file"
+
 echo "Check files "
 ls -al ./files   
 echo ""
 
 # Set up version file
-echo "Version: "  $VER $DEVICE
-echo $VER  " TP-Link " $DEVICE   > ./files/etc/secn_version
+echo "Version: "  $VER $TARGET
+echo $VER  $TARGET               > ./files/etc/secn_version
 echo "Date stamp the version file: " $DATE
 echo "Build date " $DATE         >> ./files/etc/secn_version
 echo " "                         >> ./files/etc/secn_version
-
-echo "Set up .config for MR3420 "
-rm ./.config
-cp ./SECN-build/MR3420/.config  ./.config
-make defconfig > /dev/null
-## Use for first build on a new revision to update .config file
-cp ./.config ./SECN-build/MR3420/.config 
-
-echo "Check .config version"
-cat ./.config | grep "OpenWrt version"
+ 
 echo "Check banner version"
 cat ./files/etc/secn_version | grep "Version"
 echo ""
@@ -353,34 +379,38 @@ echo ""
 
 echo '----------------------------'
 
+echo "Set up .config for TL-WR841"
+rm ./.config
+cp ./SECN-build/WR841/.config  ./.config
+echo " Run defconfig"
+make defconfig > /dev/null
+## Use for first build on a new revision to update .config file
+cp ./.config ./SECN-build/WR841/.config 
 
-echo "Set up files for WR841 "
-DEVICE="WR841"
+# Get target device from .config file
+TARGET=`cat .config | grep "CONFIG_TARGET" | grep "=y" | grep "_generic_" | cut -d _ -f 5 | cut -d = -f 1 `
 
+echo "Check .config version"
+cat ./.config | grep "OpenWrt version"
+echo "Target:  " $TARGET
+
+echo "Set up files for TL-WR841"
 rm -r ./files/*
-cp -r ./SECN-build/files       .        ; echo "Copy generic files"
-cp -r ./SECN-build/WR841/files .        ; echo "Overlay device specific files"
-./FactoryRestore.sh											; echo "Build Factory Restore tar file"
+cp -r ./SECN-build/files          .       ; echo "Copy generic files"
+cp -r ./SECN-build/WR841/files   .       ; echo "Overlay device specific files"
+./FactoryRestore.sh			  ; echo "Build Factory Restore tar file"
+
 echo "Check files "
 ls -al ./files   
 echo ""
 
 # Set up version file
-echo "Version: "  $VER $DEVICE
-echo $VER  " TP-Link " $DEVICE   > ./files/etc/secn_version
+echo "Version: "  $VER $TARGET
+echo $VER  $TARGET               > ./files/etc/secn_version
 echo "Date stamp the version file: " $DATE
 echo "Build date " $DATE         >> ./files/etc/secn_version
 echo " "                         >> ./files/etc/secn_version
-
-echo "Set up .config for WR841 "
-rm ./.config
-cp ./SECN-build/WR841/.config  ./.config
-make defconfig > /dev/null
-## Use for first build on a new revision to update .config file
-cp ./.config ./SECN-build/WR841/.config 
-
-echo "Check .config version"
-cat ./.config | grep "OpenWrt version"
+ 
 echo "Check banner version"
 cat ./files/etc/secn_version | grep "Version"
 echo ""
@@ -404,34 +434,38 @@ echo ""
 
 echo '----------------------------'
 
+echo "Set up .config for TL-WR741"
+rm ./.config
+cp ./SECN-build/WR741/.config  ./.config
+echo " Run defconfig"
+make defconfig > /dev/null
+## Use for first build on a new revision to update .config file
+cp ./.config ./SECN-build/WR741/.config 
 
-echo "Set up files for WR741 "
-DEVICE="WR741"
+# Get target device from .config file
+TARGET=`cat .config | grep "CONFIG_TARGET" | grep "=y" | grep "_generic_" | cut -d _ -f 5 | cut -d = -f 1 `
 
+echo "Check .config version"
+cat ./.config | grep "OpenWrt version"
+echo "Target:  " $TARGET
+
+echo "Set up files for TL-WR741"
 rm -r ./files/*
-cp -r ./SECN-build/files       .        ; echo "Copy generic files"
-cp -r ./SECN-build/WR741/files .        ; echo "Overlay device specific files"
-./FactoryRestore.sh											; echo "Build Factory Restore tar file"
+cp -r ./SECN-build/files          .       ; echo "Copy generic files"
+cp -r ./SECN-build/WR741/files   .       ; echo "Overlay device specific files"
+./FactoryRestore.sh			  ; echo "Build Factory Restore tar file"
+
 echo "Check files "
 ls -al ./files   
 echo ""
 
 # Set up version file
-echo "Version: "  $VER $DEVICE
-echo $VER  " TP-Link " $DEVICE   > ./files/etc/secn_version
+echo "Version: "  $VER $TARGET
+echo $VER  $TARGET               > ./files/etc/secn_version
 echo "Date stamp the version file: " $DATE
 echo "Build date " $DATE         >> ./files/etc/secn_version
 echo " "                         >> ./files/etc/secn_version
-
-echo "Set up .config for WR741 "
-rm ./.config
-cp ./SECN-build/WR741/.config  ./.config
-make defconfig > /dev/null
-## Use for first build on a new revision to update .config file
-cp ./.config ./SECN-build/WR741/.config 
-
-echo "Check .config version"
-cat ./.config | grep "OpenWrt version"
+ 
 echo "Check banner version"
 cat ./files/etc/secn_version | grep "Version"
 echo ""

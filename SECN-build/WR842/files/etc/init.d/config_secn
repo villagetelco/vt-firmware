@@ -1,4 +1,3 @@
-
 #!/bin/sh -x
 # /etc/init.d/config_secn  
 
@@ -92,7 +91,6 @@ SOFTPHMASTERIP=$OCTET123.252
 DEVICEIP=$OCTET123.$OCTET4
 uci set network.lan.ipaddr=$DEVICEIP
 
-uci commit network
 #--------------------------------------------
 
 # Create new Asterisk sip.conf include file
@@ -225,10 +223,8 @@ uci set wireless.ap_0.encryption=$ENCRYPT
 uci set wireless.ap_0.key=$PASSPHRASE
 uci set wireless.ap_0.ssid=$SSID
 uci set wireless.ap_0.mode="ap"
-uci set wireless.ap_0.hidden=$AP_DISABLE # Can't disable without changing wlan(x), so just hide.
+uci set wireless.ap_0.disabled=$AP_DISABLE
 uci set wireless.ap_0.maxassoc=$MAXASSOC
-
-uci commit wireless
 
 #----------------------------------------------
 # Set up DHCP server
@@ -252,21 +248,18 @@ LEASETERM=`uci get secn.dhcp.leaseterm`
 LEASETERM=$((LEASETERM / 60))'m'
 DOMAIN=`uci get secn.dhcp.domain`
 OPTION_DNS=`uci get secn.dhcp.dns`
+OPTION_DNS2=`uci get secn.dhcp.dns2`
 OPTION_SUBNET=`uci get secn.dhcp.subnet`
 OPTION_ROUTER=`uci get secn.dhcp.router`
 
-uci set dhcp.@dnsmasq[0].dhcpleasemax=$MAXLEASES
-uci set dhcp.@dnsmasq[0].domain=$DOMAIN
-uci set dhcp.@dnsmasq[0].authoritative=$DHCP_AUTH
-uci set dhcp.@dnsmasq[0].dhcp_option="1,$OPTION_SUBNET"
+uci set dhcp.setup.dhcpleasemax=$MAXLEASES
+uci set dhcp.setup.domain=$DOMAIN
+uci set dhcp.setup.authoritative=$DHCP_AUTH
 
 uci set dhcp.lan.start=$STARTIP
 uci set dhcp.lan.limit=$LIMIT
 uci set dhcp.lan.leasetime=$LEASETERM
-uci set dhcp.lan.dhcp_option="3,$OPTION_ROUTER"
-
-uci commit dhcp
-sleep 1
+uci set dhcp.lan.dhcp_option="1,$OPTION_SUBNET  3,$OPTION_ROUTER  6,$OPTION_DNS,$OPTION_DNS2"
 
 #---------------------------------------------
 
@@ -303,36 +296,38 @@ WANSSID=`uci get secn.wan.wanssid`
 WANPASS=`uci get secn.wan.wanpass`
 WANENCR=`uci get secn.wan.wanencr`
 
-# Set up for default WAN disabled
-uci set network.lan.ifname='eth0'
+# Set up for WAN disabled
+if [ $WANPORT = "Disable" ]; then
+	uci set network.lan.ifname='eth0'
 
-uci set network.wan.ifname=''
-uci set network.wan.proto=''
-uci set network.wan.ipaddr=''
-uci set network.wan.gateway=''
-uci set network.wan.netmask=''
-uci set network.wan.dns=''
+	uci set network.wan.ifname=''
+	uci set network.wan.proto=''
+	uci set network.wan.ipaddr=''
+	uci set network.wan.gateway=''
+	uci set network.wan.netmask=''
+	uci set network.wan.dns=''
 
-uci set network.wan.service=''
-uci set network.wan.apn=''
-uci set network.wan.username=''
-uci set network.wan.password=''
-uci set network.wan.pin=''
-uci set network.wan.device=''
+	uci set network.wan.service=''
+	uci set network.wan.apn=''
+	uci set network.wan.username=''
+	uci set network.wan.password=''
+	uci set network.wan.pin=''
+	uci set network.wan.device=''
 
-uci set wireless.ap_0.disabled='0'
-uci set wireless.ah_0.disabled='0'
-uci set wireless.sta_0.disabled='1'
-
+	uci set wireless.ah_0.disabled='0'
+	uci set wireless.sta_0.disabled='1'
+fi
 
 if [ $WANPORT = "Ethernet" ]; then
  	# Set up for Eth WAN port
 	uci set network.lan.ifname='eth0'
+    uci set network.lan.gateway='255.255.255.255'
 	uci set network.wan.ifname='eth1'
 fi
 
 if [ $WANPORT = "WiFi" ]; then
- 	# Set up for wlan0 WAN port
+    uci set network.lan.gateway='255.255.255.255'
+    # Set up for wlan0 WAN port
 	uci set wireless.ap_0.disabled='1'
 	uci set wireless.ah_0.disabled='1'
 	uci set wireless.sta_0.disabled='0'
@@ -344,23 +339,24 @@ fi
 
 
 # Set up for DHCP or Static
-	if [ $ETHWANMODE = "Static" ]; then
-		uci set network.wan.proto='static'
-		uci set network.wan.ipaddr=$WANIP
-		uci set network.wan.gateway=$WANGATEWAY
-		uci set network.wan.netmask=$WANMASK
-		uci set network.wan.dns=$WANDNS
+if [ $ETHWANMODE = "Static" ]; then
+	uci set network.wan.proto='static'
+	uci set network.wan.ipaddr=$WANIP
+	uci set network.wan.gateway=$WANGATEWAY
+	uci set network.wan.netmask=$WANMASK
+	uci set network.wan.dns=$WANDNS
 
-	else  # Set up for DHCP
-		uci set network.wan.proto='dhcp'
-		uci set network.wan.ipaddr=''
-		uci set network.wan.gateway=''
-		uci set network.wan.netmask=''
-		uci set network.wan.dns=''
-	fi
+else  # Set up for DHCP
+	uci set network.wan.proto='dhcp'
+	uci set network.wan.ipaddr=''
+	uci set network.wan.gateway=''
+	uci set network.wan.netmask=''
+	uci set network.wan.dns=''
+fi
 
 # Set up for 3G Modem
 if [ $WANPORT = "USB-Modem" ]; then
+	uci set network.lan.gateway='255.255.255.255'
 	uci set network.wan.ifname='ppp0'
 	uci set network.wan.proto='3g'
 	uci set network.wan.service=$SERVICE
@@ -371,11 +367,9 @@ if [ $WANPORT = "USB-Modem" ]; then
 	uci set network.wan.device=$TTY
 fi
 
-uci commit network
-uci commit wireless
-
 # Make sure firewall is enabled
 /etc/init.d/firewall enable  
+#--------------------------------
 
 # Set up modem chat scripts
 # Fix # characters in dialstr
@@ -388,7 +382,6 @@ DIALSTR=` echo $DIALSTR  | sed 's/'%23'/'#'/' `
 DIALSTR=` echo $DIALSTR  | sed 's/'%23'/'#'/' `
 
 uci set secn.modem.dialstr=$DIALSTR
-uci commit secn
 
 # Set up dialstring line
 DIALSTR2='"ATD'$DIALSTR'"'
@@ -479,6 +472,11 @@ fi
 
 # Save the changes 
 uci commit uhttpd
+uci commit dhcp
+uci commit network
+uci commit wireless
+uci commit secn
+
 sleep 1
 
 # Note:Reboot for changes to be effective

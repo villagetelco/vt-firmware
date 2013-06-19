@@ -17,15 +17,19 @@ fi
 
 echo "Start build process"
 
-# Set up version strings
-VER="Version 2.0 Beta 1f"
-DIRVER="Beta-1f"
+echo "Set up version strings"
+VER="Version 2.0 xxxx (rv297)"
+DIRVER="xxxx"
 
 ###########################
 
 echo "Copy files from Git repo into build folder"
-rm -r ./files
-cp -r -f ~/Git/SECN2-test/SECN-build/MP/files .
+rm -rf ./files
+cp -rp ~/Git/vt-firmware/SECN-build/MP/files    .
+
+echo "Copy driver code from Git repo into build folder"
+rm -rf ./drivers
+cp -rp ~/Git/vt-firmware/SECN-build/MP/drivers  .
 
 ###########################
 
@@ -43,7 +47,24 @@ touch ./bin/atheros/builds/build-$DIR/md5sums
 ###########################
 
 echo '----------------------------'
+echo "Make MP channel driver"
+cd ./drivers/asterisk
+make
+echo "Copy files"
+cp ./gentone       ../../files/usr/lib/asterisk/modules
+cp ./chan_mp.so    ../../files/usr/lib/asterisk/modules
+cd ../..
 
+echo '----------------------------'
+echo "Make 8250 driver"
+cd ./drivers/driver
+make
+echo "Copy files"
+cp ./8250mp.ko   ../../files/lib/modules/*
+cp ./mp.ko       ../../files/lib/modules/*
+cd ../..
+
+echo '----------------------------'
 echo "Set up files for MP-1"
 DEVICE="MeshPotato-1"
 
