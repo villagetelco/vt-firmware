@@ -1,12 +1,18 @@
 $(document).ready( function() {
 
-	var uiToggle = $('.adv_ui');
-	$(uiToggle).hide();
 
-	$('#adv_ui').click(function(e) {
-	  $(uiToggle).slideToggle('slow');
-	  e.preventDefault();
-	});
+
+$('#adv_ui').on('switch-change', function (e, data) {
+    var swState = data.value;
+    if (!swState) {
+    	$(".adv_ui").addClass("hide");
+    	console.log("Advanced")
+    } else {
+			$(".adv_ui").removeClass("hide");
+    	console.log("Basic")
+    }
+});
+
 
 // option to hide checkum in firmware upgrade 
   $('#showchecksum').change(function() {
@@ -35,17 +41,6 @@ $(document).ready( function() {
       }
     }); 
 	})();     	
-
-
-// function to refresh iframes on status page
-  setInterval(refreshIframe, 10000);
-  function refreshIframe() {
-      $("#FrameID1")[0].src = $("#FrameID1")[0].src;
-      $("#FrameID2")[0].src = $("#FrameID2")[0].src;
-      $("#FrameID3")[0].src = $("#FrameID3")[0].src;
-      $("#FrameID4")[0].src = $("#FrameID4")[0].src;
-  }
-
 
 // jquery form validator code
 
