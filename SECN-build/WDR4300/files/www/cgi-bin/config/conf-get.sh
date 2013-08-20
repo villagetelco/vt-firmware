@@ -99,12 +99,14 @@ ATH0_IPADDR=`uci get network.mesh_0.ipaddr`
 ATH0_NETMASK=`uci get network.mesh_0.netmask`
 ATH0_SSID=`uci get wireless.ah_0.ssid`
 ATH0_BSSID=`uci get wireless.ah_0.bssid`
+MESH_ENABLE=`uci get secn.mesh.mesh_enable`
 
 # mesh_1 configuration parameters
 ATH0_IPADDR1=`uci get network.mesh_1.ipaddr`
 ATH0_NETMASK1=`uci get network.mesh_1.netmask`
 ATH0_SSID1=`uci get wireless.ah_1.ssid`
 ATH0_BSSID1=`uci get wireless.ah_1.bssid`
+MESH_ENABLE1=`uci get secn.mesh1.mesh_enable`
 
 # 2.4GHz Radio 
 CHANNEL=`uci get wireless.radio0.channel`
