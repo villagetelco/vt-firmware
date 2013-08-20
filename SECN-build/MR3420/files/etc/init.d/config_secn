@@ -183,6 +183,7 @@ AP_DISABLE=`uci get secn.accesspoint.ap_disable`
 MAXASSOC=`uci get secn.accesspoint.maxassoc`
 USREG_DOMAIN=`uci get secn.accesspoint.usreg_domain`
 CHANNEL=`uci get wireless.radio0.channel`
+MESH_ENABLE=`uci get secn.mesh.mesh_enable`
 
 # Set to WPA1 by default                                 
 ENCRYPT="psk"
@@ -248,18 +249,18 @@ LEASETERM=`uci get secn.dhcp.leaseterm`
 LEASETERM=$((LEASETERM / 60))'m'
 DOMAIN=`uci get secn.dhcp.domain`
 OPTION_DNS=`uci get secn.dhcp.dns`
+OPTION_DNS2=`uci get secn.dhcp.dns2`
 OPTION_SUBNET=`uci get secn.dhcp.subnet`
 OPTION_ROUTER=`uci get secn.dhcp.router`
 
-uci set dhcp.@dnsmasq[0].dhcpleasemax=$MAXLEASES
-uci set dhcp.@dnsmasq[0].domain=$DOMAIN
-uci set dhcp.@dnsmasq[0].authoritative=$DHCP_AUTH
-uci set dhcp.@dnsmasq[0].dhcp_option="1,$OPTION_SUBNET"
+uci set dhcp.setup.dhcpleasemax=$MAXLEASES
+uci set dhcp.setup.domain=$DOMAIN
+uci set dhcp.setup.authoritative=$DHCP_AUTH
 
 uci set dhcp.lan.start=$STARTIP
 uci set dhcp.lan.limit=$LIMIT
 uci set dhcp.lan.leasetime=$LEASETERM
-uci set dhcp.lan.dhcp_option="3,$OPTION_ROUTER"
+uci set dhcp.lan.dhcp_option="1,$OPTION_SUBNET  3,$OPTION_ROUTER  6,$OPTION_DNS,$OPTION_DNS2"
 
 #---------------------------------------------
 
@@ -335,6 +336,13 @@ if [ $WANPORT = "WiFi" ]; then
 	uci set wireless.sta_0.key=$WANPASS
 	uci set wireless.sta_0.encryption=$WANENCR
 	uci set network.wan.ifname='wlan0'
+fi
+
+# Disable mesh if required
+if [ $MESH_ENABLE = "checked" ]; then
+	uci set wireless.ah_0.disabled='0'
+else
+	uci set wireless.ah_0.disabled='1'
 fi
 
 

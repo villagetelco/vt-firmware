@@ -183,6 +183,7 @@ AP_DISABLE=`uci get secn.accesspoint.ap_disable`
 MAXASSOC=`uci get secn.accesspoint.maxassoc`
 USREG_DOMAIN=`uci get secn.accesspoint.usreg_domain`
 CHANNEL=`uci get wireless.radio0.channel`
+MESH_ENABLE=`uci get secn.mesh.mesh_enable`
 
 # Set to WPA1 by default                                 
 ENCRYPT="psk"
@@ -381,6 +382,14 @@ if [ $WANPORT = "5.0GHz_WiFi" ]; then
 	uci set wireless.sta_1.key=$WANPASS
 	uci set wireless.sta_1.encryption=$WANENCR
 fi
+
+# Disable mesh if required
+if [ $MESH_ENABLE = "checked" ]; then
+	uci set wireless.ah_0.disabled='0'
+else
+	uci set wireless.ah_0.disabled='1'
+fi
+
 
 # Set up for DHCP or Static
 if [ $ETHWANMODE = "Static" ]; then

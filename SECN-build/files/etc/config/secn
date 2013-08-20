@@ -1,5 +1,5 @@
 
-config mesh 'asterisk'
+config secn 'asterisk'
 	option codec1 'gsm'
 	option codec2 'ulaw'
 	option codec3 'alaw'
@@ -16,7 +16,7 @@ config mesh 'asterisk'
 	option enablenat '0'
 	option enable_ast '0'
 
-config mesh 'accesspoint'
+config secn 'accesspoint'
 	option ssid 'VT-SECN-AP'
 	option encryption 'WPA1'
 	option passphrase 'potato-potato'
@@ -24,7 +24,10 @@ config mesh 'accesspoint'
 	option usreg_domain '0'
 	option maxassoc '20'
 
-config mesh 'dhcp'
+config secn 'mesh'
+	option mesh_enable 'checked'
+
+config secn 'dhcp'
 	option enable '0'
 	option startip '10.130.1.200'
 	option endip '10.130.1.240'
@@ -37,19 +40,19 @@ config mesh 'dhcp'
 	option dns '8.8.8.8'
 	option dns2 '8.8.4.4'
 
-config mesh 'mpgw'
+config secn 'mpgw'
 	option mode 'OFF'
 
-config mesh 'http'
+config secn 'http'
 	option limitip '0'
 	option enssl '0'
 	option pw_preset '0'
 	option auth '0'
 
-config mesh 'ivr'
+config secn 'ivr'
 	option pin '1234'
 
-config mesh 'modem'
+config secn 'modem'
 	option enabled 0
 	option vendor ''
 	option product ''
@@ -61,7 +64,7 @@ config mesh 'modem'
 	option username ''
 	option password ''
 
-config mesh wan
+config secn wan
 	option wanip '10.0.0.100'
 	option wangateway '10.0.0.1'
 	option wanmask '255.255.255.0'
