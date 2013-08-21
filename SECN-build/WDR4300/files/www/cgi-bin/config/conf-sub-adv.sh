@@ -18,6 +18,8 @@ DHCP_ENABLE="0"
 ENABLE_AST="0"
 USREG_DOMAIN="0"
 DHCP_AUTH='0'
+MESH_ENABLE='0'
+MESH_ENABLE1='0'
 
 
 # Get Field-Value pairs from QUERY_STRING environment variable
@@ -202,6 +204,10 @@ uci set secn.accesspoint1.encryption=\$ENCRYPTION1
 uci set secn.accesspoint1.passphrase=\$PASSPHRASE1
 uci set secn.accesspoint1.ap_disable=\$AP_DISABLE1
 uci set secn.accesspoint1.maxassoc=\$MAXASSOC1
+
+# Save mesh settings to /etc/config/secn
+uci set secn.mesh.mesh_enable=\$MESH_ENABLE
+uci set secn.mesh1.mesh_enable=\$MESH_ENABLE1
 
 # Write the Asterisk settings into /etc/config/secn
 uci set secn.asterisk.host=\$HOST

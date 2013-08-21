@@ -99,7 +99,7 @@ echo ""
 echo '----------------------------'
 
 ##################
-#exit  #  Uncomment to end the build process here
+exit  #  Uncomment to end the build process here
 
 echo "Set up .config for TL-WR842"
 rm ./.config
@@ -154,7 +154,7 @@ echo ""
 echo '----------------------------'
 
 ##################
-#exit  #  Uncomment to end the build process here
+exit  #  Uncomment to end the build process here
 
 
 echo "Set up .config for TL-WR703"
@@ -264,7 +264,7 @@ echo ""
 echo '----------------------------'
 
 ###############
-exit  #  Uncomment to end the build process here
+#exit  #  Uncomment to end the build process here
 
 
 echo "Set up .config for TL-WDR4300"
@@ -309,6 +309,11 @@ make
 echo  "Move files to build folder"
 mv ./bin/ar71xx/*wdr4300*squash*sysupgrade.bin ./bin/ar71xx/builds/build-$DIR
 mv ./bin/ar71xx/*wdr4300*squash*factory.bin    ./bin/ar71xx/builds/build-$DIR
+mv ./bin/ar71xx/*wdr4310*squash*sysupgrade.bin ./bin/ar71xx/builds/build-$DIR
+mv ./bin/ar71xx/*wdr4310*squash*factory.bin    ./bin/ar71xx/builds/build-$DIR
+mv ./bin/ar71xx/*wdr3600*squash*sysupgrade.bin ./bin/ar71xx/builds/build-$DIR
+mv ./bin/ar71xx/*wdr3600*squash*factory.bin    ./bin/ar71xx/builds/build-$DIR
+
 echo "Clean up unused files"
 rm ./bin/ar71xx/openwrt-*
 echo "Update md5sums"

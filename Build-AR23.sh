@@ -18,8 +18,8 @@ fi
 echo "Start build process"
 
 # Set up version strings
-VER="Version 2.0 RC2"
-DIRVER="RC2"
+VER="Version 2.0 RC2-Ath5k"
+DIRVER="RC2-Ath5k"
 
 ###########################
 
@@ -77,8 +77,8 @@ echo "Target:  " $TARGET
 echo "Set up files for AR23 "
 rm -r ./files/*
 cp -r ./SECN-build/files       .        ; echo "Copy generic files"
-cp -r ./SECN-build/AR23/files .        ; echo "Overlay device specific files"
-./FactoryRestore.sh			; echo "Build Factory Restore tar file"
+cp -r ./SECN-build/AR23/files .         ; echo "Overlay device specific files"
+./FactoryRestore.sh											; echo "Build Factory Restore tar file"
 
 echo "Check files "
 ls -al ./files   
