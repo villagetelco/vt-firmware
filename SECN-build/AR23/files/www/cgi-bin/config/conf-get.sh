@@ -63,6 +63,7 @@ ATH0_IPADDR=`uci get network.mesh_0.ipaddr`
 ATH0_NETMASK=`uci get network.mesh_0.netmask`
 ATH0_SSID=`uci get wireless.ah_0.ssid`
 ATH0_BSSID=`uci get wireless.ah_0.bssid`
+MESH_ENABLE=`uci get secn.mesh.mesh_enable`
 
 # Radio
 CHANNEL=`uci get wireless.radio0.channel`

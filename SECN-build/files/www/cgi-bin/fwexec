@@ -24,9 +24,9 @@
 	
 	<h2> Upgrading firmware. Please wait for the timer to count down. </h2>
 
-  <h2>Time remaining:	<span id="seconds">145</span>.</h2>
+  <h2>Time remaining:	<span id="seconds">200</span>.</h2>
 	<script>
-	  var seconds = 145;
+	  var seconds = 200;
     setInterval(
       function(){
         if (seconds<=0){

@@ -44,6 +44,8 @@ LEASETERM=`uci get secn.dhcp.leaseterm`
 DOMAIN=`uci get secn.dhcp.domain`
 OPTION_SUBNET=`uci get secn.dhcp.subnet`
 OPTION_ROUTER=`uci get secn.dhcp.router`
+OPTION_DNS=`uci get secn.dhcp.dns`
+OPTION_DNS2=`uci get secn.dhcp.dns2`
 
 # MPGW setting
 MPGW=`uci get secn.mpgw.mode`
@@ -61,6 +63,7 @@ ATH0_IPADDR=`uci get network.mesh_0.ipaddr`
 ATH0_NETMASK=`uci get network.mesh_0.netmask`
 ATH0_SSID=`uci get wireless.ah_0.ssid`
 ATH0_BSSID=`uci get wireless.ah_0.bssid`
+MESH_ENABLE=`uci get secn.mesh.mesh_enable`
 
 # Radio
 CHANNEL=`uci get wireless.radio0.channel`

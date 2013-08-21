@@ -16,6 +16,7 @@ BUTTON="0"
 DHCP_ENABLE="0"
 USREG_DOMAIN="0"
 DHCP_AUTH='0'
+MESH_ENABLE='0'
 
 
 # Get Field-Value pairs from QUERY_STRING environment variable
@@ -133,6 +134,7 @@ uci set wireless.radio0.country=\$ATH0_COUNTRY
 uci set wireless.radio0.channel=\$CHANNEL
 uci set wireless.radio0.txpower=\$ATH0_TXPOWER
 uci set wireless.radio0.hwmode=\$RADIOMODE
+uci set wireless.radio0.chanbw=\$CHANBW
 
 # Write the adhoc interface settings into /etc/config/wireless
 uci set wireless.ah_0.ssid=\$ATH0_SSID
@@ -146,6 +148,9 @@ uci set secn.accesspoint.ap_disable=\$AP_DISABLE
 uci set secn.accesspoint.usreg_domain=\$USREG_DOMAIN  
 uci set secn.accesspoint.maxassoc=\$MAXASSOC
 
+# Save mesh settings to /etc/config/secn
+uci set secn.mesh.mesh_enable=\$MESH_ENABLE
+
 # Write the DHCP settings into /etc/config/secn
 uci set secn.dhcp.enable=\$DHCP_ENABLE
 uci set secn.dhcp.dhcp_auth=\$DHCP_AUTH
@@ -157,11 +162,13 @@ uci set secn.dhcp.domain=\$DOMAIN
 uci set secn.dhcp.dns=\$OPTION_DNS
 uci set secn.dhcp.subnet=\$OPTION_SUBNET
 uci set secn.dhcp.router=\$OPTION_ROUTER
+uci set secn.dhcp.dns=\$OPTION_DNS
+uci set secn.dhcp.dns2=\$OPTION_DNS2
 
 # Write the MPGW display setting into /etc/config/secn
 uci set secn.mpgw.mode=\$MPGW
 
-# Set up mesh gateway mode
+# Set up mesh gateway mode on the fly
 if [ \$MPGW = "OFF" ]; then
   batctl gw off
   uci set batman-adv.bat0.gw_mode=off
@@ -191,6 +198,9 @@ uci commit secn
 uci commit network
 uci commit wireless
 uci commit batman-adv
+
+# Set DHCP subnet to current subnet 
+/bin/setdhcpsubnet.sh > /dev/null
 
 # Create new config files
 /etc/init.d/config_secn > /dev/null
