@@ -142,6 +142,9 @@
   <link href="/css/bootstrapSwitch.css" rel="stylesheet" media="screen">
   <style type="text/css">
 
+    /* form submission response style  */
+    #loading, #success{display: none}
+
     /* Sticky footer styles
     -------------------------------------------------- */
 
@@ -261,7 +264,7 @@
         <div class="tab-content">
           <div class="tab-pane active" id="network">
 
-            <form class="form-horizontal" name="MP-ADV" id="MP-ADV" method=GET action="/cgi-bin/config/conf-sub-adv.sh">
+            <form class="form-horizontal" name="MP-ADV" id="networkForm" method="POST" action="/cgi-bin/net_save.sh">
 
               <fieldset class="ipnetwork">
                 <legend class="offset2 span8 offset2">Network</legend>
@@ -604,7 +607,13 @@
                 </div>
               </div>
             </form>
-
+            <div id="loading" class="modal hide fade in" style="display: none; ">
+              <div class="modal-body">
+                <h4>Saving changes...</h4>
+              </div>
+            </div>
+            <div id="success" class="modal">
+            </div>
           </div>            
           <div class="tab-pane" id="voice">
             <form class="form-horizontal" >
@@ -834,9 +843,7 @@
 <script type="text/javascript" src="/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/js/bootstrapSwitch.js"></script>
 <script type="text/javascript" src="/lib/jquery.validate.min.js"></script>
-<script type="text/javascript" src="/lib/jquery.form.min.js"></script>
 <script type="text/javascript" src="/lib/vt_lib2.js"></script>
-
 </body>
 </html>
 

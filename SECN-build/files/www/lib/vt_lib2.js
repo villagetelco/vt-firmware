@@ -1,46 +1,40 @@
-$(document).ready( function() {
+$(document).ready(function() {
 
-
-
+// toggle basic and advanced UI
 $('#adv_ui').on('switch-change', function (e, data) {
     var swState = data.value;
     if (!swState) {
     	$(".adv_ui").addClass("hide");
-    	console.log("Advanced")
     } else {
 			$(".adv_ui").removeClass("hide");
-    	console.log("Basic")
     }
 });
 
+$('#networkFormzz').on('submit',function(e) {
+	var thisForm = $(this);
+	e.preventDefault();
 
-// option to hide checkum in firmware upgrade 
-  $('#showchecksum').change(function() {
-  	$('#' + $(this).data('toggles')).toggle();
-	});
-
-// File upload progress bar
-	(function() {
-    var bar = $('.bar');
-    var percent = $('.percent');
-    var status = $('#status');
-    $('#fupload').ajaxForm({
-      beforeSend: function() {
-        status.empty();
-        var percentVal = '0%';
-        bar.width(percentVal)
-        percent.html(percentVal);
-      },
-      uploadProgress: function(event, position, total, percentComplete) {
-        var percentVal = percentComplete + '%';
-        bar.width(percentVal)
-        percent.html(percentVal);
-      },
-      complete: function(xhr) {
-        status.html(xhr.responseText);
-      }
-    }); 
-	})();     	
+	//Hide the form
+	$(this).fadeOut(function(){
+	  //Display the "loading" message
+	  $("#loading").fadeIn(function(){
+	    //Post the form to the send script
+			$.ajax({
+				url: thisForm.attr('action'),
+				type: thisForm.attr('method'),
+				data: thisForm.serialize(),
+				success : function(data) {
+				  //Hide the "loading" message
+				  $("#loading").fadeOut(function(){
+				    //Display the "success" message
+				    $("#success").html(data).fadeIn();
+				    document.location.reload(true);
+				  });
+				}
+			});
+		});
+	});	
+});
 
 // jquery form validator code
 
@@ -53,7 +47,7 @@ $('#adv_ui').on('switch-change', function (e, data) {
 		return value.match(hex);
 	}, 'Invalid MAC address');
 
-	$('#MP').validate({
+	$('#networkForm').validate({
 		rules: {
 			BR_IPADDR: {
 			required: true,
@@ -113,9 +107,19 @@ $('#adv_ui').on('switch-change', function (e, data) {
 			equalTo: "#PASSWORD1"
 			}
 		},
-		success: function(label) { 
-			label.html("").addClass("checked");
-		}
+		submitHandler: function(form) {
+			alert('valid form submission'); // for demo
+			$.ajax({
+      	url:  "/cgi-bin/net_save.sh",
+      	type: "POST",
+      	data: $(form).serialize(),
+  			success: function(data) {
+          $("#success").html(data).fadeIn();
+          document.location.reload(true);
+      	}
+      });
+      return false;
+    }
 	});
 
 	$('#MP-ADV').validate({
