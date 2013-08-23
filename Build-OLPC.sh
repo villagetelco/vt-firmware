@@ -18,8 +18,8 @@ fi
 echo "Start build process"
 
 # Set up version strings
-VER="OLPC SECN Version 2.0 RC2"
-DIRVER="RC2"
+VER="OLPC SECN Version 2.0 RC2b"
+DIRVER="RC2b"
 
 ###########################
 
@@ -99,7 +99,7 @@ echo ""
 echo '----------------------------'
 
 ##################
-exit  #  Uncomment to end the build process here
+#exit  #  Uncomment to end the build process here
 
 echo "Set up .config for TL-WR842"
 rm ./.config
@@ -155,58 +155,6 @@ echo '----------------------------'
 
 ##################
 exit  #  Uncomment to end the build process here
-
-
-echo "Set up .config for TL-WR703"
-rm ./.config
-cp ./SECN-build/WR703/.config  ./.config
-echo " Run defconfig"
-make defconfig > /dev/null
-## Use for first build on a new revision to update .config file
-cp ./.config ./SECN-build/WR703/.config 
-
-# Get target device from .config file
-TARGET=`cat .config | grep "CONFIG_TARGET" | grep "=y" | grep "_generic_" | cut -d _ -f 5 | cut -d = -f 1 `
-
-echo "Check .config version"
-cat ./.config | grep "OpenWrt version"
-echo "Target:  " $TARGET
-
-echo "Set up files for TL-WR703 "
-rm -r ./files/*
-cp -r ./SECN-build/files       .        ; echo "Copy generic files"
-cp -r ./SECN-build/WR703/files .        ; echo "Overlay device specific files"
-./FactoryRestore.sh			; echo "Build Factory Restore tar file"
-
-echo "Check files "
-ls -al ./files   
-echo ""
-
-# Set up version file
-echo "Version: "  $VER $TARGET
-echo $VER  $TARGET               > ./files/etc/secn_version
-echo "Date stamp the version file: " $DATE
-echo "Build date " $DATE         >> ./files/etc/secn_version
-echo " "                         >> ./files/etc/secn_version
- 
-echo "Check banner version"
-cat ./files/etc/secn_version | grep "Version"
-echo ""
-
-echo "Run make for WR703"
-make
-
-echo  "Move files to build folder"
-mv ./bin/ar71xx/*wr703*squash*sysupgrade.bin ./bin/ar71xx/builds/build-$DIR
-mv ./bin/ar71xx/*wr703*squash*factory.bin    ./bin/ar71xx/builds/build-$DIR
-echo "Clean up unused files"
-rm ./bin/ar71xx/openwrt-*
-echo "Update md5sums"
-cat ./bin/ar71xx/md5sums | grep "squashfs" | grep ".bin" >> ./bin/ar71xx/builds/build-$DIR/md5sums
-echo ""
-echo "End WR703 build"
-echo ""
-echo '----------------------------'
 
 ###############
 #exit  #  Uncomment to end the build process here
@@ -324,7 +272,60 @@ echo ""
 echo '----------------------------'
 
 #################
-#exit  #  Uncomment to end the build process here
+exit  #  Uncomment to end the build process here
+##################################################################################################
+
+echo "Set up .config for TL-WR703"
+rm ./.config
+cp ./SECN-build/WR703/.config  ./.config
+echo " Run defconfig"
+make defconfig > /dev/null
+## Use for first build on a new revision to update .config file
+cp ./.config ./SECN-build/WR703/.config 
+
+# Get target device from .config file
+TARGET=`cat .config | grep "CONFIG_TARGET" | grep "=y" | grep "_generic_" | cut -d _ -f 5 | cut -d = -f 1 `
+
+echo "Check .config version"
+cat ./.config | grep "OpenWrt version"
+echo "Target:  " $TARGET
+
+echo "Set up files for TL-WR703 "
+rm -r ./files/*
+cp -r ./SECN-build/files       .        ; echo "Copy generic files"
+cp -r ./SECN-build/WR703/files .        ; echo "Overlay device specific files"
+./FactoryRestore.sh			; echo "Build Factory Restore tar file"
+
+echo "Check files "
+ls -al ./files   
+echo ""
+
+# Set up version file
+echo "Version: "  $VER $TARGET
+echo $VER  $TARGET               > ./files/etc/secn_version
+echo "Date stamp the version file: " $DATE
+echo "Build date " $DATE         >> ./files/etc/secn_version
+echo " "                         >> ./files/etc/secn_version
+ 
+echo "Check banner version"
+cat ./files/etc/secn_version | grep "Version"
+echo ""
+
+echo "Run make for WR703"
+make
+
+echo  "Move files to build folder"
+mv ./bin/ar71xx/*wr703*squash*sysupgrade.bin ./bin/ar71xx/builds/build-$DIR
+mv ./bin/ar71xx/*wr703*squash*factory.bin    ./bin/ar71xx/builds/build-$DIR
+echo "Clean up unused files"
+rm ./bin/ar71xx/openwrt-*
+echo "Update md5sums"
+cat ./bin/ar71xx/md5sums | grep "squashfs" | grep ".bin" >> ./bin/ar71xx/builds/build-$DIR/md5sums
+echo ""
+echo "End WR703 build"
+echo ""
+echo '----------------------------'
+
 
 
 echo "Set up .config for TL-MR3420"

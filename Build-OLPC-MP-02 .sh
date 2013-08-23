@@ -18,7 +18,7 @@ fi
 echo "Start build process"
 
 # Set up version strings
-VER="SECN Version 2.0 RC2b"
+VER="OLPC SECN Version 2.0 RC2b"
 DIRVER="RC2b"
 
 ###########################
@@ -26,12 +26,14 @@ DIRVER="RC2b"
 echo "Copy files from Git repo into build folder"
 rm -rf ./SECN-build/
 cp -rp ~/Git/vt-firmware/SECN-build/ .
+echo "Overlay OLPC files"
+cp -rp ~/Git/olpc/SECN-build/ .
 
 ###########################
 
 echo "Set up new directory name with date and version"
 DATE=`date +%Y-%m-%d-%H:%M`
-DIR=$DATE"-MP02-"$DIRVER
+DIR=$DATE"-OLPC-MP02-"$DIRVER
 
 ###########################
 

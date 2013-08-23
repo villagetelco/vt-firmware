@@ -18,8 +18,8 @@ fi
 echo "Start build process"
 
 # Set up version strings
-VER="SECN Version 2.0 RC2"
-DIRVER="RC2"
+VER="SECN Version 2.0 RC2b"
+DIRVER="RC2b"
 
 ###########################
 
@@ -153,7 +153,7 @@ echo "End MR3020 build"
 echo ""
 
 ##################
-exit  #  Uncomment to end the build process here
+#exit  #  Uncomment to end the build process here
 
 echo '----------------------------'
 
