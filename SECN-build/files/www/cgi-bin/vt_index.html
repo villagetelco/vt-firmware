@@ -97,6 +97,9 @@
   LIMITIP=`uci get secn.http.limitip`
   ENSSL=`uci get secn.http.enssl`
 
+  # Check gateway status
+  GWSTATUS=`/usr/bin/ping.sh $BR_GATEWAY`
+
   # Get Asterisk registration status
   /bin/get-reg-status.sh
   REG_STATUS=`cat /tmp/reg-status.txt | awk '{print $5;}'`
@@ -143,7 +146,34 @@
   <style type="text/css">
 
     /* form submission response style  */
-    #loading, #success{display: none}
+    #loading, #nsuccess, #vsuccess, #success{display: none}
+
+    /* Gateway status stytes  */
+    .gwSuccess {
+      font-weight: bold;
+      color: green;
+      padding: 2px 8px;
+      margin-top: 2px;
+    }
+    .gwError {
+      font-weight: bold;
+      color: red;
+      padding: 2px 8px;
+      margin-top: 2px;
+    }
+
+    /*  jquery validation plugin style  */
+    label.valid {
+      color: #666666;
+      padding: 2px 8px;
+      margin-top: 2px;
+    }
+    label.error {
+      font-weight: bold;
+      color: red;
+      padding: 2px 8px;
+      margin-top: 2px;
+    }
 
     /* Sticky footer styles
     -------------------------------------------------- */
@@ -277,13 +307,16 @@
                       </div>
                     </div>
                   </div>
-                  <div class="span4">  
+                  <div class="span3">  
                     <div class="control-group">
                       <label data-toggle="tooltip" data-placement="bottom" title="You can also set the gateway IP address by dialing the extension 4823 on the MP" class="control-label" for="BR_GATEWAY">Gateway</label>
                       <div class="controls">
                         <input class="span12" type="text" name="BR_GATEWAY" id="br_gateway" value="<%= $BR_GATEWAY %>" >
                       </div>
                     </div>
+                  </div>
+                  <div class="span1" id="gwstatus">
+                    <%= $GWSTATUS %>
                   </div>
                 </div>
                 <div class="row-fluid adv_ui hide">
@@ -597,6 +630,8 @@
                 </div>
               </fieldset>
               <div class="row-fluid">
+                <div id="nsuccess">
+                </div>                   
                 <div class="offset2 span8">
                   <div class="form-actions">
                     <INPUT TYPE="SUBMIT" name="BUTTON" value="Refresh">
@@ -607,16 +642,9 @@
                 </div>
               </div>
             </form>
-            <div id="loading" class="modal hide fade in" style="display: none; ">
-              <div class="modal-body">
-                <h4>Saving changes...</h4>
-              </div>
-            </div>
-            <div id="success" class="modal">
-            </div>
           </div>            
           <div class="tab-pane" id="voice">
-            <form class="form-horizontal" >
+            <form class="form-horizontal" id="voiceForm" method="POST" action="/cgi-bin/voice_save.sh">
               <fieldset class="asterisk-adv">
                 <legend class="offset2 span8 offset2">Asterisk Configuration</legend>
 
@@ -625,8 +653,10 @@
                   <div class="span4 offset2">
                     <div class="control-group">             
                       <label class="control-label">Enable Asterisk</label>
-                      <div class="switch controls">
-                        <input type="checkbox" name="ENABLE_AST" id="enable_ast" value="checked" $ENABLE_AST > 
+                      <div class="controls">
+                        <div class="switch" data-on="primary" data-off="info">
+                          <input type="checkbox" name="ENABLE_AST" id="enable_ast" <%= $ENABLE_AST %> > 
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -768,8 +798,10 @@
                   <div class="span4 offset2">
                     <div class="control-group">             
                       <label class="control-label">SIP Enable</label>
-                      <div class="switch controls">
-                        <input  type="checkbox" name="ENABLE" id="enable" value="checked" <%= $ENABLE %> > 
+                      <div class="controls">
+                        <div class="switch">
+                          <input  type="checkbox" name="ENABLE" id="enable" value="checked" <%= $ENABLE %> > 
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -809,8 +841,11 @@
                 </div>
 
               
-              </fieldset>            
+              </fieldset>
+           
               <div class="row-fluid">
+                <div id="vsuccess">
+                </div>   
                 <div class="offset2 span8">
                   <div class="form-actions">
                     <INPUT TYPE="SUBMIT" name="BUTTON" value="Save">
@@ -820,6 +855,7 @@
                 </div>
               </div>
             </form>
+
           </div>
           <div class="tab-pane" id="status">
           </div>          

@@ -10,33 +10,30 @@ $('#adv_ui').on('switch-change', function (e, data) {
     }
 });
 
-$('#networkFormzz').on('submit',function(e) {
-	var thisForm = $(this);
-	e.preventDefault();
+var runPing = function (ip) {
+    $.get('/cgi-bin/ping.sh ip', function () {
+        alert('Shell script done!');
+    });
+};
 
-	//Hide the form
-	$(this).fadeOut(function(){
-	  //Display the "loading" message
-	  $("#loading").fadeIn(function(){
-	    //Post the form to the send script
-			$.ajax({
-				url: thisForm.attr('action'),
-				type: thisForm.attr('method'),
-				data: thisForm.serialize(),
-				success : function(data) {
-				  //Hide the "loading" message
-				  $("#loading").fadeOut(function(){
-				    //Display the "success" message
-				    $("#success").html(data).fadeIn();
-				    document.location.reload(true);
-				  });
-				}
-			});
-		});
-	});	
+$('#gwstatusXX').load("/cgi-bin/ping.sh 192.168.3.1");
+
+$("#br_ipaddr").change(function() {
+		var cClass = $("#br_ipaddr").val().match(/\b\d{1,3}\.\d{1,3}\.\d{1,3}\./);
+    $("#br_gateway").val(cClass + "1");
 });
 
+$("#br_gatewayXX").change(function() {
+		$this = $("#br_ipaddr").val();
+		runPing(this);
+    alert();
+});
+ 
 // jquery form validator code
+
+	jQuery.validator.setDefaults({
+		errorClass : "help-inline"
+	});
 
 	$.validator.addMethod('IP4Checker', function(value) {
 		var ip = "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$";
@@ -93,6 +90,8 @@ $('#networkFormzz').on('submit',function(e) {
 			ENCRYPTION: {
 			required: true
 			},
+			SSID: {
+			},
 			ATH0_BSSID: {
 			HexChecker: true
 			},
@@ -107,22 +106,27 @@ $('#networkFormzz').on('submit',function(e) {
 			equalTo: "#PASSWORD1"
 			}
 		},
+		highlight: function(element) {
+			$(element).closest('.control-group').removeClass('success').addClass('error');
+		},
+		success: function(element) {
+			$(element).closest('.control-group').removeClass('error').addClass('success');
+		},	
 		submitHandler: function(form) {
-			alert('valid form submission'); // for demo
+			// alert('valid form submission'); // for demo
 			$.ajax({
       	url:  "/cgi-bin/net_save.sh",
       	type: "POST",
       	data: $(form).serialize(),
   			success: function(data) {
-          $("#success").html(data).fadeIn();
-          document.location.reload(true);
+          $("#nsuccess").html(data).fadeIn();
       	}
       });
       return false;
     }
 	});
 
-	$('#MP-ADV').validate({
+	$('#voiceForm').validate({
 		rules: {
 			BR_IPADDR: {
 			required: true,
@@ -182,10 +186,29 @@ $('#networkFormzz').on('submit',function(e) {
 			equalTo: "#PASSWORD1"
 			}
 		},
-		success: function(label) { 
-			label.html("").addClass("checked");
-		}
+		highlight: function(element) {
+			$(element).closest('.control-group').removeClass('success').addClass('error');
+		},
+		success: function(element) {
+			element
+			.text('OK!').addClass('valid')
+			.closest('.control-group').removeClass('error').addClass('success');
+		},
+		submitHandler: function(form) {
+			// alert('valid form submission'); // for demo
+			$.ajax({
+      	url:  "/cgi-bin/voice_save.sh",
+      	type: "POST",
+      	data: $(form).serialize(),
+  			success: function(data) {
+          $("#vsuccess").html(data).fadeIn();
+      	}
+      });
+      return false;
+    }
 	});
+
+
 });
 
 
