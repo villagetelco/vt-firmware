@@ -49,6 +49,7 @@ config secn 'dhcp'
 	option dhcp_auth '0'
 	option dns '8.8.8.8'
 	option dns2 '8.8.4.4'
+	option device_ip 'checked'
 
 config secn 'mpgw'
 	option mode 'OFF'

@@ -83,8 +83,6 @@ cat > /tmp/config.html << EOF
 							<option value="9">9</option>
 							<option value="10">10</option>
 							<option value="11">11</option>
-							<option value="12">12</option>
-							<option value="13">13</option>
 							</SELECT></td>
 						</tr>
 					</table>
@@ -124,9 +122,9 @@ cat > /tmp/config.html << EOF
 
 					<table>
 						<tr>
-							Timezone
-							<select name="TZ" id="tz">
-									<option selected="$TZ">$TZ</option>
+						Timezone
+						<select name="TZ" id="tz">
+						      <option selected="$TZ">$TZ</option>
 						      <option value="WST11">(GMT -11:00) Samoa, Midway Island</option>
 						      <option value="HST10">(GMT -10:00) Hawaii</option>
 						      <option value="AKST9">(GMT -9:00) Alaska</option>
@@ -231,14 +229,8 @@ cat > /tmp/config.html << EOF
 					<option value="9">9</option>
 					<option value="10">10</option>
 					<option value="11">11</option>
-					<option value="12">12</option>
-					<option value="13">13</option>
 					</SELECT>
 					</td>
-
-					<td class="label"><label>US/Can (11 ch)</label></td>
-					<td class="field">
-						<input type="checkbox" name="USREG_DOMAIN" id="usreg_domain" VALUE="checked" $USREG_DOMAIN ></td>
 
 					<td class="label"><label for="ATH0_TXPOWER"> Tx Power 1-20</label></td>
 					<td class="field"><input type="text" name="ATH0_TXPOWER" id="ath0_txpower" VALUE=$ATH0_TXPOWER ></td>
@@ -383,6 +375,9 @@ cat > /tmp/config.html << EOF
 
 										<td class="label"><label for="OPTION_ROUTER"> Gateway Router </label></td>
 										<td class="field"><input type="text" name="OPTION_ROUTER" id="option_router" VALUE=$OPTION_ROUTER ></td>
+
+										<td class="label"><label>Use device IP</label>
+										<td class="field"><input type="checkbox" name="DEVICE_IP" id="device_ip" VALUE="checked" $DEVICE_IP ></
 									</tr>
 									<tr>
 										<td class="label"><label for="LEASETERM"> Lease Term (secs)</label></td>

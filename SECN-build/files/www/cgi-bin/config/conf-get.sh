@@ -67,6 +67,7 @@ OPTION_SUBNET=`uci get secn.dhcp.subnet`
 OPTION_ROUTER=`uci get secn.dhcp.router`
 OPTION_DNS=`uci get secn.dhcp.dns`
 OPTION_DNS2=`uci get secn.dhcp.dns2`
+DEVICE_IP=`uci get secn.dhcp.device_ip`
 
 # MPGW setting
 MPGW=`uci get secn.mpgw.mode`

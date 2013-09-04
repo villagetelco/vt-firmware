@@ -15,9 +15,9 @@ REGISTER="0"
 BUTTON="0"
 DHCP_ENABLE="0"
 USREG_DOMAIN="0"
-DHCP_AUTH='0'
-MESH_ENABLE='0'
-
+DHCP_AUTH="0"
+MESH_ENABLE="0"
+DEVICE_IP="0"
 
 # Get Field-Value pairs from QUERY_STRING environment variable
 # set by the form GET action
@@ -164,6 +164,7 @@ uci set secn.dhcp.subnet=\$OPTION_SUBNET
 uci set secn.dhcp.router=\$OPTION_ROUTER
 uci set secn.dhcp.dns=\$OPTION_DNS
 uci set secn.dhcp.dns2=\$OPTION_DNS2
+uci set secn.dhcp.device_ip=\$DEVICE_IP
 
 # Write the MPGW display setting into /etc/config/secn
 uci set secn.mpgw.mode=\$MPGW
