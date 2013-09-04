@@ -18,8 +18,8 @@ fi
 echo "Start build process"
 
 # Set up version strings
-VER="SECN Version 2.0 RC2b"
-DIRVER="RC2b"
+VER="SECN Version 2.0 RC2c"
+DIRVER="RC2c"
 
 ###########################
 
