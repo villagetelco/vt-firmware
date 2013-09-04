@@ -4,10 +4,18 @@
 
 echo ""
 
-# Check to see if setup script has already run
+# Check to see if setup has already run
 if [ ! -f ./already_configured ]; then 
-  echo "Build environment not configured. Quitting now"
-  exit
+  # make sure it only executes once
+  touch ./already_configured  
+  echo " Make builds directory"
+  mkdir ./bin/
+  mkdir ./bin/ar71xx/
+  mkdir ./bin/ar71xx/builds
+  mkdir ./bin/atheros/
+  mkdir ./bin/atheros/builds
+  echo " Initial set up completed. Continuing with build"
+  echo ""
 else
   echo "Build environment is configured. Continuing with build"
   echo ""
@@ -18,8 +26,8 @@ fi
 echo "Start build process"
 
 # Set up version strings
-VER="SECN Version 2.0 RC2b"
-DIRVER="RC2b"
+VER="SECN Version 2.0 RC2f"
+DIRVER="RC2f"
 
 ###########################
 
