@@ -107,10 +107,12 @@ mv ./bin/ar71xx/openwrt*u-boot.bin     ./bin/ar71xx/builds/build-$DIR
 
 echo "Clean up unused files"
 rm ./bin/ar71xx/openwrt-*
+
 echo "Update md5sums"
 cat ./bin/ar71xx/md5sums | sed s/dragino2/MP02-$DIRVER/ > ./bin/ar71xx/md5sums-MP02
 cat ./bin/ar71xx/md5sums-MP02 | grep "MP02"    | grep ".bin" >> ./bin/ar71xx/builds/build-$DIR/md5sums
 cat ./bin/ar71xx/md5sums-MP02 | grep "u-boot"  | grep ".bin" >> ./bin/ar71xx/builds/build-$DIR/md5sums
+
 echo ""
 echo "End MP-02 build"
 echo ""
@@ -119,6 +121,6 @@ echo ""
 
 echo '----------------------------'
 
-echo " Build script complete"; echo " "
+echo " Build script MP-02 complete"; echo " "
 
 
