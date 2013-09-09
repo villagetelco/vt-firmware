@@ -34,7 +34,7 @@ DIRVER="RC2f"
 echo "Copy files from Git repo into build folder"
 rm -rf ./SECN-build/
 cp -rp ~/Git/vt-firmware/SECN-build/        .
-cp -fp ~/Git/vt-firmware/FactoryRestore.sh  .
+cp -fp ~/Git/vt-firmware/Build-scripts/FactoryRestore.sh  .
 
 ###########################
 
