@@ -80,6 +80,9 @@ $OPENWRT_PATH/scripts/feeds install haserl
 $OPENWRT_PATH/scripts/feeds install xinetd
 $OPENWRT_PATH/scripts/feeds install muninlite
 $OPENWRT_PATH/scripts/feeds install alfred
+$OPENWRT_PATH/scripts/feeds install prosody
+$OPENWRT_PATH/scripts/feeds install polipo
+$OPENWRT_PATH/scripts/feeds install nodogsplash
 echo " "
 
 echo "*** Copy MP02 Platform info (See ./mp02-rsync.log)"
