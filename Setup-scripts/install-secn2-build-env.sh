@@ -83,6 +83,7 @@ $OPENWRT_PATH/scripts/feeds install alfred
 $OPENWRT_PATH/scripts/feeds install prosody
 $OPENWRT_PATH/scripts/feeds install polipo
 $OPENWRT_PATH/scripts/feeds install nodogsplash
+$OPENWRT_PATH/scripts/feeds install coova-chilli
 echo " "
 
 echo "*** Copy MP02 Platform info (See ./mp02-rsync.log)"
