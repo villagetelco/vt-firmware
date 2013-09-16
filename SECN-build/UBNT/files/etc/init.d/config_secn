@@ -143,6 +143,7 @@ if [ $WANPORT = "Ethernet" ]; then
 		uci set network.lan.ifname='eth9'  # dummy LAN
 		uci set network.wan.ifname='eth0'  # make etho WAN
 	fi
+	uci set wireless.sta_0.disabled='1'  # Make sure wifi WAN is off.
 fi
 
 if [ $WANPORT = "WiFi" ]; then

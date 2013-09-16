@@ -358,6 +358,8 @@ uci set wireless.sta_1.disabled='1'
 if [ $WANPORT = "Ethernet" ]; then
  	# Set up for Eth (5th) WAN port
 	uci set network.wan.ifname='eth0.2'
+	uci set wireless.sta_0.disabled='1' # Make sure wifi WAN is off.
+	uci set wireless.sta_1.disabled='1' 
 fi
 
 if [ $WANPORT = "2.4GHz_WiFi" ]; then

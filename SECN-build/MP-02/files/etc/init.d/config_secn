@@ -324,6 +324,7 @@ if [ $WANPORT = "Ethernet" ]; then
 	uci set network.lan.ifname='eth0'
 	uci set network.lan.gateway='255.255.255.255'
 	uci set network.wan.ifname='eth1'
+	uci set wireless.sta_0.disabled='1' # Make sure wifi WAN is off.
 fi
 
 if [ $WANPORT = "WiFi" ]; then

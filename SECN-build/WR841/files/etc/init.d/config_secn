@@ -321,9 +321,10 @@ fi
 
 if [ $WANPORT = "Ethernet" ]; then
  	# Set up for Eth WAN port
-	uci set network.lan.ifname='eth1'  # Note eth1 LAN port is particular for 841 device
-    uci set network.lan.gateway='255.255.255.255'
-	uci set network.wan.ifname='eth0'  # Note eth0 WAN port is particular for 841 device
+	uci set network.lan.ifname='eth1'   # Note eth1 LAN port is particular for 841 device
+	uci set network.lan.gateway='255.255.255.255'
+	uci set network.wan.ifname='eth0'   # Note eth0 WAN port is particular for 841 device
+	uci set wireless.sta_0.disabled='1' # Make sure wifi WAN is off.
 fi
 
 if [ $WANPORT = "WiFi" ]; then

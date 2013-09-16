@@ -323,7 +323,8 @@ if [ $WANPORT = "Ethernet" ]; then
  	# Set up for Eth WAN port
 	uci set network.lan.ifname='eth9'   # This is just a dummy
 	uci set network.lan.gateway='255.255.255.255'
-	uci set network.wan.ifname='eth0' # Single Eth port devices
+	uci set network.wan.ifname='eth0'   # Single Eth port devices
+	uci set wireless.sta_0.disabled='1' # Make sure wifi WAN is off.
 fi
 
 if [ $WANPORT = "WiFi" ]; then
