@@ -371,6 +371,7 @@ if [ $WANPORT = "2.4GHz_WiFi" ]; then
 	uci set wireless.sta_0.key=$WANPASS
 	uci set wireless.sta_0.encryption=$WANENCR
 	uci set network.wan.ifname='wlan0'
+	MESH_ENABLE='0'  # Over ride manual setting
 fi
 
 if [ $WANPORT = "5.0GHz_WiFi" ]; then
@@ -382,6 +383,7 @@ if [ $WANPORT = "5.0GHz_WiFi" ]; then
 	uci set wireless.sta_1.ssid=$WANSSID
 	uci set wireless.sta_1.key=$WANPASS
 	uci set wireless.sta_1.encryption=$WANENCR
+	MESH_ENABLE1='0'  # Over ride manual setting
 fi
 
 # Disable mesh if required

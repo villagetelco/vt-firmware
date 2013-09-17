@@ -337,6 +337,7 @@ if [ $WANPORT = "WiFi" ]; then
 	uci set wireless.sta_0.key=$WANPASS
 	uci set wireless.sta_0.encryption=$WANENCR
 	uci set network.wan.ifname='wlan0'
+	MESH_ENABLE='0'  # Over ride manual setting
 fi
 
 # Disable mesh if required

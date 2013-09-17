@@ -328,8 +328,8 @@ if [ $WANPORT = "Ethernet" ]; then
 fi
 
 if [ $WANPORT = "WiFi" ]; then
-    uci set network.lan.gateway='255.255.255.255'
-    # Set up for wlan0 WAN port
+	uci set network.lan.gateway='255.255.255.255'
+	# Set up for wlan0 WAN port
 	uci set wireless.ap_0.disabled='1'
 	uci set wireless.ah_0.disabled='1'
 	uci set wireless.sta_0.disabled='0'
@@ -337,6 +337,7 @@ if [ $WANPORT = "WiFi" ]; then
 	uci set wireless.sta_0.key=$WANPASS
 	uci set wireless.sta_0.encryption=$WANENCR
 	uci set network.wan.ifname='wlan0'
+	MESH_ENABLE='0'  # Over ride manual setting
 fi
 
 # Disable mesh if required

@@ -26,8 +26,8 @@ fi
 echo "Start build process"
 
 # Set up version strings
-VER="Version 2.0 RC3b-Ath5k"
-DIRVER="RC3b-Ath5k"
+VER="Version 2.0 RC3c-Ath5k"
+DIRVER="RC3c-Ath5k"
 
 ###########################
 
