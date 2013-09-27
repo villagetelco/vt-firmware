@@ -76,9 +76,9 @@ if [ $FORM_BUTTON = "Save" ]; then
     <script type="text/javascript">
       (function countdown(remaining) {
           if(remaining <= 0)
-              location.reload(true);
-          document.getElementById('countdown').innerHTML = 'Counting down: ' + remaining;
-          setTimeout(function(){ countdown(remaining - 1); }, 1000);
+            location.reload(true);
+            document.getElementById('countdown').innerHTML = 'Counting down: ' + remaining;
+          setTimeout(function(){ countdown(remaining - 1); }, 120);
       })(120); // 120 seconds
     </script>
     <div class="alert alert-danger">

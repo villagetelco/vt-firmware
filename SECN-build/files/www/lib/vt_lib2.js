@@ -107,10 +107,10 @@ $("#br_gatewayXX").change(function() {
 			}
 		},
 		highlight: function(element) {
-			$(element).closest('.control-group').removeClass('success').addClass('error');
+			$(element).closest('.form-group').removeClass('has-success').addClass('has-error');
 		},
 		success: function(element) {
-			$(element).closest('.control-group').removeClass('error').addClass('success');
+			$(element).closest('.form-group').removeClass('has-error').addClass('has-success');
 		},	
 		submitHandler: function(form) {
 			// alert('valid form submission'); // for demo
@@ -187,12 +187,12 @@ $("#br_gatewayXX").change(function() {
 			}
 		},
 		highlight: function(element) {
-			$(element).closest('.control-group').removeClass('success').addClass('error');
+			$(element).closest('.form-group').removeClass('has-success').addClass('has-error');
 		},
 		success: function(element) {
 			element
 			.text('OK!').addClass('valid')
-			.closest('.control-group').removeClass('error').addClass('success');
+			.closest('.form-group').removeClass('has-error').addClass('has-success');
 		},
 		submitHandler: function(form) {
 			// alert('valid form submission'); // for demo
