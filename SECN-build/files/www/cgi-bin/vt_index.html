@@ -290,7 +290,7 @@
                     <div class="form-group">
                       <label class="control-label">Encryption</label>
                       <div class="controls">
-                        <SELECT name="ENCRYPTION" id="encryption" class="input-small">
+                        <SELECT class="form-control" name="ENCRYPTION" id="encryption" >
                           <option selected="<%= $ENCRYPTION %>"><%= $ENCRYPTION %></option>
                           <option value="WPA1">WPA1</option>
                           <option value="WPA2">WPA2</option>
@@ -304,7 +304,7 @@
                     <div class="form-group">
                       <label data-toggle="tooltip" data-placement="bottom" title="You can also set the wireless channel by dialing 2426 on the MP"  class="control-label" for="CHANNEL">Channel</label>
                         <div class="controls">
-                          <SELECT name="CHANNEL" id="CHANNEL">
+                          <SELECT class="form-control" name="CHANNEL" id="CHANNEL">
                             <option selected="<%= $CHANNEL %>"><%= $CHANNEL %></option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -328,7 +328,7 @@
                     <div class="form-group">
                       <label class="control-label">US/Can</label>
                       <div class="controls">
-                        <input class="input-small" type="checkbox" name="USREG_DOMAIN" id="usreg_domain" value="checked" $USREG_DOMAIN >
+                        <input class="form-control" type="checkbox" name="USREG_DOMAIN" id="usreg_domain" value="checked" $USREG_DOMAIN >
                       </div>
                     </div>
                   </div>
@@ -339,7 +339,7 @@
                     <div class="form-group">
                       <label class="control-label" for="MAXASSOC">AP Connections</label>
                       <div class="controls">
-                        <SELECT name="MAXASSOC" id="MAXASSOC">
+                        <SELECT class="form-control" name="MAXASSOC" id="MAXASSOC">
                         <option selected="<%= $MAXASSOC %>"><%= $MAXASSOC %></option>
                         <option value="0">Disabled</option>
                         <option value="1">1</option>
@@ -368,7 +368,7 @@
                     <div class="form-group">             
                       <label class="control-label" for="RADIOMODE">Wifi Mode</label>
                       <div class="controls">
-                        <SELECT name="RADIOMODE" id="radiomode" class="input-medium">
+                        <SELECT class="form-control" name="RADIOMODE" id="radiomode">
                           <option selected="<%= $RADIOMODE %>"><%= $RADIOMODE %></option>
                           <option value="802.11G">802.11G</option>
                           <option value="802.11N-G">802.11N-G</option>
@@ -381,7 +381,7 @@
                     <div class="form-group">                 
                       <label class="control-label" for="CHANBW">Chan BW</label>
                       <div class="controls">
-                        <SELECT name="CHANBW" id="chanbw" class="input-small">
+                        <SELECT class="form-control" name="CHANBW" id="chanbw" >
                           <option selected="<%= $CHANBW %>"><%= $CHANBW %></option>
                           <option value="5">5MHz</option>
                           <option value="10">10MHz</option>
@@ -439,7 +439,7 @@
                     <div class="form-group">             
                       <label class="control-label">Gateway Mode</label>
                       <div class="controls">
-                        <SELECT name="MPGW" id="mpgw" />
+                        <SELECT class="form-control" name="MPGW" id="mpgw" />
                           <option selected="<%= $MPGW %>"><%= $MPGW %></option>
                           <option value="OFF">OFF</option>
                           <option value="CLIENT">CLIENT</option>
@@ -456,7 +456,7 @@
                     <div class="form-group">             
                       <label class="control-label" for="MESH_ENCR">Encryption</label>
                       <div class="controls">
-                        <SELECT name="MESH_ENCR" id="MESH_ENCR" class="input-small" >
+                        <SELECT class="form-control" name="MESH_ENCR" id="MESH_ENCR" >
                           <option selected="off">OFF</option>
                           <!-- <option selected="<%= $MESH_ENCR %>"><%= $MESH_ENCR %></option>
                           <option value="off">OFF</option>
@@ -576,7 +576,6 @@
                 <legend>Asterisk Configuration</legend>
 
                 <div class="row">
-
                   <div class="col-md-4">
                     <div class="form-group">             
                       <label class="control-label">Enable Asterisk</label>
@@ -587,16 +586,14 @@
                       </div>
                     </div>
                   </div>
-
-                  <div class="col-md-4">
+                  <div class="col-md-6">
                     <div class="form-group">             
-                      <label> SIP Status </label> 
-                      <div class="controls">
-                        <div id="ast_reg"><%=  $REG_STATUS $REG_ACCT %></div>
+                      <label class="control-label">SIP Status</label>
+                      <div class="col-md-4">
+                        <p class="form-control-static"><%=  $REG_STATUS $REG_ACCT %></p>
                       </div>
                     </div>
                   </div>
-
                 </div>
                 <div class="row">
                   <div class="col-md-4">
@@ -629,7 +626,7 @@
                     <div class="form-group">             
                       <label class="control-label">Dialout Code</label>
                       <div class="controls">
-                        <SELECT name="DIALOUT" id="dialout">
+                        <SELECT class="form-control" name="DIALOUT" id="dialout">
                           <option selected="<%= $DIALOUT %>"><%= $DIALOUT %></option>
                           <option value="#"> # </option>
                           <option value="9"> 9 </option>
@@ -653,7 +650,7 @@
                     <div class="form-group">             
                       <label class="control-label">Softphone Support</label>
                       <div class="controls">
-                        <SELECT name="SOFTPH" id="softph" class="input-small">
+                        <SELECT class="form-control" name="SOFTPH" id="softph">
                           <option selected="<%= $SOFTPH %>"><%= $SOFTPH %></option>
                           <option value="OFF"> OFF </option>
                           <option value="CLIENT"> CLIENT </option>
@@ -668,7 +665,7 @@
                     <div class="form-group">             
                       <label class="control-label">Codec1</label>
                       <div class="controls">
-                        <SELECT name="CODEC1" id="codec1">
+                        <SELECT class="form-control" name="CODEC1" id="codec1">
                           <option selected="<%= $CODEC1 %>"><%= $CODEC1 %></option>
                           <option value="gsm">gsm</option>
                           <option value="ulaw">ulaw</option>
@@ -682,7 +679,7 @@
                     <div class="form-group">             
                       <label class="control-label">Codec2</label>
                       <div class="controls">
-                        <SELECT name="CODEC2" id="codec2">
+                        <SELECT class="form-control" name="CODEC2" id="codec2">
                           <option selected="<%= $CODEC2 %>"><%= $CODEC2 %></option>
                           <option value="gsm">gsm</option>
                           <option value="ulaw">ulaw</option>
@@ -696,7 +693,7 @@
                     <div class="form-group">             
                       <label class="control-label">Codec3</label>
                       <div class="controls">
-                          <SELECT name="CODEC3" id="codec3">
+                          <SELECT class="form-control" name="CODEC3" id="codec3">
                             <option selected="<%= $CODEC3 %>"><%= $CODEC3 %></option>
                             <option value="gsm">gsm</option>
                             <option value="ulaw">ulaw</option>

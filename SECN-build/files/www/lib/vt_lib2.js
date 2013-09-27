@@ -28,7 +28,7 @@ $("#br_gatewayXX").change(function() {
 		runPing(this);
     alert();
 });
- 
+
 // jquery form validator code
 
 	jQuery.validator.setDefaults({

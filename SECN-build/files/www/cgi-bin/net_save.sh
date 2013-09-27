@@ -1,7 +1,7 @@
 #!/usr/bin/haserl  --shell=/bin/ash
 <% echo -en "content-type: text/html\r\n\r\n" %>
-<div class="offset3 span6 alert">
-  <a class="close" data-dismiss="alert">x</a>
+<div class="alert alert-success">
+  <a class="close" data-dismiss="alert">&times;</a>
   <h4>Network changes saved.  Reboot for changes to take effect.</h4>
 </div>
 <%# Write TimeZone into /etc/TZ %>
