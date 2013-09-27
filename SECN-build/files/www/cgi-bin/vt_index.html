@@ -144,6 +144,7 @@
   <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
   <link href="/css/bootstrapSwitch.css" rel="stylesheet" media="screen">
   <link href="/css/sticky-footer-navbar.css" rel="stylesheet">
+  <link href="/css/vt-bootstrap.css" rel="stylesheet" media="screen">
   <style type="text/css">
 
     /* form submission response style  */
@@ -179,67 +180,64 @@
 </head>
 <body>
 
-<div id="wrap">
-  <div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-      <div class="container">
-        <div class="nav-collapse collapse">
-          <a class="brand" href="#">VT Configuration</a>
-          <ul id="tab" class="nav">
-            <li class="active"><a href="#network" data-toggle="tab">Network</a></li>
-            <li><a href="#voice" data-toggle="tab">Voice</a></li>
-            <li><a href="#status" data-toggle="tab">Status</a></li>
-          </ul>
-          <ul class="nav pull-right">
-            <li>
-              <div id="adv_ui" class="switch pull-right" data-on-label="Adv" data-off-label="Basic" data-off="success" data-on="warning">
-                <input type="checkbox" id="chk1" >
-              </div>
-            </li>
-            <li class="divider-vertical"></li>
-            <li class="dropdown">
-              <a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
-              <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
-                <form action="[YOUR ACTION]" method="post" accept-charset="UTF-8">
-                  <input id="user_username" style="margin-bottom: 15px;" type="text" name="user[username]" size="30" />
-                  <input id="user_password" style="margin-bottom: 15px;" type="password" name="user[password]" size="30" />
-                  <input id="user_remember_me" style="float: left; margin-right: 10px;" type="checkbox" name="user[remember_me]" value="1" />
-                  <label class="string optional" for="user_remember_me"> Remember me</label>
-
-                  <input class="btn btn-primary" style="clear: left; width: 100%; height: 32px; font-size: 13px;" type="submit" name="commit" value="Sign In" />
-                </form>
-              </div>
-            </li>
-          </ul>          
+<body>
+  <!-- Start NavBar Code here  -->
+  <div id="wrap">
+    <div class="container">
+      <div class="row">
+        <div class="navbar navbar-default navbar-fixed-top" style="min-width: 600px" role="navigation">
+          <div class="navbar-header">
+            <div class="homeA">
+              <a class="navbar-brand" href="vt_index.html">VT Configuration</a>
+              <div class="homeB"><a class="homeTxt" href="vt_index.html">Home</a></div>
+            </div>
+          </div>
+          <div class="collapse navbar-collapse navbar-ex1-collapse">  
+              <ul id="tab" class="nav navbar-nav navbar-left">
+                <li class="active"><a href="vt_index.html#network" data-toggle="tab">Network</a></li>
+                <li><a href="vt_index.html#voice" data-toggle="tab">Voice</a></li>
+                <li>
+                    <a href="vt_status.html">Status</a>
+                    <div class="statusTag"><a class="homeTxt" href="vt_status.html">ONOD</a></div>
+                </li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                <li>
+                  <div id="adv_ui" class="switch" data-on-label="Adv" data-off-label="Basic" data-off="success" data-on="warning">
+                    <input type="checkbox" id="chk1" >
+                  </div>
+                </li>
+              </ul>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-
+<!-- End NavBar here -->
+<!-- Start Content here  -->
   <div class="container">
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-offset-2 col-md-8 col-md-offset-2">
         <div class="tab-content">
           <div class="tab-pane active" id="network">
 
             <form class="form-horizontal" name="MP-ADV" id="networkForm" method="POST" action="/cgi-bin/net_save.sh">
 
               <fieldset class="ipnetwork">
-                <legend class="col-md-12">Network</legend>
+                <legend>Network</legend>
                 <div class="row">
                   <div class="col-md-4">
-                    <div class="control-group">
+                    <div class="form-group">
                       <label data-toggle="tooltip" data-placement="bottom" title="You can also set the IP address by dialing the extension 2663 on the MP or 2662 to just change the last octet. If you just want to find out what the IP address of the MP is dial 2664" class="control-label" for="BR_IPADDR">IP Address</label>
                       <div class="controls">
-                        <input class="col-md-2" type="text" name="BR_IPADDR" id="br_ipaddr" value="<%= $BR_IPADDR %>" >
+                        <input type="text" class="form-control" name="BR_IPADDR" id="br_ipaddr" value="<%= $BR_IPADDR %>" >
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-3">  
-                    <div class="control-group">
+                  <div class="col-md-4">  
+                    <div class="form-group">
                       <label data-toggle="tooltip" data-placement="bottom" title="You can also set the gateway IP address by dialing the extension 4823 on the MP" class="control-label" for="BR_GATEWAY">Gateway</label>
                       <div class="controls">
-                        <input class="col-md-2" type="text" name="BR_GATEWAY" id="br_gateway" value="<%= $BR_GATEWAY %>" >
+                        <input type="text" class="form-control" name="BR_GATEWAY" id="br_gateway" value="<%= $BR_GATEWAY %>" >
                       </div>
                     </div>
                   </div>
@@ -248,19 +246,19 @@
                   </div>
                 </div>
                 <div class="row adv_ui hide">
-                  <div class="col-md-4 col-md-offset-2">  
-                    <div class="control-group">
+                  <div class="col-md-4">  
+                    <div class="form-group">
                       <label class="control-label" for="BR_DNS">DNS</label>
                       <div class="controls">
-                        <input class="col-md-12" type="text" name="BR_DNS" id="br_dns" value="<%= $BR_DNS %>" >
+                        <input type="text" class="form-control" name="BR_DNS" id="br_dns" value="<%= $BR_DNS %>" >
                       </div>
                     </div>
                   </div>
                   <div class="col-md-4">
-                    <div class="control-group">
+                    <div class="form-group">
                       <label class="control-label" for="BR_NETMASK">Netmask</label>
                       <div class="controls">
-                        <input class="col-md-12" type="text" name="BR_NETMASK" id="br_netmask" value="<%= $BR_NETMASK %>" >
+                        <input type="text" class="form-control" name="BR_NETMASK" id="br_netmask" value="<%= $BR_NETMASK %>" >
                       </div>
                     </div>
                   </div>
@@ -268,28 +266,28 @@
               </fieldset>
 
               <fieldset class="wifi">
-                <legend class="col-md-offset-2 col-md-8 col-md-offset-2"> WiFi Access Point</legend>
+                <legend> WiFi Access Point</legend>
                 <div class="row">
-                  <div class="col-md-4 col-md-offset-2">
-                    <div class="control-group">
+                  <div class="col-md-4">
+                    <div class="form-group">
                       <label class="control-label" for="ssid">SSID</label>
                       <div class="controls">
-                        <input class="col-md-12" type="text" name="SSID" id="ssid" value="<%= $SSID %>" >
+                        <input type="text" class="form-control" name="SSID" id="ssid" value="<%= $SSID %>" >
                       </div>
                     </div>
                   </div>
                   <div class="col-md-4">
-                    <div class="control-group">
+                    <div class="form-group">
                       <label class="control-label" for"password">Password</label>
                       <div class="controls">
-                        <input class="col-md-12" type="password" name="PASSPHRASE" id="passphrase" value="<%= $PASSPHRASE %>" >
+                        <input type="password" class="form-control" name="PASSPHRASE" id="passphrase" value="<%= $PASSPHRASE %>" >
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-md-4 col-md-offset-2">
-                    <div class="control-group">
+                  <div class="col-md-4">
+                    <div class="form-group">
                       <label class="control-label">Encryption</label>
                       <div class="controls">
                         <SELECT name="ENCRYPTION" id="encryption" class="input-small">
@@ -303,10 +301,10 @@
                     </div>
                   </div>
                   <div class="col-md-2">
-                    <div class="control-group">
+                    <div class="form-group">
                       <label data-toggle="tooltip" data-placement="bottom" title="You can also set the wireless channel by dialing 2426 on the MP"  class="control-label" for="CHANNEL">Channel</label>
                         <div class="controls">
-                          <SELECT name="CHANNEL" id="CHANNEL" class="input-small" >
+                          <SELECT name="CHANNEL" id="CHANNEL">
                             <option selected="<%= $CHANNEL %>"><%= $CHANNEL %></option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -327,8 +325,8 @@
                   </div>                  
 
                   <div class="col-md-2 adv_ui hide">
-                    <div class="control-group">
-                      <label class="control-label">US/Can (11 ch)</label>
+                    <div class="form-group">
+                      <label class="control-label">US/Can</label>
                       <div class="controls">
                         <input class="input-small" type="checkbox" name="USREG_DOMAIN" id="usreg_domain" value="checked" $USREG_DOMAIN >
                       </div>
@@ -337,11 +335,11 @@
                 </div>
 
                 <div class="row adv_ui hide">
-                  <div class="col-md-4 col-md-offset-2">
-                    <div class="control-group">
+                  <div class="col-md-4">
+                    <div class="form-group">
                       <label class="control-label" for="MAXASSOC">AP Connections</label>
                       <div class="controls">
-                        <SELECT name="MAXASSOC" id="MAXASSOC" class="input-small" >
+                        <SELECT name="MAXASSOC" id="MAXASSOC">
                         <option selected="<%= $MAXASSOC %>"><%= $MAXASSOC %></option>
                         <option value="0">Disabled</option>
                         <option value="1">1</option>
@@ -356,21 +354,21 @@
                    </div>
                   </div>
 
-                  <div class="col-md-3 adv_ui hide">
-                    <div class="control-group">
+                  <div class="col-md-4">
+                    <div class="form-group">
                       <label class="control-label" for="ATH0_TXPOWER"> Tx Power 1-20</label>
                       <div class="controls">
-                        <input class="input-small" type="text" name="ATH0_TXPOWER" id="ath0_txpower" value="<%= $ATH0_TXPOWER %>">
+                        <input type="text" class="form-control" placeholder=".col-lg-1" name="ATH0_TXPOWER" id="ath0_txpower" value="<%= $ATH0_TXPOWER %>">
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="row adv_ui hide">
-                  <div class="col-md-4 col-md-offset-2">
-                    <div class="control-group">             
+                  <div class="col-md-4">
+                    <div class="form-group">             
                       <label class="control-label" for="RADIOMODE">Wifi Mode</label>
                       <div class="controls">
-                        <SELECT class"col-md-12" name="RADIOMODE" id="radiomode" class="input-medium">
+                        <SELECT name="RADIOMODE" id="radiomode" class="input-medium">
                           <option selected="<%= $RADIOMODE %>"><%= $RADIOMODE %></option>
                           <option value="802.11G">802.11G</option>
                           <option value="802.11N-G">802.11N-G</option>
@@ -380,7 +378,7 @@
                   </div>
                 
                   <div class="col-md-4">
-                    <div class="control-group">                 
+                    <div class="form-group">                 
                       <label class="control-label" for="CHANBW">Chan BW</label>
                       <div class="controls">
                         <SELECT name="CHANBW" id="chanbw" class="input-small">
@@ -397,48 +395,48 @@
               </fieldset>
 
               <fieldset class="meshwifi adv_ui hide">
-                <legend class="col-md-offset-2 col-md-8 col-md-offset-2"> WiFi Mesh </legend>
+                <legend> WiFi Mesh </legend>
                 <div class="row">
-                  <div class="col-md-4 col-md-offset-2">
-                    <div class="control-group">             
+                  <div class="col-md-4">
+                    <div class="form-group">             
                       <label class="control-label" for="ATH0_IPADDR">IP Address</label>
                       <div class="controls">
-                        <input class="col-md-12" type="text" name="ATH0_IPADDR" id="ath0_ipaddr" value="<%= $ATH0_IPADDR %>">
+                        <input type="text" class="form-control" name="ATH0_IPADDR" id="ath0_ipaddr" value="<%= $ATH0_IPADDR %>">
                       </div>
                     </div>
                   </div>
                   <div class="col-md-4">
-                    <div class="control-group">             
+                    <div class="form-group">             
                       <label class="control-label" for="ATH0_NETMASK">Netmask</label>
                       <div class="controls">
-                        <input class="col-md-12" type="text" name="ATH0_NETMASK" id="ath0_netmask" value="<%= $ATH0_NETMASK %>">
+                        <input type="text" class="form-control" name="ATH0_NETMASK" id="ath0_netmask" value="<%= $ATH0_NETMASK %>">
                       </div>
                     </div>
                   </div>
                 </div>
 
                 <div class="row">
-                  <div class="col-md-4 col-md-offset-2">
-                    <div class="control-group">             
+                  <div class="col-md-4">
+                    <div class="form-group">             
                       <label class="control-label" for="ATH0_SSID"> SSID </label>
                       <div class="controls">
-                        <input class="col-md-12" type="text" name="ATH0_SSID" id="ath0_ssid" value="<%= $ATH0_SSID %>">
+                        <input type="text" class="form-control" name="ATH0_SSID" id="ath0_ssid" value="<%= $ATH0_SSID %>">
                       </div>
                     </div>
                   </div>
                   <div class="col-md-4">
-                    <div class="control-group">             
+                    <div class="form-group">             
                       <label class="control-label" for="ATH0_BSSID"> BSSID </label>
                       <div class="controls">
-                        <input class="col-md-12" type="text" name="ATH0_BSSID" id="ath0_bssid" value="<%= $ATH0_BSSID %>">
+                        <input type="text" class="form-control" name="ATH0_BSSID" id="ath0_bssid" value="<%= $ATH0_BSSID %>">
                       </div>
                     </div>
                   </div>
                 </div>
 
                 <div class="row">
-                  <div class="col-md-4 col-md-offset-2">
-                    <div class="control-group">             
+                  <div class="col-md-4">
+                    <div class="form-group">             
                       <label class="control-label">Gateway Mode</label>
                       <div class="controls">
                         <SELECT name="MPGW" id="mpgw" />
@@ -455,7 +453,7 @@
                     </div>
                   </div>
                   <div class="col-md-4">
-                    <div class="control-group">             
+                    <div class="form-group">             
                       <label class="control-label" for="MESH_ENCR">Encryption</label>
                       <div class="controls">
                         <SELECT name="MESH_ENCR" id="MESH_ENCR" class="input-small" >
@@ -473,85 +471,87 @@
               </fieldset>
 
               <fieldset class="dhcp adv_ui hide">
-                <legend class="col-md-offset-2 col-md-8 col-md-offset-2">DHCP Server</legend>
+                <legend>DHCP Server</legend>
 
                 <div class="row">
-                  <div class="col-md-4 col-md-offset-2">
-                    <div class="control-group">
+                  <div class="col-md-4">
+                    <div class="form-group">
                       <label class="control-label">DHCP Server</label>
                       <div class="switch controls" data-on-label="Enable" data-off-label="Disable" >
-                        <input type="checkbox" name="DHCP_ENABLE" id="dhcp_enable" value="checked" $DHCP_ENABLE > 
+                        <input type="checkbox" class="form-control" name="DHCP_ENABLE" id="dhcp_enable" value="checked" $DHCP_ENABLE > 
                       </div>
                     </div>
                   </div>
                   <div class="col-md-4">
-                    <div class="control-group">
+                    <div class="form-group">
                       <label class="control-label">Authoritative</label>
                       <div class="switch controls" data-on-label="YES" data-off-label="NO">
-                        <input type="checkbox" name="DHCP_AUTH" id="dhcp_auth" value="checked" $DHCP_AUTH > 
+                        <input type="checkbox" class="form-control" name="DHCP_AUTH" id="dhcp_auth" value="checked" $DHCP_AUTH > 
                       </div>
                     </div>
                   </div>
                 </div>
 
                 <div class="row">
-                  <div class="col-md-4 col-md-offset-2">
-                    <div class="control-group">
+                  <div class="col-md-4">
+                    <div class="form-group">
                       <label class="control-label" for="STARTIP">Starting IP</label>
                       <div class="controls">
-                        <input class="col-md-12" type="text" name="STARTIP" id="startip" value="<%= $STARTIP %>" >
+                        <input type="text" class="form-control" name="STARTIP" id="startip" value="<%= $STARTIP %>" >
                       </div>
                     </div>
                   </div>
                   <div class="col-md-4">
-                    <div class="control-group">
+                    <div class="form-group">
                       <label class="control-label" for="ENDIP">Ending IP</label>
                       <div class="controls">
-                        <input class="col-md-12" type="text" name="ENDIP" id="endip" value="<%= $ENDIP %>" >
+                        <input type="text" class="form-control" name="ENDIP" id="endip" value="<%= $ENDIP %>" >
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-md-4 col-md-offset-2">
-                    <div class="control-group">
+                  <div class="col-md-4">
+                    <div class="form-group">
                       <label class="control-label" for="OPTION_SUBNET"> Subnet Mask </label>
                       <div class="controls">
-                        <input class="col-md-12" type="text" name="OPTION_SUBNET" id="option_subnet" value="<%= $OPTION_SUBNET %>" >
+                        <input type="text" class="form-control" name="OPTION_SUBNET" id="option_subnet" value="<%= $OPTION_SUBNET %>" >
                       </div>
                     </div>
                   </div>
                   <div class="col-md-4">
-                    <div class="control-group">
+                    <div class="form-group">
                       <label class="control-label" for="OPTION_ROUTER"> Gateway Router </label>
                       <div class="controls">
-                        <input class="col-md-12" type="text" name="OPTION_ROUTER" id="option_router" value="<%= $OPTION_ROUTER %>" >
+                        <input type="text" class="form-control" name="OPTION_ROUTER" id="option_router" value="<%= $OPTION_ROUTER %>" >
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="row adv_ui hide">
-                  <div class="col-md-2 col-md-offset-2">
-                    <div class="control-group">
+                  <div class="col-md-4">
+                    <div class="form-group">
                       <label class="control-label" for="LEASETERM"> Lease Term (secs)</label>
                       <div class="controls">
-                        <input type="text" class="input-small" name="LEASETERM" id="leaseterm" value="<%= $LEASETERM %>" >
+                        <input type="text" class="form-control" placeholder=".col-lg-2" name="LEASETERM" id="leaseterm" value="<%= $LEASETERM %>" >
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-2 col-md-offset-1">
-                    <div class="control-group">
+                  <div class="col-md-4">
+                    <div class="form-group">
                       <label class="control-label" for="MAXLEASES"> Max Leases </label>
                       <div class="controls">
-                        <input type="text" class="input-small" name="MAXLEASES" id="maxleases" value="<%= $MAXLEASES %>" >
+                        <input type="text" class="form-control" placeholder=".col-lg-2" name="MAXLEASES" id="maxleases" value="<%= $MAXLEASES %>" >
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-2">
-                    <div class="control-group">
+                </div>
+                <div class="row adv_ui hide">
+                  <div class="col-md-4">
+                    <div class="form-group">
                       <label class="control-label" for="DOMAIN"> Domain </label>
                       <div class="controls">
-                        <input type="text" class="input-small" name="DOMAIN" id="domain" value="<%= $DOMAIN %>" >
+                        <input type="text" class="form-control" name="DOMAIN" id="domain" value="<%= $DOMAIN %>" >
                       </div>
                     </div>
                   </div>
@@ -560,12 +560,11 @@
               <div class="row">
                 <div id="nsuccess">
                 </div>                   
-                <div class="col-md-offset-2 col-md-8">
+                <div class="col-md-offset-2 col-md-6">
                   <div class="form-actions">
-                    <INPUT TYPE="SUBMIT" name="BUTTON" value="Refresh">
-                    <INPUT TYPE="SUBMIT" name="BUTTON" value="Save">
-                    <INPUT TYPE="SUBMIT" name="BUTTON" value="Restore Defaults" >
-                    <INPUT TYPE="SUBMIT" name="BUTTON" value="Reboot" >
+                    <INPUT TYPE="SUBMIT" class="btn btn-default" name="BUTTON" value="Save">
+                    <INPUT TYPE="SUBMIT" class="btn" name="BUTTON" value="Restore Defaults" >
+                    <INPUT TYPE="SUBMIT" class="btn" name="BUTTON" value="Reboot" >
                   </div>
                 </div>
               </div>
@@ -574,12 +573,12 @@
           <div class="tab-pane" id="voice">
             <form class="form-horizontal" id="voiceForm" method="POST" action="/cgi-bin/voice_save.sh">
               <fieldset class="asterisk-adv">
-                <legend class="col-md-offset-2 col-md-8 col-md-offset-2">Asterisk Configuration</legend>
+                <legend>Asterisk Configuration</legend>
 
                 <div class="row">
 
-                  <div class="col-md-4 col-md-offset-2">
-                    <div class="control-group">             
+                  <div class="col-md-4">
+                    <div class="form-group">             
                       <label class="control-label">Enable Asterisk</label>
                       <div class="controls">
                         <div class="switch" data-on="primary" data-off="info">
@@ -590,52 +589,47 @@
                   </div>
 
                   <div class="col-md-4">
-                    <div class="control-group">             
+                    <div class="form-group">             
                       <label> SIP Status </label> 
                       <div class="controls">
-                        <div class="col-md-12" id="ast_reg"><%=  $REG_STATUS $REG_ACCT %></div>
+                        <div id="ast_reg"><%=  $REG_STATUS $REG_ACCT %></div>
                       </div>
                     </div>
                   </div>
 
                 </div>
                 <div class="row">
-
-                  <div class="col-md-4 col-md-offset-2">
-                    <div class="control-group">             
+                  <div class="col-md-4">
+                    <div class="form-group">             
                       <label class="control-label" for="USER">User Name</label>
                       <div class="controls">
-                        <input class="col-md-12" type="text" name="USER" id="user" value="<%= $USERNAME %>" > 
+                        <input type="text" class="form-control" name="USER" id="user" value="<%= $USERNAME %>" > 
                       </div>
                     </div>
                   </div>
-
                   <div class="col-md-4">
-                    <div class="control-group">             
+                    <div class="form-group">             
                       <label class="control-label" for="SECRET">Password</label>
                       <div class="controls">
-                        <input class="col-md-12"  type="text" name="SECRET" id="secret" value="<%= $SECRET %>" >
+                        <input  type="text" class="form-control" name="SECRET" id="secret" value="<%= $SECRET %>" >
                       </div>
                     </div>
                   </div>
-
                 </div>
                 <div class="row">                  
-              
-                  <div class="col-md-4 col-md-offset-2">
-                    <div class="control-group">             
+                  <div class="col-md-4">
+                    <div class="form-group">             
                       <label class="control-label" for="HOST">SIP Host</label>
                       <div class="controls">
-                        <input class="col-md-12" type="text" name="HOST" id="host" value="<%= $HOST %>" >
+                        <input type="text" class="form-control" name="HOST" id="host" value="<%= $HOST %>" >
                       </div>
                     </div>
                   </div>
-
                   <div class="col-md-2">
-                    <div class="control-group">             
+                    <div class="form-group">             
                       <label class="control-label">Dialout Code</label>
                       <div class="controls">
-                        <SELECT name="DIALOUT" id="dialout" class="input-small">
+                        <SELECT name="DIALOUT" id="dialout">
                           <option selected="<%= $DIALOUT %>"><%= $DIALOUT %></option>
                           <option value="#"> # </option>
                           <option value="9"> 9 </option>
@@ -644,23 +638,19 @@
                       </div>
                     </div>
                   </div>      
-
-
-                </row>
-
+                </div>
                 <div class="row adv_ui hide">
-
-                  <div class="col-md-4 col-md-offset-2">
-                    <div class="control-group">             
+                  <div class="col-md-4">
+                    <div class="form-group">             
                       <label class="control-label" for="REGHOST">SIP Registrar</label> 
                       <div class="controls">
-                        <input class="col-md-12" type="text" name="REGHOST" id="reghost" value="<%= $REGHOST %>" > 
+                        <input type="text" class="form-control" name="REGHOST" id="reghost" value="<%= $REGHOST %>" > 
                       </div>
                     </div>
                   </div>
 
                   <div class="col-md-4">
-                    <div class="control-group">             
+                    <div class="form-group">             
                       <label class="control-label">Softphone Support</label>
                       <div class="controls">
                         <SELECT name="SOFTPH" id="softph" class="input-small">
@@ -672,17 +662,13 @@
                       </div>
                     </div>
                   </div>
-
-
-
                 </div>
                 <div class="row adv_ui hide">
-              
-                  <div class="col-md-2 col-md-offset-2">
-                    <div class="control-group">             
+                  <div class="col-md-2">
+                    <div class="form-group">             
                       <label class="control-label">Codec1</label>
                       <div class="controls">
-                        <SELECT name="CODEC1" id="codec1" class="input-small">
+                        <SELECT name="CODEC1" id="codec1">
                           <option selected="<%= $CODEC1 %>"><%= $CODEC1 %></option>
                           <option value="gsm">gsm</option>
                           <option value="ulaw">ulaw</option>
@@ -693,10 +679,10 @@
                   </div>
 
                   <div class="col-md-2">
-                    <div class="control-group">             
+                    <div class="form-group">             
                       <label class="control-label">Codec2</label>
                       <div class="controls">
-                        <SELECT name="CODEC2" id="codec2" class="input-small">
+                        <SELECT name="CODEC2" id="codec2">
                           <option selected="<%= $CODEC2 %>"><%= $CODEC2 %></option>
                           <option value="gsm">gsm</option>
                           <option value="ulaw">ulaw</option>
@@ -707,10 +693,10 @@
                   </div>                        
                 
                   <div class="col-md-2">
-                    <div class="control-group">             
+                    <div class="form-group">             
                       <label class="control-label">Codec3</label>
                       <div class="controls">
-                          <SELECT name="CODEC3" id="codec3" class="input-small">
+                          <SELECT name="CODEC3" id="codec3">
                             <option selected="<%= $CODEC3 %>"><%= $CODEC3 %></option>
                             <option value="gsm">gsm</option>
                             <option value="ulaw">ulaw</option>
@@ -722,9 +708,8 @@
 
                 </div> 
                 <div class="row adv_ui hide">
-
-                  <div class="col-md-4 col-md-offset-2">
-                    <div class="control-group">             
+                  <div class="col-md-4">
+                    <div class="form-group">             
                       <label class="control-label">SIP Enable</label>
                       <div class="controls">
                         <div class="switch">
@@ -733,52 +718,46 @@
                       </div>
                     </div>
                   </div>
-
                   <div class="col-md-4">
-                    <div class="control-group">             
+                    <div class="form-group">             
                       <label class="control-label">SIP Register</label>
-                      <div class="switch controls">
-                        <input  type="checkbox" name="REGISTER" id="register" value="checked" <%= $REGISTER %> > 
+                      <div class="controls">
+                        <div class="switch">
+                          <input  type="checkbox" name="REGISTER" id="register" value="checked" <%= $REGISTER %> > 
+                        </div>
                       </div>
                     </div>
                   </div>                        
-
                 </div>
-
-
                 <div class="row adv_ui hide">
-
-                  <div class="col-md-4 col-md-offset-2">
-                    <div class="control-group">             
+                  <div class="col-md-4">
+                    <div class="form-group">             
                       <label class="control-label">Asterisk NAT</label>
-                      <div class="switch controls"  data-on-label="Enable" data-off-label="Disable" >
-                        <input  type="checkbox" name="ENABLENAT" id="enablenat" value="checked" $ENABLENAT > 
+                      <div class="controls">
+                        <div class="switch"  data-on-label="Enable" data-off-label="Disable" >
+                          <input  type="checkbox" name="ENABLENAT" id="enablenat" value="checked" $ENABLENAT > 
+                        </div>
                       </div>
                     </div>
                   </div>   
-
                   <div class="col-md-4">
-                    <div class="control-group">             
+                    <div class="form-group">             
                       <label class="control-label" for="EXTERNIP">NAT External IP</label>
                       <div class="controls">
-                        <input type="text" name="EXTERNIP" id="externip" value="<%= $EXTERNIP %>" >
+                        <input type="text" class="form-control" name="EXTERNIP" id="externip" value="<%= $EXTERNIP %>" >
                       </div>
                     </div>
                   </div>
-                
                 </div>
-
-              
               </fieldset>
-           
               <div class="row">
                 <div id="vsuccess">
                 </div>   
-                <div class="col-md-offset-2 col-md-8">
+                <div class="col-md-offset-2 col-md-6">
                   <div class="form-actions">
-                    <INPUT TYPE="SUBMIT" name="BUTTON" value="Save">
-                    <INPUT TYPE="SUBMIT" name="BUTTON" value="Restart Asterisk" >
-                    <INPUT TYPE="SUBMIT" name="BUTTON" value="Reboot" >
+                    <INPUT TYPE="SUBMIT" class="btn btn-default" name="BUTTON" value="Save">
+                    <INPUT TYPE="SUBMIT" class="btn" name="BUTTON" value="Restart Asterisk" >
+                    <INPUT TYPE="SUBMIT" class="btn" name="BUTTON" value="Reboot" >
                   </div>
                 </div>
               </div>
@@ -804,8 +783,8 @@
 
 <!-- Load javascript -->
 <script type="text/javascript" src="/lib/jquery-1.7.1.min.js"></script>
-<script type="text/javascript" src="/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/js/bootstrapSwitch.js"></script>
+<script type="text/javascript" src="/lib/bootstrap.min.js"></script>
+<script type="text/javascript" src="/lib/bootstrapSwitch.js"></script>
 <script type="text/javascript" src="/lib/jquery.validate.min.js"></script>
 <script type="text/javascript" src="/lib/vt_lib2.js"></script>
 </body>
