@@ -67,24 +67,28 @@ if [ $FORM_BUTTON = "Save" ]; then
     <div class="alert alert-warning">
       <a class="close" data-dismiss="alert">x</a>
       <h4>Restarting Asterisk!</h4>
-      <h5><%= $FORM_BUTTON %> </h5>
+      <h5>This does nothing yet.</h5>
     </div>
 
 <% fi %>
 
 <% if [ $FORM_BUTTON = "Reboot" ]; then %>
-    <script type="text/javascript">
-      (function countdown(remaining) {
-          if(remaining <= 0)
-            location.reload(true);
-            document.getElementById('countdown').innerHTML = 'Counting down: ' + remaining;
-          setTimeout(function(){ countdown(remaining - 1); }, 120);
-      })(120); // 120 seconds
-    </script>
+
     <div class="alert alert-danger">
+      <a class="close" data-dismiss="alert">&times;</a>
       <h4>Rebooting! Please wait till timer counts down then refresh this page</h4>
-      <div id="countdown"></div>
+      <div id="counter">120</div>
     </div>
+    <script type="text/javascript">
+      function countdown() {
+          var i = document.getElementById('counter');
+          i.innerHTML = parseInt(i.innerHTML)-1;
+          if (parseInt(i.innerHTML)==0) {
+             clearInterval(timerId);
+          }
+      }
+      var timerId = setInterval(function(){ countdown(); },1000);
+    </script>
     <% reboot %>
 
 <% fi %>

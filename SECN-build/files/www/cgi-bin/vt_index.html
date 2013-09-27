@@ -98,7 +98,7 @@
   ENSSL=`uci get secn.http.enssl`
 
   # Check gateway status
-  GWSTATUS=`/usr/bin/ping.sh $BR_GATEWAY`
+  GWSTATUS=`/bin/ping.sh $BR_GATEWAY`
 
   # Get Asterisk registration status
   /bin/get-reg-status.sh
@@ -233,7 +233,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-4">  
+                  <div class="col-md-3">  
                     <div class="form-group">
                       <label data-toggle="tooltip" data-placement="bottom" title="You can also set the gateway IP address by dialing the extension 4823 on the MP" class="control-label" for="BR_GATEWAY">Gateway</label>
                       <div class="controls">
