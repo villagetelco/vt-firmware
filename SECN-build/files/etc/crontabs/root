@@ -1,0 +1,1 @@
+*/5 * * * * lua /usr/bin/bat-hosts.lua
