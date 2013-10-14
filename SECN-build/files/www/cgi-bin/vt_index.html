@@ -135,93 +135,94 @@
   MODEMPORT=`uci get secn.modem.modemport`
 %>
 <% echo -en "content-type: text/html\r\n\r\n" %>
+
 <!DOCTYPE HTML>
+
 <html>
-<head>
-  <title>SECN Configuration</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
-  <link href="/css/bootstrapSwitch.css" rel="stylesheet" media="screen">
-  <link href="/css/sticky-footer-navbar.css" rel="stylesheet">
-  <link href="/css/vt-bootstrap.css" rel="stylesheet" media="screen">
-  <style type="text/css">
+  <head>
+    <title>SECN Configuration</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="/css/bootstrapSwitch.css" rel="stylesheet" media="screen">
+    <link href="/css/vt-bootstrap.css" rel="stylesheet" media="screen">
+    <style type="text/css">
 
-    /* form submission response style  */
-    #loading, #nsuccess, #vsuccess, #success{display: none}
+      /* form submission response style  */
+      #loading, #nsuccess, #vsuccess, #success{display: none}
 
-    /* Gateway status stytes  */
-    .gwSuccess {
-      font-weight: bold;
-      color: green;
-      padding: 2px 8px;
-      margin-top: 2px;
-    }
-    .gwError {
-      font-weight: bold;
-      color: red;
-      padding: 2px 8px;
-      margin-top: 2px;
-    }
+      /* Gateway status stytes  */
+      .gwSuccess {
+        font-weight: bold;
+        color: green;
+        padding: 2px 8px;
+        margin-top: 2px;
+      }
+      .gwError {
+        font-weight: bold;
+        color: red;
+        padding: 2px 8px;
+        margin-top: 2px;
+      }
 
-    /*  jquery validation plugin style  */
-    label.valid {
-      color: #666666;
-      padding: 2px 8px;
-      margin-top: 2px;
-    }
-    label.error {
-      font-weight: bold;
-      color: red;
-      padding: 2px 8px;
-      margin-top: 2px;
-    }
-  </style>
-</head>
-<body>
+      /*  jquery validation plugin style  */
+      label.valid {
+        color: #666666;
+        padding: 2px 8px;
+        margin-top: 2px;
+      }
+      label.error {
+        font-weight: bold;
+        color: red;
+        padding: 2px 8px;
+        margin-top: 2px;
+      }
+    </style>
+  </head>
 
-<body>
-  <!-- Start NavBar Code here  -->
-  <div id="wrap">
-    <div class="container">
-      <div class="row">
-        <div class="navbar navbar-default navbar-fixed-top" style="min-width: 600px" role="navigation">
-          <div class="navbar-header">
-            <div class="homeA">
-              <a class="navbar-brand" href="vt_index.html">VT Configuration</a>
-              <div class="homeB"><a class="homeTxt" href="vt_index.html">Home</a></div>
-            </div>
-          </div>
-          <div class="collapse navbar-collapse navbar-ex1-collapse">  
-              <ul id="tab" class="nav navbar-nav navbar-left">
-                <li class="active"><a href="vt_index.html#network" data-toggle="tab">Network</a></li>
-                <li><a href="vt_index.html#voice" data-toggle="tab">Voice</a></li>
-                <li>
-                    <a href="vt_status.html">Status</a>
-                    <div class="statusTag"><a class="homeTxt" href="vt_status.html">ONOD</a></div>
-                </li>
-              </ul>
-              <ul class="nav navbar-nav navbar-right">
-                <li>
-                  <div id="adv_ui" class="switch" data-on-label="Adv" data-off-label="Basic" data-off="success" data-on="warning">
-                    <input type="checkbox" id="chk1" >
-                  </div>
-                </li>
-              </ul>
+  <body>
+    <!-- Start Wrap Code here  -->
+    <div id="wrap">
+      <!-- Start NavBar Code here  -->
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="navbar-header">
+          <div class="homeA">
+            <a class="navbar-brand" href="vt_index.html">VT Configuration</a>
+            <div class="homeB"><a class="homeTxt" href="vt_index.html">Home</a></div>
           </div>
         </div>
+        
+        <ul id="tab" class="nav navbar-nav navbar-left">
+          <li id="networkTabBtn" class="active">
+            <a href="#network" data-toggle="tab">Network</a>
+          </li>
+
+          <li id="voiceTabBtn">
+            <a href="#voice" data-toggle="tab">Voice</a>
+          </li>
+
+          <li id="statusTabBtn">
+            <a href="#status" data-toggle="tab">Open Node Observation Deck</a>
+            <div class="statusTag"><a class="homeTxt" href="#">Status</a></div>
+          </li>
+        </ul>
+            
+        <ul id="navRight" class="nav navbar-nav navbar-right">
+          <li>
+            <div id="adv_ui" class="switch" data-on-label="Adv" data-off-label="Basic" data-off="success" data-on="warning">
+              <input type="checkbox" id="chk1">
+            </div>
+          </li>
+        </ul>
       </div>
-    </div>
-<!-- End NavBar here -->
-<!-- Start Content here  -->
-  <div class="container">
-    <div class="row">
-      <div class="col-md-offset-2 col-md-8 col-md-offset-2">
-        <div class="tab-content">
-          <div class="tab-pane active" id="network">
+      <!-- End NavBar here -->
 
+      <!-- Start Tab Content here  -->
+      <div class="tab-content">
+        <!-- Start Network Tab Content here  -->
+        <div class="tab-pane active" id="network">
+          <div class="col-md-offset-2 col-md-8 col-md-offset-2">
             <form class="form-horizontal" name="MP-ADV" id="networkForm" method="POST" action="/cgi-bin/net_save.sh">
-
               <fieldset class="ipnetwork">
                 <legend>Network</legend>
                 <div class="row">
@@ -233,7 +234,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-3">  
+                  <div class="col-md-4">  
                     <div class="form-group">
                       <label data-toggle="tooltip" data-placement="bottom" title="You can also set the gateway IP address by dialing the extension 4823 on the MP" class="control-label" for="BR_GATEWAY">Gateway</label>
                       <div class="controls">
@@ -245,6 +246,7 @@
                     <%= $GWSTATUS %>
                   </div>
                 </div>
+
                 <div class="row adv_ui hide">
                   <div class="col-md-4">  
                     <div class="form-group">
@@ -300,7 +302,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-2">
+                  <div class="col-md-4">
                     <div class="form-group">
                       <label data-toggle="tooltip" data-placement="bottom" title="You can also set the wireless channel by dialing 2426 on the MP"  class="control-label" for="CHANNEL">Channel</label>
                         <div class="controls">
@@ -322,8 +324,7 @@
                           </SELECT>
                         </div>
                     </div>
-                  </div>                  
-
+                  </div>
                   <div class="col-md-2 adv_ui hide">
                     <div class="form-group">
                       <label class="control-label">US/Can</label>
@@ -353,7 +354,6 @@
                       </div>
                    </div>
                   </div>
-
                   <div class="col-md-4">
                     <div class="form-group">
                       <label class="control-label" for="ATH0_TXPOWER"> Tx Power 1-20</label>
@@ -363,6 +363,7 @@
                     </div>
                   </div>
                 </div>
+
                 <div class="row adv_ui hide">
                   <div class="col-md-4">
                     <div class="form-group">             
@@ -376,7 +377,6 @@
                       </div>
                     </div>
                   </div>
-                
                   <div class="col-md-4">
                     <div class="form-group">                 
                       <label class="control-label" for="CHANBW">Chan BW</label>
@@ -391,7 +391,6 @@
                     </div>
                   </div>
                 </div>
-
               </fieldset>
 
               <fieldset class="meshwifi adv_ui hide">
@@ -467,12 +466,10 @@
                     </div>
                   </div>
                 </div>
-                    
               </fieldset>
 
               <fieldset class="dhcp adv_ui hide">
                 <legend>DHCP Server</legend>
-
                 <div class="row">
                   <div class="col-md-4">
                     <div class="form-group">
@@ -557,24 +554,28 @@
                   </div>
                 </div>
               </fieldset>
+
               <div class="row">
-                <div id="nsuccess">
-                </div>                   
+                <div id="nsuccess"></div>                   
                 <div class="col-md-offset-2 col-md-6">
                   <div class="form-actions">
                     <INPUT TYPE="SUBMIT" class="btn btn-default" name="BUTTON" value="Save">
-                    <INPUT TYPE="SUBMIT" class="btn" name="BUTTON" value="Restore Defaults" >
-                    <INPUT TYPE="SUBMIT" class="btn" name="BUTTON" value="Reboot" >
+                    <INPUT TYPE="SUBMIT" class="btn" name="BUTTON" value="Restore Defaults">
+                    <INPUT TYPE="SUBMIT" class="btn" name="BUTTON" value="Reboot">
                   </div>
                 </div>
               </div>
             </form>
-          </div>            
-          <div class="tab-pane" id="voice">
+          </div>
+        </div>
+        <!-- End Network Tab Content here  -->
+
+        <!-- Start Voice Tab Content here  -->
+        <div class="tab-pane" id="voice">
+          <div class="col-md-offset-2 col-md-8 col-md-offset-2">
             <form class="form-horizontal" id="voiceForm" method="POST" action="/cgi-bin/voice_save.sh">
               <fieldset class="asterisk-adv">
                 <legend>Asterisk Configuration</legend>
-
                 <div class="row">
                   <div class="col-md-4">
                     <div class="form-group">             
@@ -622,7 +623,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-2">
+                  <div class="col-md-4">
                     <div class="form-group">             
                       <label class="control-label">Dialout Code</label>
                       <div class="controls">
@@ -747,9 +748,9 @@
                   </div>
                 </div>
               </fieldset>
+
               <div class="row">
-                <div id="vsuccess">
-                </div>   
+                <div id="vsuccess"></div>   
                 <div class="col-md-offset-2 col-md-6">
                   <div class="form-actions">
                     <INPUT TYPE="SUBMIT" class="btn btn-default" name="BUTTON" value="Save">
@@ -759,31 +760,37 @@
                 </div>
               </div>
             </form>
-
           </div>
-          <div class="tab-pane" id="status">
-          </div>          
         </div>
+        <!-- End Voice Tab Content here  -->
+
+        <!-- Start Status / ONOD Tab Content here  -->
+        <div class="tab-pane" id="status">
+          <div id="ONOD"></div>
+        </div>
+        <!-- End Status / ONOD Tab Content here  -->
       </div>
+      <!-- End Tab Content here  -->
     </div>
-  </div>
+    <!-- End Wrap Code here  -->
 
-  <div id="push"></div>
-</div>
+    <!-- Start Footer Code here  -->
+    <div id="footer">
+      <div id="fContent" class="muted credit">Time: <%= $UPTIME %> <br> Time Zone: <%= $TZ %></div>     
+    </div>
+    <!-- End Footer Code here  -->
 
-<div id="footer">
-  <div class="container">
-    <div class="muted credit">Time: <%= $UPTIME %> TZ: <%= $TZ %></div>
-                     
-  </div>
-</div>
+    <!-- Load javascript -->
+    <script type="text/javascript" src="/lib/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="/lib/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="/lib/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/lib/bootstrapSwitch.js"></script>
+    <script type="text/javascript" src="/lib/vt_lib2.js"></script>
 
-<!-- Load javascript -->
-<script type="text/javascript" src="/lib/jquery-1.7.1.min.js"></script>
-<script type="text/javascript" src="/lib/bootstrap.min.js"></script>
-<script type="text/javascript" src="/lib/bootstrapSwitch.js"></script>
-<script type="text/javascript" src="/lib/jquery.validate.min.js"></script>
-<script type="text/javascript" src="/lib/vt_lib2.js"></script>
-</body>
+    <script type="text/javascript" src="/lib/raphael-min.js"></script>
+    <script type="text/javascript" src="/lib/g.raphael-min.js"></script>
+    <script type="text/javascript" src="/lib/g.line-min.js"></script>
+    <script type="text/javascript" src="/lib/g.bar-min.js"></script>
+    <script type="text/javascript" src="/lib/ONOD-lib.js"></script>
+  </body>
 </html>
-
