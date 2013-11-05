@@ -42,9 +42,9 @@ function handle_request(env)
     local command = ""
 
     if vars["action"] == "start" then
-        command = string.format("lua %s start -s %d -r %d -l %d -R %d -t %s", script_location, vars["sleep_time"], vars["run_time"], vars["max_lines"], vars["reset_file"], vars["types"])
+        command = string.format("lua %s start -s %d -r %d -l %d -R %d -t /\w+/g", script_location, vars["sleep_time"], vars["run_time"], vars["max_lines"], vars["reset_file"], vars["types"])
     elseif vars["action"] == "restart" then
-        command = string.format("lua %s restart -s %d -r %d -l %d -R %d -t %s", script_location, vars["sleep_time"], vars["run_time"], vars["max_lines"], vars["reset_file"], vars["types"])
+        command = string.format("lua %s restart -s %d -r %d -l %d -R %d -t /\w+/g", script_location, vars["sleep_time"], vars["run_time"], vars["max_lines"], vars["reset_file"], vars["types"])
     elseif vars["action"] == "stop" then
         command = string.format("lua %s stop", script_location)
     end
