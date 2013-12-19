@@ -71,7 +71,7 @@ start() {
 	  echo "nameserver 127.0.0.1" > /tmp/resolv.conf  # Make a temp copy
 	  $DEST/usr/sbin/asterisk -f 2>&1 > /dev/null &   # Start Asterisk
 	  cat /tmp/resolv.conf-backup > /tmp/resolv.conf  # Restore resolv.conf
-	fi	  
+  fi	  
 }
 
 
