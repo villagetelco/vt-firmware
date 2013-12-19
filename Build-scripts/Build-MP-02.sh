@@ -26,8 +26,8 @@ fi
 echo "Start build process"
 
 # Set up version strings
-VER="SECN Version 2.0 RC3c"
-DIRVER="RC3c"
+DIRVER="RC3d"
+VER="SECN Version 2.0 "$DIRVER
 
 ###########################
 
@@ -77,7 +77,8 @@ cp -r ./SECN-build/files       .
 echo "Overlay device specific files"
 cp -r ./SECN-build/MP-02/files .    
 
-./FactoryRestore.sh			; echo "Build Factory Restore tar file"
+echo "Build Factory Restore tar file"
+./FactoryRestore.sh
 
 echo "Check files "
 ls -al ./files   

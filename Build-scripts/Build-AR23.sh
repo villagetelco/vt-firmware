@@ -34,6 +34,7 @@ DIRVER="RC3c-Ath5k"
 echo "Copy files from Git repo into build folder"
 rm -rf ./SECN-build/
 cp -rp ~/Git/vt-firmware/SECN-build/ .
+cp -fp ~/Git/vt-firmware/Build-scripts/FactoryRestore.sh  .
 
 ###########################
 
@@ -86,7 +87,9 @@ echo "Set up files for AR23 "
 rm -r ./files/*
 cp -r ./SECN-build/files       .        ; echo "Copy generic files"
 cp -r ./SECN-build/AR23/files .         ; echo "Overlay device specific files"
-./FactoryRestore.sh											; echo "Build Factory Restore tar file"
+
+echo "Build Factory Restore tar file"
+./FactoryRestore.sh	
 
 echo "Check files "
 ls -al ./files   
