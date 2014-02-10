@@ -184,7 +184,6 @@ MAXASSOC=`uci get secn.accesspoint.maxassoc`
 USREG_DOMAIN=`uci get secn.accesspoint.usreg_domain`
 CHANNEL=`uci get wireless.radio0.channel`
 MESH_ENABLE=`uci get secn.mesh.mesh_enable`
-MESH_ENABLE1=`uci get secn.mesh.mesh_enable1`
 
 # Set to WPA1 by default                                 
 ENCRYPT="psk"
@@ -240,6 +239,7 @@ ENCRYPTION=`uci get secn.accesspoint1.encryption`
 AP_DISABLE=`uci get secn.accesspoint1.ap_disable`
 MAXASSOC=`uci get secn.accesspoint1.maxassoc`
 CHANNEL=`uci get wireless.radio1.channel`
+MESH_ENABLE1=`uci get secn.mesh1.mesh_enable`
 
 # Set to WPA1 by default                                 
 ENCRYPT="psk"

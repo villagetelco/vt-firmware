@@ -20,6 +20,7 @@ USREG_DOMAIN="0"
 DHCP_AUTH="0"
 MESH_ENABLE="0"
 DEVICE_IP="0"
+MESH_ENABLE='0'
 MESH_ENABLE1='0'
 
 
@@ -153,11 +154,28 @@ if [ \$MAXASSOC = "Enabled" ]; then
   MAXASSOC="100"
 fi
 
+# Set MAXASSOC1 to zero if display value 'Disabled' is returned
+if [ \$MAXASSOC1 = "Disabled" ]; then
+  MAXASSOC1="0"
+fi
+# Set MAXASSOC1 to 100 if display value 'Enabled' is returned
+if [ \$MAXASSOC1 = "Enabled" ]; then
+  MAXASSOC1="100"
+fi
+
+
 # Disable AP if max associations is zero
 if [ \$MAXASSOC = "0" ]; then
 	AP_DISABLE="1"
 else
 	AP_DISABLE="0"
+fi
+
+# Disable AP1 if max associations is zero
+if [ \$MAXASSOC1 = "0" ]; then
+	AP_DISABLE1="1"
+else
+	AP_DISABLE1="0"
 fi
 
 
