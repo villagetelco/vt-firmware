@@ -18,7 +18,7 @@ DHCP_ENABLE="0"
 ENABLE_AST="0"
 USREG_DOMAIN="0"
 DHCP_AUTH='0'
-
+WANLAN_ENABLE-'0'
 
 # Get Field-Value pairs from QUERY_STRING environment variable
 # set by the form GET action
@@ -64,6 +64,7 @@ fi
 
 # Write the WAN settings
 uci set secn.wan.wanport=\$WANPORT
+uci set secn.wan.wanlan_enable=\$WANLAN_ENABLE
 uci set secn.wan.ethwanmode=\$ETHWANMODE
 uci set secn.wan.wanip=\$WANIP
 uci set secn.wan.wangateway=\$WANGATEWAY

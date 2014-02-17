@@ -120,6 +120,7 @@ fi
 # Get WAN settings
 WANPORT=`uci get secn.wan.wanport`
 ETHWANMODE=`uci get secn.wan.ethwanmode`
+WANLAN_ENABLE=`uci get secn.wan.wanlan_enable`
 WANIP=`uci get secn.wan.wanip`
 WANGATEWAY=`uci get secn.wan.wangateway`
 WANMASK=`uci get secn.wan.wanmask`
