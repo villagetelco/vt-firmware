@@ -26,7 +26,7 @@ fi
 echo "Start build process"
 
 # Set up version strings
-DIRVER="RC3d"
+DIRVER="RC3d2-AA-test1"
 VER="SECN Version 2.0 "$DIRVER
 
 ###########################
@@ -57,7 +57,8 @@ echo '----------------------------'
 
 echo "Set up .config for MP-02"
 rm ./.config
-cp ./SECN-build/MP-02/.config  ./.config
+####cp ./SECN-build/MP-02/.config  ./.config
+cp ./SECN-build/MP-02/config-MP02  ./.config
 echo " Run defconfig"
 make defconfig > /dev/null
 
