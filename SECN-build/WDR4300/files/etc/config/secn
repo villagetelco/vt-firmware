@@ -88,5 +88,6 @@ config secn wan
 	option wanencr 'psk'
 	option wanport 'Disable'
 	option ethwanmode 'DHCP'
+	option wanlan_enable '0'
 
 
