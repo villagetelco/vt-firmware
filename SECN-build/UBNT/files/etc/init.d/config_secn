@@ -101,6 +101,7 @@ uci set dhcp.lan.dhcp_option="1,$OPTION_SUBNET  3,$OPTION_ROUTER  6,$OPTION_DNS,
 
 # Get WAN settings
 WANPORT=`uci get secn.wan.wanport`
+WANLAN_ENABLE=`uci get secn.wan.wanlan_enable`
 ETHWANMODE=`uci get secn.wan.ethwanmode`
 WANIP=`uci get secn.wan.wanip`
 WANGATEWAY=`uci get secn.wan.wangateway`
@@ -126,9 +127,24 @@ uci set network.wan.pin=''
 uci set network.wan.device=''
 uci set wireless.sta_0.disabled='1' # Make sure wifi WAN is off.
 
+# Check to see if eth1 port exists eg for NanoStation M
+if [ `ls /proc/sys/net/ipv4/conf | grep eth1` ]; then
+	ETH1_PRESENT='1'
+	else
+	ETH1_PRESENT='0'
+	# Clear WAN port bridging
+	uci set secn.wan.wanlan_enable='0'
+fi
+
+# Set up for WAN port bridged to LAN
+if [ $WANLAN_ENABLE = "checked" ]; then
+	uci set network.lan.ifname='eth0 eth1'
+else
+	uci set network.lan.ifname='eth0'
+fi
+
 # Set up for WAN disabled
 if [ $WANPORT = "Disable" ]; then
-	uci set network.lan.ifname='eth0'
 	uci set wireless.ah_0.disabled='0'
 	uci set wireless.sta_0.disabled='1'
 fi
@@ -136,9 +152,10 @@ fi
 # Set up for Ethernet WAN
 if [ $WANPORT = "Ethernet" ]; then
     uci set network.lan.gateway='255.255.255.255'
+	# Clear WAN port bridging
+	uci set secn.wan.wanlan_enable='0'
 	# Set up for WAN port on eth 0 or eth1
-	# Check to see if eth1 exists eg for NanoStation M
-	if [ `ls /proc/sys/net/ipv4/conf | grep eth1` ]; then
+	if [ $ETH1_PRESENT = '1' ]; then
 		uci set network.lan.ifname='eth0'  # make eth0 LAN
 		uci set network.wan.ifname='eth1'  # make eth1 WAN
 	else
@@ -149,7 +166,7 @@ fi
 
 # Set up for WiFi WAN
 if [ $WANPORT = "WiFi" ]; then
-    uci set network.lan.gateway='255.255.255.255'
+	uci set network.lan.gateway='255.255.255.255'
     # Set up for wlan0 WAN port
 	uci set wireless.ap_0.disabled='1'
 	uci set wireless.ah_0.disabled='1'
