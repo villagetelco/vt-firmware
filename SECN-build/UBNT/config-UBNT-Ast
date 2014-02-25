@@ -1,7 +1,7 @@
-# 
+#
 # Automatically generated make config: don't edit
 # OpenWrt version: Attitude Adjustment (r36422)
-# Tue Feb 25 15:25:14 2014
+# Tue Feb 25 15:08:17 2014
 #
 CONFIG_HAVE_DOT_CONFIG=y
 # CONFIG_TARGET_ppc40x is not set
@@ -240,7 +240,7 @@ CONFIG_TARGET_ar71xx_generic=y
 # CONFIG_TARGET_ar71xx_generic_DIR615C1 is not set
 # CONFIG_TARGET_ar71xx_generic_DIR615E4 is not set
 # CONFIG_TARGET_ar71xx_generic_DIR825B1 is not set
-CONFIG_TARGET_ar71xx_generic_DRAGINO2=y
+# CONFIG_TARGET_ar71xx_generic_DRAGINO2 is not set
 # CONFIG_TARGET_ar71xx_generic_EWDORIN is not set
 # CONFIG_TARGET_ar71xx_generic_JA76PF is not set
 # CONFIG_TARGET_ar71xx_generic_JA76PF2 is not set
@@ -283,7 +283,7 @@ CONFIG_TARGET_ar71xx_generic_DRAGINO2=y
 # CONFIG_TARGET_ar71xx_generic_UBNTRSPRO is not set
 # CONFIG_TARGET_ar71xx_generic_UBNTUNIFI is not set
 # CONFIG_TARGET_ar71xx_generic_UBNTUNIFIOUTDOOR is not set
-# CONFIG_TARGET_ar71xx_generic_UBNT is not set
+CONFIG_TARGET_ar71xx_generic_UBNT=y
 # CONFIG_TARGET_ar71xx_generic_ZCN1523H28 is not set
 # CONFIG_TARGET_ar71xx_generic_ZCN1523H516 is not set
 # CONFIG_TARGET_ar71xx_generic_NBG_460N_550N_550NH is not set
@@ -398,7 +398,6 @@ CONFIG_DEFAULT_kmod-leds-gpio=y
 CONFIG_DEFAULT_kmod-ledtrig-default-on=y
 CONFIG_DEFAULT_kmod-ledtrig-netdev=y
 CONFIG_DEFAULT_kmod-ledtrig-timer=y
-CONFIG_DEFAULT_kmod-ledtrig-usbdev=y
 CONFIG_DEFAULT_kmod-usb-core=y
 CONFIG_DEFAULT_kmod-usb-ohci=y
 CONFIG_DEFAULT_kmod-usb2=y
@@ -435,13 +434,13 @@ CONFIG_EXTERNAL_CPIO=""
 # Root filesystem archives
 #
 # CONFIG_TARGET_ROOTFS_CPIOGZ is not set
-# CONFIG_TARGET_ROOTFS_TARGZ is not set
+CONFIG_TARGET_ROOTFS_TARGZ=y
 
 #
 # Root filesystem images
 #
 # CONFIG_TARGET_ROOTFS_EXT4FS is not set
-# CONFIG_TARGET_ROOTFS_JFFS2 is not set
+CONFIG_TARGET_ROOTFS_JFFS2=y
 CONFIG_TARGET_ROOTFS_SQUASHFS=y
 
 #
@@ -485,8 +484,7 @@ CONFIG_KERNEL_PRINTK_TIME=y
 #
 # CONFIG_DEBUG is not set
 CONFIG_IPV6=y
-CONFIG_PKG_BUILD_PARALLEL=y
-CONFIG_PKG_BUILD_USE_JOBSERVER=y
+# CONFIG_PKG_BUILD_PARALLEL is not set
 
 #
 # Stripping options
@@ -743,7 +741,7 @@ CONFIG_BUSYBOX_CONFIG_EXPR=y
 CONFIG_BUSYBOX_CONFIG_EXPR_MATH_SUPPORT_64=y
 CONFIG_BUSYBOX_CONFIG_FALSE=y
 # CONFIG_BUSYBOX_CONFIG_FOLD is not set
-CONFIG_BUSYBOX_CONFIG_FSYNC=y
+# CONFIG_BUSYBOX_CONFIG_FSYNC is not set
 CONFIG_BUSYBOX_CONFIG_HEAD=y
 CONFIG_BUSYBOX_CONFIG_FEATURE_FANCY_HEAD=y
 CONFIG_BUSYBOX_CONFIG_HOSTID=y
@@ -772,8 +770,7 @@ CONFIG_BUSYBOX_CONFIG_NICE=y
 # CONFIG_BUSYBOX_CONFIG_PRINTENV is not set
 CONFIG_BUSYBOX_CONFIG_PRINTF=y
 CONFIG_BUSYBOX_CONFIG_PWD=y
-CONFIG_BUSYBOX_CONFIG_READLINK=y
-CONFIG_BUSYBOX_CONFIG_FEATURE_READLINK_FOLLOW=y
+# CONFIG_BUSYBOX_CONFIG_READLINK is not set
 # CONFIG_BUSYBOX_CONFIG_REALPATH is not set
 CONFIG_BUSYBOX_CONFIG_RM=y
 CONFIG_BUSYBOX_CONFIG_RMDIR=y
@@ -1476,7 +1473,7 @@ CONFIG_PACKAGE_uhttpd-mod-tls=y
 # CONFIG_PACKAGE_uhttpd-mod-tls_cyassl is not set
 CONFIG_PACKAGE_uhttpd-mod-tls_openssl=y
 # CONFIG_PACKAGE_uhttpd-mod-ubus is not set
-CONFIG_PACKAGE_chat=y
+# CONFIG_PACKAGE_chat is not set
 # CONFIG_PACKAGE_crda is not set
 # CONFIG_PACKAGE_genl is not set
 # CONFIG_PACKAGE_hostapd is not set
@@ -1513,7 +1510,7 @@ CONFIG_DRIVER_11N_SUPPORT=y
 CONFIG_PACKAGE_wpad-mini=y
 # CONFIG_PACKAGE_wprobe-export is not set
 # CONFIG_PACKAGE_wprobe-util is not set
-CONFIG_PACKAGE_xinetd=y
+# CONFIG_PACKAGE_xinetd is not set
 
 #
 # Libraries
@@ -1584,7 +1581,7 @@ CONFIG_PACKAGE_libpopt=y
 CONFIG_PACKAGE_libubox=y
 CONFIG_PACKAGE_libuci=y
 # CONFIG_PACKAGE_libuci-lua is not set
-CONFIG_PACKAGE_libusb=y
+# CONFIG_PACKAGE_libusb is not set
 # CONFIG_PACKAGE_libusbpp is not set
 CONFIG_PACKAGE_libuuid=y
 # CONFIG_PACKAGE_linux-atm is not set
@@ -1871,7 +1868,7 @@ CONFIG_PACKAGE_kmod-pppox=y
 #
 # CONFIG_PACKAGE_kmod-bcma is not set
 # CONFIG_PACKAGE_kmod-bluetooth is not set
-CONFIG_PACKAGE_kmod-button-hotplug=y
+# CONFIG_PACKAGE_kmod-button-hotplug is not set
 # CONFIG_PACKAGE_kmod-eeprom-93cx6 is not set
 # CONFIG_PACKAGE_kmod-eeprom-at24 is not set
 # CONFIG_PACKAGE_kmod-eeprom-at25 is not set
@@ -1879,14 +1876,14 @@ CONFIG_PACKAGE_kmod-gpio-button-hotplug=y
 # CONFIG_PACKAGE_kmod-gpio-dev is not set
 # CONFIG_PACKAGE_kmod-gpio-nxp-74hc164 is not set
 # CONFIG_PACKAGE_kmod-hid is not set
-CONFIG_PACKAGE_kmod-input-core=y
+# CONFIG_PACKAGE_kmod-input-core is not set
 # CONFIG_PACKAGE_kmod-input-evdev is not set
 # CONFIG_PACKAGE_kmod-input-gpio-buttons is not set
 # CONFIG_PACKAGE_kmod-input-gpio-encoder is not set
 # CONFIG_PACKAGE_kmod-input-gpio-keys is not set
-CONFIG_PACKAGE_kmod-input-gpio-keys-polled=y
+# CONFIG_PACKAGE_kmod-input-gpio-keys-polled is not set
 # CONFIG_PACKAGE_kmod-input-joydev is not set
-CONFIG_PACKAGE_kmod-input-polldev=y
+# CONFIG_PACKAGE_kmod-input-polldev is not set
 # CONFIG_PACKAGE_kmod-mmc is not set
 # CONFIG_PACKAGE_kmod-mmc-over-gpio is not set
 # CONFIG_PACKAGE_kmod-mtdtests is not set
@@ -1934,26 +1931,7 @@ CONFIG_PACKAGE_kmod-usb-core=y
 # CONFIG_PACKAGE_kmod-usb-net is not set
 CONFIG_PACKAGE_kmod-usb-ohci=y
 # CONFIG_PACKAGE_kmod-usb-printer is not set
-CONFIG_PACKAGE_kmod-usb-serial=y
-# CONFIG_PACKAGE_kmod-usb-serial-ark3116 is not set
-# CONFIG_PACKAGE_kmod-usb-serial-belkin is not set
-# CONFIG_PACKAGE_kmod-usb-serial-ch341 is not set
-# CONFIG_PACKAGE_kmod-usb-serial-cp210x is not set
-# CONFIG_PACKAGE_kmod-usb-serial-cypress-m8 is not set
-# CONFIG_PACKAGE_kmod-usb-serial-ftdi is not set
-# CONFIG_PACKAGE_kmod-usb-serial-ipw is not set
-# CONFIG_PACKAGE_kmod-usb-serial-keyspan is not set
-# CONFIG_PACKAGE_kmod-usb-serial-mct is not set
-# CONFIG_PACKAGE_kmod-usb-serial-mos7720 is not set
-# CONFIG_PACKAGE_kmod-usb-serial-motorola-phone is not set
-CONFIG_PACKAGE_kmod-usb-serial-option=y
-# CONFIG_PACKAGE_kmod-usb-serial-oti6858 is not set
-# CONFIG_PACKAGE_kmod-usb-serial-pl2303 is not set
-# CONFIG_PACKAGE_kmod-usb-serial-qualcomm is not set
-# CONFIG_PACKAGE_kmod-usb-serial-sierrawireless is not set
-# CONFIG_PACKAGE_kmod-usb-serial-ti-usb is not set
-# CONFIG_PACKAGE_kmod-usb-serial-visor is not set
-CONFIG_PACKAGE_kmod-usb-serial-wwan=y
+# CONFIG_PACKAGE_kmod-usb-serial is not set
 # CONFIG_PACKAGE_kmod-usb-sierrawireless-directip is not set
 CONFIG_PACKAGE_kmod-usb-storage=y
 # CONFIG_PACKAGE_kmod-usb-storage-extras is not set
@@ -2053,7 +2031,7 @@ CONFIG_PACKAGE_MAC80211_MESH=y
 #
 # Boot Loaders
 #
-CONFIG_PACKAGE_uboot-ar71xx-nbg460n_550n_550nh=y
+# CONFIG_PACKAGE_uboot-ar71xx-nbg460n_550n_550nh is not set
 
 #
 # LuCI2
@@ -2125,7 +2103,7 @@ CONFIG_PACKAGE_blkid=y
 CONFIG_PACKAGE_swap-utils=y
 # CONFIG_PACKAGE_wipefs is not set
 # CONFIG_PACKAGE_cal is not set
-CONFIG_PACKAGE_comgt=y
+# CONFIG_PACKAGE_comgt is not set
 # CONFIG_PACKAGE_dmesg is not set
 # CONFIG_PACKAGE_dragino2 is not set
 # CONFIG_PACKAGE_dropbearconvert is not set
@@ -2162,8 +2140,7 @@ CONFIG_PACKAGE_px5g=y
 # CONFIG_PACKAGE_spidev-test is not set
 # CONFIG_PACKAGE_tiff-utils is not set
 CONFIG_PACKAGE_uboot-envtools=y
-CONFIG_PACKAGE_usb-modeswitch=y
-CONFIG_PACKAGE_usb-modeswitch-data=y
+# CONFIG_PACKAGE_usb-modeswitch is not set
 # CONFIG_PACKAGE_usbreset is not set
 # CONFIG_PACKAGE_uuidd is not set
 # CONFIG_PACKAGE_uuidgen is not set
