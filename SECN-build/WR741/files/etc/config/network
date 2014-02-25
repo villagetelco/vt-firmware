@@ -23,7 +23,6 @@ config interface 'mesh_0'
 	option mtu '1528'
 
 config interface 'wan'
-        option ifname 'eth1'
         option proto 'dhcp'
 
 config switch
