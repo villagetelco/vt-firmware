@@ -20,8 +20,8 @@ config secn 'accesspoint'
 	option ssid 'VT-SECN-AP'
 	option encryption 'WPA1'
 	option passphrase 'potato-potato'
-	option ap_disable '0'
 	option usreg_domain '0'
+	option ap_disable '0'
 	option maxassoc '20'
 
 config secn 'mesh'
@@ -67,18 +67,11 @@ config secn 'ivr'
 	option pin '1234'
 
 config secn 'modem'
-	option enabled 0
-	option vendor ''
-	option product ''
 	option modemport '0'
-	option dialstr '*99#'
 	option service 'umts'
-	option pin ''
-	option apn ''
-	option username ''
-	option password ''
+	option dialstr '*99#'
 
-config secn wan
+config secn 'wan'
 	option wanip '10.0.0.100'
 	option wangateway '10.0.0.1'
 	option wanmask '255.255.255.0'
@@ -86,8 +79,8 @@ config secn wan
 	option wanssid 'host-ssid'
 	option wanpass 'host-password'
 	option wanencr 'psk'
-	option wanport 'Disable'
 	option ethwanmode 'DHCP'
+	option wanport 'Disable'
 	option wanlan_enable '0'
 
 
