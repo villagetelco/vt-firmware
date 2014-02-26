@@ -81,6 +81,7 @@ $OPENWRT_PATH/scripts/feeds install usb-modeswitch
 $OPENWRT_PATH/scripts/feeds install usb-modeswitch-data 
 $OPENWRT_PATH/scripts/feeds install kmod-usb-serial-option 
 $OPENWRT_PATH/scripts/feeds install kmod-usb-serial-wwan 
+$OPENWRT_PATH/scripts/feeds install asterisk18 
 $OPENWRT_PATH/scripts/feeds install haserl 
 
 $OPENWRT_PATH/scripts/feeds install xinetd
