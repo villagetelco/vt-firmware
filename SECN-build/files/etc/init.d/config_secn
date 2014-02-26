@@ -313,6 +313,9 @@ uci set network.wan.pin=''
 uci set network.wan.device=''
 uci set wireless.sta_0.disabled='1' # Make sure wifi WAN is off.
 
+	# Clear WAN port bridging. Single Eth port devices
+	uci set secn.wan.wanlan_enable='0'
+
 # Set up for WAN disabled
 if [ $WANPORT = "Disable" ]; then
 	uci set network.lan.ifname='eth0'
@@ -330,7 +333,7 @@ fi
 
 # Set up for WiFi WAN
 if [ $WANPORT = "WiFi" ]; then
-    uci set network.lan.gateway='255.255.255.255'
+	uci set network.lan.gateway='255.255.255.255'
     # Set up for wlan0 WAN port
 	uci set wireless.ap_0.disabled='1'
 	uci set wireless.ah_0.disabled='1'

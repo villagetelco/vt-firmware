@@ -288,6 +288,7 @@ TTY="/dev/ttyUSB"$MODEMPORT
 
 # Get WAN settings
 WANPORT=`uci get secn.wan.wanport`
+WANLAN_ENABLE=`uci get secn.wan.wanlan_enable`
 ETHWANMODE=`uci get secn.wan.ethwanmode`
 WANIP=`uci get secn.wan.wanip`
 WANGATEWAY=`uci get secn.wan.wangateway`
@@ -313,9 +314,15 @@ uci set network.wan.pin=''
 uci set network.wan.device=''
 uci set wireless.sta_0.disabled='1' # Make sure wifi WAN is off.
 
+# Set up for WAN port bridged to LAN
+if [ $WANLAN_ENABLE = "checked" ]; then
+	uci set network.lan.ifname='eth0 eth1'
+else
+	uci set network.lan.ifname='eth1'  # Note eth1 LAN port is particular for 841 device
+fi
+
 # Set up for WAN disabled
 if [ $WANPORT = "Disable" ]; then
-uci set network.lan.ifname='eth1'  # Note eth1 LAN port is particular for 841 device
 	uci set wireless.ah_0.disabled='0'
 	uci set wireless.sta_0.disabled='1'
 fi
@@ -326,11 +333,13 @@ if [ $WANPORT = "Ethernet" ]; then
 	uci set network.lan.ifname='eth1'   # Note eth1 LAN port is particular for 841 device
 	uci set network.lan.gateway='255.255.255.255'
 	uci set network.wan.ifname='eth0'   # Note eth0 WAN port is particular for 841 device
+	# Clear WAN port bridging
+	uci set secn.wan.wanlan_enable='0'
 fi
 
 # Set up for WiFi WAN
 if [ $WANPORT = "WiFi" ]; then
-    uci set network.lan.gateway='255.255.255.255'
+	uci set network.lan.gateway='255.255.255.255'
     # Set up for wlan0 WAN port
 	uci set wireless.ap_0.disabled='1'
 	uci set wireless.ah_0.disabled='1'
