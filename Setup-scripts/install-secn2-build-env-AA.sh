@@ -38,7 +38,7 @@ echo "*** Get MP02 and SECN 2 packages from GitHub repo"
 git clone https://github.com/villagetelco/vt-secn2-packages $OPENWRT_PATH/vt-secn2-packages
 git clone https://github.com/villagetelco/vt-mp02-package   $OPENWRT_PATH/vt-mp02-package
 
-echo "*** Checkout the OpenWRT build environment. (See ./openwrt-checkout.log)"
+echo "*** Checkout the OpenWRT build environment"
 sleep 2
 svn co svn://svn.openwrt.org/openwrt/tags/attitude_adjustment_12.09/ $OPENWRT_PATH
 echo " "
@@ -52,7 +52,6 @@ echo "*** Create new feeds.conf.default file"
 echo "src-svn  packages svn://svn.openwrt.org/openwrt/branches/packages_12.09"   > $OPENWRT_PATH/feeds.conf.default
 echo "src-link dragino2      $OPENWRT_PATH/vt-mp02-package/packages-AA"   			>> $OPENWRT_PATH/feeds.conf.default
 echo "src-link secn2packages $OPENWRT_PATH/vt-secn2-packages/packages-AA" 			>> $OPENWRT_PATH/feeds.conf.default
-echo "src-git telephony http://feeds.openwrt.nanl.de/openwrt/telephony.git" 		>> $OPENWRT_PATH/feeds.conf.default
 echo " "
 
 echo "*** Update the feeds (See ./feeds-update.log)"
@@ -63,7 +62,7 @@ echo " "
 tail -n 6 ./feeds-update.log
 echo " "
 
-echo "*** Copy MP02 Platform info (See ./mp02-rsync.log)"
+echo "*** Copy MP02 Platform info "
 sleep 2
 rsync -avC $OPENWRT_PATH/vt-mp02-package/platform-AA/target/ $OPENWRT_PATH/target/
 echo " "
@@ -75,30 +74,7 @@ echo " "
 
 echo "*** Install OpenWrt packages"
 sleep 10
-$OPENWRT_PATH/scripts/feeds install kmod-batman-adv  
-$OPENWRT_PATH/scripts/feeds install openssh-sftp-server
-$OPENWRT_PATH/scripts/feeds install usb-modeswitch
-$OPENWRT_PATH/scripts/feeds install usb-modeswitch-data 
-$OPENWRT_PATH/scripts/feeds install kmod-usb-serial-option 
-$OPENWRT_PATH/scripts/feeds install kmod-usb-serial-wwan 
-$OPENWRT_PATH/scripts/feeds install asterisk18 
-$OPENWRT_PATH/scripts/feeds install haserl 
-
-$OPENWRT_PATH/scripts/feeds install xinetd
-$OPENWRT_PATH/scripts/feeds install muninlite
-$OPENWRT_PATH/scripts/feeds install alfred
-$OPENWRT_PATH/scripts/feeds install prosody
-$OPENWRT_PATH/scripts/feeds install polipo
-$OPENWRT_PATH/scripts/feeds install nodogsplash
-$OPENWRT_PATH/scripts/feeds install coova-chilli
-
-echo " "
-
-echo "*** Update feeds.conf.default file to lock further openwrt package updates"
-echo "#src-svn  packages svn://svn.openwrt.org/openwrt/branches/packages_12.09"   > $OPENWRT_PATH/feeds.conf.default
-echo "src-link dragino2      $OPENWRT_PATH/vt-mp02-package/packages-AA"   			>> $OPENWRT_PATH/feeds.conf.default
-echo "src-link secn2packages $OPENWRT_PATH/vt-secn2-packages/packages-AA" 			>> $OPENWRT_PATH/feeds.conf.default
-echo "src-git telephony http://feeds.openwrt.nanl.de/openwrt/telephony.git" 		>> $OPENWRT_PATH/feeds.conf.default
+$OPENWRT_PATH/scripts/feeds install -a
 echo " "
 
 # Remove tmp directory
@@ -110,6 +86,7 @@ echo " "
 
 echo "*** Run make defconfig to set up initial .config file (see ./defconfig.log)"
 make defconfig > ./defconfig.log
+
 # Backup the .config file
 cp .config .config.orig
 echo " "
