@@ -27,7 +27,7 @@ fi
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="RC4a"
+DIRVER="RC4-AA"
 VER="SECN Version 2.0 "$DIRVER
 
 ###########################
@@ -130,8 +130,8 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-build_tp WR842
-build_tp WDR4300
+#build_tp WR842
+#build_tp WDR4300
 build_tp MR3020
 build_tp WR703
 build_tp MR3420

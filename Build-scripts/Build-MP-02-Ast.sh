@@ -26,7 +26,7 @@ fi
 echo "Start build process"
 
 # Set up version strings
-DIRVER="Ast-RC3d"
+DIRVER="RC4-AA-Ast"
 VER="SECN Version 2.0 "$DIRVER
 
 ###########################
@@ -78,7 +78,7 @@ echo "Overlay device specific files"
 cp -r ./SECN-build/MP-02/files .    
 
 echo "Build Factory Restore tar file"
-./FactoryRestore.sh	 
+./FactoryRestore.sh
 
 echo "Check files "
 ls -al ./files   
@@ -95,8 +95,6 @@ echo "Check banner version"
 cat ./files/etc/secn_version | grep "Version"
 echo ""
 
-#exit ##############################
-
 echo "Run make for MP-02"
 make -j8
 
@@ -106,14 +104,13 @@ mv ./bin/ar71xx/openwrt*squashfs.bin   ./bin/ar71xx/builds/build-$DIR/openwrt-MP
 mv ./bin/ar71xx/openwrt*sysupgrade.bin ./bin/ar71xx/builds/build-$DIR/openwrt-MP02-$DIRVER-squashfs-sysupgrade.bin
 mv ./bin/ar71xx/openwrt*u-boot.bin     ./bin/ar71xx/builds/build-$DIR
 
+echo "Clean up unused files"
+rm ./bin/ar71xx/openwrt-*
+
 echo "Update md5sums"
 cat ./bin/ar71xx/md5sums | sed s/dragino2/MP02-$DIRVER/ > ./bin/ar71xx/md5sums-MP02
 cat ./bin/ar71xx/md5sums-MP02 | grep "MP02"    | grep ".bin" >> ./bin/ar71xx/builds/build-$DIR/md5sums
 cat ./bin/ar71xx/md5sums-MP02 | grep "u-boot"  | grep ".bin" >> ./bin/ar71xx/builds/build-$DIR/md5sums
-
-echo "Clean up unused files"
-rm ./bin/ar71xx/openwrt-*
-rm ./bin/ar71xx/md5*
 
 echo ""
 echo "End MP-02 build"

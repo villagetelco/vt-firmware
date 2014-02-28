@@ -26,7 +26,7 @@ fi
 echo "Start build process"
 
 # Set up version strings
-DIRVER="RC3d"
+DIRVER="RC4-AA"
 VER="SECN Version 2.0 "$DIRVER
 
 ###########################
@@ -34,7 +34,6 @@ VER="SECN Version 2.0 "$DIRVER
 echo "Copy files from Git repo into build folder"
 rm -rf ./SECN-build/
 cp -rp ~/Git/vt-firmware/SECN-build/ .
-cp -fp ~/Git/vt-firmware/Build-scripts/FactoryRestore.sh  .
 
 ###########################
 
@@ -57,11 +56,9 @@ echo '----------------------------'
 
 echo "Set up .config for UBNT"
 rm ./.config
-cp ./SECN-build/UBNT/.config  ./.config
+cp ./SECN-build/UBNT/config-UBNT  ./.config
 echo " Run defconfig"
 make defconfig > /dev/null
-## Use for first build on a new revision to update .config file
-cp ./.config ./SECN-build/UBNT/.config 
 
 # Get target device from .config file
 TARGET=`cat .config | grep "CONFIG_TARGET" | grep "=y" | grep "_generic_" | cut -d _ -f 5 | cut -d = -f 1 `
@@ -70,12 +67,14 @@ echo "Check .config version"
 cat ./.config | grep "OpenWrt version"
 echo "Target:  " $TARGET
 
-DEVICE="Ubiquity AR71xx"
-
 echo "Set up files for Ubiquity AR71xx"
 rm -r ./files/*
-cp -r ./SECN-build/files       .        ; echo "Copy generic files"
-cp -r ./SECN-build/UBNT/files  .        ; echo "Overlay device specific files"
+
+echo "Copy generic files"
+cp -r ./SECN-build/files       . 
+
+echo "Overlay device specific files"
+cp -r ./SECN-build/UBNT/files  . 
 
 echo "Build Factory Restore tar file"
 ./FactoryRestore.sh	
@@ -98,7 +97,7 @@ echo ""
 echo "Run make for UBNT"
 make
 
-echo  "Move files to build folder"  ##############
+echo  "Move files to build folder" 
 mv ./bin/ar71xx/*-squash*sysupgrade.bin ./bin/ar71xx/builds/build-$DIR
 mv ./bin/ar71xx/*-squash*factory.bin    ./bin/ar71xx/builds/build-$DIR
 
@@ -113,6 +112,5 @@ echo ""
 echo "End Ubiquity AR71xx build"
 echo ""
 
-#exit
 
 

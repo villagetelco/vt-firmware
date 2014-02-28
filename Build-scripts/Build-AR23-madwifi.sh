@@ -26,8 +26,8 @@ fi
 echo "Start build process"
 
 # Set up version strings
-VER="Version 2.0 RC4-Ath5k"
-DIRVER="RC4-Ath5k"
+VER="Version 2.0 RC4-MadWiFi"
+DIRVER="RC4-MadWiFi"
 
 ###########################
 
@@ -57,7 +57,7 @@ echo '----------------------------'
 
 echo "Set up .config for Ubiquity AR23"
 rm ./.config
-cp ./SECN-build/AR23/config-AR23-ath5k  ./.config
+cp ./SECN-build/AR23/config-AR23-madwifi  ./.config
 make defconfig > /dev/null
 ## Use for first build on a new revision to update .config file
 cp ./.config ./SECN-build/AR23/.config 
@@ -70,11 +70,11 @@ echo ""
 
 echo "Set up .config for AR23"
 rm ./.config
-cp ./SECN-build/AR23/config-AR23-ath5k  ./.config
+cp ./SECN-build/AR23/config-AR23-madwifi  ./.config
 echo " Run defconfig"
 make defconfig > /dev/null
 ## Use for first build on a new revision to update .config file
-cp ./.config ./SECN-build/AR23/config-AR23-ath5k
+cp ./.config ./SECN-build/AR23/config-AR23-madwifi 
 
 # Get target device from .config file
 TARGET=`cat .config | grep "CONFIG_TARGET" | grep "=y" | grep "_generic_" | cut -d _ -f 5 | cut -d = -f 1 `

@@ -26,7 +26,7 @@ fi
 echo "Start build process"
 
 # Set up version strings
-DIRVER="RC3d2-AA-test1"
+DIRVER="RC4-AA"
 VER="SECN Version 2.0 "$DIRVER
 
 ###########################
