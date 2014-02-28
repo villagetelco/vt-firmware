@@ -15,11 +15,17 @@ $(document).ready( function() {
 
 
 // jquery form validator code
-
-	$.validator.addMethod('IP4Checker', function(value) {
-		var ip = "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$";
-		return value.match(ip);
-	}, 'Invalid IP address');
+	jQuery.validator.addMethod('IP4Checker', function(value) {
+	        var split = value.split('.');                     
+	        if (split.length != 4)                              
+	        return false;                                       
+	        for (var i=0; i<split.length; i++) {                
+	                var s = split[i];                           
+	                if (s.length==0 || isNaN(s) || s<0 || s>255)
+	                return false;                                 
+	        }                                                     
+	        return true;                                          
+	}, ' Invalid IP Address'); 
 	$.validator.addMethod('PassChecker', function(value) {
 	        var pass ="^[a-zA-Z0-9_*.\-]*$"; 
 	        return value.match(pass);
