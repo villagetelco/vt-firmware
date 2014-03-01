@@ -29,9 +29,11 @@ AP_DISABLE=`uci get secn.accesspoint.ap_disable`
 USREG_DOMAIN=`uci get secn.accesspoint.usreg_domain`
 MAXASSOC=`uci get secn.accesspoint.maxassoc`
 
-# Set AP Connections to show 'Disabled' if reqd.
-if [ $MAXASSOC = "0" ]; then
-  MAXASSOC="Disabled"
+# Set up AP enable
+if [ $AP_DISABLE = "0" ]; then
+  AP_ENABLE="checked"
+else
+  AP_ENABLE="0"
 fi 
 
 # DHCP configuration parameters

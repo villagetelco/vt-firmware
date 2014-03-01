@@ -17,6 +17,7 @@ DHCP_ENABLE="0"
 USREG_DOMAIN="0"
 DHCP_AUTH="0"
 MESH_ENABLE="0"
+AP_ENABLE="0"
 DEVICE_IP="0"
 
 # Get Field-Value pairs from QUERY_STRING environment variable
@@ -100,20 +101,16 @@ fi
 # Fix ATH0_BSSID string colon characters - replace '%3A' with ':'
 ATH0_BSSID=\$(echo \$ATH0_BSSID | sed -e s/%3A/:/g)
 
-# Set MAXASSOC to zero if display value 'Disabled' is returned
-if [ \$MAXASSOC = "Disabled" ]; then
-  MAXASSOC="0"
-fi
-# Set MAXASSOC to 100 if display value 'Enabled' is returned
-if [ \$MAXASSOC = "Enabled" ]; then
-  MAXASSOC="100"
+# Set MAXASSOC to null if display value 'Max' is returned
+if [ \$MAXASSOC = "Max" ]; then
+  MAXASSOC=""
 fi
 
-# Disable AP if max associations is zero
-if [ \$MAXASSOC = "0" ]; then
-	AP_DISABLE="1"
-else
+# Disable AP if required
+if [ \$AP_ENABLE = "checked" ]; then
 	AP_DISABLE="0"
+else
+	AP_DISABLE="1"
 fi
 
 
@@ -178,6 +175,26 @@ if [ \$MPGW = "OFF" ]; then
 if [ \$MPGW = "SERVER" ]; then
   batctl gw server
   uci set batman-adv.bat0.gw_mode=server
+  fi
+
+if [ \$MPGW = "SERVER-1Mb" ]; then
+  batctl gw server 1mbit
+  uci set batman-adv.bat0.gw_mode='server 1mbit'
+  fi
+
+if [ \$MPGW = "SERVER-2Mb" ]; then
+  batctl gw server 2mbit
+  uci set batman-adv.bat0.gw_mode='server 2mbit'
+  fi
+
+if [ \$MPGW = "SERVER-5Mb" ]; then
+  batctl gw server 5mbit
+  uci set batman-adv.bat0.gw_mode='server 5mbit'
+  fi
+
+if [ \$MPGW = "SERVER-10Mb" ]; then
+  batctl gw server 10mbit
+  uci set batman-adv.bat0.gw_mode='server 10mbit'
   fi
 
 if [ \$MPGW = "CLIENT" ]; then

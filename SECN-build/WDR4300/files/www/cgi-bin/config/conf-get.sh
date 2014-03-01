@@ -50,9 +50,11 @@ AP_DISABLE=`uci get secn.accesspoint.ap_disable`
 USREG_DOMAIN=`uci get secn.accesspoint.usreg_domain`
 MAXASSOC=`uci get secn.accesspoint.maxassoc`
 
-# Set AP Connections to show 'Disabled' if reqd.
-if [ $MAXASSOC = "0" ]; then
-  MAXASSOC="Disabled"
+# Set up AP enable
+if [ $AP_DISABLE = "0" ]; then
+  AP_ENABLE="checked"
+else
+  AP_ENABLE="0"
 fi 
 
 # 5GHz Access Point configuration parameters
@@ -63,6 +65,13 @@ PASSPHRASE1=`uci get secn.accesspoint1.passphrase`
 AP_DISABLE1=`uci get secn.accesspoint1.ap_disable`
 USREG_DOMAIN1=`uci get secn.accesspoint1.usreg_domain`
 MAXASSOC1=`uci get secn.accesspoint1.maxassoc`
+
+# Set up AP enable
+if [ $AP_DISABLE1 = "0" ]; then
+  AP_ENABLE1="checked"
+else
+  AP_ENABLE1="0"
+fi 
 
 # Set AP Connections to show 'Disabled' if reqd.
 if [ $MAXASSOC1 = "0" ]; then

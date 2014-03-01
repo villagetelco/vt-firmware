@@ -19,6 +19,7 @@ ENABLE_AST="0"
 USREG_DOMAIN="0"
 DHCP_AUTH="0"
 MESH_ENABLE="0"
+AP_ENABLE="0"
 DEVICE_IP="0"
 
 # Get Field-Value pairs from QUERY_STRING environment variable
@@ -130,22 +131,17 @@ if [ \$AST_INSTALLED != "asterisk" ]; then
   ENABLE="0"
   fi
 
-# Set MAXASSOC to zero if display value 'Disabled' is returned
-if [ \$MAXASSOC = "Disabled" ]; then
-  MAXASSOC="0"
-fi
-# Set MAXASSOC to 100 if display value 'Enabled' is returned
-if [ \$MAXASSOC = "Enabled" ]; then
-  MAXASSOC="100"
+# Set MAXASSOC to null if display value 'Max' is returned
+if [ \$MAXASSOC = "Max" ]; then
+  MAXASSOC=""
 fi
 
-# Disable AP if max associations is zero
-if [ \$MAXASSOC = "0" ]; then
-	AP_DISABLE="1"
-else
+# Disable AP if required
+if [ \$AP_ENABLE = "checked" ]; then
 	AP_DISABLE="0"
+else
+	AP_DISABLE="1"
 fi
-
 
 # Write the Field values into the SECN config settings
 
