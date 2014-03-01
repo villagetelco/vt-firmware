@@ -92,6 +92,7 @@ MESH_ENABLE=`uci get secn.mesh.mesh_enable`
 # Radio
 CHANNEL=`uci get wireless.radio0.channel`
 ATH0_TXPOWER=`uci get wireless.radio0.txpower`
+ATH0_TXPOWER_ACTUAL=`iwconfig | grep -A 2 'wlan0' | grep 'dBm' | grep 'Tx-Power'| cut -d T -f 2|cut -d = -f 2`
 RADIOMODE=`uci get wireless.radio0.hwmode`
 CHANBW=`uci get wireless.radio0.chanbw`
 
