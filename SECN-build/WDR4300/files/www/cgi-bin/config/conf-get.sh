@@ -121,14 +121,14 @@ MESH_ENABLE1=`uci get secn.mesh1.mesh_enable`
 # 2.4GHz Radio 
 CHANNEL=`uci get wireless.radio0.channel`
 ATH0_TXPOWER=`uci get wireless.radio0.txpower`
-ATH0_TXPOWER_ACTUAL=`iwconfig | grep -A 2 'dBm' | grep ' Tx-Power'| cut -d = -f 2`
+ATH0_TXPOWER_ACTUAL=`iwconfig | grep -A 2 'wlan0' | grep -m 1 'Tx-Power'| cut -d T -f 2|cut -d = -f 2`
 RADIOMODE=`uci get wireless.radio0.hwmode`
 CHANBW=`uci get wireless.radio0.chanbw`
 
 # 5GHz Radio
 CHANNEL1=`uci get wireless.radio1.channel`
 ATH0_TXPOWER1=`uci get wireless.radio1.txpower`
-ATH0_TXPOWER1_ACTUAL=`iwconfig | grep -A 2 'wlan1' | grep 'dBm' | grep 'Tx-Power'| cut -d T -f 2|cut -d = -f 2`
+ATH0_TXPOWER1_ACTUAL=`iwconfig | grep -A 2 'wlan1' | grep -m 1 'Tx-Power'| cut -d T -f 2|cut -d = -f 2`
 RADIOMODE1=`uci get wireless.radio1.hwmode`
 CHANBW1=`uci get wireless.radio1.chanbw`
 

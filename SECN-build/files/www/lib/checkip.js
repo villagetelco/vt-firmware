@@ -94,6 +94,9 @@ $(document).ready( function() {
 			ATH0_IPADDR: {
 			IP4Checker: true
 			},
+			ATH0_IPADDR1: {
+			IP4Checker: true
+			},
 			ATH0_GATEWAY: {
 			IP4Checker: true
 			},
@@ -101,6 +104,9 @@ $(document).ready( function() {
 			IP4Checker: true
 			},
 			ATH0_NETMASK: {
+			IP4Checker: true
+			},
+			ATH0_NETMASK1: {
 			IP4Checker: true
 			},
 			EXTERNIP: {
@@ -125,18 +131,34 @@ $(document).ready( function() {
 			range: [0, 65536]
 			},
 			ATH0_TXPOWER: {
-			range: [0, 20]
+			range: [0, 27]
+			},
+			ATH0_TXPOWER1: {
+			range: [0, 27]
 			},
 			ATH0_BSSID: {
+			HexChecker: true
+			},
+			ATH0_BSSID1: {
 			HexChecker: true
 			},
 			ATH0_SSID: {
 			PassChecker: true
 			},
+			ATH0_SSID1: {
+			PassChecker: true
+			},
 			SSID: {
 			PassChecker: true
 			},
+			SSID1: {
+			PassChecker: true
+			},
 			PASSPHRASE: {
+			minlength: 8,
+			PassChecker: true
+			},
+			PASSPHRASE1: {
 			minlength: 8,
 			PassChecker: true
 			},
@@ -152,11 +174,44 @@ $(document).ready( function() {
 			SECRET: {
 			PassChecker: true
 			},
+			OPTION_DNS: {
+			IP4Checker: true
+			},
+			OPTION_DNS2: {
+			IP4Checker: true
+			},
 		},
 		success: function(label) { 
 			label.html("").addClass("checked");
 		}
 	});
+
+	$('#MP-ADV2').validate({
+		rules: {
+			WANIP: {
+			IP4Checker: true
+			},
+			WANGATEWAY: {
+			IP4Checker: true
+			},
+			WANMASK: {
+			IP4Checker: true
+			},
+			WANDNS: {
+			IP4Checker: true
+			},
+			WANSSID: {
+			PassChecker: true
+			},
+			WANPASS: {
+			minlength: 8,
+			PassChecker: true
+		},
+		success: function(label) { 
+			label.html("").addClass("checked");
+		}
+	});
+
 });
 
 
