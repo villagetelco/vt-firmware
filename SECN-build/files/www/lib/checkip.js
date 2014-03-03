@@ -16,19 +16,19 @@ $(document).ready( function() {
 
 // jquery form validator code
 	jQuery.validator.addMethod('IP4Checker', function(value) {
-	        var split = value.split('.');                     
-	        if (split.length != 4)                              
-	        return false;                                       
-	        for (var i=0; i<split.length; i++) {                
-	                var s = split[i];                           
-	                if (s.length==0 || isNaN(s) || s<0 || s>255)
-	                return false;                                 
-	        }                                                     
-	        return true;                                          
-	}, ' Invalid IP Address'); 
+		var split = value.split('.');
+		if (split.length != 4)
+			return false;
+		for (var i=0; i<split.length; i++) {
+			var s = split[i];
+			if (s.length===0 || isNaN(s) || s<0 || s>255)
+				return false;
+		}
+		return true;
+	}, ' Invalid IP Address');
 	$.validator.addMethod('PassChecker', function(value) {
-	        var pass ="^[a-zA-Z0-9_*.\-]*$"; 
-	        return value.match(pass);
+			var pass ="^[a-zA-Z0-9_*.\-]*$";
+			return value.match(pass);
 	}, 'Sorry, special characters not permitted');
 	$.validator.addMethod('HexChecker', function(value) {
 		var hex = "^([0-9a-fA-F]{2}([:-]|$)){6}$|([0-9a-fA-F]{4}([.]|$)){3}$";
@@ -70,7 +70,7 @@ $(document).ready( function() {
 			equalTo: "#PASSWORD1"
 			}
 		},
-		success: function(label) { 
+		success: function(label) {
 			label.html("").addClass("checked");
 		}
 	});
@@ -181,7 +181,7 @@ $(document).ready( function() {
 			IP4Checker: true
 			},
 		},
-		success: function(label) { 
+		success: function(label) {
 			label.html("").addClass("checked");
 		}
 	});
@@ -206,8 +206,9 @@ $(document).ready( function() {
 			WANPASS: {
 			minlength: 8,
 			PassChecker: true
+			},
 		},
-		success: function(label) { 
+		success: function(label) {
 			label.html("").addClass("checked");
 		}
 	});
