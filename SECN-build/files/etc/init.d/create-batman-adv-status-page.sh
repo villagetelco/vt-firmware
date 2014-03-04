@@ -1,5 +1,5 @@
 #!/bin/ash 
-
+{
 # Check wireless type
 RADIO=`uci get wireless.radio0.type`
 if [ $RADIO = "atheros" ]; then 
@@ -47,4 +47,4 @@ iwinfo $WIRELESS'0' assoclist                                             >> /tm
 
 sleep 10; \
 done &
-
+} >/dev/null 2>&1    # dump unwanted output to avoid filling log
