@@ -63,7 +63,7 @@ config wifi-device 'radio1'
 	option disabled '0'
 	option regdomain '0x035'
 	option hwmode '802.11A'
-	option txpower '14'
+	option txpower '10'
 
 config wifi-iface 'ap_1'
 	option device 'radio1'
