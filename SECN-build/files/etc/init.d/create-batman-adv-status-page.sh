@@ -26,12 +26,24 @@ batctl gwl > /tmp/bat2 &&\
 mv  /tmp/bat1  /tmp/bat1.txt
 mv /tmp/bat2   /tmp/bat2.txt
 
-# Get adhoc associations
-echo "Station MAC Addr     Signal    2.4GHz" > /tmp/mesh.txt
-iwinfo $WIRELESS'0-1' assoclist >> /tmp/mesh.txt
-# Get AP associations
-echo "Station MAC Addr     Signal    2.4Ghz" > /tmp/wifi.txt
-iwinfo $WIRELESS'0' assoclist >> /tmp/wifi.txt
+# Check whether mesh adhoc or sta mode
+STA_MODE=`iwconfig|grep -c wlan0-2`
+
+if [ $STA_MODE = "0" ]; then 
+# Get mesh adhoc association details
+echo "Station MAC Addr     Signal    2.4GHz"  > /tmp/mesh.txt
+iwinfo $WIRELESS'0-1' assoclist              >> /tmp/mesh.txt
+else
+# Get sta connection details
+echo "Host AP"                                > /tmp/mesh.txt
+echo "Station MAC Addr     Signal    2.4GHz" >> /tmp/mesh.txt
+iwinfo $WIRELESS'0-2' assoclist              >> /tmp/mesh.txt
+fi
+
+# Get AP association details
+echo "Number of connected clients: "`iwinfo wlan0 assoclist | grep -c SNR` > /tmp/wifi.txt
+echo "Station MAC Addr     Signal    2.4Ghz"                              >> /tmp/wifi.txt
+iwinfo $WIRELESS'0' assoclist                                             >> /tmp/wifi.txt
 
 sleep 10; \
 done &
