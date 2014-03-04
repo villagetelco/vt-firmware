@@ -1,5 +1,5 @@
 #!/bin/ash 
-
+{
 # Set up symbolic links to txt files from /www
 touch /tmp/mesh.txt
 ln -s /tmp/mesh.txt /www/mesh.txt
@@ -55,4 +55,5 @@ iwinfo wlan1 assoclist                              >> /tmp/wifi.txt
 
 sleep 10; \
 done &
+} >/dev/null 2>&1    # dump unwanted output to avoid filling log
 
