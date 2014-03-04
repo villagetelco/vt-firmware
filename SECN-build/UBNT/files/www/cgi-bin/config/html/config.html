@@ -216,20 +216,20 @@ cat > /tmp/config.html << EOF
 				<tr>
 					<td class="label"><label for="CHANNEL">Channel</label></td>
 					<td class="field">
-					<SELECT name="CHANNEL" id="CHANNEL" >
-					<option selected="$CHANNEL">$CHANNEL</option>
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-					<option value="6">6</option>
-					<option value="7">7</option>
-					<option value="8">8</option>
-					<option value="9">9</option>
-					<option value="10">10</option>
-					<option value="11">11</option>
-					</SELECT>
+						<SELECT name="CHANNEL" id="CHANNEL" >
+						<option selected="$CHANNEL">$CHANNEL</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+						<option value="10">10</option>
+						<option value="11">11</option>
+						</SELECT>
 					</td>
 
 					<td class="label"><label for="ATH0_TXPOWER"> Tx Power 0-27 dBm</label></td>
@@ -242,21 +242,21 @@ cat > /tmp/config.html << EOF
 				<tr>
 					<td class="label"><label for="RADIOMODE">Wifi Mode</label></td>
 					<td class="field">
-					<SELECT name="RADIOMODE" id="radiomode">
+						<SELECT name="RADIOMODE" id="radiomode">
 						<option selected="$RADIOMODE">$RADIOMODE</option>
 						<option value="802.11G">802.11G</option>
-<!--						<option value="802.11N-G">802.11N-G</option> -->
-					</SELECT>
+<!--					<option value="802.11N-G">802.11N-G</option> -->
+						</SELECT>
 					</td>
 
 					<td class="label"><label for="CHANBW">Chan BW</label></td>
 					<td class="field">
-					<SELECT name="CHANBW" id="chanbw">
+						<SELECT name="CHANBW" id="chanbw">
 						<option selected="$CHANBW">$CHANBW</option>
 						<option value="5">5MHz</option>
 						<option value="10">10MHz</option>
 						<option value="20">20MHz</option>
-					</SELECT>
+						</SELECT>
 					</td>
 				</tr>
 			</table> 
@@ -268,39 +268,39 @@ cat > /tmp/config.html << EOF
 				<tr>
 					<td class="label"><label for="ssid">SSID</label></td>
 					<td class="field"><input type="text" name="SSID" id="ssid" VALUE=$SSID ></td>
-					<td></td>
+
+					<td class="label"><label for="MAXASSOC">AP Connections</label></td>
+					<td class="field">
+						<SELECT name="MAXASSOC" id="MAXASSOC" >
+						<option selected="$MAXASSOC">$MAXASSOC</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="5">5</option>
+						<option value="10">10</option>
+						<option value="15">15</option>
+						<option value="20">20</option>
+						<option value="25">25</option>
+						<option value="Max">Max</option>
+						</SELECT>
+					</td>
+
+					<td class="label"><label>Enable Access Point</label> </td>
+					<td class="field"><input  type="checkbox" name="AP_ENABLE" id="ap_enable" VALUE="checked" $AP_ENABLE > </td>
 				</tr>
 				<tr>	
 					<td class="label"><label>Passphrase</label></td>
 					<td class="field"><input  type="text" name="PASSPHRASE" id="passphrase" VALUE=$PASSPHRASE ></td>
-					<td></td>
+
 					<td class="label"><label>Encryption</label></td>
 					<td class="field">
-					<SELECT name="ENCRYPTION" id="encryption">
+						<SELECT name="ENCRYPTION" id="encryption">
 						<option selected="$ENCRYPTION">$ENCRYPTION</option>
 						<option value="WPA1">WPA1</option>
 						<option value="WPA2">WPA2</option>
 						<option value="WEP">WEP</option>
 						<option value="NONE">None</option>
-					</SELECT>
+						</SELECT>
 					</td>
-
-					<td class="label"><label for="MAXASSOC">AP Connections</label></td>
-					<td class="field">
-					<SELECT name="MAXASSOC" id="MAXASSOC" >
-					<option selected="$MAXASSOC">$MAXASSOC</option>
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="5">5</option>
-					<option value="10">10</option>
-					<option value="15">15</option>
-					<option value="20">20</option>
-					<option value="25">25</option>
-					<option value="Max">Max</option>
-					</SELECT>
-					</td>
-					<td class="label"><label>Enable Access Point</label> </td>
-					<td class="field"><input  type="checkbox" name="AP_ENABLE" id="ap_enable" VALUE="checked" $AP_ENABLE > </td>
 				</tr>
 			</table>
 		</fieldset>
@@ -324,7 +324,7 @@ cat > /tmp/config.html << EOF
 				<tr>
 					<td class="label"><label>Gateway Mode</label></td>
 					<td class="field">
-					<SELECT name="MPGW" id="mpgw"/>
+						<SELECT name="MPGW" id="mpgw"/>
 						<option selected="$MPGW">$MPGW</option>
 						<option value="OFF">OFF</option>
 						<option value="CLIENT">CLIENT</option>
@@ -333,18 +333,18 @@ cat > /tmp/config.html << EOF
 						<option value="SERVER-2Mb">SERVER 2Mb</option>
 						<option value="SERVER-5Mb">SERVER 5Mb</option>
 						<option value="SERVER-10Mb">SERVER 10Mb</option>
-					</SELECT>
+						</SELECT>
 					</td>
 
 					<td class="label"><label for="MESH_ENCR">Encryption</label></td>
 					<td class="field">
-					<SELECT name="MESH_ENCR" id="MESH_ENCR" >
+						<SELECT name="MESH_ENCR" id="MESH_ENCR" >
 						<option selected="off">OFF</option>
 <!--				<option selected="$MESH_ENCR">$MESH_ENCR</option>
 						<option value="off">OFF</option>
 						<option value="psk">WPA</option>
 						<option value="psk2">WPA2</option> -->
-					</SELECT>
+						</SELECT>
 					</td>
 					<td class="label"><label>Enable Mesh</label> </td>
 					<td class="field"><input  type="checkbox" name="MESH_ENABLE" id="mesh_enable" VALUE="checked" $MESH_ENABLE > </td>
