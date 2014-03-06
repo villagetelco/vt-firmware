@@ -125,6 +125,12 @@ ATH0_TXPOWER_ACTUAL=`iwconfig | grep -A 2 'wlan0' | grep -m 1 'Tx-Power'| cut -d
 RADIOMODE=`uci get wireless.radio0.hwmode`
 CHANBW=`uci get wireless.radio0.chanbw`
 
+if [ $RADIOMODE = "11ng" ]; then
+	RADIOMODE="802.11N-G"
+else
+	RADIOMODE="802.11G"
+fi
+
 # 5GHz Radio
 CHANNEL1=`uci get wireless.radio1.channel`
 ATH0_TXPOWER1=`uci get wireless.radio1.txpower`
@@ -132,18 +138,10 @@ ATH0_TXPOWER1_ACTUAL=`iwconfig | grep -A 2 'wlan1' | grep -m 1 'Tx-Power'| cut -
 RADIOMODE1=`uci get wireless.radio1.hwmode`
 CHANBW1=`uci get wireless.radio1.chanbw`
 
-if [ $RADIOMODE = "11ng" ]; then
-	# Display 802.11N-G mode
-	RADIOMODE="802.11N-G"
+if [ $RADIOMODE1 = "11na" ]; then
+	RADIOMODE1="802.11N-A"
 else
-	RADIOMODE="802.11G"
-fi
-
-if [ $RADIOMODE1 = "11na"  ]; then
-# Display 802.11N-G mode
-RADIOMODE1="802.11N-A"
-else
-RADIOMODE1="802.11A"
+	RADIOMODE1="802.11A"
 fi
 
 # Get web server parameters

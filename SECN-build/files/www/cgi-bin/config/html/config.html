@@ -277,8 +277,8 @@ cat > /tmp/config.html << EOF
 					<td class="field">
 						<SELECT name="RADIOMODE" id="radiomode">
 						<option selected="$RADIOMODE">$RADIOMODE</option>
-						<option value="802.11G">802.11G</option>
-						<option value="802.11N-G">802.11N-G</option>
+						<option value="11g">802.11G</option>
+						<option value="11ng">802.11N-G</option>
 						</SELECT>
 					</td>
 
@@ -328,10 +328,12 @@ cat > /tmp/config.html << EOF
 					<td class="field">
 						<SELECT name="ENCRYPTION" id="encryption">
 						<option selected="$ENCRYPTION">$ENCRYPTION</option>
-						<option value="WPA1">WPA1</option>
+						<option value="WPA-WPA2-AES">WPA-WPA2-AES</option>
+						<option value="WPA-WPA2">WPA-WPA2</option>
 						<option value="WPA2">WPA2</option>
+						<option value="WPA">WPA</option>
 						<option value="WEP">WEP</option>
-						<option value="NONE">None</option>
+						<option value="NONE">NONE</option>
 						</SELECT>
 					</td>
 				</tr>
@@ -612,13 +614,15 @@ cat > /tmp/config.html << EOF
 
 										<td class="label"><label>Encryption</label></td>
 										<td class="field">
-										<SELECT name="WANENCR" id="wanencr">
+											<SELECT name="WANENCR" id="wanencr">
 											<option selected="$WANENCR">$WANENCR</option>
-											<option value="psk">WPA1</option>
-											<option value="psk2">WPA2</option>
-											<option value="wep">WEP</option>
-											<option value="none">None</option>
-										</SELECT>
+											<option value="WPA-WPA2-AES">WPA-WPA2-AES</option>
+											<option value="WPA-WPA2">WPA-WPA2</option>
+											<option value="WPA2">WPA2</option>
+											<option value="WPA">WPA</option>
+											<option value="WEP">WEP</option>
+											<option value="NONE">NONE</option>
+											</SELECT>
 										</td>
 									</tr>
 

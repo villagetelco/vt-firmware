@@ -76,7 +76,6 @@ RADIOMODE=`uci get wireless.radio0.hwmode`
 CHANBW=`uci get wireless.radio0.chanbw`
 
 if [ $RADIOMODE = "11ng" ]; then
-	# Display 802.11N-G mode
 	RADIOMODE="802.11N-G"
 else
 	RADIOMODE="802.11G"

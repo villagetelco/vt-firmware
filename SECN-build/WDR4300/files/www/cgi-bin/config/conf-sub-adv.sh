@@ -187,13 +187,27 @@ uci set network.mesh_1.netmask=\$ATH0_NETMASK1
 uci set wireless.radio0.country=\$ATH0_COUNTRY
 uci set wireless.radio0.channel=\$CHANNEL
 uci set wireless.radio0.txpower=\$ATH0_TXPOWER
-uci set wireless.radio0.hwmode=\$RADIOMODE
 uci set wireless.radio0.chanbw=\$CHANBW
+
+# Set up radio0 hwmode
+if [ \$RADIOMODE = "11ng" ]; then
+  uci set wireless.radio0.hwmode="11ng"
+else
+  uci set wireless.radio0.hwmode="11g"
+fi
+
 uci set wireless.radio1.country=\$ATH0_COUNTRY1
 uci set wireless.radio1.channel=\$CHANNEL1
 uci set wireless.radio1.txpower=\$ATH0_TXPOWER1
-uci set wireless.radio1.hwmode=\$RADIOMODE1
 uci set wireless.radio1.chanbw=\$CHANBW1
+
+# Set up radio1 hwmode
+if [ \$RADIOMODE1 = "11na" ]; then
+  uci set wireless.radio1.hwmode="11na"
+else
+  uci set wireless.radio1.hwmode="11a"
+fi
+
 
 # Write the adhoc interface settings into /etc/config/wireless
 uci set wireless.ah_0.ssid=\$ATH0_SSID
@@ -292,15 +306,6 @@ if [ \$MPGW = "CLIENT" ]; then
   batctl gw client
   uci set batman-adv.bat0.gw_mode=client
   fi
-
-# Set up radio mode
-if [ \$RADIOMODE = "802.11N-G" ]; then
-  RADIOMODE="11ng"
-else
-  RADIOMODE="11g"
-fi
-uci set wireless.radio0.hwmode=\$RADIOMODE
-
 
 # Commit the settings into /etc/config/ files
 uci commit secn
