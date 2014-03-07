@@ -278,7 +278,6 @@ WANMASK=`uci get secn.wan.wanmask`
 WANDNS=`uci get secn.wan.wandns`
 WANSSID=`uci get secn.wan.wanssid`
 WANPASS=`uci get secn.wan.wanpass`
-WANENCR=`uci get secn.wan.wanencr`
 
 # Set up WAN wifi encryption 
 WANENCRYPTION=`uci get secn.wan.wanencr`
