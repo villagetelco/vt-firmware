@@ -133,6 +133,7 @@ echo '----------------------------'
 #build_tp WR842
 #build_tp WDR4300
 build_tp MR3020
+build_tp MR3040
 build_tp WR703
 build_tp MR3420
 build_tp WR741
