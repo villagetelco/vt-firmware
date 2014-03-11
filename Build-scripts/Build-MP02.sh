@@ -122,7 +122,7 @@ rm ./bin/ar71xx/openwrt-*
 echo ""
 
 echo "Update md5sums"
-cat ./bin/ar71xx/md5sums | sed s/dragino2/MP02-$DIRVER/ > ./bin/ar71xx/md5sums-MP02
+cat ./bin/ar71xx/md5sums | sed s/dragino2/MP02-$1$2-$DIRVER/ > ./bin/ar71xx/md5sums-MP02
 cat ./bin/ar71xx/md5sums-MP02 | grep "MP02"    | grep ".bin" >> ./bin/ar71xx/builds/build-$DIR/md5sums
 
 echo ""
