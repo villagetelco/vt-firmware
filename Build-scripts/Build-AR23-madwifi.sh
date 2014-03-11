@@ -1,4 +1,7 @@
-#! /bin/sh
+#! /bin/bash
+
+# Default is for your local git repo to live in ~/Git. If not, you can override by setting/exporting it in your .bashrc
+: ${GITREPO=Git}
 
 # Build script for AR23xx devices
 
@@ -33,8 +36,8 @@ DIRVER="RC4-MadWiFi"
 
 echo "Copy files from Git repo into build folder"
 rm -rf ./SECN-build/
-cp -rp ~/Git/vt-firmware/SECN-build/ .
-cp -fp ~/Git/vt-firmware/Build-scripts/FactoryRestore.sh  .
+cp -rp ~/$GITREPO/vt-firmware/SECN-build/ .
+cp -fp ~/$GITREPO/vt-firmware/Build-scripts/FactoryRestore.sh  .
 
 ###########################
 

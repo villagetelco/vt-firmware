@@ -1,4 +1,7 @@
-#! /bin/sh
+#! /bin/bash
+
+# Default is for your local git repo to live in ~/Git. If not, you can override by setting/exporting it in your .bashrc
+: ${GITREPO=Git}
 
 # Build script for MP-02 devices
 
@@ -8,36 +11,37 @@ echo ""
 if [ ! -f ./already_configured ]; then 
   # make sure it only executes once
   touch ./already_configured  
-  echo " Make builds directory"
+  echo "Make builds directory"
   mkdir ./bin/
   mkdir ./bin/ar71xx/
   mkdir ./bin/ar71xx/builds
   mkdir ./bin/atheros/
   mkdir ./bin/atheros/builds
-  echo " Initial set up completed. Continuing with build"
+  echo "Initial set up completed. Continuing with build"
   echo ""
 else
   echo "Build environment is configured. Continuing with build"
   echo ""
 fi
 
+
 #########################
 
 echo "Start build process"
 
-# Set up version strings
-DIRVER="OLPC-RC3d"
-VER="OLPC SECN Version 2.0 "$DIRVER
+echo "Set up version strings"
+DIRVER="RC4"
+VER="SECN Version 2.0 "$DIRVER
 
 ###########################
 
 echo "Copy files from Git repo into build folder"
 rm -rf ./SECN-build/
-cp -rp ~/Git/vt-firmware/SECN-build/ .
-cp -fp ~/Git/vt-firmware/Build-scripts/FactoryRestore.sh  .
+cp -rp ~/$GITREPO/vt-firmware/SECN-build/ .
+cp -fp ~/$GITREPO/vt-firmware/Build-scripts/FactoryRestore.sh  .
 
 echo "Overlay OLPC files"
-cp -rp ~/Git/olpc/SECN-build/ .
+cp -rp ~/$GITREPO/olpc/SECN-build/ .
 
 ###########################
 
@@ -54,42 +58,45 @@ mkdir ./bin/ar71xx/builds/build-$DIR
 # Create md5sums file
 touch ./bin/ar71xx/builds/build-$DIR/md5sums
 
-###########################
+##########################
 
-echo '----------------------------'
+# Build function
 
-echo "Set up .config for MP-02"
+function build_mp02() {
+
+echo "Set up .config for "$1$2
 rm ./.config
-cp ./SECN-build/MP-02/config-MP02  ./.config
-echo " Run defconfig"
+cp ./SECN-build/$1/config-$1$2  ./.config
+echo "Run defconfig"
 make defconfig > /dev/null
 
-## Get target device from .config file
-##TARGET=`cat .config | grep "CONFIG_TARGET" | grep "=y" | grep "_generic_" | cut -d _ -f 5 | cut -d = -f 1 `
-# Set target as MP-02
-TARGET="MP-02"
+# Set target string
+TARGET="$1"
 
 echo "Check .config version"
 cat ./.config | grep "OpenWrt version"
 echo "Target:  " $TARGET
+echo ""
 
-echo "Set up files for MP-02 "
+echo "Set up files for "$1
+echo "Remove files directory"
 rm -r ./files
 
 echo "Copy generic files"
-cp -r ./SECN-build/files       .  
+cp -r ./SECN-build/files     .  
 
 echo "Overlay device specific files"
-cp -r ./SECN-build/MP-02/files .    
-
-echo "Build Factory Restore tar file"
-./FactoryRestore.sh	
-
-echo "Check files "
-ls -al ./files   
+cp -r ./SECN-build/$1/files  .  
 echo ""
 
-# Set up version file
+echo "Build Factory Restore tar file"
+./FactoryRestore.sh	 
+echo ""
+
+echo "Check files directory"
+ls -al ./files  
+echo ""
+
 echo "Version: "  $VER $TARGET
 echo $VER  $TARGET               > ./files/etc/secn_version
 echo "Date stamp the version file: " $DATE
@@ -100,31 +107,48 @@ echo "Check banner version"
 cat ./files/etc/secn_version | grep "Version"
 echo ""
 
-echo "Run make for MP-02"
+echo "Clean up any left over files"
+rm ./bin/ar71xx/openwrt-*
+echo ""
+
+echo "Run make for "$1$2
 make -j8
+echo ""
 
 echo  "Move files to build folder"
-mv ./bin/ar71xx/openwrt*kernel.bin     ./bin/ar71xx/builds/build-$DIR/openwrt-MP02-$DIRVER-kernel.bin
-mv ./bin/ar71xx/openwrt*squashfs.bin   ./bin/ar71xx/builds/build-$DIR/openwrt-MP02-$DIRVER-rootfs-squashfs.bin
-mv ./bin/ar71xx/openwrt*sysupgrade.bin ./bin/ar71xx/builds/build-$DIR/openwrt-MP02-$DIRVER-squashfs-sysupgrade.bin
-mv ./bin/ar71xx/openwrt*u-boot.bin     ./bin/ar71xx/builds/build-$DIR
+mv ./bin/ar71xx/openwrt*kernel.bin     ./bin/ar71xx/builds/build-$DIR/openwrt-$1$2-$DIRVER-kernel.bin
+mv ./bin/ar71xx/openwrt*squashfs.bin   ./bin/ar71xx/builds/build-$DIR/openwrt-$1$2-$DIRVER-rootfs-squashfs.bin
+mv ./bin/ar71xx/openwrt*sysupgrade.bin ./bin/ar71xx/builds/build-$DIR/openwrt-$1$2-$DIRVER-squashfs-sysupgrade.bin
 
 echo "Clean up unused files"
 rm ./bin/ar71xx/openwrt-*
+echo ""
 
 echo "Update md5sums"
 cat ./bin/ar71xx/md5sums | sed s/dragino2/MP02-$DIRVER/ > ./bin/ar71xx/md5sums-MP02
 cat ./bin/ar71xx/md5sums-MP02 | grep "MP02"    | grep ".bin" >> ./bin/ar71xx/builds/build-$DIR/md5sums
-cat ./bin/ar71xx/md5sums-MP02 | grep "u-boot"  | grep ".bin" >> ./bin/ar71xx/builds/build-$DIR/md5sums
 
 echo ""
-echo "End MP-02 build"
+echo "End "$1$2" build"
 echo ""
+echo '----------------------------'
+}
 
-##################
+############################
+
 
 echo '----------------------------'
+echo " "
+echo "Start Device builds"
+echo " "
+echo '----------------------------'
 
-echo " Build script MP-02-OLPC complete"; echo " "
+build_mp02 MP02 
 
+echo " "
+echo " Build script MP02 complete"
+echo " "
+echo '----------------------------'
+
+exit
 

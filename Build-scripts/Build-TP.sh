@@ -1,5 +1,8 @@
 #! /bin/bash
 
+# Default is for your local git repo to live in ~/Git. If not, you can override by setting/exporting it in your .bashrc
+: ${GITREPO=Git}
+
 # Build script for TP Link devices
  
 echo ""
@@ -27,15 +30,15 @@ fi
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="RC4-AA"
+DIRVER="RC4"
 VER="SECN Version 2.0 "$DIRVER
 
 ###########################
 
 echo "Copy files from Git repo into build folder"
 rm -rf ./SECN-build/
-cp -rp ~/Git/vt-firmware/SECN-build/ .
-cp -fp ~/Git/vt-firmware/Build-scripts/FactoryRestore.sh  .
+cp -rp ~/$GITREPO/vt-firmware/SECN-build/ .
+cp -fp ~/$GITREPO/vt-firmware/Build-scripts/FactoryRestore.sh  .
 
 ###########################
 
@@ -57,15 +60,15 @@ touch ./bin/ar71xx/builds/build-$DIR/md5sums
 # Build function
 
 function build_tp() {
-echo "Set up .config for "$1
+
+echo "Set up .config for "$1$2
 rm ./.config
-cp ./SECN-build/$1/config-$1  ./.config
+cp ./SECN-build/$1/config-$1$2  ./.config
 echo "Run defconfig"
 make defconfig > /dev/null
 
 # Get target device from .config file
 TARGET=`cat .config | grep "CONFIG_TARGET" | grep "=y" | grep "_generic_" | cut -d _ -f 5 | cut -d = -f 1 `
-#TARGET=$1
 
 echo "Check .config version"
 cat ./.config | grep "OpenWrt version"
@@ -74,11 +77,13 @@ echo ""
 
 echo "Set up files for "$1
 echo "Remove files directory"
-rm -r ./files/*
+rm -r ./files
+
 echo "Copy generic files"
-cp -r ./SECN-build/files       .        ; 
+cp -r ./SECN-build/files     .  
+
 echo "Overlay device specific files"
-cp -r ./SECN-build/$1/files .        ; 
+cp -r ./SECN-build/$1/files  .  
 echo ""
 
 echo "Build Factory Restore tar file"
@@ -87,8 +92,8 @@ echo ""
 
 echo "Check files directory"
 ls -al ./files  
-
 echo ""
+
 echo "Version: "  $VER $TARGET
 echo $VER  $TARGET               > ./files/etc/secn_version
 echo "Date stamp the version file: " $DATE
@@ -99,7 +104,11 @@ echo "Check banner version"
 cat ./files/etc/secn_version | grep "Version"
 echo ""
 
-echo "Run make for "$1
+echo "Clean up any left over files"
+rm ./bin/ar71xx/openwrt-*
+echo ""
+
+echo "Run make for "$1$2
 make
 echo ""
 
@@ -116,7 +125,8 @@ echo "Update md5sums"
 cat ./bin/ar71xx/md5sums | grep "squashfs" | grep ".bin" >> ./bin/ar71xx/builds/build-$DIR/md5sums
 echo ""
 
-echo "End " $1 " build"
+echo ""
+echo "End "$1$2" build"
 echo ""
 echo '----------------------------'
 }
@@ -130,8 +140,8 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-#build_tp WR842
-#build_tp WDR4300
+build_tp WR842   -Ast
+build_tp WDR4300 -Ast
 build_tp MR3020
 build_tp MR3040
 build_tp WR703
@@ -141,7 +151,7 @@ build_tp WR841
 build_tp MR11U
 
 echo " "
-echo "Build script complete"
+echo "Build script TP complete"
 echo " "
 echo '----------------------------'
 
