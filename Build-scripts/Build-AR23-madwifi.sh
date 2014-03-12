@@ -58,26 +58,17 @@ touch ./bin/atheros/builds/build-$DIR/md5sums
 
 echo '----------------------------'
 
-echo "Set up .config for Ubiquity AR23"
+echo "Set up .config for Ubiquity AR23 madwifi"
 rm ./.config
 cp ./SECN-build/AR23/config-AR23-madwifi  ./.config
+echo " Run defconfig"
 make defconfig > /dev/null
-## Use for first build on a new revision to update .config file
-cp ./.config ./SECN-build/AR23/.config 
 
 echo "Check .config version"
 cat ./.config | grep "OpenWrt version"
 echo "Check banner version"
 cat ./files/etc/secn_version | grep "Version"
 echo ""
-
-echo "Set up .config for AR23"
-rm ./.config
-cp ./SECN-build/AR23/config-AR23-madwifi  ./.config
-echo " Run defconfig"
-make defconfig > /dev/null
-## Use for first build on a new revision to update .config file
-cp ./.config ./SECN-build/AR23/config-AR23-madwifi 
 
 # Get target device from .config file
 TARGET=`cat .config | grep "CONFIG_TARGET" | grep "=y" | grep "_generic_" | cut -d _ -f 5 | cut -d = -f 1 `
@@ -86,10 +77,15 @@ echo "Check .config version"
 cat ./.config | grep "OpenWrt version"
 echo "Target:  " $TARGET
 
-echo "Set up files for AR23 "
-rm -r ./files/*
-cp -r ./SECN-build/files       .        ; echo "Copy generic files"
-cp -r ./SECN-build/AR23/files .         ; echo "Overlay device specific files"
+echo "Set up files for AR23 madwifi "
+echo "Remove files directory"
+rm -r ./files
+echo "Copy generic files"
+cp -r ./SECN-build/files             .   
+echo "Overlay device specific files"
+cp -r ./SECN-build/AR23/files        .    
+echo "Overlay driver specific files"
+cp -r ./SECN-build/AR23/madwifi/files  .  
 
 echo "Build Factory Restore tar file"
 ./FactoryRestore.sh	
@@ -109,7 +105,7 @@ echo "Check banner version"
 cat ./files/etc/secn_version | grep "Version"
 echo ""
 
-echo "Run make for AR23"
+echo "Run make for AR23 madwifi"
 make
 
 echo  "Move files to build folder"
@@ -124,9 +120,9 @@ echo "Clean up unused files"
 rm ./bin/atheros/openwrt-*
 
 echo ""
-echo "End Ubiquity-AR231x build"
+echo "End Ubiquity-AR231x madwifi build"
 echo ""
 
-#exit
+exit
 
 
