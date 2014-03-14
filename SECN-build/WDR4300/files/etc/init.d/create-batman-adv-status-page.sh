@@ -32,7 +32,7 @@ echo "Station MAC Addr     Signal"           >> /tmp/mesh.txt
 iwinfo $WIRELESS'0-2' assoclist              >> /tmp/mesh.txt
 fi
 
-STA_MODE1=`iwconfig|grep -c wlan1-2`
+STA_MODE1=`iwconfig|grep -c $WIRELESS"1-2"`
 
 if [ $STA_MODE1 = "0" ]; then 
 # Get mesh adhoc association details
@@ -46,10 +46,10 @@ iwinfo $WIRELESS'1-2' assoclist              >> /tmp/mesh.txt
 fi
 
 # Get AP association details
-echo "Number of connected clients 2.4GHz AP: "`iwinfo wlan0 assoclist | grep -c SNR` > /tmp/wifi.txt
+echo "Number of connected clients 2.4GHz AP: "`iwinfo $WIRELESS"0" assoclist | grep -c SNR` > /tmp/wifi.txt
 echo "Station MAC Addr     Signal "                 >> /tmp/wifi.txt
 iwinfo wlan0 assoclist                              >> /tmp/wifi.txt
-echo "Number of connected clients   5Ghz AP: "`iwinfo wlan0 assoclist | grep -c SNR` >> /tmp/wifi.txt
+echo "Number of connected clients   5Ghz AP: "`iwinfo $WIRELESS"0" assoclist | grep -c SNR` >> /tmp/wifi.txt
 echo "Station MAC Addr     Signal "                 >>  /tmp/wifi.txt
 iwinfo wlan1 assoclist                              >> /tmp/wifi.txt
 
