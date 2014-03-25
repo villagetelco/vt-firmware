@@ -338,14 +338,22 @@ if [ $WANPORT = "Ethernet" ]; then
 	uci set network.wan.ifname='eth0'   # Single Eth port devices
 fi
 
+# Set up for Mesh WAN
+if [ $WANPORT = "Mesh" ]; then
+	uci set network.wan.ifname='bat0' 
+	uci set network.wan.type='bridge'
+	uci set network.lan.gateway='255.255.255.255'
+fi
+
 # Set up for WiFi WAN
 if [ $WANPORT = "WiFi" ]; then
-	uci set network.lan.gateway='255.255.255.255'
-    # Set up for wlan0 WAN port
+  # Set up for wlan0 WAN port
 	uci set wireless.ah_0.disabled='1'
 	uci set wireless.sta_0.disabled='0'
 	uci set network.wan.ifname='wlan0'
-	uci set secn.mesh.mesh_enable='0' # Disable mesh
+	uci set network.lan.gateway='255.255.255.255'
+	# Disable mesh
+	uci set secn.mesh.mesh_enable='0'
 	MESH_ENABLE='0'
 fi
 

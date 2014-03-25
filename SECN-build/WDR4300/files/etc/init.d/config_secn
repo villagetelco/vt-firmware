@@ -387,25 +387,41 @@ if [ $WANPORT = "Ethernet" ]; then
 	uci set secn.wan.wanlan_enable='0'
 fi
 
+# Set up for Mesh WAN
+if [ $WANPORT = "Mesh" ]; then
+ 	# Set up eth0.2 as LAN or WAN
+	if [ $WANLAN_ENABLE = "checked" ]; then
+		uci set network.lan.ifname='eth0.1 eth0.2'
+		uci set network.wan.ifname='bat0'
+	else
+		uci set network.lan.ifname='eth0.1'
+		uci set network.wan.ifname='bat0 eth0.2' 
+	fi
+	uci set network.lan.gateway='255.255.255.255'
+	uci set network.wan.type='bridge'
+fi
+
 # Set up for WiFi WAN
 if [ $WANPORT = "2.4GHz_WiFi" ]; then
-	uci set network.lan.gateway='255.255.255.255'
-    # Set up for wlan0 WAN port
+  # Set up for wlan0 WAN port
 	uci set wireless.ah_0.disabled='1'
 	uci set wireless.sta_0.disabled='0'
 	uci set network.wan.ifname='wlan0'
-	uci set secn.mesh.mesh_enable='0' # Disable mesh
+	uci set network.lan.gateway='255.255.255.255'
+	# Disable mesh
+	uci set secn.mesh.mesh_enable='0' 
 	MESH_ENABLE='0'
 fi
 
 if [ $WANPORT = "5.0GHz_WiFi" ]; then
-     uci set network.lan.gateway='255.255.255.255'
  	# Set up for wlan1 WAN port
 	uci set wireless.ah_1.disabled='1'
 	uci set network.wan.ifname='wlan1'
 	uci set wireless.sta_1.disabled='0'
 	uci set network.wan.ifname='wlan1'
-	uci set secn.mesh1.mesh_enable='0' # Disable mesh
+  uci set network.lan.gateway='255.255.255.255'
+	# Disable mesh-1
+	uci set secn.mesh1.mesh_enable='0' 
 	MESH_ENABLE1='0'
 fi
 
