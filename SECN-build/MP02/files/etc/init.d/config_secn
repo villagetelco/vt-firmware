@@ -342,6 +342,20 @@ if [ $WANPORT = "Ethernet" ]; then
 	uci set secn.wan.wanlan_enable='0'
 fi
 
+# Set up for Mesh WAN
+if [ $WANPORT = "Mesh" ]; then
+ 	# Set up eth1 as LAN or WAN
+	if [ $WANLAN_ENABLE = "checked" ]; then
+		uci set network.lan.ifname='eth0 eth1'
+		uci set network.wan.ifname='bat0'
+	else
+		uci set network.lan.ifname='eth0'
+		uci set network.wan.ifname='bat0 eth1' 
+	fi
+	uci set network.lan.gateway='255.255.255.255'
+	uci set network.wan.type='bridge'
+fi
+
 # Set up for WiFi WAN
 if [ $WANPORT = "WiFi" ]; then
 	uci set network.lan.gateway='255.255.255.255'

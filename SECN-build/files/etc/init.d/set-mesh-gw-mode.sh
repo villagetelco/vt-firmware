@@ -52,6 +52,17 @@ if [ $MPGW = "CLIENT" ]; then
 uci commit batman-adv
 
 # Add bat0 to bridge now that it is configured and bl is enabled
-brctl addif br-lan bat0
+WANPORT=`uci get secn.wan.wanport`
+ETHWANMODE=`uci get secn.wan.ethwanmode`
+
+if [ $WANPORT = "Mesh" ]; then
+	brctl addif br-wan bat0
+	# Force udhcpc lease renewal
+	if [ $ETHWANMODE = "DHCP" ]; then	
+		kill -SIGUSR1 `cat /var/run/udhcpc-br-wan.pid`
+	fi
+else
+	brctl addif br-lan bat0
+fi
 
 ###
