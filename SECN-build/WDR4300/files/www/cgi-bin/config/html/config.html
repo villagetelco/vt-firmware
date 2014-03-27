@@ -43,11 +43,11 @@ cat > /tmp/config.html << EOF
 							<td class="field"><input type="text" name="BR_IPADDR" id="br_ipaddr" VALUE=$BR_IPADDR></td>
 
 
-							<td class="label"><label for="BR_GATEWAY">Gateway</label></td>
+							<td class="label"><label for="BR_GATEWAY">LAN Gateway</label></td>
 							<td class="field"><input type="text" name="BR_GATEWAY" id="br_gateway" VALUE=$BR_GATEWAY></td>
 
 
-							<td class="label"><label for="Test"> Find Gateway </label></td>
+							<td class="label"><label for="Test"> Internet Access </label></td>
 							<td class="field"> <INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Test" > </td>
 						</tr>
 				</table>
@@ -217,24 +217,23 @@ cat > /tmp/config.html << EOF
 					</table>
 				</fieldset>
 
-			<table class="submitform">
-				<tr>
-					<td>
-					<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Refresh" >
-					<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Save" >
-					<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Restart Asterisk" >
-					<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Reboot" >
-					</td>
-				</tr>
-			</table>
+				<table class="submitform">
+					<tr>
+						<td>
+						<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Refresh" >
+						<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Save" >
+						<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Restart Asterisk" >
+						<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Reboot" >
+						</td>
+					</tr>
+				</table>
 
-    </form>
-	</div>
-	
+			</form>
+		</div>	
 
-	<!-- Advanced Configuration Form -->
+		<!-- Advanced Configuration Form -->
 		<div id="tabs1-advanced">
-			<div class="tab-container" id="inner-container">
+			 <div class="tab-container" id="inner-container">
 				<ul class='etabs'>
 				<li class='tab'><a href="#tab-adv">Advanced</a></li>
 				<li class='tab'><a href="#tab-adv2">WAN</a></li>
@@ -245,28 +244,28 @@ cat > /tmp/config.html << EOF
 					<div id="tab-adv">
 						<form name="MP-ADV" id="MP-ADV" METHOD=GET ACTION="/cgi-bin/config/conf-sub-adv.sh">
 
-							Time: $UPTIME    TZ: $TZ 
+							Time: $UPTIME  TZ: $TZ
 
-		<fieldset class="network-adv">
-			<legend>Network</legend>
-			<table>
-				<tr>
-					<td class="label"><label for="BR_IPADDR">IP Address</label></td>
-					<td class="field"><input type="text" name="BR_IPADDR" id="br_ipaddr" VALUE=$BR_IPADDR ></td>
-					<td></td>
-					<td class="label"><label for="BR_GATEWAY">Gateway</label></td>
-					<td class="field"><input type="text" name="BR_GATEWAY" id="br_gateway" VALUE=$BR_GATEWAY ></td>
-				</tr>
+							<fieldset class="network-adv">
+								<legend>Network</legend>
+								<table>
+									<tr>
+										<td class="label"><label for="BR_IPADDR">IP Address</label></td>
+										<td class="field"><input type="text" name="BR_IPADDR" id="br_ipaddr" VALUE=$BR_IPADDR ></td>
+										<td></td>
+										<td class="label"><label for="BR_GATEWAY">LAN Gateway</label></td>
+										<td class="field"><input type="text" name="BR_GATEWAY" id="br_gateway" VALUE=$BR_GATEWAY ></td>
+									</tr>
 
-				<tr>
-					<td class="label"><label for="BR_DNS">DNS</label></td>
-					<td class="field"><input type="text" name="BR_DNS" id="br_dns" VALUE=$BR_DNS ></td>
-					<td></td>
-					<td class="label"><label for="BR_NETMASK">Netmask</label></td>
-					<td class="field"><input type="text" name="BR_NETMASK" id="br_netmask" VALUE=$BR_NETMASK ></td>
-				</tr>
-			</table>
-		</fieldset>
+									<tr>
+										<td class="label"><label for="BR_DNS">DNS</label></td>
+										<td class="field"><input type="text" name="BR_DNS" id="br_dns" VALUE=$BR_DNS ></td>
+										<td></td>
+										<td class="label"><label for="BR_NETMASK">Netmask</label></td>
+										<td class="field"><input type="text" name="BR_NETMASK" id="br_netmask" VALUE=$BR_NETMASK ></td>
+									</tr>
+								</table>
+							</fieldset>
 
 		<fieldset class="wifi-adv">
 			<legend>2.4 GHz Radio</legend>
@@ -385,7 +384,7 @@ cat > /tmp/config.html << EOF
 					<td class="field"><input type="text" name="ATH0_BSSID" id="ath0_bssid" VALUE=$ATH0_BSSID ></td>
 				</tr>
 				<tr>
-					<td class="label"><label>Gateway Mode</label></td>
+					<td class="label"><label>Mesh Gateway</label></td>
 					<td class="field">
 						<SELECT name="MPGW" id="mpgw"/>
 						<option selected="$MPGW">$MPGW</option>
@@ -803,7 +802,7 @@ cat > /tmp/config.html << EOF
 
 										<td class="label"><label>Encryption</label></td>
 										<td class="field">
-										<SELECT name="WANENCR" id="wanencr">
+											<SELECT name="WANENCR" id="wanencr">
 											<option selected="$WANENCR">$WANENCR</option>
 											<option value="WPA-WPA2-AES">WPA-WPA2-AES</option>
 											<option value="WPA-WPA2">WPA-WPA2</option>
@@ -811,7 +810,7 @@ cat > /tmp/config.html << EOF
 											<option value="WPA">WPA</option>
 											<option value="WEP">WEP</option>
 											<option value="NONE">NONE</option>
-										</SELECT>
+											</SELECT>
 										</td>
 									</tr>
 
@@ -922,9 +921,9 @@ cat > /tmp/config.html << EOF
 		<!-- Status Page -->
 		<div id="tabs1-status">
 			<p> </p>
-			<h3> Available mesh nodes </h3>     
+			<h3> Mesh Nodes </h3>     
 			<iframe id="FrameID1" src="/bat1.txt"  width="100%" height="150" ></iframe>
-			<h3> Available gateways </h3>
+			<h3> Mesh Gateways </h3>
 			<iframe id="FrameID2" src="/bat2.txt"  width="100%" height="120" ></iframe>
 			<h3> Node Signal Strength</h3>
 			<iframe id="FrameID3" src="/mesh.txt"  width="100%" height="150" ></iframe>
