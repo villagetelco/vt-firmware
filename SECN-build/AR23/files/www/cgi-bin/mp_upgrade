@@ -40,7 +40,7 @@
 				<input class="input" type="file" name="uploadroot" size="50">
 			</div>
 			<div class="block">
-				<input class="input" type="submit" value="Upload Files to Server">
+				<input class="input" type="submit" value="Upload Files">
 			</div>
 		</form>
 		<div>
