@@ -193,9 +193,6 @@ uci set secn.accesspoint.ap_disable=\$AP_DISABLE
 uci set secn.accesspoint.usreg_domain=\$USREG_DOMAIN  
 uci set secn.accesspoint.maxassoc=\$MAXASSOC
 
-# Save mesh settings to /etc/config/secn
-uci set secn.mesh.mesh_enable=\$MESH_ENABLE
-
 # Write the Asterisk settings into /etc/config/secn
 uci set secn.asterisk.host=\$HOST
 uci set secn.asterisk.reghost=\$REGHOST
@@ -232,8 +229,11 @@ uci set secn.dhcp.dns=\$OPTION_DNS
 uci set secn.dhcp.dns2=\$OPTION_DNS2
 uci set secn.dhcp.device_ip=\$DEVICE_IP
 
-# Write the MPGW display setting into /etc/config/secn
-uci set secn.mpgw.mode=\$MPGW
+# Save mesh settings to /etc/config/secn
+uci set secn.mesh.mesh_enable=\$MESH_ENABLE
+uci set secn.mesh.pingtime=\$PING_TIME
+uci set secn.mesh.pinghost=\$PING_HOST
+uci set secn.mesh.mpgw=\$MPGW
 
 # Set up mesh gateway mode on the fly
 if [ \$MPGW = "OFF" ]; then

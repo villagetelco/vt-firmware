@@ -12,6 +12,7 @@ VERSION=`cat /etc/banner | grep Version`" "$REV
 DATE=`date`
 UPTIME=`uptime`
 TZ=`cat /etc/TZ`
+PROC=`ps|grep -c -v -e '!@#$%'`
 
 # Get USB Modem details
 USBMODEM=`/bin/usbmodem.sh`
@@ -72,7 +73,11 @@ OPTION_DNS2=`uci get secn.dhcp.dns2`
 DEVICE_IP=`uci get secn.dhcp.device_ip`
 
 # MPGW setting
-MPGW=`uci get secn.mpgw.mode`
+MESH_ENABLE=`uci get secn.mesh.mesh_enable`
+MPGW=`uci get secn.mesh.mpgw`
+PING_TIME=`uci get secn.mesh.pingtime`
+PING_HOST=`uci get secn.mesh.pinghost`
+
 
 # Get network settings from /etc/config/network and wireless
 
@@ -87,7 +92,6 @@ ATH0_IPADDR=`uci get network.mesh_0.ipaddr`
 ATH0_NETMASK=`uci get network.mesh_0.netmask`
 ATH0_SSID=`uci get wireless.ah_0.ssid`
 ATH0_BSSID=`uci get wireless.ah_0.bssid`
-MESH_ENABLE=`uci get secn.mesh.mesh_enable`
 
 # Radio
 CHANNEL=`uci get wireless.radio0.channel`
