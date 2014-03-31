@@ -19,8 +19,12 @@ ifconfig br-lan:99 1.1.1.1
 # Look for a DHCP server and call the script to get and save the env variables
 udhcpc -n -i br-lan:99 -s /bin/savedhcp.sh > /dev/null
 
-# Remove the temp iface
+# Get the udhcpc pid
+PID=`ps|grep  udhcpc | grep br-lan:99 | cut -d ' ' -f 2`
+
+# Remove the temp iface and kill udhcpc process
 ifconfig br-lan:99 down
+kill $PID
 
 # Get the saved LAN Gateway and DNS addresses
 GW=`cat /tmp/gateway.txt | grep .`
@@ -33,9 +37,9 @@ DNS=`cat /tmp/dns.txt | grep .`
 # If no Gateway found, prepare status message text and set to 0.0.0.0
 if [ $GW ]; then
   if [ $DNS ]; then
-    GWTXT=" LAN DHCP Server - LAN Gateway: "$GW" DNS: "$DNS
+    GWTXT=" LAN DHCP Server - GW: "$GW" DNS: "$DNS
   else
-    GWTXT=" LAN DHCP Server - LAN Gateway: "$GW 
+    GWTXT=" LAN DHCP Server - GW: "$GW 
   fi
 else
   GW="0.0.0.0"
