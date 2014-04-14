@@ -29,8 +29,8 @@ fi
 echo "Start build process"
 
 # Set up version strings
-VER="Version 2.0 RC4-MadWiFi"
-DIRVER="RC4-MadWiFi"
+VER="Version 2.0 RC5-MadWiFi"
+DIRVER="RC5-MadWiFi"
 
 ###########################
 
