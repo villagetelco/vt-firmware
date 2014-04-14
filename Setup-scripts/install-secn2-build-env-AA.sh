@@ -40,7 +40,7 @@ git clone https://github.com/villagetelco/vt-mp02-package   $OPENWRT_PATH/vt-mp0
 
 echo "*** Checkout the OpenWRT build environment"
 sleep 2
-svn co svn://svn.openwrt.org/openwrt/tags/attitude_adjustment_12.09/ $OPENWRT_PATH
+svn co svn://svn.openwrt.org/openwrt/branches/attitude_adjustment/ $OPENWRT_PATH
 echo " "
 
 echo "*** Backup original feeds files if they exist"
