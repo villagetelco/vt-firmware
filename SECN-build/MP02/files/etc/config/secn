@@ -26,8 +26,6 @@ config secn 'accesspoint'
 
 config secn 'mesh'
 	option mesh_enable 'checked'
-	option pingtime '100'
-	option pinghost '8.8.8.8'
 	option mpgw 'OFF'
 
 config secn 'dhcp'
