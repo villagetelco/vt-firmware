@@ -30,7 +30,7 @@ fi
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="RC5"
+DIRVER="RC5a"
 VER="SECN Version 2.0 "$DIRVER
 
 ###########################
