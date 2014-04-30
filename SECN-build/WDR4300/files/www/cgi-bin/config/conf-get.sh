@@ -12,6 +12,7 @@ VERSION=`cat /etc/banner | grep Version`" "$REV
 DATE=`date`
 UPTIME=`uptime`
 TZ=`cat /etc/TZ`
+PROC=`ps|grep -c -v -e '!@#$%'`
 
 # Get USB Modem details
 USBMODEM=`/bin/usbmodem.sh`
@@ -47,8 +48,8 @@ ENCRYPTION=`uci get secn.accesspoint.encryption`
 WPA_KEY_MGMT=`uci get secn.accesspoint.wpa_key_mgmt`
 PASSPHRASE=`uci get secn.accesspoint.passphrase`
 AP_DISABLE=`uci get secn.accesspoint.ap_disable`
-USREG_DOMAIN=`uci get secn.accesspoint.usreg_domain`
 MAXASSOC=`uci get secn.accesspoint.maxassoc`
+AP_ISOL=`uci get secn.accesspoint.ap_isol`
 
 # Set up AP enable
 if [ $AP_DISABLE = "0" ]; then
@@ -57,14 +58,21 @@ else
   AP_ENABLE="0"
 fi 
 
+# Set up AP Isolation
+if [ $AP_ISOL = "1" ]; then
+  AP_ISOL="checked"
+else
+  AP_ISOL="0"
+fi 
+
 # 5GHz Access Point configuration parameters
 SSID1=`uci get secn.accesspoint1.ssid`
 ENCRYPTION1=`uci get secn.accesspoint1.encryption`
 WPA_KEY_MGMT1=`uci get secn.accesspoint1.wpa_key_mgmt`
 PASSPHRASE1=`uci get secn.accesspoint1.passphrase`
 AP_DISABLE1=`uci get secn.accesspoint1.ap_disable`
-USREG_DOMAIN1=`uci get secn.accesspoint1.usreg_domain`
 MAXASSOC1=`uci get secn.accesspoint1.maxassoc`
+AP_ISOL1=`uci get secn.accesspoint1.ap_isol`
 
 # Set up AP enable
 if [ $AP_DISABLE1 = "0" ]; then
@@ -76,6 +84,13 @@ fi
 # Set AP Connections to show 'Disabled' if reqd.
 if [ $MAXASSOC1 = "0" ]; then
   MAXASSOC1="Disabled"
+fi 
+
+# Set up AP Isolation
+if [ $AP_ISOL1 = "1" ]; then
+  AP_ISOL1="checked"
+else
+  AP_ISOL1="0"
 fi 
 
 # DHCP configuration parameters
@@ -94,7 +109,7 @@ DEVICE_IP=`uci get secn.dhcp.device_ip`
 
 # MPGW setting
 MPGW=`uci get secn.mpgw.mode`
-MPGW1=`uci get secn.mpgw1.mode`
+MPGW1=`uci get secn.mpgw.mode` # Slave off mpgw setting
 
 # Get network settings from /etc/config/network and wireless
 

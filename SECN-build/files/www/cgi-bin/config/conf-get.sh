@@ -48,14 +48,21 @@ ENCRYPTION=`uci get secn.accesspoint.encryption`
 WPA_KEY_MGMT=`uci get secn.accesspoint.wpa_key_mgmt`
 PASSPHRASE=`uci get secn.accesspoint.passphrase`
 AP_DISABLE=`uci get secn.accesspoint.ap_disable`
-USREG_DOMAIN=`uci get secn.accesspoint.usreg_domain`
 MAXASSOC=`uci get secn.accesspoint.maxassoc`
+AP_ISOL=`uci get secn.accesspoint.ap_isol`
 
 # Set up AP enable
 if [ $AP_DISABLE = "0" ]; then
   AP_ENABLE="checked"
 else
   AP_ENABLE="0"
+fi 
+
+# Set up AP Isolation
+if [ $AP_ISOL = "1" ]; then
+  AP_ISOL="checked"
+else
+  AP_ISOL="0"
 fi 
 
 # DHCP configuration parameters

@@ -25,6 +25,7 @@ config wifi-iface 'ap_0'
 	option key 'potato-potato'
 	option hidden '0'
 	option disabled '0'
+	option isolate '0'
 
 config wifi-iface 'ah_0'
 	option device 'radio0'

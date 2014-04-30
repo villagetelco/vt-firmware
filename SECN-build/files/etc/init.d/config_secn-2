@@ -42,4 +42,7 @@ fi
 
 #---------------------------------------------
 
+# Set up Prosody 
+chown -R prosody:prosody /etc/prosody/data
+
 

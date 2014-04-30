@@ -23,6 +23,7 @@ config secn 'accesspoint'
 	option usreg_domain '0'
 	option ap_disable '0'
 	option maxassoc '20'
+	option ap_isol '0'
 
 config secn 'mesh'
 	option mesh_enable 'checked'

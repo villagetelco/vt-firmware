@@ -22,6 +22,8 @@ MESH_ENABLE='0'
 MESH_ENABLE1='0'
 AP_ENABLE="0"
 DEVICE_IP="0"
+AP_ISOL="0"
+AP_ISOL1="0"
 
 # Get Field-Value pairs from QUERY_STRING environment variable
 # set by the form GET action
@@ -156,16 +158,30 @@ else
 	AP_DISABLE="1"
 fi
 
+# Set up AP Isolation
+if [ \$AP_ISOL = "checked" ]; then
+	AP_ISOL="1"
+else
+	AP_ISOL="0"
+fi
+ 
+
 # Set MAXASSOC1 to null if display value 'Max' is returned
 if [ \$MAXASSOC1 = "Max" ]; then
   MAXASSOC1=""
 fi
 
-# Disable AP if required
+# Disable AP1 if required
 if [ \$AP_ENABLE1 = "checked" ]; then
 	AP_DISABLE1="0"
 else
 	AP_DISABLE1="1"
+fi
+
+if [ \$AP_ISOL1 = "checked" ]; then
+	AP_ISOL1="1"
+else
+	AP_ISOL1="0"
 fi
 
 
@@ -222,11 +238,14 @@ uci set secn.accesspoint.passphrase=\$PASSPHRASE
 uci set secn.accesspoint.ap_disable=\$AP_DISABLE
 uci set secn.accesspoint.usreg_domain=\$USREG_DOMAIN  
 uci set secn.accesspoint.maxassoc=\$MAXASSOC
+uci set secn.accesspoint.ap_isol=\$AP_ISOL
+
 uci set secn.accesspoint1.ssid=\$SSID1
 uci set secn.accesspoint1.encryption=\$ENCRYPTION1
 uci set secn.accesspoint1.passphrase=\$PASSPHRASE1
 uci set secn.accesspoint1.ap_disable=\$AP_DISABLE1
 uci set secn.accesspoint1.maxassoc=\$MAXASSOC1
+uci set secn.accesspoint1.ap_isol=\$AP_ISOL1
 
 # Save mesh settings to /etc/config/secn
 uci set secn.mesh.mesh_enable=\$MESH_ENABLE

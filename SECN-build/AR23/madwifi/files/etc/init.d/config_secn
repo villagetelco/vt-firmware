@@ -182,6 +182,7 @@ SSID=`uci get secn.accesspoint.ssid`
 PASSPHRASE=`uci get secn.accesspoint.passphrase`
 ENCRYPTION=`uci get secn.accesspoint.encryption`
 AP_DISABLE=`uci get secn.accesspoint.ap_disable`
+AP_ISOL=`uci get secn.accesspoint.ap_isol`
 MAXASSOC=`uci get secn.accesspoint.maxassoc`
 USREG_DOMAIN=`uci get secn.accesspoint.usreg_domain`
 CHANNEL=`uci get wireless.radio0.channel`
@@ -209,6 +210,7 @@ uci set wireless.ap_0.key=$PASSPHRASE
 uci set wireless.ap_0.ssid=$SSID
 uci set wireless.ap_0.mode="ap"
 uci set wireless.ap_0.disabled=$AP_DISABLE
+uci set wireless.ap_0.isolate=$AP_ISOL
 uci set wireless.ap_0.maxassoc=$MAXASSOC
 
 #----------------------------------------------
@@ -266,15 +268,15 @@ WANENCR="mixed-psk"
 
 if [ $WANENCRYPTION = "WPA-WPA2-AES" ]; then                                   
 WANENCR="mixed-psk+tkip+aes"
-elif [ $ENCRYPTION = "WPA-WPA2" ]; then                          
+elif [ $WANENCRYPTION = "WPA-WPA2" ]; then                          
 WANENCR="mixed-psk"                                                     
-elif [ $ENCRYPTION = "WPA2" ]; then                          
+elif [ $WANENCRYPTION = "WPA2" ]; then                          
 WANENCR="psk2"                                                      
-elif [ $ENCRYPTION = "WPA" ]; then                                   
+elif [ $WANENCRYPTION = "WPA" ]; then                                   
 WANENCR="psk"
-elif [ $ENCRYPTION = "WEP" ]; then                          
+elif [ $WANENCRYPTION = "WEP" ]; then                          
 WANENCR="wep"                                                     
-elif [ $ENCRYPTION = "NONE" ]; then                          
+elif [ $WANENCRYPTION = "NONE" ]; then                          
 WANENCR="none"                                                      
 fi
 

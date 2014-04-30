@@ -180,13 +180,14 @@ SSID=`uci get secn.accesspoint.ssid`
 PASSPHRASE=`uci get secn.accesspoint.passphrase`
 ENCRYPTION=`uci get secn.accesspoint.encryption`
 AP_DISABLE=`uci get secn.accesspoint.ap_disable`
+AP_ISOL=`uci get secn.accesspoint.ap_isol`
 MAXASSOC=`uci get secn.accesspoint.maxassoc`
 USREG_DOMAIN=`uci get secn.accesspoint.usreg_domain`
 CHANNEL=`uci get wireless.radio0.channel`
 MESH_ENABLE=`uci get secn.mesh.mesh_enable`
 
 # Set to WPA-WPA2 by default                                 
-ENCRYPTION="mixed-psk"
+ENCRYPT="mixed-psk"
 
 if [ $ENCRYPTION = "WPA-WPA2-AES" ]; then                                   
 ENCRYPT="mixed-psk+tkip+aes"
@@ -207,6 +208,7 @@ uci set wireless.ap_0.key=$PASSPHRASE
 uci set wireless.ap_0.ssid=$SSID
 uci set wireless.ap_0.mode="ap"
 uci set wireless.ap_0.disabled=$AP_DISABLE
+uci set wireless.ap_0.isolate=$AP_ISOL
 uci set wireless.ap_0.maxassoc=$MAXASSOC
 
 
@@ -219,6 +221,7 @@ SSID=`uci get secn.accesspoint1.ssid`
 PASSPHRASE=`uci get secn.accesspoint1.passphrase`
 ENCRYPTION=`uci get secn.accesspoint1.encryption`
 AP_DISABLE=`uci get secn.accesspoint1.ap_disable`
+AP_ISOL=`uci get secn.accesspoint1.ap_isol`
 MAXASSOC=`uci get secn.accesspoint1.maxassoc`
 CHANNEL=`uci get wireless.radio1.channel`
 MESH_ENABLE1=`uci get secn.mesh1.mesh_enable`
@@ -245,6 +248,7 @@ uci set wireless.ap_1.key=$PASSPHRASE
 uci set wireless.ap_1.ssid=$SSID
 uci set wireless.ap_1.mode="ap"
 uci set wireless.ap_1.disabled=$AP_DISABLE
+uci set wireless.ap_1.isolate=$AP_ISOL
 uci set wireless.ap_1.maxassoc=$MAXASSOC
 
 

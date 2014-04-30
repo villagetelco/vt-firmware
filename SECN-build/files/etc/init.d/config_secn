@@ -180,6 +180,7 @@ SSID=`uci get secn.accesspoint.ssid`
 PASSPHRASE=`uci get secn.accesspoint.passphrase`
 ENCRYPTION=`uci get secn.accesspoint.encryption`
 AP_DISABLE=`uci get secn.accesspoint.ap_disable`
+AP_ISOL=`uci get secn.accesspoint.ap_isol`
 MAXASSOC=`uci get secn.accesspoint.maxassoc`
 USREG_DOMAIN=`uci get secn.accesspoint.usreg_domain`
 CHANNEL=`uci get wireless.radio0.channel`
@@ -207,6 +208,7 @@ uci set wireless.ap_0.key=$PASSPHRASE
 uci set wireless.ap_0.ssid=$SSID
 uci set wireless.ap_0.mode="ap"
 uci set wireless.ap_0.disabled=$AP_DISABLE
+uci set wireless.ap_0.isolate=$AP_ISOL
 uci set wireless.ap_0.maxassoc=$MAXASSOC
 
 #----------------------------------------------
@@ -436,9 +438,8 @@ EOF
 rm /etc/chatscripts/evdo.chat
 cat >> /etc/chatscripts/evdo.chat << EOF
 
-# This is a simple chat script based off of the one provided by Sierra Wireless
-# for CDMA connections.  It should work for both Sprint and Verizon networks.
-# Default dial string: ATDT#777
+# This is a simple chat script based on the one provided by Sierra Wireless
+# for CDMA connections.
 ABORT  	BUSY
 ABORT 	'NO CARRIER'
 ABORT   ERROR

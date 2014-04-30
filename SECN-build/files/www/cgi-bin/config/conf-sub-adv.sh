@@ -21,6 +21,7 @@ DHCP_AUTH="0"
 MESH_ENABLE="0"
 AP_ENABLE="0"
 DEVICE_IP="0"
+AP_ISOL="0"
 
 # Get Field-Value pairs from QUERY_STRING environment variable
 # set by the form GET action
@@ -143,6 +144,14 @@ else
 	AP_DISABLE="1"
 fi
 
+# Set up AP Isolation
+if [ \$AP_ISOL = "checked" ]; then
+	AP_ISOL="1"
+else
+	AP_ISOL="0"
+fi
+
+
 # Write the Field values into the SECN config settings
 
 # Write br_lan network settings into /etc/config/network
@@ -192,6 +201,7 @@ uci set secn.accesspoint.passphrase=\$PASSPHRASE
 uci set secn.accesspoint.ap_disable=\$AP_DISABLE
 uci set secn.accesspoint.usreg_domain=\$USREG_DOMAIN  
 uci set secn.accesspoint.maxassoc=\$MAXASSOC
+uci set secn.accesspoint.ap_isol=\$AP_ISOL
 
 # Write the Asterisk settings into /etc/config/secn
 uci set secn.asterisk.host=\$HOST

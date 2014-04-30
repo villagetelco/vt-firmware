@@ -305,6 +305,9 @@ cat > /tmp/config.html << EOF
 					<td class="label"><label for="ssid">SSID</label></td>
 					<td class="field"><input type="text" name="SSID" id="ssid" VALUE=$SSID ></td>
 
+					<td class="label"><label>AP Isolation</label> </td>
+					<td class="field"><input  type="checkbox" name="AP_ISOL" id="ap_isol" VALUE="checked" $AP_ISOL > </td>
+
 				</tr>
 				<tr>	
 					<td class="label"><label for="MAXASSOC">AP Connections</label></td>
@@ -318,8 +321,8 @@ cat > /tmp/config.html << EOF
 						<option value="15">15</option>
 						<option value="20">20</option>
 						<option value="25">25</option>
-						<option value="30">30</option>
 						<option value="35">35</option>
+						<option value="50">30</option>
 						<option value="Max">Max</option>
 						</SELECT>
 					</td>
