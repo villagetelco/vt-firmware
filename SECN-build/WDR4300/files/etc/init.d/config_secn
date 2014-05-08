@@ -180,11 +180,10 @@ SSID=`uci get secn.accesspoint.ssid`
 PASSPHRASE=`uci get secn.accesspoint.passphrase`
 ENCRYPTION=`uci get secn.accesspoint.encryption`
 AP_DISABLE=`uci get secn.accesspoint.ap_disable`
-AP_ISOL=`uci get secn.accesspoint.ap_isol`
 MAXASSOC=`uci get secn.accesspoint.maxassoc`
 USREG_DOMAIN=`uci get secn.accesspoint.usreg_domain`
 CHANNEL=`uci get wireless.radio0.channel`
-MESH_ENABLE=`uci get secn.mesh.mesh_enable`
+AP_ISOL=`uci get secn.accesspoint.ap_isol`
 
 # Set to WPA-WPA2 by default                                 
 ENCRYPT="mixed-psk"
@@ -208,8 +207,8 @@ uci set wireless.ap_0.key=$PASSPHRASE
 uci set wireless.ap_0.ssid=$SSID
 uci set wireless.ap_0.mode="ap"
 uci set wireless.ap_0.disabled=$AP_DISABLE
-uci set wireless.ap_0.isolate=$AP_ISOL
 uci set wireless.ap_0.maxassoc=$MAXASSOC
+uci set wireless.ap_0.isolate=$AP_ISOL
 
 
 # ------------------------------------------------------------------
@@ -221,10 +220,9 @@ SSID=`uci get secn.accesspoint1.ssid`
 PASSPHRASE=`uci get secn.accesspoint1.passphrase`
 ENCRYPTION=`uci get secn.accesspoint1.encryption`
 AP_DISABLE=`uci get secn.accesspoint1.ap_disable`
-AP_ISOL=`uci get secn.accesspoint1.ap_isol`
 MAXASSOC=`uci get secn.accesspoint1.maxassoc`
 CHANNEL=`uci get wireless.radio1.channel`
-MESH_ENABLE1=`uci get secn.mesh1.mesh_enable`
+AP_ISOL1=`uci get secn.accesspoint1.ap_isol`
 
 # Set to WPA-WPA2 by default                                 
 ENCRYPT="mixed-psk"
@@ -248,9 +246,22 @@ uci set wireless.ap_1.key=$PASSPHRASE
 uci set wireless.ap_1.ssid=$SSID
 uci set wireless.ap_1.mode="ap"
 uci set wireless.ap_1.disabled=$AP_DISABLE
-uci set wireless.ap_1.isolate=$AP_ISOL
 uci set wireless.ap_1.maxassoc=$MAXASSOC
+uci set wireless.ap_1.isolate=$AP_ISOL1
 
+
+# Check to see if mesh AP isolation is required by either band.
+WANPORT=`uci get secn.wan.wanport`
+MESH_ENABLE1=`uci get secn.mesh1.mesh_enable`
+MESH_ENABLE=`uci get secn.mesh.mesh_enable`
+
+if [ $AP_ISOL = "1" ] && [ $MESH_ENABLE = "checked" ] && [ $WANPORT != "Mesh" ]; then  
+	batctl ap 1
+elif [ $AP_ISOL1 = "1" ] && [ $MESH_ENABLE1 = "checked" ] && [ $WANPORT != "Mesh" ]; then  
+	batctl ap 1
+else
+	batctl ap 0
+fi
 
 #----------------------------------------------
 # Set up DHCP server

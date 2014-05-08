@@ -208,8 +208,16 @@ uci set wireless.ap_0.key=$PASSPHRASE
 uci set wireless.ap_0.ssid=$SSID
 uci set wireless.ap_0.mode="ap"
 uci set wireless.ap_0.disabled=$AP_DISABLE
-uci set wireless.ap_0.isolate=$AP_ISOL
 uci set wireless.ap_0.maxassoc=$MAXASSOC
+uci set wireless.ap_0.isolate=$AP_ISOL
+
+# Setup AP Isolation on mesh unless it is used for WAN
+WANPORT=`uci get secn.wan.wanport`
+if [ $AP_ISOL = "1" ] && [ $WANPORT != "Mesh" ]; then  
+	batctl ap 1
+else
+	batctl ap 0
+fi
 
 #----------------------------------------------
 # Set up DHCP server

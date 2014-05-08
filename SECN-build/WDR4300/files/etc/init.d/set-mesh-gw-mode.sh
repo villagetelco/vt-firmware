@@ -65,9 +65,15 @@ else
 	brctl addif br-lan bat0
 fi
 
-# Setup AP Isolation on mesh unless it is used for WAN
+# Check to see if mesh AP isolation is required by either band.
 AP_ISOL=`uci get secn.accesspoint.ap_isol`
-if [ $AP_ISOL = "1" ] && [ $WANPORT != "Mesh" ]; then  
+AP_ISOL1=`uci get secn.accesspoint1.ap_isol`
+MESH_ENABLE=`uci get secn.mesh.mesh_enable`
+MESH_ENABLE1=`uci get secn.mesh1.mesh_enable`
+
+if [ $AP_ISOL = "1" ] && [ $MESH_ENABLE = "checked" ] && [ $WANPORT != "Mesh" ]; then  
+	batctl ap 1
+elif [ $AP_ISOL1 = "1" ] && [ $MESH_ENABLE1 = "checked" ] && [ $WANPORT != "Mesh" ]; then  
 	batctl ap 1
 else
 	batctl ap 0
