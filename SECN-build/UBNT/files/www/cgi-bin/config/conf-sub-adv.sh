@@ -12,13 +12,16 @@ cat > /tmp/conf-save-adv.sh << EOF
 # Clear settings for checkboxes and buttons
 ENABLE="0"
 REGISTER="0"
+ENABLENAT="0"
 BUTTON="0"
 DHCP_ENABLE="0"
+ENABLE_AST="0"
 USREG_DOMAIN="0"
 DHCP_AUTH="0"
 MESH_ENABLE="0"
 AP_ENABLE="0"
 DEVICE_IP="0"
+AP_ISOL="0"
 
 # Get Field-Value pairs from QUERY_STRING environment variable
 # set by the form GET action
@@ -121,6 +124,14 @@ else
 	AP_DISABLE="1"
 fi
 
+# Set up AP Isolation
+if [ \$AP_ISOL = "checked" ]; then
+	AP_ISOL="1"
+else
+	AP_ISOL="0"
+fi
+
+
 # Write the Field values into the SECN config settings
 
 # Write br_lan network settings into /etc/config/network
@@ -170,9 +181,7 @@ uci set secn.accesspoint.passphrase=\$PASSPHRASE
 uci set secn.accesspoint.ap_disable=\$AP_DISABLE
 uci set secn.accesspoint.usreg_domain=\$USREG_DOMAIN  
 uci set secn.accesspoint.maxassoc=\$MAXASSOC
-
-# Save mesh settings to /etc/config/secn
-uci set secn.mesh.mesh_enable=\$MESH_ENABLE
+uci set secn.accesspoint.ap_isol=\$AP_ISOL
 
 # Write the DHCP settings into /etc/config/secn
 uci set secn.dhcp.enable=\$DHCP_ENABLE
@@ -189,8 +198,9 @@ uci set secn.dhcp.dns=\$OPTION_DNS
 uci set secn.dhcp.dns2=\$OPTION_DNS2
 uci set secn.dhcp.device_ip=\$DEVICE_IP
 
-# Write the MPGW display setting into /etc/config/secn
-uci set secn.mpgw.mode=\$MPGW
+# Save mesh settings to /etc/config/secn
+uci set secn.mesh.mesh_enable=\$MESH_ENABLE
+uci set secn.mesh.mpgw=\$MPGW
 
 # Set up mesh gateway mode on the fly
 if [ \$MPGW = "OFF" ]; then

@@ -97,7 +97,7 @@ fi
 
 # Restore default config settings
 if [ \$BUTTON = "Restore+Defaults" ]; then
-	cd /etc/config
+	cd /etc/
 	tar -xzvf conf-default.tar.gz >> /dev/null
 	cd
 	/etc/init.d/config_secn > /dev/null  # Create new config files
@@ -241,8 +241,6 @@ uci set secn.dhcp.device_ip=\$DEVICE_IP
 
 # Save mesh settings to /etc/config/secn
 uci set secn.mesh.mesh_enable=\$MESH_ENABLE
-uci set secn.mesh.pingtime=\$PING_TIME
-uci set secn.mesh.pinghost=\$PING_HOST
 uci set secn.mesh.mpgw=\$MPGW
 
 # Set up mesh gateway mode on the fly
