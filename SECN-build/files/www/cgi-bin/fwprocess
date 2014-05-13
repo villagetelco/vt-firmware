@@ -33,9 +33,11 @@
         <% fi %>
 	    <form action="/cgi-bin/fwexec" method="POST">
 	    	<input type="hidden" name="firmware" value="<% echo -n /tmp/$FORM_uploadfile_name %>">
+<!--
 	    	Preserve existing configuration?<br>
 	    	<input type="radio" name="preserve" value=" ">Yes<br>
 	    	<input type="radio" name="preserve" value="-n " checked>No<p>
+-->
 	        <input type="submit" value="Upgrade Firmware">
 	    </form>
     <% fi %>
