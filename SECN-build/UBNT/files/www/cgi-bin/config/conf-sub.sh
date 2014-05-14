@@ -10,6 +10,8 @@ cat > /tmp/conf-save.sh << EOF
 #!/bin/sh
 
 # Clear settings for **ALL** checkboxes and buttons
+ENABLE="0"
+REGISTER="0"
 BUTTON="0"
 LIMITIP="0"
 ENSSL="0"
@@ -81,6 +83,12 @@ if [ \$DIALOUT = "%23" ]; then
 	DIALOUT="#"
 fi
 
+# If Enable SIP mode is selected, then make sure Asterisk is enabled 
+ENABLE_AST=`uci get secn.asterisk.enable_ast`
+if [ \$ENABLE = "checked" ]; then
+  ENABLE_AST="checked"
+  fi
+
 # Write TimeZone into /etc/TZ
 echo \$TZ > /etc/TZ
 uci set system.@system[0].timezone=\$TZ
@@ -98,6 +106,20 @@ uci set secn.accesspoint.passphrase=\$PASSPHRASE
  
 # Write the wireless channel into /etc/config/wireless
 uci set wireless.radio0.channel=\$CHANNEL
+
+# Write the Asterisk settings into /etc/config/secn
+uci set secn.asterisk.host=\$HOST
+uci set secn.asterisk.reghost=\$HOST     # Make REGHOST the same as HOST
+uci set secn.asterisk.username=\$USER
+uci set secn.asterisk.fromusername=\$USER
+uci set secn.asterisk.enable=\$ENABLE
+uci set secn.asterisk.register=\$ENABLE  # If Sip is enabled, then Register as well
+uci set secn.asterisk.dialout=\$DIALOUT
+uci set secn.asterisk.enable_ast=\$ENABLE_AST
+
+if [ \$SECRET != "****" ]; then					# Set the password only if newly entered
+	uci set secn.asterisk.secret=\$SECRET
+fi
 
 # Save the web server settings
 uci set secn.http.limitip=\$LIMITIP
@@ -121,6 +143,13 @@ if [ \$BUTTON = "Reboot" ]; then
   cat /www/cgi-bin/config/html/reboot.html
   touch /tmp/reboot			# Set rebooting flag
   /sbin/reboot -d 10		# Reboot after delay
+fi
+
+# Save and Restart Asterisk
+if [ \$BUTTON = "Restart+Asterisk" ]; then
+	/etc/init.d/asterisk restart > /dev/null &
+	# Allow time to register
+	sleep 5
 fi
 
 EOF

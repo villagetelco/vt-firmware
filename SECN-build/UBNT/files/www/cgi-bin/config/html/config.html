@@ -88,6 +88,38 @@ cat > /tmp/config.html << EOF
 					</table>
 				</fieldset>
 
+				<fieldset class="asterisk">
+					<legend>VoIP / SIP Configuration</legend>
+					<table>
+						<tr>
+							<td class="label"><label for="user">User Name</label></td>
+							<td class="field"><input type="text" name="USER" id="user" VALUE=$USERNAME> </td>
+
+							<td class="label"><label>Password</label></td>
+							<td class="field"><input  type="text" name="SECRET" id="secret" VALUE=$SECRET></td>
+						</tr>
+						<tr>
+							<td class="label"><label for="host">SIP Host</label></td>
+							<td class="field"><input type="text" name="HOST" id="host" VALUE=$HOST></td>
+							<td class="label"><label>Dialout Code</label></td>
+							<td class="field">
+							  <SELECT name="DIALOUT" id="dialout">
+								<option selected="$DIALOUT">$DIALOUT</option>
+								<option value="#"> # </option>
+								<option value="9"> 9 </option>
+								<option value="0"> 0 </option>
+							  </SELECT></td>
+						</tr>
+						<tr>
+							<td class="label"><label>SIP Enable</label></td>
+							<td class="field"><input  type="checkbox" name="ENABLE" id="enable" VALUE="checked" $ENABLE ></td>
+
+							<td class="label"><label> SIP Status </label> </td>
+							<td class="ast_reg"> <label> $REG_STATUS </label> </td>
+						</tr>
+					</table>
+				</fieldset>
+
 				<fieldset class="password">
 					<legend>Password</legend>
 					<table>
@@ -165,6 +197,7 @@ cat > /tmp/config.html << EOF
 						<td>
 						<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Refresh" >
 						<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Save" >
+						<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Restart Asterisk" >
 						<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Reboot" >
 						</td>
 					</tr>
@@ -361,9 +394,101 @@ cat > /tmp/config.html << EOF
 			</table>
 		</fieldset>
 
+							<fieldset class="asterisk-adv">
+								<legend>Asterisk Configuration</legend>
+
+								<table>
+									<tr>
+										<td class="label"><label>Enable Asterisk</label></td>
+										<td class"field"><input  type="checkbox" name="ENABLE_AST" id="enable_ast" VALUE="checked" $ENABLE_AST > </td>
+										<td class="label"><label>Softphone Support</label></td>
+										<td class="field">
+												<SELECT name="SOFTPH" id="softph">
+												<option selected="$SOFTPH">$SOFTPH</option>
+												<option value="OFF"> OFF </option>
+												<option value="CLIENT"> CLIENT </option>
+												<option value="MASTER"> MASTER </option>
+												</SELECT>
+										</td>
+					 			 	</tr>
+									<tr>
+										<td class="label"><label>Codec1</label></td>
+										<td class="field">
+												<SELECT name="CODEC1" id="codec1">
+												<option selected="$CODEC1">$CODEC1</option>
+												<option value="gsm">gsm</option>
+												<option value="ulaw">ulaw</option>
+												<option value="alaw">alaw</option>
+												</SELECT>
+										<td class="label"><label>Codec2</label></td>
+										<td class="field">
+											<SELECT name="CODEC2" id="codec2">
+											<option selected="$CODEC2">$CODEC2</option>
+											<option value="gsm">gsm</option>
+											<option value="ulaw">ulaw</option>
+											<option value="alaw">alaw</option>
+											</SELECT>
+										</td>
+										<td class="label"><label>Codec3</label></td>
+										<td class="field">
+											<SELECT name="CODEC3" id="codec3">
+											<option selected="$CODEC3">$CODEC3</option>
+											<option value="gsm">gsm</option>
+											<option value="ulaw">ulaw</option>
+											<option value="alaw">alaw</option>
+											</SELECT>
+										</td>
+									</tr>
+								  	<tr>
+										<td class="label"><label>SIP Enable</label> </td>
+										<td class="field"><input  type="checkbox" name="ENABLE" id="enable" VALUE="checked" $ENABLE > </td>
+
+										<td class="label"><label>SIP Register</label></td>
+										<td class="field"><input  type="checkbox" name="REGISTER" id="register" VALUE="checked" $REGISTER > </td>
+
+										<td class="label"><label>Dialout Code</label></td>
+										<td class="field">
+											<SELECT name="DIALOUT" id="dialout">
+											<option selected="$DIALOUT">$DIALOUT</option>
+											<option value="#"> # </option>
+											<option value="9"> 9 </option>
+											<option value="0"> 0 </option>
+											</SELECT>
+					  				</td>
+							  	</tr>
+								</table>
+
+								<table>
+									<tr>	
+										<td class="label"><label> SIP Status </label> </td>
+										<td class="ast_reg"> $REG_STATUS $REG_ACCT </td>
+									</tr>
+								</table>
+
+								<table>
+									<tr>
+										<td class="label"><label for="REGHOST">SIP Registrar</label> </td>
+										<td class="field"><input type="text" name="REGHOST" id="reghost" VALUE=$REGHOST > </td>
+										<td class="label"><label for="USER">User Name</label></td>
+										<td class="field"><input type="text" name="USER" id="user" VALUE=$USERNAME > </td>
+									</tr>
+									<tr>
+										<td class="label"><label for="HOST">SIP Host</label></td>
+										<td class="field"><input type="text" name="HOST" id="host" VALUE=$HOST ></td>
+										<td class="label"><label for="SECRET">Password</label></td>
+										<td class="field"><input  type="text" name="SECRET" id="secret" VALUE=$SECRET ></td>
+									</tr>
+									<tr>
+										<td class="label"><label>Enable Asterisk NAT</label></td>
+										<td class="field"><input  type="checkbox" name="ENABLENAT" id="enablenat" VALUE="checked" $ENABLENAT > </td>
+										<td class="label"><label for="EXTERNIP">NAT External IP</label></td>
+										<td class="field"><input type="text" name="EXTERNIP" id="externip" VALUE=$EXTERNIP > </td>
+									</tr>
+								</table>
+							</fieldset>
+
 							<fieldset class="dhcp">
 								<legend>DHCP Server</legend>
-
 								<table>
 									<tr>
 										<td class="label"><label>Enable DHCP Server</label>
@@ -414,6 +539,7 @@ cat > /tmp/config.html << EOF
 									<td>
 										<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Refresh">
 										<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Save">
+										<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Restart Asterisk" >
 										<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Restore Defaults" >
 										<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Reboot" >
 									</td>

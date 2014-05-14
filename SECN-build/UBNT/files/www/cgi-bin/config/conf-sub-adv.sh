@@ -112,6 +112,26 @@ fi
 # Fix ATH0_BSSID string colon characters - replace '%3A' with ':'
 ATH0_BSSID=\$(echo \$ATH0_BSSID | sed -e s/%3A/:/g)
 
+# If Master softphone mode is selected, then make sure Asterisk is enabled 
+if [ \$SOFTPH = "MASTER" ]; then
+  ENABLE_AST="checked"
+  fi
+
+# If Enable SIP mode is selected, then make sure Asterisk is enabled 
+if [ \$ENABLE = "checked" ]; then
+  ENABLE_AST="checked"
+  fi
+
+# Check if Asterisk is installed and reset UI controls if not
+
+AST_INSTALLED="`opkg list_installed | grep  'asterisk' | cut -d 'k' -f 1`k"
+
+if [ \$AST_INSTALLED != "asterisk" ]; then
+  SOFTPH="OFF"
+  ENABLE_AST="0"
+  ENABLE="0"
+  fi
+
 # Set MAXASSOC to null if display value 'Max' is returned
 if [ \$MAXASSOC = "Max" ]; then
   MAXASSOC=""
@@ -182,6 +202,27 @@ uci set secn.accesspoint.ap_disable=\$AP_DISABLE
 uci set secn.accesspoint.usreg_domain=\$USREG_DOMAIN  
 uci set secn.accesspoint.maxassoc=\$MAXASSOC
 uci set secn.accesspoint.ap_isol=\$AP_ISOL
+
+# Write the Asterisk settings into /etc/config/secn
+uci set secn.asterisk.host=\$HOST
+uci set secn.asterisk.reghost=\$REGHOST
+uci set secn.asterisk.proxy=\$PROXY
+uci set secn.asterisk.username=\$USER
+uci set secn.asterisk.fromusername=\$USER
+uci set secn.asterisk.enable=\$ENABLE
+uci set secn.asterisk.enable_ast=\$ENABLE_AST
+uci set secn.asterisk.register=\$REGISTER
+uci set secn.asterisk.dialout=\$DIALOUT
+uci set secn.asterisk.codec1=\$CODEC1
+uci set secn.asterisk.codec2=\$CODEC2
+uci set secn.asterisk.codec3=\$CODEC3
+uci set secn.asterisk.externip=\$EXTERNIP
+uci set secn.asterisk.enablenat=\$ENABLENAT
+uci set secn.asterisk.softph=\$SOFTPH
+
+if [ \$SECRET != "****" ]; then					# Set the password only if newly entered
+	uci set secn.asterisk.secret=\$SECRET
+fi
 
 # Write the DHCP settings into /etc/config/secn
 uci set secn.dhcp.enable=\$DHCP_ENABLE
@@ -260,6 +301,13 @@ if [ \$BUTTON = "Reboot" ]; then
   cat /www/cgi-bin/config/html/reboot.html
 	touch /tmp/reboot			# Set rebooting flag
   /sbin/reboot -d 10		# Reboot after delay
+fi
+
+if [ \$BUTTON = "Restart+Asterisk" ]; then
+  # Restart Asterisk
+  /etc/init.d/asterisk restart > /dev/null &
+  # Allow time to register
+  sleep 5
 fi
 
 EOF
