@@ -167,7 +167,7 @@ ENSSL=`uci get secn.http.enssl`
 # Get Asterisk registration status
 /bin/get-reg-status.sh
 REG_STATUS=`cat /tmp/reg-status.txt | awk '{print $5;}'`
-REG_ACCT=`cat /tmp/reg-status.txt | awk '{print $1 " - " $2;}'`
+REG_ACCT=`cat /tmp/reg-status.txt | awk '{print $1 " - " $3;}'`
 
 if [ $REG_STATUS = "Registered" ]; then
 	# Display Not Registered status
