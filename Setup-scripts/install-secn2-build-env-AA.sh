@@ -34,8 +34,7 @@ echo "*** Make new directory"
 mkdir -p $OPENWRT_PATH
 echo " "
 
-echo "*** Get MP02 and SECN 2 packages from GitHub repo"
-git clone https://github.com/villagetelco/vt-secn2-packages $OPENWRT_PATH/vt-secn2-packages
+echo "*** Get MP02 packages from GitHub repo"
 git clone https://github.com/villagetelco/vt-mp02-package   $OPENWRT_PATH/vt-mp02-package
 
 echo "*** Checkout the OpenWRT build environment"
@@ -50,9 +49,8 @@ echo " "
 
 echo "*** Create new feeds.conf.default file"
 echo "src-svn  packages svn://svn.openwrt.org/openwrt/branches/packages_12.09"   > $OPENWRT_PATH/feeds.conf.default
-echo "src-link dragino2      $OPENWRT_PATH/vt-mp02-package/packages-AA"   			>> $OPENWRT_PATH/feeds.conf.default
-echo "src-link secn2packages $OPENWRT_PATH/vt-secn2-packages/packages-AA" 			>> $OPENWRT_PATH/feeds.conf.default
-echo "src-git alfred git://git.open-mesh.org/openwrt-feed-alfred.git"        		>> $OPENWRT_PATH/feeds.conf.default
+echo "src-git routing git://github.com/openwrt-routing/packages.git;for-12.09.x" >> $OPENWRT_PATH/feeds.conf.default
+echo "src-link dragino2      $OPENWRT_PATH/vt-mp02-package/packages-AA"   		   >> $OPENWRT_PATH/feeds.conf.default
 echo " "
 
 echo "*** Update the feeds (See ./feeds-update.log)"
