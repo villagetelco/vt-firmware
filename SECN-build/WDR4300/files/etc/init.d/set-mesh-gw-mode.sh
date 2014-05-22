@@ -4,7 +4,8 @@
 # This script configures batman-adv correctly on startup
 # It sets up bridge loop avoidance mode and mesh gateway mode on startup
 
-/usr/sbin/batman-adv restart
+# Add the adhoc interface
+/usr/sbin/batctl if add wlan0-1 wlan1-1
 
 # Enable Bridge Loop Avoidance mode
 /usr/sbin/batctl bl 1
