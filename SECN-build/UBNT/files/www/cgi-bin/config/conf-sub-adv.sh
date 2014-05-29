@@ -22,6 +22,7 @@ MESH_ENABLE="0"
 AP_ENABLE="0"
 DEVICE_IP="0"
 AP_ISOL="0"
+COUNTRY=" "
 
 # Get Field-Value pairs from QUERY_STRING environment variable
 # set by the form GET action
@@ -97,7 +98,7 @@ fi
 
 # Restore default config settings
 if [ \$BUTTON = "Restore+Defaults" ]; then
-	cd /etc/
+	cd /etc
 	tar -xzvf conf-default.tar.gz >> /dev/null
 	cd
 	/etc/init.d/config_secn > /dev/null  # Create new config files
@@ -165,30 +166,11 @@ uci set network.mesh_0.ipaddr=\$ATH0_IPADDR
 uci set network.mesh_0.netmask=\$ATH0_NETMASK
 
 # Write the radio settings into /etc/config/wireless
-uci set wireless.radio0.country=\$ATH0_COUNTRY
 uci set wireless.radio0.channel=\$CHANNEL
 uci set wireless.radio0.txpower=\$ATH0_TXPOWER
 uci set wireless.radio0.chanbw=\$CHANBW
-
-# Set up radio0 hwmode
-if [ \$RADIOMODE = "11ng" ]; then
-  uci set wireless.radio0.hwmode="11ng"
-else
-  uci set wireless.radio0.hwmode="11g"
-fi
-
-uci set wireless.radio1.country=\$ATH0_COUNTRY1
-uci set wireless.radio1.channel=\$CHANNEL1
-uci set wireless.radio1.txpower=\$ATH0_TXPOWER1
-uci set wireless.radio1.chanbw=\$CHANBW1
-
-# Set up radio1 hwmode
-if [ \$RADIOMODE1 = "11na" ]; then
-  uci set wireless.radio1.hwmode="11na"
-else
-  uci set wireless.radio1.hwmode="11a"
-fi
-
+uci set wireless.radio0.country=\$COUNTRY
+uci set wireless.radio0.hwmode=\$RADIOMODE
 
 # Write the adhoc interface settings into /etc/config/wireless
 uci set wireless.ah_0.ssid=\$ATH0_SSID

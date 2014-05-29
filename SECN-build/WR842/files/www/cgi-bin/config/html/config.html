@@ -72,17 +72,18 @@ cat > /tmp/config.html << EOF
 							<td class="field">
 							<SELECT name="CHANNEL" id="CHANNEL" >
 							<option selected="$CHANNEL">$CHANNEL</option>
-							<option value="1">1</option>
-							<option value="2">2</option>
-							<option value="3">3</option>
-							<option value="4">4</option>
-							<option value="5">5</option>
-							<option value="6">6</option>
-							<option value="7">7</option>
-							<option value="8">8</option>
-							<option value="9">9</option>
-							<option value="10">10</option>
-							<option value="11">11</option>
+							<option value="1">Channel 1</option>
+							<option value="2">Channel 2</option>
+							<option value="3">Channel 3</option>
+							<option value="4">Channel 4</option>
+							<option value="5">Channel 5</option>
+							<option value="6">Channel 6</option>
+							<option value="7">Channel 7</option>
+							<option value="8">Channel 8</option>
+							<option value="9">Channel 9</option>
+							<option value="10">Channel 10</option>
+							<option value="11">Channel 11</option>
+							<option value="auto">Auto</option>
 							</SELECT></td>
 						</tr>
 					</table>
@@ -251,23 +252,25 @@ cat > /tmp/config.html << EOF
 					<td class="field">
 						<SELECT name="CHANNEL" id="CHANNEL" >
 						<option selected="$CHANNEL">$CHANNEL</option>
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-						<option value="5">5</option>
-						<option value="6">6</option>
-						<option value="7">7</option>
-						<option value="8">8</option>
-						<option value="9">9</option>
-						<option value="10">10</option>
-						<option value="11">11</option>
+						<option value="1">Channel 1</option>
+						<option value="2">Channel 2</option>
+						<option value="3">Channel 3</option>
+						<option value="4">Channel 4</option>
+						<option value="5">Channel 5</option>
+						<option value="6">Channel 6</option>
+						<option value="7">Channel 7</option>
+						<option value="8">Channel 8</option>
+						<option value="9">Channel 9</option>
+						<option value="10">Channel 10</option>
+						<option value="11">Channel 11</option>
+						<option value="auto">Auto</option>
 						</SELECT>
 					</td>
 
 					<td class="label"><label for="ATH0_TXPOWER"> Tx Power 0-27 dBm</label></td>
 					<td class="field"><input type="text" name="ATH0_TXPOWER" id="ath0_txpower" VALUE=$ATH0_TXPOWER ></td>
-					<td class="label"><label for="ATH0_TXPOWER_ACTUAL"> Current Power </label> $ATH0_TXPOWER_ACTUAL </td>
+
+					<td class="label"><label for="ATH0_TXPOWER_ACTUAL"> Actual Power: </label></td> <td>$ATH0_TXPOWER_ACTUAL </td>
 				</tr>
 			</table>
 
@@ -281,6 +284,8 @@ cat > /tmp/config.html << EOF
 						<option value="11ng">802.11N-G</option>
 						</SELECT>
 					</td>
+					<td class="label"><label for="COUNTRY"> Country Code</label></td>
+					<td class="field"><input type="text" name="COUNTRY" id="country" VALUE=$COUNTRY ></td>
 
 					<td class="label"><label for="CHANBW">Chan BW</label></td>
 					<td class="field">
@@ -322,8 +327,8 @@ cat > /tmp/config.html << EOF
 						<option value="20">20</option>
 						<option value="25">25</option>
 						<option value="35">35</option>
-						<option value="50">30</option>
-						<option value="Max">Max</option>
+						<option value="50">50</option>
+						<option value="Max">Maximum</option>
 						</SELECT>
 					</td>
 
@@ -488,7 +493,6 @@ cat > /tmp/config.html << EOF
 
 							<fieldset class="dhcp">
 								<legend>DHCP Server</legend>
-
 								<table>
 									<tr>
 										<td class="label"><label>Enable DHCP Server</label>

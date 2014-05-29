@@ -12,7 +12,7 @@ VERSION=`cat /etc/banner | grep Version`" "$REV
 DATE=`date`
 UPTIME=`uptime`
 TZ=`cat /etc/TZ`
-PROC=`ps|grep -c -v -e '!@#$%'`
+PROC=`ps|wc -l`
 
 # Set DHCP subnet to current subnet for Softphone Support
 /bin/setdhcpsubnet.sh > /dev/null
@@ -98,12 +98,8 @@ ATH0_TXPOWER=`uci get wireless.radio0.txpower`
 ATH0_TXPOWER_ACTUAL=`iwconfig | grep -A 2 'wlan0' | grep -m 1 'Tx-Power'| cut -d T -f 2|cut -d = -f 2`
 RADIOMODE=`uci get wireless.radio0.hwmode`
 CHANBW=`uci get wireless.radio0.chanbw`
-
-if [ $RADIOMODE = "11ng" ]; then
-	RADIOMODE="802.11N-G"
-else
-	RADIOMODE="802.11G"
-fi
+HTMODE=`uci get wireless.radio0.htmode`
+COUNTRY=`uci get wireless.radio0.country`
 
 # Get web server parameters
 AUTH=`uci get secn.http.auth`
