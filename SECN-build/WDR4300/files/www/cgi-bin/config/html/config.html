@@ -332,7 +332,7 @@ cat > /tmp/config.html << EOF
 		</fieldset>
 
 		<fieldset class="wifi-adv">
-			<legend>2.4 GHz WiFi Access Point</legend>
+			<legend>2.4 GHz WiFi Access Point  ($ENCRYPTION)</legend>
 			<table>
 				<tr>
 					<td class="label"><label>Enable Access Point</label> </td>
@@ -489,7 +489,7 @@ cat > /tmp/config.html << EOF
 
 
 		<fieldset class="wifi-adv">
-			<legend>5 GHz WiFi Access Point</legend>
+			<legend>5 GHz WiFi Access Point ($ENCRYPTION1)</legend>
 			<table>
 				<tr>
 					<td class="label"><label>Enable Access Point </label> </td>
@@ -948,7 +948,7 @@ cat > /tmp/config.html << EOF
 			<p> </p>
 			<h3> Mesh Nodes </h3>     
 			<iframe id="FrameID1" src="/bat1.txt"  width="100%" height="150" ></iframe>
-			<h3> Mesh Gateways  (Mode: $MPGW)</h3>
+			<h3> Mesh Gateways  (GW Mode: $MPGW)</h3>
 			<iframe id="FrameID2" src="/bat2.txt"  width="100%" height="120" ></iframe>
 			<h3> Node Signal Strength</h3>
 			<iframe id="FrameID3" src="/mesh.txt"  width="100%" height="150" ></iframe>

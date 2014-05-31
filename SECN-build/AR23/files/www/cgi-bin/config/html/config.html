@@ -219,17 +219,18 @@ cat > /tmp/config.html << EOF
 					<td class="field">
 						<SELECT name="CHANNEL" id="CHANNEL" >
 						<option selected="$CHANNEL">$CHANNEL</option>
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-						<option value="5">5</option>
-						<option value="6">6</option>
-						<option value="7">7</option>
-						<option value="8">8</option>
-						<option value="9">9</option>
-						<option value="10">10</option>
-						<option value="11">11</option>
+							<option value="1">Channel 1</option>
+							<option value="2">Channel 2</option>
+							<option value="3">Channel 3</option>
+							<option value="4">Channel 4</option>
+							<option value="5">Channel 5</option>
+							<option value="6">Channel 6</option>
+							<option value="7">Channel 7</option>
+							<option value="8">Channel 8</option>
+							<option value="9">Channel 9</option>
+							<option value="10">Channel 10</option>
+							<option value="11">Channel 11</option>
+							<option value="auto">Auto</option>
 						</SELECT>
 					</td>
 
@@ -263,7 +264,7 @@ cat > /tmp/config.html << EOF
 		</fieldset>
 
 		<fieldset class="wifi-adv">
-			<legend> WiFi Access Point</legend>
+			<legend> WiFi Access Point ($ENCRYPTION)</legend>
 			<table>
 				<tr>
 					<td class="label"><label>Enable Access Point</label> </td>
@@ -529,7 +530,7 @@ cat > /tmp/config.html << EOF
 			<p> </p>
 			<h3> Mesh Nodes </h3>     
 			<iframe id="FrameID1" src="/bat1.txt"  width="100%" height="150" ></iframe>
-			<h3> Mesh Gateways  (Mode: $MPGW)</h3>
+			<h3> Mesh Gateways  (GW Mode: $MPGW)</h3>
 			<iframe id="FrameID2" src="/bat2.txt"  width="100%" height="120" ></iframe>
 			<h3> Node Signal Strength</h3>
 			<iframe id="FrameID3" src="/mesh.txt"  width="100%" height="150" ></iframe>
