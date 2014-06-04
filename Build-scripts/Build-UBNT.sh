@@ -31,14 +31,23 @@ echo "Start build process"
 
 echo "Set up version strings"
 DIRVER="RC6"
-VER="SECN Version 2.0 "$DIRVER
+VER="SECN-2_0-"$DIRVER
 
 ###########################
 
 echo "Copy files from Git repo into build folder"
+REPO=vt-firmware
 rm -rf ./SECN-build/
-cp -rp ~/$GITREPO/vt-firmware/SECN-build/ .
-cp -fp ~/$GITREPO/vt-firmware/Build-scripts/FactoryRestore.sh  .
+cp -rp ~/$GITREPO/$REPO/SECN-build/ .
+cp -fp ~/$GITREPO/$REPO/Build-scripts/FactoryRestore.sh  .
+
+###########################
+
+echo "Get source repo details"
+BUILDPWD=`pwd`
+cd  ~/$GITREPO/$REPO
+REPOID=`git describe --long --dirty --abbrev=10 --tags`
+cd $BUILDPWD
 
 ###########################
 
@@ -52,8 +61,9 @@ DIR=$DATE"-UBNT-"$DIRVER
 echo "New build directory  ./bin/ar71xx/builds/build-"$DIR
 mkdir ./bin/ar71xx/builds/build-$DIR
 
-# Create md5sums file
-touch ./bin/ar71xx/builds/build-$DIR/md5sums
+# Create md5sums files
+echo $DIR > ./bin/ar71xx/builds/build-$DIR/md5sums
+echo $DIR > ./bin/ar71xx/builds/build-$DIR/md5sums-$VER
 
 ##########################
 
@@ -94,16 +104,19 @@ echo "Check files directory"
 ls -al ./files  
 echo ""
 
-echo "Version: "  $VER $TARGET
-echo $VER  $TARGET               > ./files/etc/secn_version
-echo "Date stamp the version file: " $DATE
+echo "Version: " $VER $TARGET
+echo "Date stamp: " $DATE
+
+echo "Version: " $VER  $TARGET   > ./files/etc/secn_version
 echo "Build date " $DATE         >> ./files/etc/secn_version
+echo "GitHub "$REPO $REPOID      >> ./files/etc/secn_version
 echo " "                         >> ./files/etc/secn_version
- 
-echo "Check banner version"
-cat ./files/etc/secn_version | grep "Version"
 echo ""
 
+echo "Banner version info:"
+cat ./files/etc/secn_version
+echo ""
+ 
 echo "Clean up any left over files"
 rm ./bin/ar71xx/openwrt-*
 echo ""
@@ -112,17 +125,25 @@ echo "Run make for "$1$2
 make
 echo ""
 
+echo "Update original md5sums file"
+cat ./bin/ar71xx/md5sums | grep "squashfs" | grep ".bin" >> ./bin/ar71xx/builds/build-$DIR/md5sums
+echo ""
+
+echo  "Rename files to add version info"
+for n in `ls ./bin/ar71xx/*.bin`; do mv  $n   ./bin/ar71xx/openwrt-$VER-`echo $n|cut -d '-' -f 5-10`; done
+echo ""
+
+echo "Update new md5sums file"
+md5sum ./bin/ar71xx/*-squash*sysupgrade.bin >> ./bin/ar71xx/builds/build-$DIR/md5sums-$VER
+#md5sum ./bin/ar71xx/*-squash*factory.bin    >> ./bin/ar71xx/builds/build-$DIR/md5sums-$VER
+
 echo  "Move files to build folder"
 mv ./bin/ar71xx/*-squash*sysupgrade.bin ./bin/ar71xx/builds/build-$DIR
-mv ./bin/ar71xx/*-squash*factory.bin    ./bin/ar71xx/builds/build-$DIR
+#mv ./bin/ar71xx/*-squash*factory.bin    ./bin/ar71xx/builds/build-$DIR
 echo ""
 
 echo "Clean up unused files"
 rm ./bin/ar71xx/openwrt-*
-echo ""
-
-echo "Update md5sums"
-cat ./bin/ar71xx/md5sums | grep "squashfs" | grep ".bin" >> ./bin/ar71xx/builds/build-$DIR/md5sums
 echo ""
 
 echo ""
@@ -141,7 +162,6 @@ echo " "
 echo '----------------------------'
 
 build_ubnt UBNT 
-#build_ubnt UBNT -Ast
 
 echo " "
 echo " Build script UBNT complete"
