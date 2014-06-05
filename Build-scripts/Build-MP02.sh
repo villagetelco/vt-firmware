@@ -104,13 +104,13 @@ echo "Check files directory"
 ls -al ./files  
 echo ""
 
-echo "Version: " $VER $TARGET
+echo "Version: " $VER $TARGET $2
 echo "Date stamp: " $DATE
 
-echo "Version: " $VER  $TARGET   > ./files/etc/secn_version
-echo "Build date " $DATE         >> ./files/etc/secn_version
-echo "GitHub "$REPO $REPOID      >> ./files/etc/secn_version
-echo " "                         >> ./files/etc/secn_version
+echo "Version: " $VER  $TARGET $2  > ./files/etc/secn_version
+echo "Build date " $DATE           >> ./files/etc/secn_version
+echo "GitHub "$REPO $REPOID        >> ./files/etc/secn_version
+echo " "                           >> ./files/etc/secn_version
 echo ""
 
 echo "Banner version info:"
@@ -165,12 +165,12 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-#build_mp02 MP02 
-build_mp02 MP02 -Ast
+build_mp02 MP02 
+#build_mp02 MP02 -Pros
+#build_mp02 MP02 -noAst
 #build_mp02 MP02 -CC
 #build_mp02 MP02 -NDS
 #build_mp02 MP02 -Pol
-#build_mp02 MP02 -Pros
 
 echo " "
 echo " Build script MP02 complete"

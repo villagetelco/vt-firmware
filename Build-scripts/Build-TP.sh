@@ -104,13 +104,13 @@ echo "Check files directory"
 ls -al ./files  
 echo ""
 
-echo "Version: " $VER $TARGET
+echo "Version: " $VER $TARGET $2
 echo "Date stamp: " $DATE
 
-echo "Version: " $VER  $TARGET   > ./files/etc/secn_version
-echo "Build date " $DATE         >> ./files/etc/secn_version
-echo "GitHub "$REPO $REPOID      >> ./files/etc/secn_version
-echo " "                         >> ./files/etc/secn_version
+echo "Version: " $VER  $TARGET $2  > ./files/etc/secn_version
+echo "Build date " $DATE           >> ./files/etc/secn_version
+echo "GitHub "$REPO $REPOID        >> ./files/etc/secn_version
+echo " "                           >> ./files/etc/secn_version
 echo ""
 
 echo "Banner version info:"
@@ -130,7 +130,7 @@ cat ./bin/ar71xx/md5sums | grep "squashfs" | grep ".bin" >> ./bin/ar71xx/builds/
 echo ""
 
 echo  "Rename files to add version info"
-for n in `ls ./bin/ar71xx/*.bin`; do mv  $n   ./bin/ar71xx/openwrt-$VER-`echo $n|cut -d '-' -f 5-10`; done
+for n in `ls ./bin/ar71xx/*.bin`; do mv  $n   ./bin/ar71xx/openwrt-$VER$2-`echo $n|cut -d '-' -f 5-10`; done
 echo ""
 
 echo "Update new md5sums file"
@@ -161,8 +161,10 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-build_tp WDR4300 -Ast
-build_tp WR842   -Ast
+build_tp WR842
+#build_tp WR842   -Pros
+build_tp WDR4300
+#build_tp WDR4300 -Pros
 build_tp MR3020
 build_tp MR3040
 build_tp MR3420
