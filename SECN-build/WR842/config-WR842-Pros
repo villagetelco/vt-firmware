@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # OpenWrt version: Attitude Adjustment (r40757)
-# Thu Jun  5 12:27:19 2014
+# Thu Jun  5 08:53:28 2014
 #
 CONFIG_HAVE_DOT_CONFIG=y
 # CONFIG_TARGET_ppc40x is not set
@@ -184,7 +184,7 @@ CONFIG_TARGET_ar71xx_generic=y
 # CONFIG_TARGET_ar71xx_generic_RW2458N is not set
 # CONFIG_TARGET_ar71xx_generic_CAP4200AG is not set
 # CONFIG_TARGET_ar71xx_generic_TLMR11U is not set
-CONFIG_TARGET_ar71xx_generic_TLMR3020=y
+# CONFIG_TARGET_ar71xx_generic_TLMR3020 is not set
 # CONFIG_TARGET_ar71xx_generic_TLMR3040 is not set
 # CONFIG_TARGET_ar71xx_generic_TLMR3220 is not set
 # CONFIG_TARGET_ar71xx_generic_TLMR3420 is not set
@@ -197,7 +197,7 @@ CONFIG_TARGET_ar71xx_generic_TLMR3020=y
 # CONFIG_TARGET_ar71xx_generic_TLWR741 is not set
 # CONFIG_TARGET_ar71xx_generic_TLWR743 is not set
 # CONFIG_TARGET_ar71xx_generic_TLWR841 is not set
-# CONFIG_TARGET_ar71xx_generic_TLWR842 is not set
+CONFIG_TARGET_ar71xx_generic_TLWR842=y
 # CONFIG_TARGET_ar71xx_generic_TLWR941 is not set
 # CONFIG_TARGET_ar71xx_generic_TLWR1041 is not set
 # CONFIG_TARGET_ar71xx_generic_TLWR1043 is not set
@@ -1719,9 +1719,9 @@ CONFIG_PACKAGE_kmod-pppoe=y
 # CONFIG_PACKAGE_kmod-pppol2tp is not set
 CONFIG_PACKAGE_kmod-pppox=y
 # CONFIG_PACKAGE_kmod-pptp is not set
-# CONFIG_PACKAGE_kmod-sched is not set
+CONFIG_PACKAGE_kmod-sched=y
 # CONFIG_PACKAGE_kmod-sched-connmark is not set
-# CONFIG_PACKAGE_kmod-sched-core is not set
+CONFIG_PACKAGE_kmod-sched-core=y
 # CONFIG_PACKAGE_kmod-sched-esfq is not set
 # CONFIG_PACKAGE_kmod-sctp is not set
 # CONFIG_PACKAGE_kmod-sit is not set
@@ -2030,12 +2030,17 @@ CONFIG_PACKAGE_libxtables=y
 # SSL
 #
 # CONFIG_PACKAGE_libaxtls is not set
-CONFIG_PACKAGE_libcyassl=y
+# CONFIG_PACKAGE_libcyassl is not set
 # CONFIG_PACKAGE_libgnutls is not set
 # CONFIG_PACKAGE_libgnutls-extra is not set
 # CONFIG_PACKAGE_libgnutls-openssl is not set
 # CONFIG_PACKAGE_libmatrixssl is not set
-# CONFIG_PACKAGE_libopenssl is not set
+CONFIG_PACKAGE_libopenssl=y
+
+#
+# Configuration
+#
+# CONFIG_OPENSSL_ENGINE_CRYPTO is not set
 # CONFIG_PACKAGE_libpolarssl is not set
 
 #
@@ -2144,7 +2149,7 @@ CONFIG_PACKAGE_libblobmsg-json=y
 # CONFIG_PACKAGE_libevent2-pthreads is not set
 # CONFIG_PACKAGE_libeventlog is not set
 # CONFIG_PACKAGE_libexif is not set
-# CONFIG_PACKAGE_libexpat is not set
+CONFIG_PACKAGE_libexpat=y
 # CONFIG_PACKAGE_libexslt is not set
 # CONFIG_PACKAGE_libezxml is not set
 # CONFIG_PACKAGE_libfaad2 is not set
@@ -2174,7 +2179,7 @@ CONFIG_PACKAGE_libblobmsg-json=y
 # CONFIG_PACKAGE_libiconv is not set
 # CONFIG_PACKAGE_libiconv-full is not set
 # CONFIG_PACKAGE_libid3tag is not set
-# CONFIG_PACKAGE_libidn is not set
+CONFIG_PACKAGE_libidn=y
 # CONFIG_PACKAGE_libiksemel is not set
 # CONFIG_PACKAGE_libimobiledevice is not set
 # CONFIG_PACKAGE_libinklevel is not set
@@ -2211,7 +2216,7 @@ CONFIG_PACKAGE_liblua=y
 # CONFIG_PACKAGE_libmysqlclient is not set
 # CONFIG_PACKAGE_libmysqlclient-r is not set
 # CONFIG_PACKAGE_libnatpmp is not set
-# CONFIG_PACKAGE_libncurses is not set
+CONFIG_PACKAGE_libncurses=y
 # CONFIG_PACKAGE_libncursesw is not set
 # CONFIG_PACKAGE_libneon is not set
 # CONFIG_PACKAGE_libnet0 is not set
@@ -2247,7 +2252,7 @@ CONFIG_PACKAGE_libnl-tiny=y
 # CONFIG_PACKAGE_libplist is not set
 # CONFIG_PACKAGE_libplistcxx is not set
 # CONFIG_PACKAGE_libpng is not set
-# CONFIG_PACKAGE_libpopt is not set
+CONFIG_PACKAGE_libpopt=y
 # CONFIG_PACKAGE_libprotobuf-c is not set
 # CONFIG_PACKAGE_libptmalloc3 is not set
 # CONFIG_PACKAGE_libradiusclient-ng is not set
@@ -2324,7 +2329,7 @@ CONFIG_PACKAGE_libuuid=y
 # CONFIG_PACKAGE_st2205tool is not set
 # CONFIG_PACKAGE_taglib is not set
 # CONFIG_PACKAGE_taglibc is not set
-# CONFIG_PACKAGE_terminfo is not set
+CONFIG_PACKAGE_terminfo=y
 # CONFIG_PACKAGE_uclibcxx is not set
 # CONFIG_PACKAGE_ustl is not set
 # CONFIG_PACKAGE_wt is not set
@@ -2564,7 +2569,7 @@ CONFIG_PACKAGE_iptables=y
 # CONFIG_PACKAGE_miau is not set
 # CONFIG_PACKAGE_ngircd is not set
 # CONFIG_PACKAGE_ngircd-nossl is not set
-# CONFIG_PACKAGE_prosody is not set
+CONFIG_PACKAGE_prosody=y
 # CONFIG_PACKAGE_psybnc is not set
 # CONFIG_PACKAGE_reaim is not set
 # CONFIG_PACKAGE_tmsnc is not set
@@ -2644,14 +2649,85 @@ CONFIG_PACKAGE_iptables=y
 # CONFIG_PACKAGE_openssh-moduli is not set
 # CONFIG_PACKAGE_openssh-server is not set
 # CONFIG_PACKAGE_openssh-sftp-client is not set
-# CONFIG_PACKAGE_openssh-sftp-server is not set
+CONFIG_PACKAGE_openssh-sftp-server=y
 # CONFIG_PACKAGE_rssh is not set
 # CONFIG_PACKAGE_sshtunnel is not set
 
 #
 # Telephony
 #
-# CONFIG_PACKAGE_asterisk18 is not set
+CONFIG_PACKAGE_asterisk18=y
+# CONFIG_PACKAGE_asterisk18-app-alarmreceiver is not set
+# CONFIG_PACKAGE_asterisk18-app-authenticate is not set
+# CONFIG_PACKAGE_asterisk18-app-chanisavail is not set
+# CONFIG_PACKAGE_asterisk18-app-chanspy is not set
+# CONFIG_PACKAGE_asterisk18-app-directed-pickup is not set
+# CONFIG_PACKAGE_asterisk18-app-disa is not set
+# CONFIG_PACKAGE_asterisk18-app-exec is not set
+# CONFIG_PACKAGE_asterisk18-app-followme is not set
+# CONFIG_PACKAGE_asterisk18-app-minivm is not set
+# CONFIG_PACKAGE_asterisk18-app-mixmonitor is not set
+# CONFIG_PACKAGE_asterisk18-app-originate is not set
+# CONFIG_PACKAGE_asterisk18-app-playtones is not set
+# CONFIG_PACKAGE_asterisk18-app-read is not set
+# CONFIG_PACKAGE_asterisk18-app-readexten is not set
+# CONFIG_PACKAGE_asterisk18-app-record is not set
+# CONFIG_PACKAGE_asterisk18-app-sayunixtime is not set
+# CONFIG_PACKAGE_asterisk18-app-senddtmf is not set
+# CONFIG_PACKAGE_asterisk18-app-setcallerid is not set
+# CONFIG_PACKAGE_asterisk18-app-sms is not set
+# CONFIG_PACKAGE_asterisk18-app-stack is not set
+# CONFIG_PACKAGE_asterisk18-app-system is not set
+# CONFIG_PACKAGE_asterisk18-app-talkdetect is not set
+# CONFIG_PACKAGE_asterisk18-app-verbose is not set
+# CONFIG_PACKAGE_asterisk18-app-waituntil is not set
+# CONFIG_PACKAGE_asterisk18-app-while is not set
+# CONFIG_PACKAGE_asterisk18-cdr is not set
+# CONFIG_PACKAGE_asterisk18-chan-agent is not set
+# CONFIG_PACKAGE_asterisk18-chan-gtalk is not set
+# CONFIG_PACKAGE_asterisk18-chan-iax2 is not set
+# CONFIG_PACKAGE_asterisk18-chan-local is not set
+# CONFIG_PACKAGE_asterisk18-chan-mgcp is not set
+# CONFIG_PACKAGE_asterisk18-chan-mobile is not set
+# CONFIG_PACKAGE_asterisk18-chan-sccp-b is not set
+# CONFIG_PACKAGE_asterisk18-chan-skinny is not set
+# CONFIG_PACKAGE_asterisk18-codec-a-mu is not set
+# CONFIG_PACKAGE_asterisk18-codec-alaw is not set
+# CONFIG_PACKAGE_asterisk18-codec-g722 is not set
+# CONFIG_PACKAGE_asterisk18-codec-g726 is not set
+# CONFIG_PACKAGE_asterisk18-curl is not set
+# CONFIG_PACKAGE_asterisk18-format-g726 is not set
+# CONFIG_PACKAGE_asterisk18-format-g729 is not set
+# CONFIG_PACKAGE_asterisk18-format-sln is not set
+# CONFIG_PACKAGE_asterisk18-format-sln16 is not set
+# CONFIG_PACKAGE_asterisk18-func-blacklist is not set
+# CONFIG_PACKAGE_asterisk18-func-channel is not set
+# CONFIG_PACKAGE_asterisk18-func-cut is not set
+# CONFIG_PACKAGE_asterisk18-func-db is not set
+# CONFIG_PACKAGE_asterisk18-func-devstate is not set
+# CONFIG_PACKAGE_asterisk18-func-extstate is not set
+# CONFIG_PACKAGE_asterisk18-func-global is not set
+# CONFIG_PACKAGE_asterisk18-func-groupcount is not set
+# CONFIG_PACKAGE_asterisk18-func-shell is not set
+# CONFIG_PACKAGE_asterisk18-func-uri is not set
+# CONFIG_PACKAGE_asterisk18-func-vmcount is not set
+# CONFIG_PACKAGE_asterisk18-mysql is not set
+# CONFIG_PACKAGE_asterisk18-odbc is not set
+# CONFIG_PACKAGE_asterisk18-pbx-ael is not set
+# CONFIG_PACKAGE_asterisk18-pbx-lua is not set
+# CONFIG_PACKAGE_asterisk18-pbx-spool is not set
+# CONFIG_PACKAGE_asterisk18-pgsql is not set
+# CONFIG_PACKAGE_asterisk18-res-ael-share is not set
+# CONFIG_PACKAGE_asterisk18-res-agi is not set
+# CONFIG_PACKAGE_asterisk18-res-clioriginate is not set
+# CONFIG_PACKAGE_asterisk18-res-crypto is not set
+# CONFIG_PACKAGE_asterisk18-res-fax is not set
+# CONFIG_PACKAGE_asterisk18-res-fax-spandsp is not set
+# CONFIG_PACKAGE_asterisk18-res-musiconhold is not set
+# CONFIG_PACKAGE_asterisk18-res-timing-pthread is not set
+# CONFIG_PACKAGE_asterisk18-res-timing-timerfd is not set
+# CONFIG_PACKAGE_asterisk18-sounds is not set
+# CONFIG_PACKAGE_asterisk18-voicemail is not set
 # CONFIG_PACKAGE_baresip is not set
 # CONFIG_PACKAGE_freeswitch is not set
 # CONFIG_PACKAGE_kamailio is not set
@@ -2838,8 +2914,8 @@ CONFIG_PACKAGE_uhttpd=y
 # CONFIG_PACKAGE_uhttpd_debug is not set
 # CONFIG_PACKAGE_uhttpd-mod-lua is not set
 CONFIG_PACKAGE_uhttpd-mod-tls=y
-CONFIG_PACKAGE_uhttpd-mod-tls_cyassl=y
-# CONFIG_PACKAGE_uhttpd-mod-tls_openssl is not set
+# CONFIG_PACKAGE_uhttpd-mod-tls_cyassl is not set
+CONFIG_PACKAGE_uhttpd-mod-tls_openssl=y
 # CONFIG_PACKAGE_uhttpd-mod-ubus is not set
 # CONFIG_PACKAGE_wccpd is not set
 
@@ -3036,7 +3112,7 @@ CONFIG_PACKAGE_ppp-mod-pppoe=y
 # CONFIG_PACKAGE_stund is not set
 # CONFIG_PACKAGE_stunnel is not set
 # CONFIG_PACKAGE_synce-dccm is not set
-# CONFIG_PACKAGE_tc is not set
+CONFIG_PACKAGE_tc=y
 # CONFIG_PACKAGE_tcpdump is not set
 # CONFIG_PACKAGE_tcpdump-mini is not set
 # CONFIG_PACKAGE_tcptraceroute is not set
@@ -3081,7 +3157,7 @@ CONFIG_DRIVER_11N_SUPPORT=y
 CONFIG_PACKAGE_wpad-mini=y
 # CONFIG_PACKAGE_wprobe-export is not set
 # CONFIG_PACKAGE_wprobe-util is not set
-# CONFIG_PACKAGE_wshaper is not set
+CONFIG_PACKAGE_wshaper=y
 CONFIG_PACKAGE_xinetd=y
 
 #
@@ -3673,13 +3749,13 @@ CONFIG_PACKAGE_usb-modeswitch-data=y
 CONFIG_PACKAGE_lua=y
 # CONFIG_PACKAGE_lua-examples is not set
 # CONFIG_PACKAGE_luac is not set
-# CONFIG_PACKAGE_luaexpat is not set
-# CONFIG_PACKAGE_luafilesystem is not set
+CONFIG_PACKAGE_luaexpat=y
+CONFIG_PACKAGE_luafilesystem=y
 # CONFIG_PACKAGE_luaposix is not set
 # CONFIG_PACKAGE_luaprofiler is not set
-# CONFIG_PACKAGE_luasec is not set
+CONFIG_PACKAGE_luasec=y
 # CONFIG_PACKAGE_luasoap is not set
-# CONFIG_PACKAGE_luasocket is not set
+CONFIG_PACKAGE_luasocket=y
 # CONFIG_PACKAGE_luasql-mysql is not set
 # CONFIG_PACKAGE_luasql-pgsql is not set
 # CONFIG_PACKAGE_luasql-sqlite3 is not set
