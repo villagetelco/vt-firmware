@@ -140,15 +140,15 @@ make
 echo ""
 
 echo "Update original md5sums file"
-cat $BINDIR/md5sums | grep "squashfs" | grep ".bin" >> $BINDIR/builds/build-$DIR/md5sums
+cat $BINDIR/md5sums | grep "openwrt"  >> $BINDIR/builds/build-$DIR/md5sums
 echo ""
 
 echo  "Rename files to add version info"
 echo ""
 if [ $2 ]; then
-	for n in `ls $BINDIR/openwrt*.bin`; do mv  $n   $BINDIR/openwrt-$VER-$2-`echo $n|cut -d '-' -f 5-10`; done
+	for n in `ls $BINDIR/openwrt*`; do mv  $n   $BINDIR/openwrt-$VER-$2-`echo $n|cut -d '-' -f 3-10`; done
 else
-	for n in `ls $BINDIR/openwrt*.bin`; do mv  $n   $BINDIR/openwrt-$VER-`echo $n|cut -d '-' -f 5-10`; done
+	for n in `ls $BINDIR/openwrt*.`; do mv  $n   $BINDIR/openwrt-$VER-`echo $n|cut -d '-' -f 3-10`; done
 fi
 
 echo "Update new md5sums file"
