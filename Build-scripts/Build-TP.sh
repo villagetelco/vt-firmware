@@ -56,14 +56,14 @@ DATE=`date +%Y-%m-%d-%H:%M`
 DIR=$DATE"-TP-"$DIRVER
 
 ###########################
-
+BINDIR="./bin/ar71xx"
 # Set up build directory
-echo "New build directory  ./bin/ar71xx/builds/build-"$DIR
-mkdir ./bin/ar71xx/builds/build-$DIR
+echo "Set up new build directory  $BINDIR/builds/build-"$DIR
+mkdir $BINDIR/builds/build-$DIR
 
 # Create md5sums files
-echo $DIR > ./bin/ar71xx/builds/build-$DIR/md5sums
-echo $DIR > ./bin/ar71xx/builds/build-$DIR/md5sums-$VER
+echo $DIR > $BINDIR/builds/build-$DIR/md5sums
+echo $DIR > $BINDIR/builds/build-$DIR/md5sums-$VER
 
 ##########################
 
@@ -71,21 +71,31 @@ echo $DIR > ./bin/ar71xx/builds/build-$DIR/md5sums-$VER
 
 function build_tp() {
 
-echo "Set up .config for "$1$2
+echo "Set up .config for "$1 $2
 rm ./.config
-cp ./SECN-build/$1/config-$1$2  ./.config
+
+if [ $2 ]; then
+	echo "Config file: config-"$1-$2
+	cp ./SECN-build/$1/config-$1-$2  ./.config
+else
+	echo "Config file: config-"$1
+	cp ./SECN-build/$1/config-$1  ./.config
+fi
+
 echo "Run defconfig"
 make defconfig > /dev/null
 
-# Get target device from .config file
+# Set up target display strings
 TARGET=`cat .config | grep "CONFIG_TARGET" | grep "=y" | grep "_generic_" | cut -d _ -f 5 | cut -d = -f 1 `
 
+OPENWRTVER=`cat ./.config | grep "OpenWrt version" | cut -d : -f 2`
+
 echo "Check .config version"
-cat ./.config | grep "OpenWrt version"
 echo "Target:  " $TARGET
+echo "OpenWRT: " $OPENWRTVER
 echo ""
 
-echo "Set up files for "$1
+echo "Set up files for "$1 $2
 echo "Remove files directory"
 rm -r ./files
 
@@ -107,47 +117,52 @@ echo ""
 echo "Version: " $VER $TARGET $2
 echo "Date stamp: " $DATE
 
-echo "Version: " $VER  $TARGET $2  > ./files/etc/secn_version
-echo "Build date " $DATE           >> ./files/etc/secn_version
-echo "GitHub "$REPO $REPOID        >> ./files/etc/secn_version
-echo " "                           >> ./files/etc/secn_version
+echo "Version:    " $VER $TARGET $2        > ./files/etc/secn_version
+echo "OpenWRT:    " $OPENWRTVER           >> ./files/etc/secn_version
+echo "Build date: " $DATE                 >> ./files/etc/secn_version
+echo "GitHub:     " $REPO $REPOID         >> ./files/etc/secn_version
+echo " "                                  >> ./files/etc/secn_version
 echo ""
 
 echo "Banner version info:"
 cat ./files/etc/secn_version
 echo ""
- 
+
 echo "Clean up any left over files"
-rm ./bin/ar71xx/openwrt-*
+rm $BINDIR/openwrt-*
 echo ""
 
-echo "Run make for "$1$2
+echo "Run make for "$1 $2
 make
 echo ""
 
 echo "Update original md5sums file"
-cat ./bin/ar71xx/md5sums | grep "squashfs" | grep ".bin" >> ./bin/ar71xx/builds/build-$DIR/md5sums
+cat $BINDIR/md5sums | grep "squashfs" | grep ".bin" >> $BINDIR/builds/build-$DIR/md5sums
 echo ""
 
 echo  "Rename files to add version info"
-for n in `ls ./bin/ar71xx/*.bin`; do mv  $n   ./bin/ar71xx/openwrt-$VER$2-`echo $n|cut -d '-' -f 5-10`; done
 echo ""
+if [ $2 ]; then
+	for n in `ls $BINDIR/openwrt*.bin`; do mv  $n   $BINDIR/openwrt-$VER-$2-`echo $n|cut -d '-' -f 5-10`; done
+else
+	for n in `ls $BINDIR/openwrt*.bin`; do mv  $n   $BINDIR/openwrt-$VER-`echo $n|cut -d '-' -f 5-10`; done
+fi
 
 echo "Update new md5sums file"
-md5sum ./bin/ar71xx/*-squash*sysupgrade.bin >> ./bin/ar71xx/builds/build-$DIR/md5sums-$VER
-#md5sum ./bin/ar71xx/*-squash*factory.bin    >> ./bin/ar71xx/builds/build-$DIR/md5sums-$VER
+md5sum $BINDIR/*-squash*sysupgrade.bin >> $BINDIR/builds/build-$DIR/md5sums-$VER
+#md5sum $BINDIR/*-squash*factory.bin    >> $BINDIR/builds/build-$DIR/md5sums-$VER
 
 echo  "Move files to build folder"
-mv ./bin/ar71xx/*-squash*sysupgrade.bin ./bin/ar71xx/builds/build-$DIR
-#mv ./bin/ar71xx/*-squash*factory.bin    ./bin/ar71xx/builds/build-$DIR
+mv $BINDIR/openwrt*-squash*sysupgrade.bin $BINDIR/builds/build-$DIR
+#mv $BINDIR/*-squash*factory.bin    $BINDIR/builds/build-$DIR
 echo ""
 
 echo "Clean up unused files"
-rm ./bin/ar71xx/openwrt-*
+rm $BINDIR/openwrt-*
 echo ""
 
 echo ""
-echo "End "$1$2" build"
+echo "End "$1 $2" build"
 echo ""
 echo '----------------------------'
 }
@@ -161,10 +176,11 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
+
 build_tp WR842
-#build_tp WR842   -Pros
+#build_tp WR842   Pros
 build_tp WDR4300
-#build_tp WDR4300 -Pros
+#build_tp WDR4300 Pros
 build_tp MR3020
 build_tp MR3040
 build_tp MR3420
@@ -179,4 +195,5 @@ echo " "
 echo '----------------------------'
 
 exit
+
 
