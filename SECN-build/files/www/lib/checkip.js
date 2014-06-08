@@ -34,6 +34,10 @@ $(document).ready( function() {
 		var hex = "^([0-9a-fA-F]{2}([:-]|$)){6}$|([0-9a-fA-F]{4}([.]|$)){3}$";
 		return value.match(hex);
 	}, 'Invalid MAC address');
+	$.validator.addMethod('CountryChecker', function(value) {
+			var pass ="^([A-Z]{2}|[]{0})$";
+			return value.match(pass);
+	}, 'Requires two character code eg AU');
 
 	$('#MP').validate({
 		rules: {
@@ -161,6 +165,9 @@ $(document).ready( function() {
 			PASSPHRASE1: {
 			minlength: 8,
 			PassChecker: true
+			},
+			COUNTRY: {
+			CountryChecker: true
 			},
 			HOST: {
 			PassChecker: true
