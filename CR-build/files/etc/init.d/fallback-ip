@@ -1,0 +1,12 @@
+#!/bin/sh
+
+MODE=`uci get olpc.setup.mode`
+
+if [ $MODE = "Master" ] || [ $MODE = "Single" ]; then
+	# Set up fallback IP on lan bridge (wlan0)
+	ifconfig br-lan:9 172.31.255.254 netmask 255.255.255.252
+else
+	# Set up fallback IP directly on eth0 (not bridged to lan)
+	ifconfig eth0 172.31.255.254 netmask 255.255.255.252
+fi
+
