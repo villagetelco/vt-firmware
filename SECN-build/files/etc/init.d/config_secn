@@ -353,6 +353,8 @@ fi
 if [ $WANPORT = "Mesh" ]; then
 	uci set network.wan.ifname='bat0' 
 	uci set network.wan.type='bridge'
+	MESH_ENABLE='checked'
+	uci set secn.mesh.mesh_enable='checked'
 	uci set network.lan.gateway='255.255.255.255'
 fi
 
