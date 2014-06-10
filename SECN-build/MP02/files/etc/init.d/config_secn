@@ -369,10 +369,17 @@ fi
 
 # Set up for WiFi WAN
 if [ $WANPORT = "WiFi" ]; then
-  # Set up for wlan0 WAN port
+ 	# Set up eth1 as LAN or WAN
+	if [ $WANLAN_ENABLE = "checked" ]; then
+		uci set network.lan.ifname='eth0 eth1'
+		uci set network.wan.ifname='wlan0-2'
+	else
+		uci set network.lan.ifname='eth0'
+		uci set network.wan.ifname='wlan0-2 eth1' 
+		uci set network.wan.type='bridge'
+	fi
 	uci set wireless.ah_0.disabled='1'
 	uci set wireless.sta_0.disabled='0'
-	uci set network.wan.ifname='wlan0-2'
 	uci set network.lan.gateway='255.255.255.255'
 	# Disable mesh
 	uci set secn.mesh.mesh_enable='0'
@@ -384,6 +391,20 @@ if [ $MESH_ENABLE = "checked" ]; then
 	uci set wireless.ah_0.disabled='0'
 else
 	uci set wireless.ah_0.disabled='1'
+fi
+
+# Set up for 3G Modem
+if [ $WANPORT = "USB-Modem" ]; then
+	uci set network.lan.gateway='255.255.255.255'
+	uci set network.wan.ifname='ppp0'
+	uci set network.wan.proto='3g'
+	uci set network.wan.service=$SERVICE
+	uci set network.wan.apn=$APN
+	uci set network.wan.username=$APNUSER
+	uci set network.wan.password=$APNPW
+	uci set network.wan.pin=$PIN
+	uci set network.wan.device=$TTY
+	ETHWANMODE = "DHCP"
 fi
 
 # Set up for DHCP or Static
@@ -400,19 +421,6 @@ else  # Set up for DHCP
 	uci set network.wan.gateway=''
 	uci set network.wan.netmask=''
 	uci set network.wan.dns=''
-fi
-
-# Set up for 3G Modem
-if [ $WANPORT = "USB-Modem" ]; then
-	uci set network.lan.gateway='255.255.255.255'
-	uci set network.wan.ifname='ppp0'
-	uci set network.wan.proto='3g'
-	uci set network.wan.service=$SERVICE
-	uci set network.wan.apn=$APN
-	uci set network.wan.username=$APNUSER
-	uci set network.wan.password=$APNPW
-	uci set network.wan.pin=$PIN
-	uci set network.wan.device=$TTY
 fi
 
 # Make sure firewall is enabled
