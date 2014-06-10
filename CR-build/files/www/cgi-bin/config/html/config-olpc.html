@@ -94,7 +94,7 @@ cat > /tmp/config.html << EOF
 						</tr>
 						<br><br><br>
 						<tr>
-							* For Network/Internet access, connect the <strong>WAN</strong> Ethernet port of the Single/Master unit to the Local Area Network using an Ethernet cable. 
+							* For Network/Internet access, connect the <strong>WAN</strong> Ethernet port of the unit to the Local Area Network using an Ethernet cable. 
 						</tr>
 					</table>
 				</fieldset>
@@ -152,11 +152,8 @@ cat > /tmp/config.html << EOF
 							<td class="field">
 							<SELECT name="WANPORT" id="wanport">
 							<option selected="$WANPORT">$WANPORT</option>
-							<option value="Disable"> Disable </option>
 							<option value="Ethernet"> Ethernet </option>
-							<option value="USB-Modem"> USB-Modem </option>
-							<option value="WiFi"> WiFi </option>
-							<option value="Mesh"> Mesh </option>
+							<option value="SECN-Adv"> SECN Advanced </option>
 							</SELECT>
 						</td>
 						</tr>

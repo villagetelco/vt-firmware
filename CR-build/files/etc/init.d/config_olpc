@@ -63,7 +63,9 @@ uci set network.lan.ipaddr=$IP
 # Setup WAN access
 WANPORT=`uci get olpc.setup.wanport`
 if [ $MODE = "Master" ] || [ $MODE = "Single" ]; then
-  uci set secn.wan.wanport=$WANPORT   # Set for assigned WAN port
+	if [ $WANPORT = "Ethernet" ]; then
+	  uci set secn.wan.wanport=$WANPORT   # Set only if Ethernet mode
+	fi
 else
   # set up for Slave mode
   uci set secn.wan.wanport="Slave"
