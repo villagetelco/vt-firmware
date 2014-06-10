@@ -30,8 +30,8 @@ fi
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="RC6-CR"
-VER="SECN-2_0-"$DIRVER
+DIRVER="RC6a"
+VER="SECN-2_0-CR-"$DIRVER
 
 ###########################
 
@@ -40,6 +40,8 @@ REPO=vt-firmware
 rm -rf ./SECN-build/
 cp -rp ~/$GITREPO/$REPO/SECN-build/ .
 cp -fp ~/$GITREPO/$REPO/Build-scripts/FactoryRestore.sh  .
+echo "Overlay Class Router files"
+cp -rp ~/$GITREPO/$REPO/CR-build/* ./SECN-build
 
 ###########################
 
@@ -53,7 +55,7 @@ cd $BUILDPWD
 
 echo "Set up new directory name with date and version"
 DATE=`date +%Y-%m-%d-%H:%M`
-DIR=$DATE"-MP02-"$DIRVER
+DIR=$DATE"-MP02-CR-"$DIRVER
 
 ###########################
 BINDIR="./bin/ar71xx"
@@ -105,9 +107,6 @@ cp -r ./SECN-build/files     .
 echo "Overlay device specific files"
 cp -r ./SECN-build/$1/files  .  
 echo ""
-
-echo "Overlay Class Router files"
-cp -rp ~/$GITREPO/olpc/SECN-build/ .
 
 echo "Build Factory Restore tar file"
 ./FactoryRestore.sh	 

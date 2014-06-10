@@ -30,33 +30,42 @@ fi
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="RC6-OLPC"
-VER="SECN Version 2.0 "$DIRVER
+DIRVER="RC6a"
+VER="SECN-2_0-CR-"$DIRVER
 
 ###########################
 
 echo "Copy files from Git repo into build folder"
+REPO=vt-firmware
 rm -rf ./SECN-build/
-cp -rp ~/$GITREPO/vt-firmware/SECN-build/ .
-cp -fp ~/$GITREPO/vt-firmware/Build-scripts/FactoryRestore.sh  .
+cp -rp ~/$GITREPO/$REPO/SECN-build/ .
+cp -fp ~/$GITREPO/$REPO/Build-scripts/FactoryRestore.sh  .
+echo "Overlay Class Router files"
+cp -rp ~/$GITREPO/$REPO/CR-build/* ./SECN-build
 
-echo "Overlay OLPC files"
-cp -rp ~/$GITREPO/olpc/SECN-build/ .
+###########################
+
+echo "Get source repo details"
+BUILDPWD=`pwd`
+cd  ~/$GITREPO/$REPO
+REPOID=`git describe --long --dirty --abbrev=10 --tags`
+cd $BUILDPWD
 
 ###########################
 
 echo "Set up new directory name with date and version"
 DATE=`date +%Y-%m-%d-%H:%M`
-DIR=$DATE"-TP-"$DIRVER
+DIR=$DATE"-TP-CR-"$DIRVER
 
 ###########################
-
+BINDIR="./bin/ar71xx"
 # Set up build directory
-echo "New build directory  ./bin/ar71xx/builds/build-"$DIR
-mkdir ./bin/ar71xx/builds/build-$DIR
+echo "Set up new build directory  $BINDIR/builds/build-"$DIR
+mkdir $BINDIR/builds/build-$DIR
 
-# Create md5sums file
-touch ./bin/ar71xx/builds/build-$DIR/md5sums
+# Create md5sums files
+echo $DIR > $BINDIR/builds/build-$DIR/md5sums
+echo $DIR > $BINDIR/builds/build-$DIR/md5sums-$VER
 
 ##########################
 
@@ -64,21 +73,31 @@ touch ./bin/ar71xx/builds/build-$DIR/md5sums
 
 function build_tp() {
 
-echo "Set up .config for "$1$2
+echo "Set up .config for "$1 $2
 rm ./.config
-cp ./SECN-build/$1/config-$1$2  ./.config
+
+if [ $2 ]; then
+	echo "Config file: config-"$1-$2
+	cp ./SECN-build/$1/config-$1-$2  ./.config
+else
+	echo "Config file: config-"$1
+	cp ./SECN-build/$1/config-$1  ./.config
+fi
+
 echo "Run defconfig"
 make defconfig > /dev/null
 
-# Get target device from .config file
+# Set up target display strings
 TARGET=`cat .config | grep "CONFIG_TARGET" | grep "=y" | grep "_generic_" | cut -d _ -f 5 | cut -d = -f 1 `
 
+OPENWRTVER=`cat ./.config | grep "OpenWrt version" | cut -d : -f 2`
+
 echo "Check .config version"
-cat ./.config | grep "OpenWrt version"
 echo "Target:  " $TARGET
+echo "OpenWRT: " $OPENWRTVER
 echo ""
 
-echo "Set up files for "$1
+echo "Set up files for "$1 $2
 echo "Remove files directory"
 rm -r ./files
 
@@ -97,39 +116,55 @@ echo "Check files directory"
 ls -al ./files  
 echo ""
 
-echo "Version: "  $VER $TARGET
-echo $VER  $TARGET               > ./files/etc/secn_version
-echo "Date stamp the version file: " $DATE
-echo "Build date " $DATE         >> ./files/etc/secn_version
-echo " "                         >> ./files/etc/secn_version
- 
-echo "Check banner version"
-cat ./files/etc/secn_version | grep "Version"
+echo "Version: " $VER $TARGET $2
+echo "Date stamp: " $DATE
+
+echo "Version:    " $VER $TARGET $2        > ./files/etc/secn_version
+echo "OpenWRT:    " $OPENWRTVER           >> ./files/etc/secn_version
+echo "Build date: " $DATE                 >> ./files/etc/secn_version
+echo "GitHub:     " $REPO $REPOID         >> ./files/etc/secn_version
+echo " "                                  >> ./files/etc/secn_version
+echo ""
+
+echo "Banner version info:"
+cat ./files/etc/secn_version
 echo ""
 
 echo "Clean up any left over files"
-rm ./bin/ar71xx/openwrt-*
+rm $BINDIR/openwrt-*
 echo ""
 
-echo "Run make for "$1$2
+echo "Run make for "$1 $2
 make
 echo ""
 
+echo "Update original md5sums file"
+cat $BINDIR/md5sums | grep "squashfs" | grep ".bin" >> $BINDIR/builds/build-$DIR/md5sums
+echo ""
+
+echo  "Rename files to add version info"
+echo ""
+if [ $2 ]; then
+	for n in `ls $BINDIR/openwrt*.bin`; do mv  $n   $BINDIR/openwrt-$VER-$2-`echo $n|cut -d '-' -f 5-10`; done
+else
+	for n in `ls $BINDIR/openwrt*.bin`; do mv  $n   $BINDIR/openwrt-$VER-`echo $n|cut -d '-' -f 5-10`; done
+fi
+
+echo "Update new md5sums file"
+md5sum $BINDIR/*-squash*sysupgrade.bin >> $BINDIR/builds/build-$DIR/md5sums-$VER
+#md5sum $BINDIR/*-squash*factory.bin    >> $BINDIR/builds/build-$DIR/md5sums-$VER
+
 echo  "Move files to build folder"
-mv ./bin/ar71xx/*-squash*sysupgrade.bin ./bin/ar71xx/builds/build-$DIR
-mv ./bin/ar71xx/*-squash*factory.bin    ./bin/ar71xx/builds/build-$DIR
+mv $BINDIR/openwrt*-squash*sysupgrade.bin $BINDIR/builds/build-$DIR
+#mv $BINDIR/*-squash*factory.bin    $BINDIR/builds/build-$DIR
 echo ""
 
 echo "Clean up unused files"
-rm ./bin/ar71xx/openwrt-*
-echo ""
-
-echo "Update md5sums"
-cat ./bin/ar71xx/md5sums | grep "squashfs" | grep ".bin" >> ./bin/ar71xx/builds/build-$DIR/md5sums
+rm $BINDIR/openwrt-*
 echo ""
 
 echo ""
-echo "End "$1$2" build"
+echo "End "$1 $2" build"
 echo ""
 echo '----------------------------'
 }
@@ -156,4 +191,5 @@ echo " "
 echo '----------------------------'
 
 exit
+
 
