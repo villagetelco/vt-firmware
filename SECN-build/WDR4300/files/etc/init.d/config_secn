@@ -363,6 +363,7 @@ uci set wireless.sta_1.encryption=$WANENCR
 # Clear WAN settings
 uci set network.wan.ifname=''
 uci set network.wan.proto=''
+uci set network.wan.type=''
 uci set network.wan.ipaddr=''
 uci set network.wan.gateway=''
 uci set network.wan.netmask=''
@@ -411,9 +412,9 @@ if [ $WANPORT = "Mesh" ]; then
 	else
 		uci set network.lan.ifname='eth0.1'
 		uci set network.wan.ifname='bat0 eth0.2' 
+		uci set network.wan.type='bridge'
 	fi
 	uci set network.lan.gateway='255.255.255.255'
-	uci set network.wan.type='bridge'
 fi
 
 # Set up for WiFi WAN
