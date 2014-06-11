@@ -56,10 +56,10 @@ echo " "
 
 echo "*** Update the feeds (See ./feeds-update.log)"
 sleep 2
-$OPENWRT_PATH/scripts/feeds update > ./feeds-update.log
+$OPENWRT_PATH/scripts/feeds update > $OPENWRT_PATH/feeds-update.log
 sleep 2
 echo " "
-tail -n 6 ./feeds-update.log
+tail -n 6 $OPENWRT_PATH/feeds-update.log
 echo " "
 
 echo "*** Copy MP02 Platform info "
@@ -77,17 +77,17 @@ sleep 10
 $OPENWRT_PATH/scripts/feeds install -a
 echo " "
 
-# Remove tmp directory
+echo "*** Remove tmp directory"
 rm -rf $OPENWRT_PATH/tmp/
 
-echo "*** Change to build directory"
+echo "*** Change to build directory "$OPENWRT_PATH
 cd $OPENWRT_PATH
 echo " "
 
 echo "*** Run make defconfig to set up initial .config file (see ./defconfig.log)"
 make defconfig > ./defconfig.log
 
-# Backup the .config file
+echo "*** Backup the .config file"
 cp .config .config.orig
 echo " "
 
