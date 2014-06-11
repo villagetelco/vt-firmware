@@ -1,6 +1,13 @@
 #!/bin/sh
 # /etc/init.d/config_olpc
 
+# Get the wanport mode
+WANPORT=`uci get olpc.setup.wanport`
+# Do nothing if in SECN Advanced mode
+if [ $WANPORT = "SECN-Adv" ]; then
+	exit
+fi
+
 # Get OLPC USB modem settings
 MODEMPORT=`uci get olpc.modem.modemport`
 SERVICE=`uci get olpc.modem.service`
@@ -63,9 +70,7 @@ uci set network.lan.ipaddr=$IP
 # Setup WAN access
 WANPORT=`uci get olpc.setup.wanport`
 if [ $MODE = "Master" ] || [ $MODE = "Single" ]; then
-	if [ $WANPORT = "Ethernet" ]; then
-	  uci set secn.wan.wanport=$WANPORT   # Set only if Ethernet mode
-	fi
+  uci set secn.wan.wanport=$WANPORT   # Set only if Ethernet mode
 else
   # set up for Slave mode
   uci set secn.wan.wanport="Slave"
