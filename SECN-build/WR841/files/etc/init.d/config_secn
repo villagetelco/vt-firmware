@@ -362,8 +362,8 @@ if [ $WANPORT = "Mesh" ]; then
 	else
 		uci set network.lan.ifname='eth1'      # Note eth1 LAN port is particular for 841 device
 		uci set network.wan.ifname='bat0 eth0' # Note eth0 WAN port is particular for 841 device
-		uci set network.wan.type='bridge'
 	fi
+	uci set network.wan.type='bridge' # Reqd. See /etc/init.d/set-mesh-gw-mode
 	MESH_ENABLE='checked'
 	uci set secn.mesh.mesh_enable='checked'
 	uci set network.lan.gateway='255.255.255.255'
