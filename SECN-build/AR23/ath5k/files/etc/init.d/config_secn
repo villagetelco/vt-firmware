@@ -296,6 +296,7 @@ uci set wireless.sta_0.encryption=$WANENCR
 # Clear WAN settings
 uci set network.wan.ifname=''
 uci set network.wan.proto=''
+uci set network.wan.type=''
 uci set network.wan.ipaddr=''
 uci set network.wan.gateway=''
 uci set network.wan.netmask=''
@@ -309,12 +310,14 @@ uci set network.wan.pin=''
 uci set network.wan.device=''
 uci set wireless.sta_0.disabled='1' # Make sure wifi WAN is off.
 
-	# Clear WAN port bridging. Single Eth port devices
-	uci set secn.wan.wanlan_enable='0'
+# Disable WAN port as LAN for Single Eth port devices
+uci set secn.wan.wanlan_enable='0'
+
+# Set default LAN port to eth0
+	uci set network.lan.ifname='eth0'
 
 # Set up for WAN disabled
 if [ $WANPORT = "Disable" ]; then
-	uci set network.lan.ifname='eth0'
 	uci set wireless.ah_0.disabled='0'
 	uci set wireless.sta_0.disabled='1'
 fi
@@ -329,27 +332,23 @@ fi
 
 # Set up for Mesh WAN
 if [ $WANPORT = "Mesh" ]; then
- 	# Set up eth1 as LAN or WAN
-	if [ $WANLAN_ENABLE = "checked" ]; then
-		uci set network.lan.ifname='eth0 eth1'
-		uci set network.wan.ifname='bat0'
-	else
-		uci set network.lan.ifname='eth0'
-		uci set network.wan.ifname='bat0 eth1' 
-	fi
+	uci set network.lan.ifname='eth0'
+	uci set network.wan.ifname='bat0' 
+	uci set network.wan.type='bridge' # Reqd. See /etc/init.d/set-mesh-gw-mode
+	MESH_ENABLE='checked'
+	uci set secn.mesh.mesh_enable='checked'
 	uci set network.lan.gateway='255.255.255.255'
-	uci set network.wan.type='bridge'
 fi
 
 # Set up for WiFi WAN
 if [ $WANPORT = "WiFi" ]; then
-  # Set up for wlan0 WAN port
+  # Set up for wlan0-2 WAN port
 	uci set wireless.ah_0.disabled='1'
 	uci set wireless.sta_0.disabled='0'
-	uci set network.wan.ifname='wlan0'
+	uci set network.wan.ifname='wlan0-2'
 	uci set network.lan.gateway='255.255.255.255'
 	# Disable mesh
-	uci set secn.mesh.mesh_enable='0'
+	uci set secn.mesh.mesh_enable='0' 
 	MESH_ENABLE='0'
 fi
 
