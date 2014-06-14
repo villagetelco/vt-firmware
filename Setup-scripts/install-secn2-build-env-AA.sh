@@ -62,13 +62,6 @@ echo " "
 tail -n 6 $OPENWRT_PATH/feeds-update.log
 echo " "
 
-echo "*** Lock the OpenWrt package feeds from further updating"
-echo "#src-svn packages svn://svn.openwrt.org/openwrt/packages@36425"              > $OPENWRT_PATH/feeds.conf.default
-echo "src-git routing git://github.com/openwrt-routing/packages.git;for-12.09.x" >> $OPENWRT_PATH/feeds.conf.default
-echo "src-git alfred git://git.open-mesh.org/openwrt-feed-alfred.git"            >> $OPENWRT_PATH/feeds.conf.default
-echo "src-link dragino2      $OPENWRT_PATH/vt-mp02-package/packages-AA"   		   >> $OPENWRT_PATH/feeds.conf.default
-echo " "
-
 echo "*** Copy MP02 Platform info "
 sleep 2
 rsync -avC $OPENWRT_PATH/vt-mp02-package/platform-AA/target/ $OPENWRT_PATH/target/
@@ -82,6 +75,13 @@ echo " "
 echo "*** Install OpenWrt packages"
 sleep 10
 $OPENWRT_PATH/scripts/feeds install -a
+echo " "
+
+echo "*** Lock the OpenWrt package feeds from further updating"
+echo "#src-svn packages svn://svn.openwrt.org/openwrt/packages@36425"             > $OPENWRT_PATH/feeds.conf.default
+echo "src-git routing git://github.com/openwrt-routing/packages.git;for-12.09.x" >> $OPENWRT_PATH/feeds.conf.default
+echo "src-git alfred git://git.open-mesh.org/openwrt-feed-alfred.git"            >> $OPENWRT_PATH/feeds.conf.default
+echo "src-link dragino2      $OPENWRT_PATH/vt-mp02-package/packages-AA"   	 >> $OPENWRT_PATH/feeds.conf.default
 echo " "
 
 echo "*** Remove tmp directory"
