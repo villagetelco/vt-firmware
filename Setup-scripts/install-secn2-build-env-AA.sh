@@ -39,7 +39,7 @@ git clone https://github.com/villagetelco/vt-mp02-package   $OPENWRT_PATH/vt-mp0
 
 echo "*** Checkout the OpenWRT build environment"
 sleep 2
-svn co svn://svn.openwrt.org/openwrt/branches/attitude_adjustment/ $OPENWRT_PATH
+svn checkout --revision=36425 svn://svn.openwrt.org/openwrt/branches/attitude_adjustment/ $OPENWRT_PATH
 echo " "
 
 echo "*** Backup original feeds files if they exist"
@@ -48,7 +48,7 @@ mv $OPENWRT_PATH/feeds.conf.default  $OPENWRT_PATH/feeds.conf.default.bak
 echo " "
 
 echo "*** Create new feeds.conf.default file"
-echo "src-svn  packages svn://svn.openwrt.org/openwrt/branches/packages_12.09"   > $OPENWRT_PATH/feeds.conf.default
+echo "src-svn packages svn://svn.openwrt.org/openwrt/packages@36425"              > $OPENWRT_PATH/feeds.conf.default
 echo "src-git routing git://github.com/openwrt-routing/packages.git;for-12.09.x" >> $OPENWRT_PATH/feeds.conf.default
 echo "src-git alfred git://git.open-mesh.org/openwrt-feed-alfred.git"            >> $OPENWRT_PATH/feeds.conf.default
 echo "src-link dragino2      $OPENWRT_PATH/vt-mp02-package/packages-AA"   		   >> $OPENWRT_PATH/feeds.conf.default
@@ -60,6 +60,13 @@ $OPENWRT_PATH/scripts/feeds update > $OPENWRT_PATH/feeds-update.log
 sleep 2
 echo " "
 tail -n 6 $OPENWRT_PATH/feeds-update.log
+echo " "
+
+echo "*** Lock the OpenWrt package feeds from further updating"
+echo "#src-svn packages svn://svn.openwrt.org/openwrt/packages@36425"              > $OPENWRT_PATH/feeds.conf.default
+echo "src-git routing git://github.com/openwrt-routing/packages.git;for-12.09.x" >> $OPENWRT_PATH/feeds.conf.default
+echo "src-git alfred git://git.open-mesh.org/openwrt-feed-alfred.git"            >> $OPENWRT_PATH/feeds.conf.default
+echo "src-link dragino2      $OPENWRT_PATH/vt-mp02-package/packages-AA"   		   >> $OPENWRT_PATH/feeds.conf.default
 echo " "
 
 echo "*** Copy MP02 Platform info "
