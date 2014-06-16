@@ -2628,7 +2628,7 @@ CONFIG_PACKAGE_iptables=y
 # CONFIG_PACKAGE_parprouted is not set
 # CONFIG_PACKAGE_quagga is not set
 # CONFIG_PACKAGE_redir is not set
-CONFIG_PACKAGE_relayd=y
+# CONFIG_PACKAGE_relayd is not set
 # CONFIG_PACKAGE_rinetd is not set
 # CONFIG_PACKAGE_smcroute is not set
 # CONFIG_PACKAGE_sslh is not set
