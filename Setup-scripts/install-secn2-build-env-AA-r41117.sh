@@ -36,6 +36,7 @@ echo " "
 
 echo "*** Get MP02 packages from GitHub repo"
 git clone https://github.com/villagetelco/vt-mp02-package   $OPENWRT_PATH/vt-mp02-package
+echo " "
 
 echo "*** Checkout the OpenWRT build environment"
 sleep 2
