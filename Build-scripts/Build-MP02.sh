@@ -1,11 +1,30 @@
 #! /bin/bash
 
-# Default is for your local git repo to live in ~/Git. If not, you can override by setting/exporting it in your .bashrc
-: ${GITREPO=Git}
+# Default is for your local git repo to live in ../../Git
+# If not, you can override by setting/exporting it in your .bashrc
+: ${GITREPO="../../Git"}
 
-# Build script for MP-02 device
+# Select the repo to use
+REPO=vt-firmware
 
+
+echo "************************************"
 echo ""
+echo "Build script for MP-02 device"
+
+echo "Git directory: "$GITREPO
+echo "Repo: "$REPO
+echo " "
+
+if [ ! -d $GITREPO"/"$REPO ]; then
+	echo "Repo does not exist. Exiting build process"
+	echo " "
+	exit
+fi
+
+##############################
+
+
 
 # Check to see if setup has already run
 if [ ! -f ./already_configured ]; then 
@@ -34,20 +53,19 @@ DIRVER="RC6b"
 VER="SECN-2_0-"$DIRVER
 
 ###########################
-
 echo "Copy files from Git repo into build folder"
-REPO=vt-firmware
 rm -rf ./SECN-build/
-cp -rp ~/$GITREPO/$REPO/SECN-build/ .
-cp -fp ~/$GITREPO/$REPO/Build-scripts/FactoryRestore.sh  .
+cp -rp $GITREPO/$REPO/SECN-build/ .
+cp -fp $GITREPO/$REPO/Build-scripts/FactoryRestore.sh  .
+
 
 ###########################
 
-echo "Get source repo details"
 BUILDPWD=`pwd`
-cd  ~/$GITREPO/$REPO
+cd  $GITREPO/$REPO
 REPOID=`git describe --long --dirty --abbrev=10 --tags`
 cd $BUILDPWD
+echo "Get source repo details: REPOID-> "$REPOID
 
 ###########################
 
@@ -87,7 +105,6 @@ make defconfig > /dev/null
 
 # Set target string
 TARGET=$1
-
 OPENWRTVER=`cat ./.config | grep "OpenWrt version" | cut -d : -f 2`
 
 echo "Check .config version"
@@ -193,4 +210,5 @@ echo " "
 echo '----------------------------'
 
 exit
+
 

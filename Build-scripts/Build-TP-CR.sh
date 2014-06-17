@@ -6,6 +6,21 @@
 # Build script for TP Link devices
  
 echo ""
+echo "CR Build script for TP Link devices"
+
+echo "Git directory: "$GITREPO
+echo "Repo: "$REPO
+echo " "
+
+if [ ! -d $GITREPO"/"$REPO ]; then
+	echo "Repo does not exist. Exiting build process"
+	echo " "
+	exit
+fi
+
+##############################
+
+
 
 # Check to see if setup has already run
 if [ ! -f ./already_configured ]; then 
@@ -34,12 +49,11 @@ DIRVER="RC6b"
 VER="SECN-2_0-CR-"$DIRVER
 
 ###########################
-
 echo "Copy files from Git repo into build folder"
-REPO=vt-firmware
 rm -rf ./SECN-build/
-cp -rp ~/$GITREPO/$REPO/SECN-build/ .
-cp -fp ~/$GITREPO/$REPO/Build-scripts/FactoryRestore.sh  .
+cp -rp $GITREPO/$REPO/SECN-build/ .
+cp -fp $GITREPO/$REPO/Build-scripts/FactoryRestore.sh  .
+
 echo "Overlay Class Router files"
 cp -rp ~/$GITREPO/$REPO/CR-build/* ./SECN-build
 
@@ -47,9 +61,10 @@ cp -rp ~/$GITREPO/$REPO/CR-build/* ./SECN-build
 
 echo "Get source repo details"
 BUILDPWD=`pwd`
-cd  ~/$GITREPO/$REPO
+cd  $GITREPO/$REPO
 REPOID=`git describe --long --dirty --abbrev=10 --tags`
 cd $BUILDPWD
+echo "Get source repo details: REPOID-> "$REPOID
 
 ###########################
 
@@ -89,7 +104,6 @@ make defconfig > /dev/null
 
 # Set up target display strings
 TARGET=`cat .config | grep "CONFIG_TARGET" | grep "=y" | grep "_generic_" | cut -d _ -f 5 | cut -d = -f 1 `
-
 OPENWRTVER=`cat ./.config | grep "OpenWrt version" | cut -d : -f 2`
 
 echo "Check .config version"
