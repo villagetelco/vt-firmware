@@ -1,10 +1,14 @@
 #! /bin/bash
 
-# Default is for your local git repo to live in ~/Git. If not, you can override by setting/exporting it in your .bashrc
-: ${GITREPO=Git}
+# Default is for your local git repo to live in ../../Git
+# If not, you can override by setting/exporting it in your .bashrc
+: ${GITREPO="../../Git"}
 
-# Build script for TP Link devices
- 
+# Select the repo to use
+REPO="vt-firmware"
+
+
+echo "************************************"
 echo ""
 echo "Build script for TP Link devices"
 

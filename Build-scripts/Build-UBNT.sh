@@ -5,7 +5,7 @@
 : ${GITREPO="../../Git"}
 
 # Select the repo to use
-REPO=vt-firmware
+REPO="vt-firmware"
 
 
 echo "************************************"
