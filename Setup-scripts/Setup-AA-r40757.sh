@@ -40,7 +40,7 @@ echo " "
 
 echo "*** Checkout the OpenWRT build environment"
 sleep 2
-svn checkout --revision=41117 svn://svn.openwrt.org/openwrt/branches/attitude_adjustment/ $OPENWRT_PATH  > $OPENWRT_PATH/checkout.log
+svn checkout --revision=40757 svn://svn.openwrt.org/openwrt/branches/attitude_adjustment/ $OPENWRT_PATH  > $OPENWRT_PATH/checkout.log
 echo " "
 
 echo "*** Backup original feeds files if they exist"
@@ -49,7 +49,7 @@ mv $OPENWRT_PATH/feeds.conf.default  $OPENWRT_PATH/feeds.conf.default.bak
 echo " "
 
 echo "*** Create new feeds.conf.default file"
-echo "src-svn packages svn://svn.openwrt.org/openwrt/branches/packages_12.09@41117" > $OPENWRT_PATH/feeds.conf.default
+echo "src-svn packages svn://svn.openwrt.org/openwrt/branches/packages_12.09@40757" > $OPENWRT_PATH/feeds.conf.default
 echo "src-git routing git://github.com/openwrt-routing/packages.git;for-12.09.x"   >> $OPENWRT_PATH/feeds.conf.default
 echo "src-git alfred git://git.open-mesh.org/openwrt-feed-alfred.git"              >> $OPENWRT_PATH/feeds.conf.default
 echo "src-link dragino2      $OPENWRT_PATH/vt-mp02-package/packages-AA"   	   >> $OPENWRT_PATH/feeds.conf.default
@@ -79,7 +79,7 @@ $OPENWRT_PATH/scripts/feeds install -a      > $OPENWRT_PATH/feeds-install.log
 echo " "
 
 echo "*** Lock the OpenWrt package feeds from further updating"
-echo "#src-svn packages svn://svn.openwrt.org/openwrt/branches/packages_12.09@411170" > $OPENWRT_PATH/feeds.conf.default
+echo "#src-svn packages svn://svn.openwrt.org/openwrt/branches/packages_12.09@40757" > $OPENWRT_PATH/feeds.conf.default
 echo "src-git routing git://github.com/openwrt-routing/packages.git;for-12.09.x"    >> $OPENWRT_PATH/feeds.conf.default
 echo "src-git alfred git://git.open-mesh.org/openwrt-feed-alfred.git"               >> $OPENWRT_PATH/feeds.conf.default
 echo "src-link dragino2      $OPENWRT_PATH/vt-mp02-package/packages-AA"   	    >> $OPENWRT_PATH/feeds.conf.default
