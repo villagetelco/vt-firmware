@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 
-USAGE1="Usage:   ./install-secn2-build-env-AA.sh  /your-preferred-source-installation-path"
-USAGE2="Example: ./install-secn2-build-env-AA.sh  ~/openwrt/my-new-build-env"
+USAGE1="Usage:   ./Setup-AA-r36420.sh  /your-preferred-source-installation-path"
+USAGE2="Example: ./Setup-AA-r36420.sh  ~/openwrt/my-new-build-env"
 
 if (( $# < 1 ))
 then
+	echo " "
 	echo "Error. Not enough arguments."
 	echo $USAGE1
 	echo $USAGE2
@@ -12,6 +13,7 @@ then
 	exit 1
 elif (( $# > 1 ))
 then
+	echo " "
 	echo "Error. Too many arguments."
 	echo $USAGE1
 	echo $USAGE2
@@ -19,6 +21,7 @@ then
 	exit 2
 elif [ $1 == "--help" ]
 then
+	echo " "
 	echo $USAGE1
 	echo $USAGE2
         echo " "

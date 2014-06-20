@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-USAGE1="Usage:   ./Setup-AA-r40757.sh  /your-preferred-source-installation-path"
-USAGE2="Example: ./Setup-AA-r40757.sh  ~/openwrt/my-new-build-env"
+USAGE1="Usage:   ./Setup-AA.sh   /your-preferred-source-installation-path   revision"
+USAGE2="Example: ./Setup-AA.sh  ~/openwrt/my-new-build-env  40757"
 
-if (( $# < 1 ))
+if (( $# < 2 ))
 then
 	echo " "
 	echo "Error. Not enough arguments."
@@ -11,7 +11,7 @@ then
 	echo $USAGE2
         echo " "
 	exit 1
-elif (( $# > 1 ))
+elif (( $# > 2 ))
 then
 	echo " "
 	echo "Error. Too many arguments."
@@ -28,11 +28,16 @@ then
 	exit 3
 fi
 
+# Get parameters
 OPENWRT_PATH=$1
+REVISION=$2
+
 echo " "
 echo " "
 echo "*** Installing to " $1
+echo "*** Revision: r"$REVISION
 echo " "
+
 echo "*** Make new directory"
 mkdir -p $OPENWRT_PATH
 echo " "
@@ -43,7 +48,7 @@ echo " "
 
 echo "*** Checkout the OpenWRT build environment"
 sleep 2
-svn checkout --revision=40757 svn://svn.openwrt.org/openwrt/branches/attitude_adjustment/ $OPENWRT_PATH  > $OPENWRT_PATH/checkout.log
+svn checkout --revision=$REVISION svn://svn.openwrt.org/openwrt/branches/attitude_adjustment/ $OPENWRT_PATH  > $OPENWRT_PATH/checkout.log
 echo " "
 
 echo "*** Backup original feeds files if they exist"
@@ -52,7 +57,7 @@ mv $OPENWRT_PATH/feeds.conf.default  $OPENWRT_PATH/feeds.conf.default.bak
 echo " "
 
 echo "*** Create new feeds.conf.default file"
-echo "src-svn packages svn://svn.openwrt.org/openwrt/branches/packages_12.09@40757" > $OPENWRT_PATH/feeds.conf.default
+echo "src-svn packages svn://svn.openwrt.org/openwrt/branches/packages_12.09@$REVISION" > $OPENWRT_PATH/feeds.conf.default
 echo "src-git routing git://github.com/openwrt-routing/packages.git;for-12.09.x"   >> $OPENWRT_PATH/feeds.conf.default
 echo "src-git alfred git://git.open-mesh.org/openwrt-feed-alfred.git"              >> $OPENWRT_PATH/feeds.conf.default
 echo "src-link dragino2      $OPENWRT_PATH/vt-mp02-package/packages-AA"   	   >> $OPENWRT_PATH/feeds.conf.default
@@ -82,7 +87,7 @@ $OPENWRT_PATH/scripts/feeds install -a      > $OPENWRT_PATH/feeds-install.log
 echo " "
 
 echo "*** Lock the OpenWrt package feeds from further updating"
-echo "#src-svn packages svn://svn.openwrt.org/openwrt/branches/packages_12.09@40757" > $OPENWRT_PATH/feeds.conf.default
+echo "#src-svn packages svn://svn.openwrt.org/openwrt/branches/packages_12.09@$REVISION" > $OPENWRT_PATH/feeds.conf.default
 echo "src-git routing git://github.com/openwrt-routing/packages.git;for-12.09.x"    >> $OPENWRT_PATH/feeds.conf.default
 echo "src-git alfred git://git.open-mesh.org/openwrt-feed-alfred.git"               >> $OPENWRT_PATH/feeds.conf.default
 echo "src-link dragino2      $OPENWRT_PATH/vt-mp02-package/packages-AA"   	    >> $OPENWRT_PATH/feeds.conf.default
