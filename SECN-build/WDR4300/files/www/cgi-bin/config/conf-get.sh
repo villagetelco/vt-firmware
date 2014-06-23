@@ -108,8 +108,8 @@ OPTION_DNS2=`uci get secn.dhcp.dns2`
 DEVICE_IP=`uci get secn.dhcp.device_ip`
 
 # MPGW setting
-MPGW=`uci get secn.mpgw.mode`
-MPGW1=`uci get secn.mpgw.mode` # Slave off mpgw setting
+MPGW=`uci get secn.mesh.mpgw`
+MPGW1=`uci get secn.mesh.mpgw` # Slave off mpgw setting
 
 # Get network settings from /etc/config/network and wireless
 

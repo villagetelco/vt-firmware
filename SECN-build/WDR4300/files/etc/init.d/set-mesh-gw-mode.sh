@@ -12,7 +12,7 @@
 sleep 5
 
 # Get the MPGW setting from /etc/config/secn
-MPGW=`uci get secn.mpgw.mode`
+MPGW=`uci get secn.mesh.mpgw`
 
 # Set up mesh gateway mode
 if [ $MPGW = "OFF" ]; then

@@ -24,9 +24,6 @@ config secn 'accesspoint'
 	option ap_isol '0'
 	option encryption 'WPA2'
 
-config secn 'mesh'
-	option mesh_enable 'checked'
-
 config secn 'accesspoint1'
 	option ssid 'VT-SECN-AP-1'
 	option encryption 'WPA2'
@@ -35,8 +32,9 @@ config secn 'accesspoint1'
 	option maxassoc '10'
 	option ap_isol '0'
 
-config secn 'mesh1'
+config secn 'mesh'
 	option mesh_enable 'checked'
+	option mpgw 'OFF'
 
 config secn 'dhcp'
 	option enable '0'
@@ -52,11 +50,11 @@ config secn 'dhcp'
 	option dns2 '8.8.4.4'
 	option device_ip 'checked'
 
-config secn 'mpgw'
-	option mode 'OFF'
+#config secn 'mpgw'
+#	option mode 'OFF'
 
-config secn 'mpgw1'
-	option mode 'OFF'
+#config secn 'mpgw1'
+#	option mode 'OFF'
 
 config secn 'http'
 	option limitip '0'

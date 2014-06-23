@@ -275,7 +275,7 @@ uci set secn.dhcp.device_ip=\$DEVICE_IP
 uci set secn.mesh.mesh_enable=\$MESH_ENABLE
 uci set secn.mesh1.mesh_enable=\$MESH_ENABLE1
 # Write the MPGW display setting into /etc/config/secn
-uci set secn.mpgw.mode=\$MPGW
+uci set secn.mesh.mpgw=\$MPGW
 
 
 # Set up mesh gateway mode on the fly
