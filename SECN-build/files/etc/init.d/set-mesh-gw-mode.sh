@@ -12,7 +12,7 @@
 sleep 5
 
 # Get the MPGW setting from /etc/config/secn
-MPGW=`uci get secn.mpgw.mode`
+MPGW=`uci get secn.mesh.mpgw`
 
 # Set up mesh gateway mode
 if [ $MPGW = "OFF" ]; then
@@ -53,9 +53,9 @@ if [ $MPGW = "CLIENT" ]; then
 uci commit batman-adv
 
 # Add bat0 to bridge now that it is configured and bl is enabled
+# Check to see if mesh is to be used on WAN side.
 WANPORT=`uci get secn.wan.wanport`
 ETHWANMODE=`uci get secn.wan.ethwanmode`
-
 if [ $WANPORT = "Mesh" ]; then
 	brctl addif br-wan bat0
 	# Force udhcpc lease renewal
@@ -66,7 +66,7 @@ else
 	brctl addif br-lan bat0
 fi
 
-# Setup AP Isolation on mesh unless it is used for WAN
+# Setup AP Isolation on mesh if reqd, unless it is used for WAN
 AP_ISOL=`uci get secn.accesspoint.ap_isol`
 if [ $AP_ISOL = "1" ] && [ $WANPORT != "Mesh" ]; then  
 	batctl ap 1
