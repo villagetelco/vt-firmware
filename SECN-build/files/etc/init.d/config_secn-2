@@ -43,7 +43,7 @@ fi
 
 # Set up Prosody 
 if [ -d /etc/prosody/data ]; then
-chown -R prosody:prosody /etc/prosody/data
+	chown -R prosody:prosody /etc/prosody/data
 fi
 
 
