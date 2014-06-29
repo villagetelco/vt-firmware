@@ -49,7 +49,7 @@ fi
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="RC6b"
+DIRVER="RC6c"
 VER="SECN-2_0-CR-"$DIRVER
 
 ###########################
@@ -59,20 +59,20 @@ cp -rp $GITREPO/$REPO/SECN-build/ .
 cp -fp $GITREPO/$REPO/Build-scripts/FactoryRestore.sh  .
 
 echo "Overlay Class Router files"
-cp -rp ~/$GITREPO/$REPO/CR-build/* ./SECN-build
+cp -rp $GITREPO/$REPO/CR-build/* ./SECN-build
 
 ###########################
 
-echo "Get source repo details"
+# Get source repo details
 BUILDPWD=`pwd`
 cd  $GITREPO/$REPO
 REPOID=`git describe --long --dirty --abbrev=10 --tags`
 cd $BUILDPWD
-echo "Get source repo details: REPOID-> "$REPOID
+echo "Source repo details: "$REPO $REPOID
 
 ###########################
 
-echo "Set up new directory name with date and version"
+# Set up new directory name with date and version
 DATE=`date +%Y-%m-%d-%H:%M`
 DIR=$DATE"-TP-CR-"$DIRVER
 
