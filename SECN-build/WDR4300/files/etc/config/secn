@@ -50,12 +50,6 @@ config secn 'dhcp'
 	option dns2 '8.8.4.4'
 	option device_ip 'checked'
 
-#config secn 'mpgw'
-#	option mode 'OFF'
-
-#config secn 'mpgw1'
-#	option mode 'OFF'
-
 config secn 'http'
 	option limitip '0'
 	option enssl '0'
