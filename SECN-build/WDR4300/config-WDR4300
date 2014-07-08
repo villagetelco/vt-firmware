@@ -2702,7 +2702,7 @@ CONFIG_PACKAGE_asterisk18=y
 # CONFIG_PACKAGE_asterisk18-format-sln16 is not set
 # CONFIG_PACKAGE_asterisk18-func-blacklist is not set
 # CONFIG_PACKAGE_asterisk18-func-channel is not set
-# CONFIG_PACKAGE_asterisk18-func-cut is not set
+CONFIG_PACKAGE_asterisk18-func-cut=y
 # CONFIG_PACKAGE_asterisk18-func-db is not set
 # CONFIG_PACKAGE_asterisk18-func-devstate is not set
 # CONFIG_PACKAGE_asterisk18-func-extstate is not set
