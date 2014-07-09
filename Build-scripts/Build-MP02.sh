@@ -49,7 +49,7 @@ fi
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="RC7-test1"
+DIRVER="RC7"
 VER="SECN-2_0-"$DIRVER
 
 ###########################
