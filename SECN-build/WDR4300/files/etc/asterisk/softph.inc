@@ -10,4 +10,5 @@ dtmfmode=rfc2833
 qualify=yes
 canreinvite=yes
 alwaysauthreject=yes
+mailbox=null
 
