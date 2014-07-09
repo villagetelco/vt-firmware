@@ -131,6 +131,12 @@ context=incoming
 alwaysauthreject=yes
 ;----------------------------
 
+; Softphone support include file
+;-------------------------------
+; Defines softphone extensions.
+$SOFTPHFLAG #include "softphone.sip.conf"
+;-------------------------------
+
 EOF
 #-----------------------------------------------------------
 
