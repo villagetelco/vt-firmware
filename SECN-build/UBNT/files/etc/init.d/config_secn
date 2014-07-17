@@ -30,17 +30,6 @@ SOFTPH=`uci get secn.asterisk.softph`
 LOCALNET=`uci get network.lan.ipaddr | awk -F. '{print $1"."$2"."$3"."0}'`
 LOCALNETMASK=`uci get network.lan.netmask`
 
-# Check to see if SIP host can be contacted
-if ping -c 1 -w 5 $REGHOST
-  then  
-    echo "Host: $REGHOST found" > /tmp/reghost.txt
-  else
-    echo "Host: $REGHOST not found" > /tmp/reghost.txt
-    # Clear Register flag
-    REGISTER="0"
-    uci set secn.asterisk.register=0
-fi                    
-
 # Get Asterisk SIP settings
 if [ $ENABLE = "checked" ]; then
 ENFLAG=" "
