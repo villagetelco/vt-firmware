@@ -1,5 +1,7 @@
 #!/bin/ash 
 {
+WIRELESS="wlan"
+
 # Set up symbolic links to txt files from /www
 touch /tmp/mesh.txt
 ln -s /tmp/mesh.txt /www/mesh.txt
