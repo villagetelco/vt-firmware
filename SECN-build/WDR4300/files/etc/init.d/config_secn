@@ -180,8 +180,10 @@ touch /etc/asterisk/custom.sip.conf
 
 # Get the params from uci config file /etc/config/secn and wireless
 SSID=`uci get secn.accesspoint.ssid`
-PASSPHRASE=`uci get secn.accesspoint.passphrase`
+SSID=`echo "$SSID" | sed -f /bin/url-decode.sed`
+uci set secn.accesspoint.ssid=$SSID
 
+PASSPHRASE=`uci get secn.accesspoint.passphrase`
 PASSPHRASE=`echo "$PASSPHRASE" | sed -f /bin/url-decode.sed`
 uci set secn.accesspoint.passphrase=$PASSPHRASE
 
@@ -189,7 +191,6 @@ ENCRYPTION=`uci get secn.accesspoint.encryption`
 AP_DISABLE=`uci get secn.accesspoint.ap_disable`
 AP_ISOL=`uci get secn.accesspoint.ap_isol`
 MAXASSOC=`uci get secn.accesspoint.maxassoc`
-USREG_DOMAIN=`uci get secn.accesspoint.usreg_domain`
 CHANNEL=`uci get wireless.radio0.channel`
 
 # Set to WPA-WPA2 by default                                 
@@ -224,8 +225,10 @@ uci set wireless.ap_0.isolate=$AP_ISOL
 
 # Get the params from uci config file /etc/config/secn and wireless
 SSID=`uci get secn.accesspoint1.ssid`
-PASSPHRASE=`uci get secn.accesspoint1.passphrase`
+SSID=`echo "$SSID" | sed -f /bin/url-decode.sed`
+uci set secn.accesspoint1.ssid=$SSID
 
+PASSPHRASE=`uci get secn.accesspoint1.passphrase`
 PASSPHRASE=`echo "$PASSPHRASE" | sed -f /bin/url-decode.sed`
 uci set secn.accesspoint1.passphrase=$PASSPHRASE
 
