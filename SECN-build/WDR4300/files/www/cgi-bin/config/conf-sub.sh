@@ -73,13 +73,7 @@ LOGINUSER=`cat /tmp/auth.txt`
 # Change password, save the result, prepare status message, set web auth on.
 rm /tmp/passwordstatus.txt
 if [ \$BUTTON = "Set+Password" ]; then
-	date > /tmp/setpassword.txt
-	(echo \$PASSWORD1; sleep 1; echo \$PASSWORD2) | passwd \$LOGINUSER >> /tmp/setpassword.txt
-	cat /tmp/setpassword.txt | grep change > /tmp/passwordstatus.txt
-	echo ". Reboot to activate web UI Authentication" >> /tmp/passwordstatus.txt
-	uci set secn.http.pw_preset="1"
-	uci set secn.http.auth="checked"
-	uci commit secn
+	/bin/secn-setpassword.sh \$PASSWORD1 \$PASSWORD2 \$LOGINUSER
 	exit
 fi
 

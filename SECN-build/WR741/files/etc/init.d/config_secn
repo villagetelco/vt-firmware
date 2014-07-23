@@ -178,6 +178,10 @@ EOF
 # Get the params from uci config file /etc/config/secn and wireless
 SSID=`uci get secn.accesspoint.ssid`
 PASSPHRASE=`uci get secn.accesspoint.passphrase`
+
+PASSPHRASE=`echo "$PASSPHRASE" | sed -f /bin/url-decode.sed`
+uci set secn.accesspoint.passphrase=$PASSPHRASE
+
 ENCRYPTION=`uci get secn.accesspoint.encryption`
 AP_DISABLE=`uci get secn.accesspoint.ap_disable`
 AP_ISOL=`uci get secn.accesspoint.ap_isol`

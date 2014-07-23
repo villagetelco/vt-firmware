@@ -27,7 +27,7 @@ $(document).ready( function() {
 		return true;
 	}, ' Invalid IP Address');
 	$.validator.addMethod('PassChecker', function(value) {
-			var pass ="^[a-zA-Z0-9_*.\-]*$";
+			var pass ="^[a-zA-Z0-9_*.$%<>;:?@=!^|&+()\{\}\`\#\~\-]*$";
 			return value.match(pass);
 	}, 'Sorry, special characters not permitted');
 	$.validator.addMethod('HexChecker', function(value) {
