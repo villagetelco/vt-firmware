@@ -57,6 +57,7 @@ else
 fi
 
 #----------------------------------------------
+
 # Set up DHCP server
 # Get the DHCP parameters from uci config file /etc/config/secn
 
@@ -246,6 +247,7 @@ fi
 
 # Make sure firewall is enabled
 /etc/init.d/firewall enable  
+
 #--------------------------------
 
 # Set up modem chat scripts
