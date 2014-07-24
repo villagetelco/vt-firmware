@@ -133,11 +133,11 @@ WANDNS=`uci get secn.wan.wandns`
 
 WANSSID=`uci get secn.wan.wanssid`
 WANSSID=`echo "$WANSSID" | sed -f /bin/url-decode.sed`
-uci set secn.accesspoint.wanssid=$WANSSID
+uci set secn.wan.wanssid=$WANSSID
 
 WANPASS=`uci get secn.wan.wanpass`
 WANPASS=`echo "$WANPASS" | sed -f /bin/url-decode.sed`
-uci set secn.accesspoint.wanpass=$WANPASS
+uci set secn.wan.wanpass=$WANPASS
 
 # Set up WAN wifi encryption 
 WANENCRYPTION=`uci get secn.wan.wanencr`
