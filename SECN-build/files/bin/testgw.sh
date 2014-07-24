@@ -30,27 +30,28 @@ kill $PID
 # Get the saved LAN Gateway and DNS addresses
 GW=`cat /tmp/gateway.txt | grep .`
 DNS=`cat /tmp/dns.txt | grep .`
+GWFLAG=`cat /tmp/gateway.txt | cut -d ' ' -f 1`
+DNSFLAG=`cat /tmp/dns.txt | cut -d ' ' -f 1`
 
 # For testing
 #GW="192.168.1.254"
 #DNS="192.168.1.254"
 
 # Prepare status message
-if [ $GW ]; then # Check for LAN gateway
-  if [ $DNS ]; then
-    GWTXT=" LAN DHCP Server - GW: $GW  DNS: $DNS"
+if [ $GWFLAG ]; then # Check for LAN gateway
+  if [ $DNSFLAG ]; then
+    GWTXT=" LAN DHCP: GW $GW  DNS $DNS  "
   else
-    GWTXT=" LAN DHCP Server - GW: $GW" 
+    GWTXT=" LAN DHCP: GW $GW  " 
   fi
-else   # Must be WAN
-	if [ $INTACCESS ]; then
-		WANIP=`ifconfig | grep -A 1 wan | grep inet | cut -d : -f 2 |cut -d ' ' -f 1` 
- 		GWTXT="  WAN IP: $WANIP"
-	fi
 fi
 
+# Add WAN setting message
+WANPORT=`uci get secn.wan.wanport` 
+WANTXT="  WAN Port: $WANPORT"
+
 # Generate message string
-echo $INTTXT $GWTXT > /tmp/gatewaystatus.txt
+echo $INTTXT $GWTXT $WANTXT > /tmp/gatewaystatus.txt
 
 # Output message if script run manually for testing
 #cat /tmp/gatewaystatus.txt
