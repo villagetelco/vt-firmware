@@ -31,7 +31,7 @@ $(document).ready( function() {
 			return value.match(pass);
 	}, 'Sorry, special characters not permitted');
 	$.validator.addMethod('PassChecker2', function(value) {
-			var pass ="^[a-zA-Z0-9_*.$\-]*$";
+			var pass ="^[a-zA-Z0-9_*.\-]*$";
 			return value.match(pass);
 	}, 'Sorry, special characters not permitted');
 	$.validator.addMethod('HexChecker', function(value) {
