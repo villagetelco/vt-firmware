@@ -126,7 +126,7 @@ disallow=all
 allow=$CODEC1,$CODEC2,$CODEC3
 dtmfmod=rfc2833
 qualify=yes
-canreinvite=no
+canreinvite=nonat
 context=incoming
 alwaysauthreject=yes
 ;----------------------------
