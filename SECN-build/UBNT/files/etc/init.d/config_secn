@@ -176,7 +176,7 @@ touch /etc/asterisk/custom.extensions.conf
 touch /etc/asterisk/custom.sip.conf
 # -----------------------------------------------------
 
-### Set up WiFi 
+# Set up WiFi 
 
 # Get the params from uci config file /etc/config/secn and wireless
 SSID=`uci get secn.accesspoint.ssid`
@@ -194,8 +194,8 @@ MAXASSOC=`uci get secn.accesspoint.maxassoc`
 CHANNEL=`uci get wireless.radio0.channel`
 MESH_ENABLE=`uci get secn.mesh.mesh_enable`
 
-# Set to WPA-WPA2 by default                                 
-ENCRYPT="mixed-psk"
+# Set to WPA2 by default                                 
+ENCRYPT="psk2"
 
 if [ $ENCRYPTION = "WPA-WPA2-AES" ]; then                                   
 ENCRYPT="mixed-psk+tkip+aes"
@@ -228,12 +228,12 @@ else
 fi
 
 #----------------------------------------------
+
 # Set up DHCP server
 # Get the DHCP parameters from uci config file /etc/config/secn
-
 DHCP_ENABLE=`uci get secn.dhcp.enable`
-
 DHCP_AUTH_CHK=`uci get secn.dhcp.dhcp_auth`
+
 if [ $DHCP_AUTH_CHK = "checked" ]; then
   DHCP_AUTH='1'
 else
@@ -274,26 +274,32 @@ WANIP=`uci get secn.wan.wanip`
 WANGATEWAY=`uci get secn.wan.wangateway`
 WANMASK=`uci get secn.wan.wanmask`
 WANDNS=`uci get secn.wan.wandns`
+
 WANSSID=`uci get secn.wan.wanssid`
+WANSSID=`echo "$WANSSID" | sed -f /bin/url-decode.sed`
+uci set secn.accesspoint.wanssid=$WANSSID
+
 WANPASS=`uci get secn.wan.wanpass`
+WANPASS=`echo "$WANPASS" | sed -f /bin/url-decode.sed`
+uci set secn.accesspoint.wanpass=$WANPASS
 
 # Set up WAN wifi encryption 
 WANENCRYPTION=`uci get secn.wan.wanencr`
-# Set to WPA-WPA2 by default                                 
-WANENCR="mixed-psk"
+# Set to WPA by default                                 
+WANENCR="psk"
 
 if [ $WANENCRYPTION = "WPA-WPA2-AES" ]; then                                   
-WANENCR="mixed-psk+tkip+aes"
+	WANENCR="mixed-psk+tkip+aes"
 elif [ $WANENCRYPTION = "WPA-WPA2" ]; then                          
-WANENCR="mixed-psk"                                                     
+	WANENCR="mixed-psk"
 elif [ $WANENCRYPTION = "WPA2" ]; then                          
-WANENCR="psk2"                                                      
+	WANENCR="psk2"
 elif [ $WANENCRYPTION = "WPA" ]; then                                   
-WANENCR="psk"
+	WANENCR="psk"
 elif [ $WANENCRYPTION = "WEP" ]; then                          
-WANENCR="wep"                                                     
+	WANENCR="wep"                                                     
 elif [ $WANENCRYPTION = "NONE" ]; then                          
-WANENCR="none"                                                      
+	WANENCR="none"                                                      
 fi
 
 # Set WAN wifi config
@@ -381,7 +387,7 @@ fi
 
 # Set up for WiFi WAN
 if [ $WANPORT = "WiFi" ]; then
-	uci set network.wan.ifname='wlan0-2' 
+	uci set network.wan.ifname='wlan0-2'
 	uci set wireless.ah_0.disabled='1'
 	uci set wireless.sta_0.disabled='0'
 	uci set network.lan.gateway='255.255.255.255'

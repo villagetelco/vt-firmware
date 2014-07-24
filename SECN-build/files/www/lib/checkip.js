@@ -30,6 +30,10 @@ $(document).ready( function() {
 			var pass ="^[a-zA-Z0-9_*.$%<>;:?@=!^|&+()\{\}\`\#\~\-]*$";
 			return value.match(pass);
 	}, 'Sorry, special characters not permitted');
+	$.validator.addMethod('PassChecker2', function(value) {
+			var pass ="^[a-zA-Z0-9_*.\-]*$";
+			return value.match(pass);
+	}, 'Sorry, special characters not permitted');
 	$.validator.addMethod('HexChecker', function(value) {
 		var hex = "^([0-9a-fA-F]{2}([:-]|$)){6}$|([0-9a-fA-F]{4}([.]|$)){3}$";
 		return value.match(hex);
@@ -57,10 +61,10 @@ $(document).ready( function() {
 			PassChecker: true
 			},
 			HOST: {
-			PassChecker: true
+			PassChecker2: true
 			},
 			USER: {
-			PassChecker: true
+			PassChecker2: true
 			},
 			SECRET: {
 			PassChecker: true
@@ -126,7 +130,7 @@ $(document).ready( function() {
 			IP4Checker: true
 			},
 			DOMAIN: {
-			PassChecker: true
+			PassChecker2: true
 			},
 			MAXLEASES: {
 			range: [0, 254]
@@ -147,10 +151,10 @@ $(document).ready( function() {
 			HexChecker: true
 			},
 			ATH0_SSID: {
-			PassChecker: true
+			PassChecker2: true
 			},
 			ATH0_SSID1: {
-			PassChecker: true
+			PassChecker2: true
 			},
 			SSID: {
 			PassChecker: true
@@ -170,13 +174,13 @@ $(document).ready( function() {
 			CountryChecker: true
 			},
 			HOST: {
-			PassChecker: true
+			PassChecker2: true
 			},
 			REGHOST: {
-			PassChecker: true
+			PassChecker2: true
 			},
 			USER: {
-			PassChecker: true
+			PassChecker2: true
 			},
 			SECRET: {
 			PassChecker: true

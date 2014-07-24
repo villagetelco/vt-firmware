@@ -193,8 +193,8 @@ AP_ISOL=`uci get secn.accesspoint.ap_isol`
 MAXASSOC=`uci get secn.accesspoint.maxassoc`
 CHANNEL=`uci get wireless.radio0.channel`
 
-# Set to WPA-WPA2 by default                                 
-ENCRYPT="mixed-psk"
+# Set to WPA2 by default                                 
+ENCRYPT="psk2"
 
 if [ $ENCRYPTION = "WPA-WPA2-AES" ]; then                                   
 ENCRYPT="mixed-psk+tkip+aes"
@@ -221,7 +221,7 @@ uci set wireless.ap_0.isolate=$AP_ISOL
 
 # ------------------------------------------------------------------
 
-### Set up 5GHz WiFi 
+# Set up 5GHz WiFi 
 
 # Get the params from uci config file /etc/config/secn and wireless
 SSID=`uci get secn.accesspoint1.ssid`
@@ -238,8 +238,8 @@ MAXASSOC=`uci get secn.accesspoint1.maxassoc`
 CHANNEL=`uci get wireless.radio1.channel`
 AP_ISOL1=`uci get secn.accesspoint1.ap_isol`
 
-# Set to WPA-WPA2 by default                                 
-ENCRYPT="mixed-psk"
+# Set to WPA2 by default                                 
+ENCRYPT="psk2"
 
 if [ $ENCRYPTION = "WPA-WPA2-AES" ]; then                                   
 ENCRYPT="mixed-psk+tkip+aes"
@@ -278,12 +278,12 @@ else
 fi
 
 #----------------------------------------------
+
 # Set up DHCP server
 # Get the DHCP parameters from uci config file /etc/config/secn
-
 DHCP_ENABLE=`uci get secn.dhcp.enable`
-
 DHCP_AUTH_CHK=`uci get secn.dhcp.dhcp_auth`
+
 if [ $DHCP_AUTH_CHK = "checked" ]; then
   DHCP_AUTH='1'
 else
@@ -344,20 +344,26 @@ WANIP=`uci get secn.wan.wanip`
 WANGATEWAY=`uci get secn.wan.wangateway`
 WANMASK=`uci get secn.wan.wanmask`
 WANDNS=`uci get secn.wan.wandns`
+
 WANSSID=`uci get secn.wan.wanssid`
+WANSSID=`echo "$WANSSID" | sed -f /bin/url-decode.sed`
+uci set secn.accesspoint.wanssid=$WANSSID
+
 WANPASS=`uci get secn.wan.wanpass`
+WANPASS=`echo "$WANPASS" | sed -f /bin/url-decode.sed`
+uci set secn.accesspoint.wanpass=$WANPASS
 
 # Set up WAN wifi encryption 
 WANENCRYPTION=`uci get secn.wan.wanencr`
-# Set to WPA-WPA2 by default                                 
-WANENCR="mixed-psk"
+# Set to WPA by default                                 
+WANENCR="psk"
 
 if [ $WANENCRYPTION = "WPA-WPA2-AES" ]; then                                   
 	WANENCR="mixed-psk+tkip+aes"
 elif [ $WANENCRYPTION = "WPA-WPA2" ]; then                          
-	WANENCR="mixed-psk" 
+	WANENCR="mixed-psk"
 elif [ $WANENCRYPTION = "WPA2" ]; then                          
-	WANENCR="psk2" 
+	WANENCR="psk2"
 elif [ $WANENCRYPTION = "WPA" ]; then                                   
 	WANENCR="psk"
 elif [ $WANENCRYPTION = "WEP" ]; then                          
@@ -366,7 +372,7 @@ elif [ $WANENCRYPTION = "NONE" ]; then
 	WANENCR="none"                                                      
 fi
 
-# Set WAN wifi config for 2.4 and 5 GHz
+# Set WAN wifi config
 uci set wireless.sta_0.ssid=$WANSSID
 uci set wireless.sta_0.key=$WANPASS
 uci set wireless.sta_0.encryption=$WANENCR
@@ -500,9 +506,9 @@ if [ $WANPORT = "USB-Modem" ]; then
 	uci set network.wan.device=$TTY
 fi
 
-
 # Make sure firewall is enabled
 /etc/init.d/firewall enable  
+
 #--------------------------------
 
 # Set up modem chat scripts
@@ -544,9 +550,8 @@ EOF
 rm /etc/chatscripts/evdo.chat
 cat >> /etc/chatscripts/evdo.chat << EOF
 
-# This is a simple chat script based off of the one provided by Sierra Wireless
-# for CDMA connections.  It should work for both Sprint and Verizon networks.
-# Default dial string: ATDT#777
+# This is a simple chat script based on the one provided by Sierra Wireless
+# for CDMA connections.
 ABORT  	BUSY
 ABORT 	'NO CARRIER'
 ABORT   ERROR
