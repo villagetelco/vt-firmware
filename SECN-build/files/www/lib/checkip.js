@@ -31,7 +31,7 @@ $(document).ready( function() {
 			return value.match(pass);
 	}, 'Sorry, special characters not permitted');
 	$.validator.addMethod('PassChecker2', function(value) {
-			var pass ="^[a-zA-Z0-9_*.\-]*$";
+			var pass ="^[a-zA-Z0-9_*.$\-]*$";
 			return value.match(pass);
 	}, 'Sorry, special characters not permitted');
 	$.validator.addMethod('HexChecker', function(value) {
@@ -217,6 +217,30 @@ $(document).ready( function() {
 			WANPASS: {
 			minlength: 8,
 			PassChecker: true
+			},
+			APN: {
+			PassChecker2: true
+			},
+			APNUSER: {
+			PassChecker: true
+			},
+			APNPW: {
+			PassChecker: true
+			},
+			MODEMPIN: {
+			PassChecker2: true
+			},
+			PRODUCT: {
+			PassChecker2: true
+			},
+			VENDOR: {
+			PassChecker2: true
+			},
+			DIALSTR: {
+			PassChecker: true
+			},
+			PIN: {
+			PassChecker2: true
 			},
 		},
 		success: function(label) {

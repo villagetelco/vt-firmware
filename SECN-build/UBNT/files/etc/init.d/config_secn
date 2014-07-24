@@ -14,7 +14,11 @@ ENABLE=`uci get secn.asterisk.enable`
 REGISTER=`uci get secn.asterisk.register`
 USERNAME=`uci get secn.asterisk.username`
 FROMUSERNAME=`uci get secn.asterisk.fromusername`
+
 SECRET=`uci get secn.asterisk.secret` # May be empty
+SECRET=`echo "$SECRET" | sed -f /bin/url-decode.sed`
+uci set secn.accesspoint.secret=$SECRET
+
 HOST=`uci get secn.asterisk.host`
 REGHOST=`uci get secn.asterisk.reghost`
 #PROXY=`uci get secn.asterisk.proxy`
