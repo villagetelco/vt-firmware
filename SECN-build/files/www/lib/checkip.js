@@ -56,7 +56,14 @@ $(document).ready( function() {
 			SSID: {
 			PassChecker: true
 			},
+			SSID1: {
+			PassChecker: true
+			},
 			PASSPHRASE: {
+			minlength: 8,
+			PassChecker: true
+			},
+			PASSPHRASE1: {
 			minlength: 8,
 			PassChecker: true
 			},
