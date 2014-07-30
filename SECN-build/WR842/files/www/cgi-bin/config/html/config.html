@@ -744,14 +744,22 @@ cat > /tmp/config.html << EOF
 		<!-- Status Page -->
 		<div id="tabs1-status">
 			<p> </p>
-			<h3> Mesh Nodes </h3>     
-			<iframe id="FrameID1" src="/bat1.txt"  width="100%" height="150" ></iframe>
+			<h3> Mesh Nodes </h3>  
+ 			<div class="slideContainer">
+  			<span class="slide"><iframe id="FrameID1" src="/bat1.txt"  height="150" ></iframe></span> 
+			</div>
+			
 			<h3> Mesh Gateways  (Mode: $MPGW)</h3>
-			<iframe id="FrameID2" src="/bat2.txt"  width="100%" height="120" ></iframe>
+			<div class="slideContainer">
+				<span class="slide"><iframe id="FrameID2" src="/bat2.txt"  height="120" ></iframe></span>
+			</div>
+
 			<h3> Node Signal Strength</h3>
 			<iframe id="FrameID3" src="/mesh.txt"  width="100%" height="150" ></iframe>
+
 			<h3> WiFi Access Point Connections</h3>
 			<iframe id="FrameID4" src="/wifi.txt"  width="100%" height="150" ></iframe>
+
 		</div>
 
 	</div>

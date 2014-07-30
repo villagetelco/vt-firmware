@@ -21,7 +21,7 @@ p, h1, form, button{border:0; margin:0; padding:0;}
 .textbanner {
 	vertical-align: text-bottom;
 }
-/* ----------- Added CSS for File Upload ---------*/
+/* ----------- CSS for File Upload ---------*/
 .section {
     margin: 0 0 30px;
     margin:0 auto;
@@ -53,6 +53,17 @@ div.block .input{
   margin-left:4px;
   float:left;
 }
+
+/* ----------- CSS for status page ----------- */
+.slideContainer{
+	overflow-x: auto;
+ 	white-space: nowrap;
+ }
+.slide{ 
+	display: inline-block;
+	width: 2000px;
+	white-space: normal;
+	}
 
 /* ----------- CSS for easytabs ----------- */
 #outer-container {
