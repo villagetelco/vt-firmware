@@ -1,6 +1,7 @@
 
 config mesh 'bat0'
-	option interfaces 'wlan0-1 wlan1-1'
+	# Both 2.4 and 5 GHz adhoc ifaces linked to bat0
+	option interfaces 'wlan0-1 wlan1-1' 
 	option bl '1'
 	option gw_mode 'off'
 

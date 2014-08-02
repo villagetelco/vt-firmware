@@ -1,0 +1,162 @@
+#!/bin/sh
+# /etc/init.d/config_olpc
+
+# Get the wanport mode
+WANPORT=`uci get olpc.setup.wanport`
+# Do nothing if in SECN Advanced mode
+if [ $WANPORT = "SECN-Adv" ]; then
+	exit
+fi
+
+# Get OLPC USB modem settings
+MODEMPORT=`uci get olpc.modem.modemport`
+SERVICE=`uci get olpc.modem.service`
+APN=`uci get olpc.modem.apn`
+DIALSTR=`uci get olpc.modem.dialstr`
+VENDOR=`uci get olpc.modem.vendor`
+PRODUCT=`uci get olpc.modem.product`
+PIN=`uci get olpc.modem.pin`
+USERNAME=`uci get olpc.modem.username`
+PASSWORD=`uci get olpc.modem.password`
+
+# Make any OLPC changes to modem settings here, then...
+
+# Write USB modem settings to SECN
+uci set secn.modem.modemport=$MODEMPORT
+uci set secn.modem.service=$SERVICE
+uci set secn.modem.apn=$APN
+uci set secn.modem.dialstr=$DIALSTR
+uci set secn.modem.vendor=$VENDOR
+uci set secn.modem.product=$PRODUCT
+uci set secn.modem.pin=$PIN
+uci set secn.modem.username=$USERNAME
+uci set secn.modem.password=$PASSWORD
+
+# Get OLPC initial settings
+CLASS=`uci get olpc.setup.class`
+MODE=`uci get olpc.setup.mode`
+SSIDPREFIX=`uci get olpc.setup.ssidprefix`
+SSID=`uci get olpc.setup.ssid`
+PASSPHRASE=`uci get olpc.setup.passphrase`
+MAXASSOC=`uci get olpc.setup.maxassoc`
+TXPOWER=`uci get olpc.setup.txpower`
+
+# Limit CLASS value 1-99
+if [ $CLASS -gt 99 ] || [ $CLASS -lt 1 ]; then
+	CLASS="99"
+	uci set olpc.setup.class=$CLASS
+	uci commit olpc
+fi
+
+# Set up IP address                                                                       
+if [ $MODE = "Master" ] || [ $MODE = "Single" ];then                                                              
+        OCTET4="254"                                                                      
+elif [ $MODE = "Slave-1" ];then                                                           
+        OCTET4="241"                                                                      
+elif [ $MODE = "Slave-2" ];then                                                           
+        OCTET4="242"                                                                      
+elif [ $MODE = "Slave-3" ];then                                                           
+        OCTET4="243"                                                                      
+fi                                                                                        
+
+# Build IP address with CLASS as octet 3 and octet 4 as per MODE                          
+OCTET12=`uci show network.lan.ipaddr | cut -d = -f 2 | cut -d . -f 1,2`                   
+IP=$OCTET12"."$CLASS"."$OCTET4                                                            
+
+# Build Master IP                                                                         
+MASTER_IP=$OCTET12"."$CLASS".254"                                                         
+uci set network.lan.ipaddr=$IP                                                            
+
+# Setup WAN access
+WANPORT=`uci get olpc.setup.wanport`
+if [ $MODE = "Master" ] || [ $MODE = "Single" ]; then
+  uci set secn.wan.wanport=$WANPORT   # Set only if Ethernet mode
+else
+  # set up for Slave mode
+  uci set secn.wan.wanport="Slave"
+  uci set network.lan.ifname="eth9"       # No eth port on lan, only Fallback
+  uci set network.lan.gateway=$MASTER_IP
+  uci set network.lan.dns=$MASTER_IP
+  uci set network.wan.ifname=""           # Disable the WAN 
+fi
+
+# Get the last digits of the class number
+CLASSDIGIT=`echo -n $CLASS | tail -c -1`
+CLASSDIGIT2=`echo -n $CLASS | tail -c -2`
+
+# Make sure CLASSDIGIT2 two char string for BSSID
+if [ $CLASSDIGIT2 -lt 10 ]; then
+	CLASSDIGIT2="0"$CLASSDIGIT2
+fi
+
+# Build mesh BSSID with last two digits of CLASS as last octet
+BSSID='02:CA:FE:BA:BE:'$CLASSDIGIT2
+uci set wireless.ah_0.bssid=$BSSID 
+
+# Set up the mesh SSID
+MESHSSID="olpc-vt-mesh-"$CLASSDIGIT2
+uci set wireless.ah_0.ssid=$MESHSSID
+
+# Set WiFi channel based on last digit of CLASS
+if [ $CLASSDIGIT = '1' ] || [ $CLASSDIGIT = '6' ]; then
+	CHAN=1
+elif [ $CLASSDIGIT = '2' ] || [ $CLASSDIGIT = '7' ]; then
+	CHAN=3
+elif [ $CLASSDIGIT = '3' ] || [ $CLASSDIGIT = '8' ]; then
+	CHAN=6
+elif [ $CLASSDIGIT = '4' ] || [ $CLASSDIGIT = '9' ]; then
+	CHAN=9
+elif [ $CLASSDIGIT = '5' ] || [ $CLASSDIGIT = '0' ]; then
+	CHAN=11
+fi
+
+uci set wireless.radio0.channel=$CHAN
+
+# Set up wifi SSID
+SSID=$SSIDPREFIX"-Class_"$CLASS$SSID
+uci set secn.accesspoint.ssid=$SSID
+
+# Save wifi password
+uci set secn.accesspoint.passphrase=$PASSPHRASE
+
+# Save the wifi maxassoc
+uci set secn.accesspoint.maxassoc=$MAXASSOC
+
+# Set wifi tx power
+uci set wireless.radio0.txpower=$TXPOWER
+
+# Enable DHCP if Master or Single mode
+if [ $MODE = "Master" ] || [ $MODE = "Single" ];then
+	uci set secn.dhcp.enable="checked"
+	/bin/setdhcpsubnet.sh
+	uci set secn.dhcp.leaseterm="14400"
+	uci set secn.dhcp.startip=$OCTET12"."$CLASS".100"
+	uci set secn.dhcp.endip=$OCTET12"."$CLASS".200"
+	uci set secn.dhcp.maxleases="100"
+	uci set secn.dhcp.dhcp_auth="checked"
+else  # set up for Slave mode
+	uci set network.lan.dns=$MASTER_IP
+	uci set network.lan.gateway=$MASTER_IP
+	uci set secn.dhcp.enable='0'
+fi
+
+# Set the Master address as the gateway for DHCP
+uci set secn.dhcp.router=$MASTER_IP
+uci set secn.dhcp.dns=$MASTER_IP
+uci set secn.dhcp.dns2=$MASTER_IP
+
+# Disable mesh if Single mode
+if [ $MODE = "Single" ];then
+	uci set secn.mesh.mesh_enable=0
+else
+	uci set secn.mesh.mesh_enable='checked'
+fi
+
+# Commit changes
+uci commit wireless
+uci commit network
+uci commit secn
+uci commit olpc
+
+sleep 1
+

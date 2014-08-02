@@ -12,11 +12,17 @@ cat > /tmp/conf-save-adv.sh << EOF
 # Clear settings for checkboxes and buttons
 ENABLE="0"
 REGISTER="0"
+ENABLENAT="0"
 BUTTON="0"
 DHCP_ENABLE="0"
+ENABLE_AST="0"
 USREG_DOMAIN="0"
-DHCP_AUTH='0'
-
+DHCP_AUTH="0"
+MESH_ENABLE="0"
+AP_ENABLE="0"
+DEVICE_IP="0"
+AP_ISOL="0"
+COUNTRY=" "
 
 # Get Field-Value pairs from QUERY_STRING environment variable
 # set by the form GET action
@@ -75,6 +81,14 @@ DHCP_AUTH='0'
 `echo $QUERY_STRING | cut -d \& -f 50`
 `echo $QUERY_STRING | cut -d \& -f 51`
 `echo $QUERY_STRING | cut -d \& -f 52`
+`echo $QUERY_STRING | cut -d \& -f 53`
+`echo $QUERY_STRING | cut -d \& -f 54`
+`echo $QUERY_STRING | cut -d \& -f 55`
+`echo $QUERY_STRING | cut -d \& -f 56`
+`echo $QUERY_STRING | cut -d \& -f 57`
+`echo $QUERY_STRING | cut -d \& -f 58`
+`echo $QUERY_STRING | cut -d \& -f 59`
+`echo $QUERY_STRING | cut -d \& -f 60`
 
 
 # Refresh screen without saving 
@@ -84,7 +98,7 @@ fi
 
 # Restore default config settings
 if [ \$BUTTON = "Restore+Defaults" ]; then
-	cd /etc/config
+	cd /etc
 	tar -xzvf conf-default.tar.gz >> /dev/null
 	cd
 	/etc/init.d/config_secn > /dev/null  # Create new config files
@@ -99,20 +113,43 @@ fi
 # Fix ATH0_BSSID string colon characters - replace '%3A' with ':'
 ATH0_BSSID=\$(echo \$ATH0_BSSID | sed -e s/%3A/:/g)
 
-# Set MAXASSOC to zero if display value 'Disabled' is returned
-if [ \$MAXASSOC = "Disabled" ]; then
-  MAXASSOC="0"
-fi
-# Set MAXASSOC to 100 if display value 'Enabled' is returned
-if [ \$MAXASSOC = "Enabled" ]; then
-  MAXASSOC="100"
+# If Master softphone mode is selected, then make sure Asterisk is enabled 
+if [ \$SOFTPH = "MASTER" ]; then
+  ENABLE_AST="checked"
+  fi
+
+# If Enable SIP mode is selected, then make sure Asterisk is enabled 
+if [ \$ENABLE = "checked" ]; then
+  ENABLE_AST="checked"
+  fi
+
+# Check if Asterisk is installed and reset UI controls if not
+
+AST_INSTALLED="`opkg list_installed | grep  'asterisk' | cut -d 'k' -f 1`k"
+
+if [ \$AST_INSTALLED != "asterisk" ]; then
+  SOFTPH="OFF"
+  ENABLE_AST="0"
+  ENABLE="0"
+  fi
+
+# Set MAXASSOC to null if display value 'Max' is returned
+if [ \$MAXASSOC = "Max" ]; then
+  MAXASSOC=""
 fi
 
-# Disable AP if max associations is zero
-if [ \$MAXASSOC = "0" ]; then
-	AP_DISABLE="1"
-else
+# Disable AP if required
+if [ \$AP_ENABLE = "checked" ]; then
 	AP_DISABLE="0"
+else
+	AP_DISABLE="1"
+fi
+
+# Set up AP Isolation
+if [ \$AP_ISOL = "checked" ]; then
+	AP_ISOL="1"
+else
+	AP_ISOL="0"
 fi
 
 
@@ -129,9 +166,10 @@ uci set network.mesh_0.ipaddr=\$ATH0_IPADDR
 uci set network.mesh_0.netmask=\$ATH0_NETMASK
 
 # Write the radio settings into /etc/config/wireless
-uci set wireless.radio0.country=\$ATH0_COUNTRY
 uci set wireless.radio0.channel=\$CHANNEL
 uci set wireless.radio0.txpower=\$ATH0_TXPOWER
+uci set wireless.radio0.chanbw=\$CHANBW
+uci set wireless.radio0.country=\$COUNTRY
 uci set wireless.radio0.hwmode=\$RADIOMODE
 
 # Write the adhoc interface settings into /etc/config/wireless
@@ -145,6 +183,28 @@ uci set secn.accesspoint.passphrase=\$PASSPHRASE
 uci set secn.accesspoint.ap_disable=\$AP_DISABLE
 uci set secn.accesspoint.usreg_domain=\$USREG_DOMAIN  
 uci set secn.accesspoint.maxassoc=\$MAXASSOC
+uci set secn.accesspoint.ap_isol=\$AP_ISOL
+
+# Write the Asterisk settings into /etc/config/secn
+uci set secn.asterisk.host=\$HOST
+uci set secn.asterisk.reghost=\$REGHOST
+uci set secn.asterisk.proxy=\$PROXY
+uci set secn.asterisk.username=\$USER
+uci set secn.asterisk.fromusername=\$USER
+uci set secn.asterisk.enable=\$ENABLE
+uci set secn.asterisk.enable_ast=\$ENABLE_AST
+uci set secn.asterisk.register=\$REGISTER
+uci set secn.asterisk.dialout=\$DIALOUT
+uci set secn.asterisk.codec1=\$CODEC1
+uci set secn.asterisk.codec2=\$CODEC2
+uci set secn.asterisk.codec3=\$CODEC3
+uci set secn.asterisk.externip=\$EXTERNIP
+uci set secn.asterisk.enablenat=\$ENABLENAT
+uci set secn.asterisk.softph=\$SOFTPH
+
+if [ \$SECRET != "****" ]; then					# Set the password only if newly entered
+	uci set secn.asterisk.secret=\$SECRET
+fi
 
 # Write the DHCP settings into /etc/config/secn
 uci set secn.dhcp.enable=\$DHCP_ENABLE
@@ -157,11 +217,15 @@ uci set secn.dhcp.domain=\$DOMAIN
 uci set secn.dhcp.dns=\$OPTION_DNS
 uci set secn.dhcp.subnet=\$OPTION_SUBNET
 uci set secn.dhcp.router=\$OPTION_ROUTER
+uci set secn.dhcp.dns=\$OPTION_DNS
+uci set secn.dhcp.dns2=\$OPTION_DNS2
+uci set secn.dhcp.device_ip=\$DEVICE_IP
 
-# Write the MPGW display setting into /etc/config/secn
-uci set secn.mpgw.mode=\$MPGW
+# Save mesh settings to /etc/config/secn
+uci set secn.mesh.mesh_enable=\$MESH_ENABLE
+uci set secn.mesh.mpgw=\$MPGW
 
-# Set up mesh gateway mode
+# Set up mesh gateway mode on the fly
 if [ \$MPGW = "OFF" ]; then
   batctl gw off
   uci set batman-adv.bat0.gw_mode=off
@@ -172,25 +236,39 @@ if [ \$MPGW = "SERVER" ]; then
   uci set batman-adv.bat0.gw_mode=server
   fi
 
+if [ \$MPGW = "SERVER-1Mb" ]; then
+  batctl gw server 1mbit
+  uci set batman-adv.bat0.gw_mode='server 1mbit'
+  fi
+
+if [ \$MPGW = "SERVER-2Mb" ]; then
+  batctl gw server 2mbit
+  uci set batman-adv.bat0.gw_mode='server 2mbit'
+  fi
+
+if [ \$MPGW = "SERVER-5Mb" ]; then
+  batctl gw server 5mbit
+  uci set batman-adv.bat0.gw_mode='server 5mbit'
+  fi
+
+if [ \$MPGW = "SERVER-10Mb" ]; then
+  batctl gw server 10mbit
+  uci set batman-adv.bat0.gw_mode='server 10mbit'
+  fi
+
 if [ \$MPGW = "CLIENT" ]; then
   batctl gw client
   uci set batman-adv.bat0.gw_mode=client
   fi
-
-# Set up radio mode
-if [ \$RADIOMODE = "802.11N-G" ]; then
-  RADIOMODE="11ng"
-else
-  RADIOMODE="11g"
-fi
-uci set wireless.radio0.hwmode=\$RADIOMODE
-
 
 # Commit the settings into /etc/config/ files
 uci commit secn
 uci commit network
 uci commit wireless
 uci commit batman-adv
+
+# Set DHCP subnet to current subnet 
+/bin/setdhcpsubnet.sh > /dev/null
 
 # Create new config files
 /etc/init.d/config_secn > /dev/null
@@ -205,6 +283,13 @@ if [ \$BUTTON = "Reboot" ]; then
   cat /www/cgi-bin/config/html/reboot.html
 	touch /tmp/reboot			# Set rebooting flag
   /sbin/reboot -d 10		# Reboot after delay
+fi
+
+if [ \$BUTTON = "Restart+Asterisk" ]; then
+  # Restart Asterisk
+  /etc/init.d/asterisk restart > /dev/null &
+  # Allow time to register
+  sleep 5
 fi
 
 EOF

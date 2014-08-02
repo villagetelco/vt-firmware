@@ -7,7 +7,15 @@
 # Get the saved IPs
 STARTIP_D=`uci get secn.dhcp.startip | cut -d . -f4`
 ENDIP_D=`uci get secn.dhcp.endip     | cut -d . -f4`
-ROUTER_D=`uci get secn.dhcp.router   | cut -d . -f4`
+
+# If DEVICE_IP is set, set router to current device IP
+# Else just use the saved value
+DEVICE_IP=`uci get secn.dhcp.device_ip`
+if [ $DEVICE_IP = 'checked' ]; then
+	ROUTER_D=`uci get network.lan.ipaddr   | cut -d . -f4`
+else
+	ROUTER_D=`uci get secn.dhcp.router   | cut -d . -f4`
+fi
 
 # Get current subnet
 OCTET_A=`uci get network.lan.ipaddr | cut -d . -f1`

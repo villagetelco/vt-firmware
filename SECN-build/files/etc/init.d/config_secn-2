@@ -14,7 +14,7 @@ if [ $ENABLE_AST = "checked" ]; then
     /etc/init.d/asterisk enable
 else
     /etc/init.d/asterisk stop
-    rm /etc/rc.d/S99asterisk
+    /etc/init.d/asterisk disable
 fi
 
 #---------------------------------------------
@@ -34,12 +34,16 @@ if [ $DHCP_ENABLE = "checked" ]; then
 else
 
   # Disable start on boot
-  rm -f /etc/rc.d/S60dnsmasq
-
+  /etc/init.d/dnsmasq disable
   # Stop dnsmasq now
   /etc/init.d/dnsmasq stop
 fi
 
 #---------------------------------------------
+
+# Set up Prosody 
+if [ -d /etc/prosody/data ]; then
+	chown -R prosody:prosody /etc/prosody/data
+fi
 
 

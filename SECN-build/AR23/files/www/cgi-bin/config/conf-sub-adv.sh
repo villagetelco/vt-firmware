@@ -15,8 +15,12 @@ REGISTER="0"
 BUTTON="0"
 DHCP_ENABLE="0"
 USREG_DOMAIN="0"
-DHCP_AUTH='0'
-
+DHCP_AUTH="0"
+MESH_ENABLE="0"
+AP_ENABLE="0"
+DEVICE_IP="0"
+AP_ISOL="0"
+COUNTRY=" "
 
 # Get Field-Value pairs from QUERY_STRING environment variable
 # set by the form GET action
@@ -75,6 +79,9 @@ DHCP_AUTH='0'
 `echo $QUERY_STRING | cut -d \& -f 50`
 `echo $QUERY_STRING | cut -d \& -f 51`
 `echo $QUERY_STRING | cut -d \& -f 52`
+`echo $QUERY_STRING | cut -d \& -f 53`
+`echo $QUERY_STRING | cut -d \& -f 54`
+`echo $QUERY_STRING | cut -d \& -f 55`
 
 
 # Refresh screen without saving 
@@ -84,7 +91,7 @@ fi
 
 # Restore default config settings
 if [ \$BUTTON = "Restore+Defaults" ]; then
-	cd /etc/config
+	cd /etc/
 	tar -xzvf conf-default.tar.gz >> /dev/null
 	cd
 	/etc/init.d/config_secn > /dev/null  # Create new config files
@@ -99,20 +106,23 @@ fi
 # Fix ATH0_BSSID string colon characters - replace '%3A' with ':'
 ATH0_BSSID=\$(echo \$ATH0_BSSID | sed -e s/%3A/:/g)
 
-# Set MAXASSOC to zero if display value 'Disabled' is returned
-if [ \$MAXASSOC = "Disabled" ]; then
-  MAXASSOC="0"
-fi
-# Set MAXASSOC to 100 if display value 'Enabled' is returned
-if [ \$MAXASSOC = "Enabled" ]; then
-  MAXASSOC="100"
+# Set MAXASSOC to null if display value 'Max' is returned
+if [ \$MAXASSOC = "Max" ]; then
+  MAXASSOC=""
 fi
 
-# Disable AP if max associations is zero
-if [ \$MAXASSOC = "0" ]; then
-	AP_DISABLE="1"
-else
+# Disable AP if required
+if [ \$AP_ENABLE = "checked" ]; then
 	AP_DISABLE="0"
+else
+	AP_DISABLE="1"
+fi
+
+# Set up AP Isolation
+if [ \$AP_ISOL = "checked" ]; then
+	AP_ISOL="1"
+else
+	AP_ISOL="0"
 fi
 
 
@@ -132,8 +142,28 @@ uci set network.mesh_0.netmask=\$ATH0_NETMASK
 uci set wireless.radio0.country=\$ATH0_COUNTRY
 uci set wireless.radio0.channel=\$CHANNEL
 uci set wireless.radio0.txpower=\$ATH0_TXPOWER
-uci set wireless.radio0.hwmode=\$RADIOMODE
 uci set wireless.radio0.chanbw=\$CHANBW
+uci set wireless.radio0.country=\$COUNTRY
+
+# Set up radio0 hwmode
+if [ \$RADIOMODE = "11ng" ]; then
+  uci set wireless.radio0.hwmode="11ng"
+else
+  uci set wireless.radio0.hwmode="11g"
+fi
+
+uci set wireless.radio1.country=\$ATH0_COUNTRY1
+uci set wireless.radio1.channel=\$CHANNEL1
+uci set wireless.radio1.txpower=\$ATH0_TXPOWER1
+uci set wireless.radio1.chanbw=\$CHANBW1
+
+# Set up radio1 hwmode
+if [ \$RADIOMODE1 = "11na" ]; then
+  uci set wireless.radio1.hwmode="11na"
+else
+  uci set wireless.radio1.hwmode="11a"
+fi
+
 
 # Write the adhoc interface settings into /etc/config/wireless
 uci set wireless.ah_0.ssid=\$ATH0_SSID
@@ -146,6 +176,8 @@ uci set secn.accesspoint.passphrase=\$PASSPHRASE
 uci set secn.accesspoint.ap_disable=\$AP_DISABLE
 uci set secn.accesspoint.usreg_domain=\$USREG_DOMAIN  
 uci set secn.accesspoint.maxassoc=\$MAXASSOC
+uci set secn.accesspoint.ap_isol=\$AP_ISOL
+
 
 # Write the DHCP settings into /etc/config/secn
 uci set secn.dhcp.enable=\$DHCP_ENABLE
@@ -160,9 +192,11 @@ uci set secn.dhcp.subnet=\$OPTION_SUBNET
 uci set secn.dhcp.router=\$OPTION_ROUTER
 uci set secn.dhcp.dns=\$OPTION_DNS
 uci set secn.dhcp.dns2=\$OPTION_DNS2
+uci set secn.dhcp.device_ip=\$DEVICE_IP
 
-# Write the MPGW display setting into /etc/config/secn
-uci set secn.mpgw.mode=\$MPGW
+# Save mesh settings to /etc/config/secn
+uci set secn.mesh.mesh_enable=\$MESH_ENABLE
+uci set secn.mesh.mpgw=\$MPGW
 
 # Set up mesh gateway mode on the fly
 if [ \$MPGW = "OFF" ]; then
@@ -175,19 +209,30 @@ if [ \$MPGW = "SERVER" ]; then
   uci set batman-adv.bat0.gw_mode=server
   fi
 
+if [ \$MPGW = "SERVER-1Mb" ]; then
+  batctl gw server 1mbit
+  uci set batman-adv.bat0.gw_mode='server 1mbit'
+  fi
+
+if [ \$MPGW = "SERVER-2Mb" ]; then
+  batctl gw server 2mbit
+  uci set batman-adv.bat0.gw_mode='server 2mbit'
+  fi
+
+if [ \$MPGW = "SERVER-5Mb" ]; then
+  batctl gw server 5mbit
+  uci set batman-adv.bat0.gw_mode='server 5mbit'
+  fi
+
+if [ \$MPGW = "SERVER-10Mb" ]; then
+  batctl gw server 10mbit
+  uci set batman-adv.bat0.gw_mode='server 10mbit'
+  fi
+
 if [ \$MPGW = "CLIENT" ]; then
   batctl gw client
   uci set batman-adv.bat0.gw_mode=client
   fi
-
-# Set up radio mode
-if [ \$RADIOMODE = "802.11N-G" ]; then
-  RADIOMODE="11ng"
-else
-  RADIOMODE="11g"
-fi
-uci set wireless.radio0.hwmode=\$RADIOMODE
-
 
 # Commit the settings into /etc/config/ files
 uci commit secn

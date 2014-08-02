@@ -12,6 +12,7 @@ VERSION=`cat /etc/banner | grep Version`" "$REV
 DATE=`date`
 UPTIME=`uptime`
 TZ=`cat /etc/TZ`
+PROC=`ps|wc -l`
 
 # Set DHCP subnet to current subnet for Softphone Support
 /bin/setdhcpsubnet.sh > /dev/null
@@ -26,12 +27,21 @@ ENCRYPTION=`uci get secn.accesspoint.encryption`
 WPA_KEY_MGMT=`uci get secn.accesspoint.wpa_key_mgmt`
 PASSPHRASE=`uci get secn.accesspoint.passphrase`
 AP_DISABLE=`uci get secn.accesspoint.ap_disable`
-USREG_DOMAIN=`uci get secn.accesspoint.usreg_domain`
 MAXASSOC=`uci get secn.accesspoint.maxassoc`
+AP_ISOL=`uci get secn.accesspoint.ap_isol`
 
-# Set AP Connections to show 'Disabled' if reqd.
-if [ $MAXASSOC = "0" ]; then
-  MAXASSOC="Disabled"
+# Set up AP enable
+if [ $AP_DISABLE = "0" ]; then
+  AP_ENABLE="checked"
+else
+  AP_ENABLE="0"
+fi 
+
+# Set up AP Isolation
+if [ $AP_ISOL = "1" ]; then
+  AP_ISOL="checked"
+else
+  AP_ISOL="0"
 fi 
 
 # DHCP configuration parameters
@@ -46,9 +56,11 @@ OPTION_SUBNET=`uci get secn.dhcp.subnet`
 OPTION_ROUTER=`uci get secn.dhcp.router`
 OPTION_DNS=`uci get secn.dhcp.dns`
 OPTION_DNS2=`uci get secn.dhcp.dns2`
+DEVICE_IP=`uci get secn.dhcp.device_ip`
 
 # MPGW setting
-MPGW=`uci get secn.mpgw.mode`
+MESH_ENABLE=`uci get secn.mesh.mesh_enable`
+MPGW=`uci get secn.mesh.mpgw`
 
 # Get network settings from /etc/config/network and wireless
 
@@ -69,13 +81,11 @@ CHANNEL=`uci get wireless.radio0.channel`
 ATH0_TXPOWER=`uci get wireless.radio0.txpower`
 RADIOMODE=`uci get wireless.radio0.hwmode`
 CHANBW=`uci get wireless.radio0.chanbw`
+COUNTRY=`uci get wireless.radio0.country`
 
-if [ $RADIOMODE = "11ng" ]; then
-	# Display 802.11N-G mode
-	RADIOMODE="802.11N-G"
-else
-	RADIOMODE="802.11G"
-fi
+ATH0_TXP=`iwconfig | grep -A 2 'ath0' | grep -m 1 'Tx-Power'| cut -d T -f 2|cut -d = -f 2`
+WLAN0_TXP=`iwconfig | grep -A 2 'wlan0' | grep -m 1 'Tx-Power'| cut -d T -f 2|cut -d = -f 2`
+ATH0_TXPOWER_ACTUAL=$ATH0_TXP$WLAN0_TXP
 
 # Get web server parameters
 AUTH=`uci get secn.http.auth`

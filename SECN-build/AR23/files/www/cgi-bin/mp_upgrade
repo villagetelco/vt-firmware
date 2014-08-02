@@ -32,15 +32,15 @@
 		<form action="/cgi-bin/mp_fwprocess" class="upload" id="fupload" method="POST" enctype="multipart/form-data" >
 			<h3>Upgrade your firmware</h3>
 			<div class="block">
-				<label>Filename (vmlinux)</label>
+				<label>Filename (vmlinux.lzma)</label>
 				<input class="input" type="file" name="uploadvmlinux" size="50">
 			</div>
 			<div class="block">
-				<label>Filename (root)</label>
+				<label>Filename (root.squashfs)</label>
 				<input class="input" type="file" name="uploadroot" size="50">
 			</div>
 			<div class="block">
-				<input class="input" type="submit" value="Upload Files to Server">
+				<input class="input" type="submit" value="Upload Files">
 			</div>
 		</form>
 		<div>

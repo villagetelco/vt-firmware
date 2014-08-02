@@ -34,7 +34,7 @@
 				<input class="input" type="text" name="checksum" size="35">
 			</div>
 			<div class="block">
-				<input class="input" type="submit" value="Upload File to Server">
+				<input class="input" type="submit" value="Upload File">
 			</div>
 		</form>
 		<div>
