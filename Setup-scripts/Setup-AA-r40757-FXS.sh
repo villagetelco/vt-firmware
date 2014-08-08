@@ -41,8 +41,11 @@ echo "*** Get MP02 packages from GitHub repo"
 git clone https://github.com/villagetelco/vt-mp02-package   $OPENWRT_PATH/vt-mp02-package
 echo " "
 
-echo "*** Get MP02 FXS packages from GitHub repo"
-git clone https://github.com/villagetelco/vt-fxs-packages   $OPENWRT_PATH/vt-fxs-packages
+# Temporarily get the MP02 FXS packages
+#echo "*** Get MP02 FXS packages from GitHub repo"
+#git clone https://github.com/villagetelco/vt-fxs-packages   $OPENWRT_PATH/vt-fxs-packages
+echo "*** Get MP02 FXS packages from local home directory"
+cp -r ~/vt-fxs-packages $OPENWRT_PATH
 echo " "
 
 echo "*** Get VT packages fixups from GitHub repo"
