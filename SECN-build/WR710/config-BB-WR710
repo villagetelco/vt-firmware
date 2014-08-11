@@ -117,12 +117,12 @@ CONFIG_TARGET_ar71xx_generic=y
 # CONFIG_TARGET_ar71xx_generic_TLMR10U is not set
 # CONFIG_TARGET_ar71xx_generic_TLMR11U is not set
 # CONFIG_TARGET_ar71xx_generic_TLMR13U is not set
-CONFIG_TARGET_ar71xx_generic_TLMR3020=y
+# CONFIG_TARGET_ar71xx_generic_TLMR3020 is not set
 # CONFIG_TARGET_ar71xx_generic_TLMR3040 is not set
 # CONFIG_TARGET_ar71xx_generic_TLMR3220 is not set
 # CONFIG_TARGET_ar71xx_generic_TLMR3420 is not set
 # CONFIG_TARGET_ar71xx_generic_TLWR703 is not set
-# CONFIG_TARGET_ar71xx_generic_TLWR710 is not set
+CONFIG_TARGET_ar71xx_generic_TLWR710=y
 # CONFIG_TARGET_ar71xx_generic_TLWR720 is not set
 # CONFIG_TARGET_ar71xx_generic_TLWA701 is not set
 # CONFIG_TARGET_ar71xx_generic_TLWA730RE is not set
@@ -179,7 +179,6 @@ CONFIG_DEFAULT_iwinfo=y
 CONFIG_DEFAULT_kmod-ath9k=y
 CONFIG_DEFAULT_kmod-gpio-button-hotplug=y
 CONFIG_DEFAULT_kmod-ipt-nathelper=y
-CONFIG_DEFAULT_kmod-ledtrig-usbdev=y
 CONFIG_DEFAULT_kmod-usb-core=y
 CONFIG_DEFAULT_kmod-usb2=y
 CONFIG_DEFAULT_libc=y
