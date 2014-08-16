@@ -46,6 +46,9 @@ cat > /tmp/config.html << EOF
 							<td class="label"><label for="BR_GATEWAY">LAN Gateway</label></td>
 							<td class="field"><input type="text" name="BR_GATEWAY" id="br_gateway" VALUE=$BR_GATEWAY></td>
 
+										<td class="label"><label for="BR_DNS">DNS</label></td>
+										<td class="field"><input type="text" name="BR_DNS" id="br_dns" VALUE=$BR_DNS ></td>
+
 
 							<td class="label"><label for="Test"> Internet Access </label></td>
 							<td class="field"> <INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Test" > </td>
@@ -85,6 +88,19 @@ cat > /tmp/config.html << EOF
 							<option value="11">Channel 11</option>
 							<option value="auto">Auto</option>
 							</SELECT></td>
+
+					<td class="label"><label>Encryption</label></td>
+					<td class="field">
+						<SELECT name="ENCRYPTION" id="encryption">
+						<option selected="$ENCRYPTION">$ENCRYPTION</option>
+						<option value="WPA2">WPA2</option>
+						<option value="WPA">WPA</option>
+						<option value="WEP">WEP</option>
+						<option value="NONE">NONE</option>
+						</SELECT>
+					</td>
+
+
 						</tr>
 					</table>
 				</fieldset>
@@ -207,13 +223,14 @@ cat > /tmp/config.html << EOF
 			</form>
 		</div>	
 
-		<!-- Advanced Configuration Form -->
+	<!-- Advanced Configuration Form Tab 1-->
 		<div id="tabs1-advanced">
 			 <div class="tab-container" id="inner-container">
 				<ul class='etabs'>
 				<li class='tab'><a href="#tab-adv">Advanced</a></li>
-				<li class='tab'><a href="#tab-adv2">WAN</a></li>
-				<li class='tab'><a href="#tab-fw">Firmware</a></li>
+				<li class='tab'><a href="#tab-adv2">Router/Repeater</a></li>
+				<li class='tab'><a href="#tab-adv3">SoftPhone</a></li>
+				<li class='tab'><a href="#tab-fw">Firmware/Config</a></li>
 				</ul>
 
 				<div class="panel-container">
@@ -535,29 +552,98 @@ cat > /tmp/config.html << EOF
 										<td class="label"><label for="OPTION_DNS2"> DNS Server2 </label></td>
 										<td class="field"><input type="text" name="OPTION_DNS2" id="option_dns2" VALUE=$OPTION_DNS2 ></td>
 
+						</tr>
+					</table>
+				</fieldset>
+
+				<table class="submitform">
+					<tr>
+						<td>
+							<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Refresh">
+							<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Save">
+							<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Restart Asterisk">
+							<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Restore Defaults" >
+							<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Reboot" >
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+
+	<!-- Advanced Configuration Form Tab 2-->
+		<div id="tab-adv2">
+			<form name="MP-ADV2" id="MP-ADV2" METHOD="GET" ACTION="/cgi-bin/config/conf-sub-adv2.sh">
+
+							<fieldset class="dhcp">
+								<legend>Router / Repeater Mode</legend>
+								<table>
+									<tr>
+										<td class="label"><label> Mode </label></td>
+										<td class="field">
+										<SELECT name="ROUT_RPT_MODE" id="rou_rpt_mode">
+											<option selected="$ROU_RPT_MODE">$ROU_RPT</option>
+											<option value="Router"> Router </option>
+											<option value="WiFi Repeater"> WiFi Repeater </option>
+											</SELECT>
+										</td>
+										<td class="label"><label> Select Router or WiFi Repeater mode. </label> </td>
 									</tr>
 								</table>
 							</fieldset>
 
-							<table class="submitform">
-								<tr>
-									<td>
-										<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Refresh">
-										<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Save">
-										<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Restart Asterisk">
-										<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Restore Defaults" >
-										<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Reboot" >
-									</td>
-								</tr>
-							</table>
-						</form>
-					</div>
-
-		<!-- Advanced Configuration Form Tab 2-->
-					<div id="tab-adv2">
-						<form name="MP-ADV2" id="MP-ADV2" METHOD="GET" ACTION="/cgi-bin/config/conf-sub-adv2.sh">
 							<fieldset class="dhcp">
-								<legend>WAN Configuration</legend>
+								<legend> WiFi Repeater Configuration</legend>
+								<table>
+									<tr>	
+										<td class="label"><label> <H4> WiFi Repeater Host </H4> </label> </td>
+									</tr>
+
+									<tr>
+										<td class="label"><label for="wanssid">SSID</label></td>
+										<td class="field"><input type="text" name="WANSSID" id="wanssid" VALUE=$WANSSID ></td>
+							<td class="label"><label for="CHANNEL"> Channel </label></td>
+							<td class="field">
+							<SELECT name="CHANNEL" id="CHANNEL" >
+							<option selected="$CHANNEL">$CHANNEL</option>
+							<option value="1">Channel 1</option>
+							<option value="2">Channel 2</option>
+							<option value="3">Channel 3</option>
+							<option value="4">Channel 4</option>
+							<option value="5">Channel 5</option>
+							<option value="6">Channel 6</option>
+							<option value="7">Channel 7</option>
+							<option value="8">Channel 8</option>
+							<option value="9">Channel 9</option>
+							<option value="10">Channel 10</option>
+							<option value="11">Channel 11</option>
+							<option value="auto">Auto</option>
+							</SELECT></td>
+										<td></td>
+									</tr>
+
+									<tr>	
+										<td class="label"><label>Passphrase</label></td>
+										<td class="field"><input  type="text" name="WANPASS" id="wanpass" VALUE=$WANPASS ></td>
+
+										<td class="label"><label>Encryption</label></td>
+										<td class="field">
+											<SELECT name="WANENCR" id="wanencr">
+											<option selected="$WANENCR">$WANENCR</option>
+											<option value="WPA-WPA2-AES">WPA-WPA2-AES</option>
+											<option value="WPA-WPA2">WPA-WPA2</option>
+											<option value="WPA2">WPA2</option>
+											<option value="WPA">WPA</option>
+											<option value="WEP">WEP</option>
+											<option value="NONE">NONE</option>
+											</SELECT>
+										</td>
+									</tr>
+								</table>
+							</fieldset>
+
+							<fieldset class="dhcp">
+								<legend> Router WAN Configuration</legend>
+
 								<table>
 									<tr>
 										<td class="label"><label> WAN Port</label></td>
@@ -571,11 +657,16 @@ cat > /tmp/config.html << EOF
 											<option value="Mesh"> Mesh </option>
 											</SELECT>
 										</td>
-										<td class="label"><label> If a WiFi WAN port is selected, the Mesh interface is disabled on that port. </label> </td>
-									</tr>
-								</table>
+<!--										<td class="label"><label> If a WiFi WAN port is selected, the Mesh interface is disabled on that port. </label> </td> -->
+										<td class="label"><label>Change WAN socket to LAN</label> </td>
+										<td class="field"><input  type="checkbox" name="WANLAN_ENABLE" id="wanlan_enable" VALUE="checked" $WANLAN_ENABLE > </td>
 
-								<table>
+									</tr>
+
+									<tr>	
+										<td class="label"><label> <H3> WAN Network Settings</H3> </label> </td>
+									</tr>
+
 									<tr>
 										<td class="label"><label>WAN IP Mode</label></td>
 										<td class="field">
@@ -585,12 +676,11 @@ cat > /tmp/config.html << EOF
 											<option value="Static"> Static </option>
 										</SELECT>
 										</td>
-										<td class="label"><label>Change WAN socket to LAN</label> </td>
-										<td class="field"><input  type="checkbox" name="WANLAN_ENABLE" id="wanlan_enable" VALUE="checked" $WANLAN_ENABLE > </td>
+										<td class="label"><label> For Ethernet or WiFi port settings </label> </td>
 									</tr>
 
 									<tr>	
-										<td class="label"><label> <H4>Static Network Settings</H4> </label> </td>
+										<td class="label"><label> <H4>Static IP Settings</H4> </label> </td>
 									</tr>
 
 									<tr>
@@ -609,14 +699,30 @@ cat > /tmp/config.html << EOF
 										<td class="field"><input type="text" name="WANDNS" id="wandns" VALUE=$WANDNS ></td>
 									</tr>
 
-
 									<tr>	
-										<td class="label"><label> <H4>WiFi WAN Host Settings</H4> </label> </td>
+										<td class="label"><label> <H3> WiFi WAN Host Settings</H3> </label> </td>
 									</tr>
 
 									<tr>
 										<td class="label"><label for="wanssid">SSID</label></td>
 										<td class="field"><input type="text" name="WANSSID" id="wanssid" VALUE=$WANSSID ></td>
+							<td class="label"><label for="CHANNEL"> Channel </label></td>
+							<td class="field">
+							<SELECT name="CHANNEL" id="CHANNEL" >
+							<option selected="$CHANNEL">$CHANNEL</option>
+							<option value="1">Channel 1</option>
+							<option value="2">Channel 2</option>
+							<option value="3">Channel 3</option>
+							<option value="4">Channel 4</option>
+							<option value="5">Channel 5</option>
+							<option value="6">Channel 6</option>
+							<option value="7">Channel 7</option>
+							<option value="8">Channel 8</option>
+							<option value="9">Channel 9</option>
+							<option value="10">Channel 10</option>
+							<option value="11">Channel 11</option>
+							<option value="auto">Auto</option>
+							</SELECT></td>
 										<td></td>
 									</tr>
 
@@ -639,7 +745,7 @@ cat > /tmp/config.html << EOF
 									</tr>
 
 									<tr>	
-										<td class="label"><label> <H4>USB Modem Settings</H4> </label> </td>
+										<td class="label"><label> <H3>USB Modem Settings</H3> </label> </td>
 									</tr>
 
 									<tr>
@@ -734,15 +840,65 @@ cat > /tmp/config.html << EOF
 						</form>
 					</div>
 
-		<!-- Firmware Upgrade Page -->
-					<div id="tab-fw">
-						<h2><a href="/cgi-bin/upgrade">Firmware upgrade.</a></h2>
-					</div>
-				</div>
-			</div>
+	<!-- Advanced Configuration Form Tab 3 SoftPhone Page -->
+		<div id="tab-adv3">
+			<form name="MP-ADV3" id="MP-ADV3" METHOD="GET" ACTION="/cgi-bin/config/conf-sub-adv3.sh">
+
+				<fieldset class="wifi-adv">
+					<legend> SoftPhone</legend>
+
+					<table>
+						<tr>
+							<td class="label"><label for="SP_NUMBER"> SoftPhone Number </label></td>
+							<td class="field"><input type="text" name="SP_NUMBER" id="sp_number" VALUE=$SP_NUMBER ></td>
+							<td class="label"><label> Range: 300 -> 399 </label> </td>
+						</tr>
+					</table>
+
+					<table>
+						<tr>
+							<td class="label"><label for="SP_NAME"> SoftPhone Name </label></td> <td>$SP_NAME </td>
+							<td class="field"><input type="text" name="SP_NAME" id="sp_name" VALUE=$SP_NAME ></td>
+							<td class="label"><label for="SP_PW1"> Enter Password</label></td>
+							<td class="field"><input name="SP_PW1" id="SP_PW1" type="password" autocomplete ="off" VALUE=$SP_PW1></td>
+							<td class="status"></td>
+							<td class="label"><label for="SP_PW2"> Repeat Password</label></td>
+							<td class="field"><input name="SP_PW2" id="SP_PW2" type="password" autocomplete ="off" VALUE=$SP_PW2></td>
+							<td class="status"></td>
+							<td class="field"> <INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Save" > </td>
+						</tr>
+					</table>
+				</fieldset>
+
+				<p> </p>
+				<h3> SoftPhone List </h3>     
+				<iframe id="FrameID1" src="/SP.txt"  width="100%" height="150" ></iframe>
+
+				<table class="submitform">
+					<tr>
+						<td>
+						<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Refresh" >
+						<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Restart Asterisk">
+						<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Reboot" >
+						</td>
+					</tr>
+				</table>
+
+			</form>
 		</div>
 
-		<!-- Status Page -->
+		<!-- Firmware Upgrade Page Tab 4-->
+				<div id="tab-fw">
+					<h2><a href="/cgi-bin/upgrade">Firmware upgrade.</a></h2>
+					<h2><a href="/cgi-bin/upgrade">Config Save.</a></h2>
+					<h2><a href="/cgi-bin/upgrade">Config Load.</a></h2>
+				</div>
+
+ 			</div>
+		</div>
+	</div>
+
+	<!-- Status Page -->
 		<div id="tabs1-status">
 			<p> </p>
 			<h3> Mesh Nodes </h3>  
@@ -760,7 +916,6 @@ cat > /tmp/config.html << EOF
 
 			<h3> WiFi Access Point Connections</h3>
 			<iframe id="FrameID4" src="/wifi.txt"  width="100%" height="150" ></iframe>
-
 		</div>
 
 	</div>
