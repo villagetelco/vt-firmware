@@ -49,8 +49,8 @@ fi
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="RC7"
-VER="SECN-2_0-CR-"$DIRVER
+DIRVER="Alpha-1"
+VER="SECN-2.3-CR-"$DIRVER
 
 ###########################
 echo "Copy files from Git repo into build folder"
