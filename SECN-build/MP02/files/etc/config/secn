@@ -15,6 +15,7 @@ config secn 'asterisk'
 	option register '0'
 	option enablenat '0'
 	option enable_ast 'checked'
+	option fxs_present '0'
 
 config secn 'accesspoint'
 	option ssid 'VT-SECN-AP'
