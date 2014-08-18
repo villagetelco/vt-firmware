@@ -28,10 +28,8 @@ uci commit secn
 # Start or stop Asterisk now and enable on boot up if required
 ENABLE_AST=`uci get secn.asterisk.enable_ast`
 if [ $ENABLE_AST = "checked" ]; then
-    /etc/init.d/asterisk start
     /etc/init.d/asterisk enable
 else
-    /etc/init.d/asterisk stop
     /etc/init.d/asterisk disable
 fi
 
