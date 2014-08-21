@@ -11,7 +11,7 @@
 /bin/VT-SECN_config-dhcp.sh
 
 # Set up WAN 
-/bin/VT-SECN_config-wan.sh
+/bin/VT-SECN_config-wan-2.sh
 
 # Set up 3G USB modem 
 /bin/VT-SECN_config-3Gusb.sh
