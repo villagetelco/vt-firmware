@@ -1,0 +1,362 @@
+/* Sticky footer styles---------------------- */
+
+html, body {
+  height: 100%;
+  min-width: 690px;
+  /* The html and body elements cannot have any padding or margin. */
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  overflow: hidden;
+  /* Negative indent footer by it's height */
+  margin: 0 auto -50px;
+}
+
+.container {
+  max-width: 100% !important;
+}
+
+.col-md-8 {
+  margin-top: 60px;
+}
+
+.form-horizontal .control-label {
+  float: left;
+  width: 110px; /* changed from 160px to 120px */
+  padding-top: 5px;
+  text-align: right;
+}
+
+.form-horizontal .controls {
+  *display: inline-block;
+  *padding-left: 20px;
+  margin-left: 130px;  /* changed from 180px to 140px */
+  *margin-left: 0;
+}
+
+.control-group {
+  margin-bottom: 10px;
+}
+
+#adv_ui {
+  margin-top: 5px;
+  margin-right: 5px;
+}
+
+#ast_reg {
+  height: 5px;
+}
+
+/* Set the fixed height of the footer here */
+#push, #footer {
+  height: 50px;
+}
+
+#footer {
+  background-color: #f5f5f5;
+}
+
+/* Lastly, apply responsive CSS fixes as necessary */
+@media (max-width: 767px) {
+  .navbar-collapse {
+    display: block !important;
+    height: auto !important;
+    padding-bottom: 0;
+    overflow: visible !important;
+  }
+
+  .navbar-nav {
+    float: left;
+    margin: 0;
+  }
+
+  .navbar-nav > li {
+    float: left;
+  }
+
+  .navbar-header {
+    float: left;
+  }
+
+  .navbar-right {
+    float: right;
+  }
+
+  .navbar-nav .open .dropdown-menu {
+    position: absolute;
+    background-color: #fff;
+  }
+}
+
+.navbar-fixed-top
+{
+  border: 0;
+  min-width: 690px;
+  position: absolute;
+}
+
+#ONOD
+{
+  padding: 0;
+  margin: 40px 0 -50px;
+}
+
+#oNav
+{
+  margin-left: 0px;
+  width: 220px;
+  position: absolute;
+  border-radius: 0px;
+  background-color: #e7e7e7;
+}
+
+#oPlace
+{
+  position: relative;
+}
+
+#oContent
+{
+  overflow: auto;
+  margin-left: 220px;
+  width: calc(100% - 220px);
+  background-color: #e7e7e7;
+}
+
+#side > li > a
+{
+  padding-left: 40px;
+  border-radius: 0px;
+}
+
+#oNavTypes {
+  border-radius: 0px;
+  padding-bottom: 1px;
+  margin-bottom: 25px;
+}
+
+#oNavAnn {
+  border-top: 0px solid transparent;
+  border-right: 2px solid transparent;
+  border-left: 2px solid transparent;
+  border-bottom: 2px solid transparent;
+  width: 220px;
+
+  border-color: #e7e7e7;
+}
+
+#AnnBtn-group {
+  width: 216px;
+  height: 170px;
+  overflow-y: scroll;
+  background-color: white;
+
+
+}
+
+#oNavAnn-Header {
+  padding-top: 4px;
+  border-bottom: 3px;
+  background-color: #f8f8f8;
+}
+
+#oNavAnn-Header > label {
+  background-color: #f8f8f8;
+  width: 203px;
+  text-align: center;
+  color: #777777;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 20px
+}
+
+.alert {
+  margin-bottom: 1px !important;
+}
+
+.AnnBtn:hover, .AnnBtn.active
+{
+  background-color: #E68A00;
+  border-color: #E68A00;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.AnnBtn:hover 
+{
+  background-color: #E68A00;
+  border-color: #E68A00;
+
+}
+.AnnBtn
+{
+  background-color: #ff9900;
+  border-color: #E68A00;
+  width: 199px;
+  border-radius: 0px;
+  margin-left: 0px !important;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.AnnBtn {
+  text-align: left;
+  padding-left: 20px;
+}
+
+#menu
+{
+  margin-top: 3px;
+  margin-right: 65px;
+}
+
+.homeA, .homeB
+{
+  float: left;
+}
+
+.homeA
+{
+  margin-left: 0px;
+ 	position: relative;
+  width: 220px;
+}
+
+.homeA > a 
+{
+  margin-left: 10px !important;
+}
+
+.homeB
+{
+  position: absolute;
+  bottom: -1px;
+  right: 62.5px;
+}
+
+.homeC
+{
+  margin-left:220px;
+}
+
+.homeTxt 
+{
+	display: block;
+	float: left;
+	font-size: 10px;
+	font-weight: 200;
+	color: #ff9900;
+}
+
+.homeTxt:hover, .homeTxt:focus 
+{
+  text-decoration: none;
+  color: #ff9900;
+}
+
+.statusTag
+{
+  position: absolute;
+  bottom: -1px;
+  right: 15px;
+}
+
+.sideNav
+{
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.sideNav > ul > li 
+{   
+  width: 100%;  
+} 
+
+.noMargin
+{
+  margin: 0 0 0 0 !important;
+}
+
+.dropdown-submenu > ul
+{
+  margin-right: 100%;
+}
+
+
+.sideMenu > a
+{
+  padding-left: 30px !important;
+}
+
+.sideMenu > a:after
+{
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  filter: FlipH;
+  -ms-filter: "FlipH";
+  margin-right: 112%;
+  margin-top: -14px;
+  border-left-color: #000;
+}
+
+#wScan
+{
+  height: 100%;
+}
+
+.wScan
+{
+  width: 100%;
+  min-width: 640px;
+  height: 50%;
+  overflow: auto;
+}
+
+#fContent {
+  text-align: center;
+}
+
+.popover
+{
+  z-index: 4000;
+}
+
+.tooltip
+{
+  z-index: 4000;
+}
+
+.modalshrink
+{
+  width: 60%;
+}
+
+.labelshrink1
+{
+  width: 40%;
+}
+
+.labelshrink2
+{
+  width: 25%;
+}
+
+.tooltip-inner {
+  white-space:pre;
+  max-width:none;
+}
+
+.modal-backdrop.fade {
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+
+.modal-backdrop.fade.in {
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}

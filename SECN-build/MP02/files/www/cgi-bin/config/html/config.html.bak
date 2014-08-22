@@ -35,8 +35,6 @@ cat > /tmp/config.html << EOF
 		<div id="tabs1-basic">
 			<form name="MP" id="MP" METHOD="GET" ACTION="/cgi-bin/config/conf-sub.sh">
 
-				<a href="/cgi-bin/vt_index.html">UI Test.</a>
-
 				<fieldset class="network">
 					<legend>Network</legend>
 					<table>
@@ -218,12 +216,10 @@ cat > /tmp/config.html << EOF
 				<li class='tab'><a href="#tab-fw">Firmware</a></li>
 				</ul>
 
-				<a href="/cgi-bin/vt_index.html">UI Test.</a>
-
 				<div class="panel-container">
 					<div id="tab-adv">
 						<form name="MP-ADV" id="MP-ADV" METHOD=GET ACTION="/cgi-bin/config/conf-sub-adv.sh">
-		
+
 							Time: $UPTIME  ...CPU Processes: $PROC
 
 							<fieldset class="network-adv">
