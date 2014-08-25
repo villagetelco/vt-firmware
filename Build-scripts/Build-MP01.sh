@@ -23,8 +23,8 @@ fi
 echo "Start build process"
 
 # Set up version strings
-VER="Version 2.0 Alpha-1"
-DIRVER="Alpha-1"
+VER="Version 2.0 Alpha-2"
+DIRVER="Alpha-2"
 
 ###########################
 
