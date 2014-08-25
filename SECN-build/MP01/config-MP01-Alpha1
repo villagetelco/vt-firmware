@@ -1053,7 +1053,7 @@ CONFIG_PACKAGE_kmod-crypto-hash=y
 # LED modules
 #
 CONFIG_PACKAGE_kmod-leds-gpio=y
-# CONFIG_PACKAGE_kmod-ledtrig-gpio is not set
+CONFIG_PACKAGE_kmod-ledtrig-gpio=y
 # CONFIG_PACKAGE_kmod-ledtrig-heartbeat is not set
 # CONFIG_PACKAGE_kmod-ledtrig-morse is not set
 CONFIG_PACKAGE_kmod-ledtrig-netdev=y
@@ -1310,7 +1310,7 @@ CONFIG_PACKAGE_MAC80211_MESH=y
 # CONFIG_PACKAGE_flock is not set
 # CONFIG_PACKAGE_gdb is not set
 # CONFIG_PACKAGE_gdbserver is not set
-CONFIG_PACKAGE_gpioctl=y
+# CONFIG_PACKAGE_gpioctl is not set
 # CONFIG_PACKAGE_hwclock is not set
 CONFIG_PACKAGE_iwinfo=y
 # CONFIG_PACKAGE_jshn is not set
