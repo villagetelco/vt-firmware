@@ -49,7 +49,7 @@ fi
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="GA-01"
+DIRVER="BB-Alpha1"
 VER="SECN-2_0-"$DIRVER
 
 ###########################
@@ -93,11 +93,11 @@ echo "Set up .config for "$1 $2
 rm ./.config
 
 if [ $2 ]; then
-	echo "Config file: config-"$1-$2
-	cp ./SECN-build/$1/config-$1-$2  ./.config
+	echo "Config file: config-BB-"$1-$2
+	cp ./SECN-build/$1/config-BB-$1-$2  ./.config
 else
-	echo "Config file: config-"$1
-	cp ./SECN-build/$1/config-$1  ./.config
+	echo "Config file: config-BB-"$1
+	cp ./SECN-build/$1/config-BB-$1  ./.config
 fi
 
 echo "Run defconfig"
@@ -109,7 +109,7 @@ OPENWRTVER=`cat ./.config | grep "OpenWrt version" | cut -d : -f 2`
 
 echo "Check .config version"
 echo "Target:  " $TARGET
-echo "OpenWRT: " $OPENWRTVER
+###echo "OpenWRT: " $OPENWRTVER
 echo ""
 
 echo "Set up files for "$1 $2
@@ -134,8 +134,8 @@ echo ""
 echo "Version: " $VER $TARGET $2
 echo "Date stamp: " $DATE
 
-echo "Version:    " $VER $TARGET $2     > ./files/etc/secn_version
-echo "OpenWRT:    " $OPENWRTVER           >> ./files/etc/secn_version
+echo "Version:    " $VER $TARGET $2        > ./files/etc/secn_version
+###echo "OpenWRT:    " $OPENWRTVER           >> ./files/etc/secn_version
 echo "Build date: " $DATE                 >> ./files/etc/secn_version
 echo "GitHub:     " $REPO $REPOID         >> ./files/etc/secn_version
 echo " "                                  >> ./files/etc/secn_version
@@ -150,7 +150,7 @@ rm $BINDIR/openwrt-*
 echo ""
 
 echo "Run make for "$1 $2
-make -j8
+make
 echo ""
 
 echo "Update original md5sums file"
