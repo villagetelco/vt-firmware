@@ -360,3 +360,34 @@ html, body {
   opacity: 0.5;
   filter: alpha(opacity=50);
 }
+
+
+/* form submission response style  */
+#loading, #nsuccess, #vsuccess, #success{display: none}
+
+/* Gateway status stytes  */
+.gwSuccess {
+  font-weight: bold;
+  color: green;
+  padding: 2px 8px;
+  margin-top: 2px;
+}
+.gwError {
+  font-weight: bold;
+  color: red;
+  padding: 2px 8px;
+  margin-top: 2px;
+}
+
+/*  jquery validation plugin style  */
+label.valid {
+  color: #666666;
+  padding: 2px 8px;
+  margin-top: 2px;
+}
+label.error {
+  font-weight: bold;
+  color: red;
+  padding: 2px 8px;
+  margin-top: 2px;
+}
