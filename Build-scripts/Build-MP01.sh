@@ -1,61 +1,158 @@
-#! /bin/sh
+#! /bin/bash
 
-# Build script for MP01 devices
+# Default is for your local git repo to live in ../../Git
+# If not, you can override by setting/exporting it in your .bashrc
+: ${GITREPO="../Git"}
 
+# Select the repo to use
+REPO="vt-firmware"
+
+
+echo "************************************"
 echo ""
+echo "Build script for MP-01 device"
+
+echo "Git directory: "$GITREPO
+echo "Repo: "$REPO
+echo " "
+
+if [ ! -d $GITREPO"/"$REPO ]; then
+	echo "Repo does not exist. Exiting build process"
+	echo " "
+	exit
+fi
+
+##############################
+
+
+
 # Check to see if setup has already run
 if [ ! -f ./already_configured ]; then 
   # make sure it only executes once
   touch ./already_configured  
-  echo " Make builds directory"
+  echo "Make builds directory"
   mkdir ./bin/
   mkdir ./bin/atheros/
   mkdir ./bin/atheros/builds
-  echo " Initial set up completed. Continuing with build"
+  echo " Backup original ./files directory"
+  mv    ./files ./files.orig
+  touch ./files
+  echo "Initial set up completed. Continuing with build"
   echo ""
 else
   echo "Build environment is configured. Continuing with build"
   echo ""
 fi
 
+
 #########################
 
 echo "Start build process"
 
-# Set up version strings
-VER="Version 2.0 Alpha-2"
-DIRVER="Alpha-2"
+echo "Set up version strings"
+DIRVER="Alpha3"
+VER="SECN-2_0-"$DIRVER
+
+###########################
+echo "Copy files from Git repo into build folder"
+rm -rf ./SECN-build/
+cp -rp $GITREPO/$REPO/SECN-build/ .
+cp -fp $GITREPO/$REPO/Build-scripts/FactoryRestore.sh  .
+
 
 ###########################
 
-echo "Copy files directory from Git repo into build folder"
-rm -rf ./SECN-build/
-cp -rp ~/Git/vt-firmware/SECN-build/  .
-cp -rp ./SECN-build/files  .
+BUILDPWD=`pwd`
+cd  $GITREPO/$REPO
+REPOID=`git describe --long --dirty --abbrev=10 --tags`
+cd $BUILDPWD
+echo "Source repo details: "$REPO $REPOID
 
-echo "Overlay MP01 specific files "
-cp -rp ./SECN-build/MP01/files  .
+###########################
+
+# Set up new directory name with date and version
+DATE=`date +%Y-%m-%d-%H:%M`
+DIR=$DATE"-MP01-"$DIRVER
+
+###########################
+BINDIR="./bin/atheros"
+# Set up build directory
+echo "Set up new build directory  $BINDIR/builds/build-"$DIR
+mkdir $BINDIR/builds/build-$DIR
+
+# Create md5sums files
+echo $DIR > $BINDIR/builds/build-$DIR/md5sums
+echo $DIR > $BINDIR/builds/build-$DIR/md5sums-$VER
+
+##########################
+
+# Build function
+
+function build_mp01() {
+
+echo "Set up .config for "$1 $2
+rm ./.config
+
+if [ $2 ]; then
+	echo "Config file: config-"$1-$2
+	cp ./SECN-build/$1/config-$1-$2  ./.config
+else
+	echo "Config file: config-"$1
+	cp ./SECN-build/$1/config-$1  ./.config
+fi
+
+echo "Run defconfig"
+make defconfig > /dev/null
+
+# Set up target display strings
+TARGET=MP01
+OPENWRTVER=`cat ./.config | grep "OpenWrt version" | cut -d : -f 2`
+
+echo "Check .config version"
+echo "Target:  " $TARGET
+echo "OpenWRT: " $OPENWRTVER
+echo ""
+
+echo "Set up files for "$1 $2
+echo "Remove files directory"
+rm -r ./files
+
+echo "Copy generic files"
+cp -r ./SECN-build/files     .  
+
+echo "Overlay device specific files"
+cp -r ./SECN-build/$1/files  .  
+echo ""
 
 echo "Copy driver code from Git repo into build folder"
 rm -rf ./drivers
 cp -rp ~/Git/vt-firmware/SECN-build/MP01/drivers  .
 
-###########################
+echo "Build Factory Restore tar file"
+./FactoryRestore.sh	 
+echo ""
 
-echo "Set up new directory name with date and version"
-DATE=`date +%Y-%m-%d-%H:%M`
-DIR=$DATE"-MP01-"$DIRVER
+echo "Check files directory"
+ls -al ./files  
+echo ""
 
-###########################
+echo "Version: " $VER $TARGET $2
+echo "Date stamp: " $DATE
 
-# Set up build directory
-echo "Set up new build directory  ./bin/atheros/builds/build-"$DIR
-mkdir ./bin/atheros/builds/build-$DIR
+echo "Version:    " $VER $TARGET $2     > ./files/etc/secn_version
+echo "OpenWRT:    " $OPENWRTVER           >> ./files/etc/secn_version
+echo "Build date: " $DATE                 >> ./files/etc/secn_version
+echo "GitHub:     " $REPO $REPOID         >> ./files/etc/secn_version
+echo " "                                  >> ./files/etc/secn_version
+echo ""
 
-# Create md5sums file
-touch ./bin/atheros/builds/build-$DIR/md5sums
+echo "Banner version info:"
+cat ./files/etc/secn_version
+echo ""
 
-###########################
+echo "Clean up any left over files"
+rm $BINDIR/openwrt-*
+echo ""
 
 echo '----------------------------'
 echo "Make MP channel driver"
@@ -77,55 +174,48 @@ cd ../..
 
 echo '----------------------------'
 
-echo "Set up .config for MP01"
-rm ./.config
-cp ./SECN-build/MP01/config-MP01  ./.config
-make defconfig > /dev/null
 
-echo '----------------------------'
-echo "Set up files for MP01"
-DEVICE="MP01"
-
-echo "Check .config version"
-cat ./.config | grep "OpenWrt version"
-
-echo "Build Factory Restore tar file" 
-./FactoryRestore.sh                     ; echo "Build Factory Restore tar file"
-
-echo "Check files "
-ls -al ./files   
-echo ""
-
-# Set up version file
-echo "Version: "  $VER $DEVICE
-echo $VER  " " $DEVICE           > ./files/etc/secn_version
-echo "Date stamp the version file: " $DATE
-echo "Build date " $DATE         >> ./files/etc/secn_version
-echo " "                         >> ./files/etc/secn_version
-
-echo "Check banner version"
-cat ./files/etc/secn_version | grep "Version"
-echo ""
-
-echo "Run make for MP01"
+echo "Run make for "$1 $2
 make
+echo ""
+
+echo "Update original md5sums file"
+cat $BINDIR/md5sums | grep "openwrt"  >> $BINDIR/builds/build-$DIR/md5sums
+echo ""
+
+echo "Update new md5sums file"
+md5sum $BINDIR/*root.squashfs >> $BINDIR/builds/build-$DIR/md5sums-$VER
+md5sum $BINDIR/*.lzma         >> $BINDIR/builds/build-$DIR/md5sums-$VER
 
 echo  "Move files to build folder"
-mv ./bin/atheros/*root.squashfs    ./bin/atheros/builds/build-$DIR
-mv ./bin/atheros/*.lzma            ./bin/atheros/builds/build-$DIR
-
-echo "Update md5sums"
-cat ./bin/atheros/md5sums | grep "root.squashfs" >> ./bin/atheros/builds/build-$DIR/md5sums
-cat ./bin/atheros/md5sums | grep "lzma"     >>      ./bin/atheros/builds/build-$DIR/md5sums
+mv $BINDIR/*root.squashfs  $BINDIR/builds/build-$DIR
+mv $BINDIR/*.lzma          $BINDIR/builds/build-$DIR
 
 echo "Clean up unused files"
-rm ./bin/atheros/openwrt-*
-rm ./bin/atheros/md5sums
-
-echo ""
-echo "End MeshPotato-1 build"
+rm $BINDIR/openwrt-*
 echo ""
 
-#exit
+echo ""
+echo "End "$1 $2" build"
+echo ""
+echo '----------------------------'
+}
 
+############################
+
+
+echo '----------------------------'
+echo " "
+echo "Start Device builds"
+echo " "
+echo '----------------------------'
+
+build_mp01 MP01
+
+echo " "
+echo "Build script MP01 complete"
+echo " "
+echo '----------------------------'
+
+exit
 
