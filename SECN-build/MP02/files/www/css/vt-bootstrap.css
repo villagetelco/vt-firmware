@@ -391,3 +391,18 @@ label.error {
   padding: 2px 8px;
   margin-top: 2px;
 }
+
+legend {
+  padding-bottom: 25px;
+  margin-bottom: 20px;
+}
+
+fieldset {
+  padding: 10px;
+  margin: 25px;
+  border: 20px;
+  background-color: gainsboro;
+  border-radius: 10px;
+  border: 0;
+  border-bottom: 0;
+}
