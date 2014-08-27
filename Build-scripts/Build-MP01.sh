@@ -124,9 +124,13 @@ echo "Overlay device specific files"
 cp -r ./SECN-build/$1/files  .  
 echo ""
 
+echo "Overlay additional package files"
+cp -r ./SECN-build/$1/package  .  
+echo ""
+
 echo "Copy driver code from Git repo into build folder"
 rm -rf ./drivers
-cp -rp ~/Git/vt-firmware/SECN-build/MP01/drivers  .
+cp -rp ./SECN-build/$1/drivers  .
 
 echo "Build Factory Restore tar file"
 ./FactoryRestore.sh	 
@@ -139,7 +143,7 @@ echo ""
 echo "Version: " $VER $TARGET $2
 echo "Date stamp: " $DATE
 
-echo "Version:    " $VER $TARGET $2     > ./files/etc/secn_version
+echo "Version:    " $VER $TARGET $2       > ./files/etc/secn_version
 echo "OpenWRT:    " $OPENWRTVER           >> ./files/etc/secn_version
 echo "Build date: " $DATE                 >> ./files/etc/secn_version
 echo "GitHub:     " $REPO $REPOID         >> ./files/etc/secn_version
