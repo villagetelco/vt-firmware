@@ -338,7 +338,7 @@
                 <div class="col-md-offset-2 col-md-6">
                   <div class="form-actions">
                     <INPUT TYPE="SUBMIT" class="btn btn-default" name="BUTTON" value="Save">
-                    <INPUT TYPE="SUBMIT" class="btn" name="BUTTON" value="Restore Defaults">
+                    <INPUT TYPE="SUBMIT" class="btn adv_ui hide" name="BUTTON" value="Restore Defaults">
                     <INPUT TYPE="SUBMIT" class="btn" name="BUTTON" value="Reboot">
                   </div>
                 </div>

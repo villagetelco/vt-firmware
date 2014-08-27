@@ -43,7 +43,6 @@ $("#br_gatewayXX").change(function() {
 		var hex = "^([0-9a-fA-F]{2}([:-]|$)){6}$|([0-9a-fA-F]{4}([.]|$)){3}$";
 		return value.match(hex);
 	}, 'Invalid MAC address');
-
 	$('#networkForm').validate({
 		rules: {
 			BR_IPADDR: {
@@ -113,17 +112,17 @@ $("#br_gatewayXX").change(function() {
 			$(element).closest('.form-group').removeClass('has-error').addClass('has-success');
 		},	
 		submitHandler: function(form) {
-			// alert('valid form submission'); // for demo
+
 			$.ajax({
-      	url:  "/cgi-bin/net_save.sh",
-      	type: "POST",
-      	data: $(form).serialize(),
-  			success: function(data) {
-          $("#nsuccess").html(data).fadeIn();
-      	}
-      });
-      return false;
-    }
+		      	url:  "/cgi-bin/net_save.sh",
+		      	type: "POST",
+		      	data: $(form).serialize(),
+		  			success: function(data) {
+		          $("#nsuccess").html(data).fadeIn();
+		      	}
+      		});
+      		return false;
+    	}
 	});
 
 	$('#voiceForm').validate({
