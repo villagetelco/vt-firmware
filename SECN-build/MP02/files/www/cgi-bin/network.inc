@@ -1,4 +1,4 @@
-        <div class="tab-pane active" id="network">
+        <div class="tab-pane fade in active" id="network">
           <div class="col-md-offset-2 col-md-8 col-md-offset-2">
             <form class="form-horizontal" name="MP-ADV" id="networkForm" method="POST" action="/cgi-bin/net_save.sh">
               <fieldset class="ipnetwork">
@@ -8,7 +8,7 @@
                     <div class="form-group">
                       <label data-toggle="tooltip" data-placement="bottom" title="You can also set the IP address by dialing the extension 2663 on the MP or 2662 to just change the last octet. If you just want to find out what the IP address of the MP is dial 2664" class="control-label" for="BR_IPADDR">IP Address</label>
                       <div class="controls">
-                        <input type="text" class="form-control" name="BR_IPADDR" id="br_ipaddr" value="<%= $BR_IPADDR %>" >
+                        <input type="text" class="form-control" name="BR_IPADDR" id="br_ipaddr" value="<%= $BR_IPADDR %>">
                       </div>
                     </div>
                   </div>

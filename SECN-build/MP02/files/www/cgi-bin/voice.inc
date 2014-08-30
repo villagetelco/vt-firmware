@@ -1,4 +1,4 @@
-        <div class="tab-pane" id="voice">
+        <div class="tab-pane fade" id="voice">
           <div class="col-md-offset-2 col-md-8 col-md-offset-2">
             <form class="form-horizontal" id="voiceForm" method="POST" action="/cgi-bin/voice_save.sh">
               <fieldset class="asterisk-adv">

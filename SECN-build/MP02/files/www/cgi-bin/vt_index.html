@@ -11,77 +11,75 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="/css/bootstrapSwitch.css" rel="stylesheet" media="screen">
-    <link href="/css/vt-bootstrap.css" rel="stylesheet" media="screen">
+    <link href="/css/bootstrapValidator.min.css" rel="stylesheet" media="screen">
+    <link href="/css/vt-bootstrap2.css" rel="stylesheet" media="screen">
   </head>
   <body>
-    <!-- Start Wrap Code here  -->
-    <div id="wrap">
-      <!-- Start NavBar Code here  -->
-      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-        <div class="navbar-header">
-          <div class="homeA">
-            <a class="navbar-brand" href="vt_index.html">VT Configuration</a>
-            <div class="homeB"><a class="homeTxt" href="vt_index.html">Home</a></div>
-          </div>
-        </div>
+  <!-- Fixed navbar -->
+  <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="vt_index.html">Village Telco</a>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li class="active"><a data-toggle="tab" href="#network">Network</a></li>
+          <li><a data-toggle="tab" href="#voice">Voice</a></li>
+          <li><a data-toggle="tab" href="#status">Status</a></li>
+        </ul>
+            <ul id="navRight" class="nav navbar-nav navbar-right">
+              <li>
+                <div id="adv_ui" class="switch" data-on-label="Adv" data-off-label="Basic" data-off="success" data-on="warning">
+                  <input type="checkbox" id="chk1">
+                </div>
+              </li>
+            </ul>
         
-        <ul id="tab" class="nav navbar-nav navbar-left">
-          <li id="networkTabBtn" class="active">
-            <a href="#network" data-toggle="tab">Network</a>
-          </li>
-
-          <li id="voiceTabBtn">
-            <a href="#voice" data-toggle="tab">Voice</a>
-          </li>
-
-          <li id="statusTabBtn">
-            <a href="#status" data-toggle="tab">Monitoring</a>
-          </li>
-        </ul>
-            
-        <ul id="navRight" class="nav navbar-nav navbar-right">
-          <li>
-            <div id="adv_ui" class="switch" data-on-label="Adv" data-off-label="Basic" data-off="success" data-on="warning">
-              <input type="checkbox" id="chk1">
-            </div>
-          </li>
-        </ul>
-      </div>
-      <!-- End NavBar here -->
-
-      <!-- Start Tab Content here  -->
-      <div class="tab-content">
-        <!-- Start Network Tab Content here  -->
-        <%in cgi-bin/network.inc %>
-        <!-- End Network Tab Content here  -->
-
-        <!-- Start Voice Tab Content here  -->
-        <%in cgi-bin/voice.inc %>
-        <!-- End Voice Tab Content here  -->
-
-        <!-- Start Status / ONOD Tab Content here  -->
-        <div class="tab-pane" id="status">
-          <div id="ONOD"></div>
-        </div>
-        <!-- End Status / ONOD Tab Content here  -->
-      </div>
-      <!-- End Tab Content here  -->
+      </div><!--/.nav-collapse -->
     </div>
-    <!-- End Wrap Code here  -->
+  </div>
 
-    <!-- Start Footer Code here  -->
-    <div id="footer">
-      <div id="fContent" class="muted credit">Time: <%= $UPTIME %> <br> Time Zone: <%= $TZ %></div>     
+  <!-- Begin page content -->
+    <!-- Start Tab Content here  -->
+    <div class="tab-content">
+      <!-- Start Network Tab Content here  -->
+      <%in cgi-bin/network.inc %>
+      <!-- End Network Tab Content here  -->
+
+      <!-- Start Voice Tab Content here  -->
+      <%in cgi-bin/voice.inc %>
+      <!-- End Voice Tab Content here  -->
+
+      <!-- Start Status Content here  -->
+      <div class="tab-pane" id="status">
+        <div id="ONOD"></div>
+      </div>
+      <!-- End Status / ONOD Tab Content here  -->
     </div>
+    <!-- End Tab Content here  -->
+
+  <!-- Start Footer Code here  -->
+  <div class="footer">
+    <div class="container">
+      <p class="text-muted">Uptime: <%= $UPTIME %>    Time Zone: <%= $TZ %></p>
+    </div>
+  </div>
+
     <!-- End Footer Code here  -->
 
     <!-- Load javascript -->
-    <script type="text/javascript" src="/lib/jquery-1.7.1.min.js"></script>
-    <script type="text/javascript" src="/lib/jquery.validate.min.js"></script>
-    <script type="text/javascript" src="/lib/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/lib/bootstrapSwitch.js"></script>
-    <script type="text/javascript" src="/lib/jquery.dirtyFields.packed.js"></script>
-    <script type="text/javascript" src="/lib/vt_lib2.js"></script>
+    <script type="text/javascript" src="/js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrapSwitch.js"></script>
+    <script type="text/javascript" src="/js/bootstrapValidator.min.js"></script>
+    <script type="text/javascript" src="/js/vt_lib2.js"></script>
 
   </body>
 </html>
