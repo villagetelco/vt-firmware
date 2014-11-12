@@ -16,6 +16,9 @@ config secn 'asterisk'
 	option enablenat '0'
 	option enable_ast '0'
 
+config secn 'radio'
+	option duomode 'Int_AP_Mesh'
+
 config secn 'accesspoint'
 	option ssid 'VT-SECN-AP'
 	option passphrase 'potato-potato'

@@ -1,4 +1,3 @@
-
 config wifi-device 'radio0'
 	option type 'mac80211'
 	option path 'platform/ar933x_wmac'
@@ -29,9 +28,9 @@ config wifi-iface 'ah_0'
 	option encryption 'none'
 	option bssid '02:CA:FF:EE:BA:BE'
 	option ssid 'vt-mesh'
-	option disabled '0'
 	option mode 'adhoc'
 	option hidden '0'
+	option disabled '0'
 
 config wifi-iface 'sta_0'
 	option device 'radio0'
@@ -39,42 +38,41 @@ config wifi-iface 'sta_0'
 	option mode 'sta'
 	option network 'wan'
 	option ssid 'host-ssid'
-	option key 'host-passphrase'
 	option encryption 'psk'
 	option disabled '1'
+	option key 'host-password'
 
+config wifi-device 'radio1'
+	option type 'mac80211'
+	option channel '6'
+	option hwmode '11g'
+	option path 'platform/ehci-platform/usb1/1-1/1-1:1.0'
+	option htmode 'HT20'
+	option chanbw '20'
+	option txpower '17'
+	option disabled '1'
 
-config wifi-device  radio1
-        option type     mac80211
-        option channel  6
-        option hwmode   11g
-        option path     'platform/ehci-platform/usb1/1-1/1-1:1.0'
-        option htmode   HT20
-        option disabled 0
-        option txpower  '20'
-
-config wifi-iface 'ap_1'                                         
-        option device   radio1                                   
-        option network  lan                                     
-        option ifname   wlan1                                
-        option mode     ap                                    
-        option ssid     "VT-SECN-AP-1"                                
-        option encryption psk2
-        option key      "potato-potato"
-        option hidden   0               
-        option isolate  0              
-        option disabled 1
+config wifi-iface 'ap_1'
+	option device 'radio1'
+	option network 'lan'
+	option ifname 'wlan1'
+	option mode 'ap'
+	option ssid 'VT-SECN-AP-1'
+	option encryption 'psk2'
+	option key 'potato-potato'
+	option hidden '0'
+	option isolate '0'
+	option disabled '1'
 
 config wifi-iface 'ah_1'
-        option device   radio1
-        option network  mesh_1
-        option ifname   wlan1-1
-        option mode     adhoc
-        option encryption none
-        option bssid    '02:CA:FF:EE:BA:BE'                         
-        option ssid     'vt-mesh-D'                                    
-        option hidden   0                                        
-        option disabled 0
-
+	option device 'radio1'
+	option network 'mesh'
+	option ifname 'wlan1-1'
+	option mode 'adhoc'
+	option encryption 'none'
+	option bssid '02:CA:FF:EE:BA:BE'
+	option ssid 'vt-mesh-D'
+	option hidden '0'
+	option disabled '1'
 
 

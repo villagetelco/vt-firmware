@@ -42,6 +42,9 @@ ENABLENAT=`uci get secn.asterisk.enablenat`
 SOFTPH=`uci get secn.asterisk.softph`
 ENABLE_AST=`uci get secn.asterisk.enable_ast`
 
+# Radio parameters
+DUOMODE=`uci get secn.radio.duomode`
+
 # Access Point configuration parameters
 SSID=`uci get secn.accesspoint.ssid`
 ENCRYPTION=`uci get secn.accesspoint.encryption`
@@ -97,7 +100,7 @@ ATH0_NETMASK=`uci get network.mesh_0.netmask`
 ATH0_SSID=`uci get wireless.ah_0.ssid`
 ATH0_BSSID=`uci get wireless.ah_0.bssid`
 
-# Radio
+# Radio0
 CHANNEL=`uci get wireless.radio0.channel`
 ATH0_TXPOWER=`uci get wireless.radio0.txpower`
 ATH0_TXPOWER_ACTUAL=`iwconfig | grep -A 2 'wlan0' | grep -m 1 'Tx-Power'| cut -d T -f 2|cut -d = -f 2`
@@ -105,6 +108,14 @@ RADIOMODE=`uci get wireless.radio0.hwmode`
 CHANBW=`uci get wireless.radio0.chanbw`
 HTMODE=`uci get wireless.radio0.htmode`
 COUNTRY=`uci get wireless.radio0.country`
+# Radio1
+CHANNEL1=`uci get wireless.radio1.channel`
+ATH0_TXPOWER1=`uci get wireless.radio1.txpower`
+ATH0_TXPOWER_ACTUAL1=`iwconfig | grep -A 2 'wlan1' | grep -m 1 'Tx-Power'| cut -d T -f 2|cut -d = -f 2`
+RADIOMODE1=`uci get wireless.radio1.hwmode`
+CHANBW1=`uci get wireless.radio1.chanbw`
+HTMODE1=`uci get wireless.radio1.htmode`
+COUNTRY1=`uci get wireless.radio1.country`
 
 # Get web server parameters
 AUTH=`uci get secn.http.auth`

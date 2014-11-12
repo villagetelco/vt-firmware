@@ -172,9 +172,21 @@ uci set wireless.radio0.chanbw=\$CHANBW
 uci set wireless.radio0.country=\$COUNTRY
 uci set wireless.radio0.hwmode=\$RADIOMODE
 
+uci set wireless.radio1.channel=\$CHANNEL1
+uci set wireless.radio1.txpower=\$ATH0_TXPOWER1
+uci set wireless.radio1.chanbw=\$CHANBW1
+uci set wireless.radio1.country=\$COUNTRY1
+uci set wireless.radio1.hwmode=\$RADIOMODE1
+
 # Write the adhoc interface settings into /etc/config/wireless
 uci set wireless.ah_0.ssid=\$ATH0_SSID
 uci set wireless.ah_0.bssid=\$ATH0_BSSID
+
+uci set wireless.ah_1.ssid=\$ATH0_SSID
+uci set wireless.ah_1.bssid=\$ATH0_BSSID
+
+# Save Duo mode setting
+uci set secn.radio.duomode=\$DUOMODE
 
 # Write the Access Point wifi settings into /etc/config/secn
 uci set secn.accesspoint.ssid=\$SSID
