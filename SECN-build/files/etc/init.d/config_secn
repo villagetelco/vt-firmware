@@ -199,6 +199,14 @@ if [ $WANPORT = "Ethernet" ]; then
 	uci set network.wan.ifname='eth0'   # Single Eth port devices
 fi
 
+# Set up for 4G Eth Modem
+if [ $WANPORT = "USB-Eth-Modem" ]; then
+ 	# Set up for Eth WAN port
+	uci set network.lan.ifname='eth0'
+	uci set network.lan.gateway='255.255.255.255'
+	uci set network.wan.ifname='eth1'   # Single Eth port devices
+fi
+
 # Set up for Mesh WAN
 if [ $WANPORT = "Mesh" ]; then
 	uci set network.lan.ifname='eth0'
