@@ -66,6 +66,7 @@ config secn 'modem'
 	option modemport '0'
 	option service 'umts'
 	option dialstr '*99#'
+	option url     'http://'
 
 config secn 'wan'
 	option wanip '10.0.0.100'
