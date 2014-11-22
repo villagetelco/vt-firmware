@@ -159,6 +159,7 @@ APNUSER=`uci get secn.modem.username`
 APNPW=`uci get secn.modem.password`
 MODEMPIN=`uci get secn.modem.pin`
 MODEMPORT=`uci get secn.modem.modemport`
+MODEMURL=`uci get secn.modem.url`
 
 
 # GatewayTest Status message
