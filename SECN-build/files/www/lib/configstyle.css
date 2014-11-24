@@ -121,6 +121,11 @@ iframe {
     overflow-y:auto;
     overflow-x:auto;
 }
+#FrameID5 {
+    width:90%;
+    overflow-y:auto;
+    overflow-x:auto;
+}
 .topbar {
     width:850px;
     height:100px;
