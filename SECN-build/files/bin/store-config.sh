@@ -4,5 +4,5 @@
 
 cd /
 echo "Filename: "$1
-tar -xvf $1
+tar -xzvf $1
 
