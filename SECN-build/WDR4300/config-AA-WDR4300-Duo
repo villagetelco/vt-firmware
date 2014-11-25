@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # OpenWrt version: Attitude Adjustment (r42647)
-# Tue Nov 25 21:47:02 2014
+# Tue Nov 25 21:47:49 2014
 #
 CONFIG_HAVE_DOT_CONFIG=y
 # CONFIG_TARGET_ppc40x is not set
@@ -277,7 +277,7 @@ CONFIG_TARGET_ar71xx_generic=y
 # CONFIG_TARGET_ar71xx_generic_DIR615C1 is not set
 # CONFIG_TARGET_ar71xx_generic_DIR615E4 is not set
 # CONFIG_TARGET_ar71xx_generic_DIR825B1 is not set
-CONFIG_TARGET_ar71xx_generic_DRAGINO2=y
+# CONFIG_TARGET_ar71xx_generic_DRAGINO2 is not set
 # CONFIG_TARGET_ar71xx_generic_EWDORIN is not set
 # CONFIG_TARGET_ar71xx_generic_JA76PF is not set
 # CONFIG_TARGET_ar71xx_generic_JA76PF2 is not set
@@ -302,7 +302,7 @@ CONFIG_TARGET_ar71xx_generic_DRAGINO2=y
 # CONFIG_TARGET_ar71xx_generic_TLWA701 is not set
 # CONFIG_TARGET_ar71xx_generic_TLWA7510 is not set
 # CONFIG_TARGET_ar71xx_generic_TLWA901 is not set
-# CONFIG_TARGET_ar71xx_generic_TLWDR4300 is not set
+CONFIG_TARGET_ar71xx_generic_TLWDR4300=y
 # CONFIG_TARGET_ar71xx_generic_TLWR740 is not set
 # CONFIG_TARGET_ar71xx_generic_TLWR741 is not set
 # CONFIG_TARGET_ar71xx_generic_TLWR743 is not set
@@ -400,7 +400,6 @@ CONFIG_DEFAULT_kmod-ledtrig-netdev=y
 CONFIG_DEFAULT_kmod-ledtrig-timer=y
 CONFIG_DEFAULT_kmod-ledtrig-usbdev=y
 CONFIG_DEFAULT_kmod-usb-core=y
-CONFIG_DEFAULT_kmod-usb-ohci=y
 CONFIG_DEFAULT_kmod-usb2=y
 CONFIG_DEFAULT_kmod-wdt-ath79=y
 CONFIG_DEFAULT_libc=y
