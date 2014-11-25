@@ -49,8 +49,8 @@ fi
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="BB-Alpha2-Duo"
-VER="SECN-3_0-"$DIRVER
+DIRVER="Alpha3-Duo"
+VER="SECN-2_0_1-"$DIRVER
 
 ###########################
 echo "Copy files from Git repo into build folder"
@@ -93,11 +93,11 @@ echo "Set up .config for "$1 $2
 rm ./.config
 
 if [ $2 ]; then
-	echo "Config file: config-BB-"$1-$2
-	cp ./SECN-build/$1/config-BB-$1-$2  ./.config
+	echo "Config file: config-AA-"$1-$2
+	cp ./SECN-build/$1/config-AA-$1-$2  ./.config
 else
-	echo "Config file: config-BB-"$1
-	cp ./SECN-build/$1/config-BB-$1  ./.config
+	echo "Config file: config-AA-"$1
+	cp ./SECN-build/$1/config-AA-$1  ./.config
 fi
 
 echo "Run defconfig"
@@ -105,11 +105,11 @@ make defconfig > /dev/null
 
 # Set up target display strings
 TARGET=`cat .config | grep "CONFIG_TARGET" | grep "=y" | grep "_generic_" | cut -d _ -f 5 | cut -d = -f 1 `
-###OPENWRTVER=`cat ./.config | grep "OpenWrt version" | cut -d : -f 2`
+OPENWRTVER=`cat ./.config | grep "OpenWrt version" | cut -d : -f 2`
 
 echo "Check .config version"
 echo "Target:  " $TARGET
-###echo "OpenWRT: " $OPENWRTVER
+echo "OpenWRT: " $OPENWRTVER
 echo ""
 
 echo "Set up files for "$1 $2
@@ -135,7 +135,7 @@ echo "Version: " $VER $TARGET $2
 echo "Date stamp: " $DATE
 
 echo "Version:    " $VER $TARGET $2        > ./files/etc/secn_version
-###echo "OpenWRT:    " $OPENWRTVER           >> ./files/etc/secn_version
+echo "OpenWRT:    " $OPENWRTVER           >> ./files/etc/secn_version
 echo "Build date: " $DATE                 >> ./files/etc/secn_version
 echo "GitHub:     " $REPO $REPOID         >> ./files/etc/secn_version
 echo " "                                  >> ./files/etc/secn_version
@@ -170,13 +170,12 @@ md5sum $BINDIR/*-squash*sysupgrade.bin >> $BINDIR/builds/build-$DIR/md5sums-$VER
 #md5sum $BINDIR/*-squash*factory.bin    >> $BINDIR/builds/build-$DIR/md5sums-$VER
 
 echo  "Move files to build folder"
-cp $BINDIR/openwrt*-squash*sysupgrade.bin $BINDIR/builds/build-$DIR
-####mv $BINDIR/openwrt*-squash*sysupgrade.bin $BINDIR/builds/build-$DIR
+mv $BINDIR/openwrt*-squash*sysupgrade.bin $BINDIR/builds/build-$DIR
 #mv $BINDIR/*-squash*factory.bin    $BINDIR/builds/build-$DIR
 echo ""
 
 echo "Clean up unused files"
-####rm $BINDIR/openwrt-*
+rm $BINDIR/openwrt-*
 echo ""
 
 echo ""
@@ -195,16 +194,7 @@ echo " "
 echo '----------------------------'
 
 build_tp MR3020 Duo
-build_tp MR3040 Duo
-build_tp MR11U Duo
-build_tp WR703 Duo
-build_tp WR841 Duo
-build_tp WR842 Duo
-build_tp MR3420 Duo
-
-echo "Build script TP complete"
 exit
-
 build_tp WR842
 #build_tp WR842   Pros
 build_tp WDR4300
