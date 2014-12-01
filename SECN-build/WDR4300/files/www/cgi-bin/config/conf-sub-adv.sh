@@ -159,6 +159,13 @@ else
 	AP_DISABLE="1"
 fi
 
+# Disable Mesh if required
+if [ \$MESH_ENABLE = "checked" ]; then
+	MESH_DISABLE="0"
+else
+	MESH_DISABLE="1"
+fi
+
 # Set up AP Isolation
 if [ \$AP_ISOL = "checked" ]; then
 	AP_ISOL="1"
@@ -213,20 +220,33 @@ uci set wireless.radio1.txpower=\$ATH0_TXPOWER1
 uci set wireless.radio1.chanbw=\$CHANBW1
 uci set wireless.radio1.hwmode=\$RADIOMODE
 
+uci set wireless.radio2.channel=\$CHANNEL2
+uci set wireless.radio2.txpower=\$ATH0_TXPOWER2
+uci set wireless.radio2.chanbw=\$CHANBW2
+uci set wireless.radio2.country=\$COUNTRY2
+uci set wireless.radio2.hwmode=\$RADIOMODE2
+
+
 # Write the adhoc interface settings into /etc/config/wireless
 uci set wireless.ah_0.ssid=\$ATH0_SSID
 uci set wireless.ah_0.bssid=\$ATH0_BSSID
 uci set wireless.ah_1.ssid=\$ATH0_SSID1
 uci set wireless.ah_1.bssid=\$ATH0_BSSID1
 
+uci set wireless.ah_2.ssid=\$ATH0_SSID
+uci set wireless.ah_2.bssid=\$ATH0_BSSID
+
+# Save Duo mode setting
+uci set secn.radio.duomode=\$DUOMODE
+
 # Write the Access Point wifi settings into /etc/config/secn
 uci set secn.accesspoint.ssid=\$SSID
 uci set secn.accesspoint.encryption=\$ENCRYPTION
 uci set secn.accesspoint.passphrase=\$PASSPHRASE
-uci set secn.accesspoint.ap_disable=\$AP_DISABLE
 uci set secn.accesspoint.usreg_domain=\$USREG_DOMAIN  
 uci set secn.accesspoint.maxassoc=\$MAXASSOC
 uci set secn.accesspoint.ap_isol=\$AP_ISOL
+uci set secn.accesspoint.ap_disable=\$AP_DISABLE
 
 uci set secn.accesspoint1.ssid=\$SSID1
 uci set secn.accesspoint1.encryption=\$ENCRYPTION1
@@ -271,12 +291,11 @@ uci set secn.dhcp.dns=\$OPTION_DNS
 uci set secn.dhcp.dns2=\$OPTION_DNS2
 uci set secn.dhcp.device_ip=\$DEVICE_IP
 
-# Save mesh settings to /etc/config/secn
-uci set secn.mesh.mesh_enable=\$MESH_ENABLE
-uci set secn.mesh1.mesh_enable=\$MESH_ENABLE1
-# Write the MPGW display setting into /etc/config/secn
-uci set secn.mesh.mpgw=\$MPGW
 
+# Save mesh settings to /etc/config/secn
+uci set secn.mesh.mesh_disable=\$MESH_DISABLE
+uci set secn.mesh1.mesh_disable=\$MESH_DISABLE1
+uci set secn.mesh.mpgw=\$MPGW
 
 # Set up mesh gateway mode on the fly
 if [ \$MPGW = "OFF" ]; then

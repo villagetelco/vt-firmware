@@ -115,7 +115,8 @@ RADIOMODE=`uci get wireless.radio0.hwmode`
 CHANBW=`uci get wireless.radio0.chanbw`
 HTMODE=`uci get wireless.radio0.htmode`
 COUNTRY=`uci get wireless.radio0.country`
-# Radio1
+
+# Radio1-USB
 CHANNEL1=`uci get wireless.radio1.channel`
 ATH0_TXPOWER1=`uci get wireless.radio1.txpower`
 ATH0_TXPOWER_ACTUAL1=`iwconfig | grep -A 2 'wlan1' | grep -m 1 'Tx-Power'| cut -d T -f 2|cut -d = -f 2`

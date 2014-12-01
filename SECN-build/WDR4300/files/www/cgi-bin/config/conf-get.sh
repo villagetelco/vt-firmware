@@ -42,6 +42,9 @@ ENABLENAT=`uci get secn.asterisk.enablenat`
 SOFTPH=`uci get secn.asterisk.softph`
 ENABLE_AST=`uci get secn.asterisk.enable_ast`
 
+# Radio parameters
+DUOMODE=`uci get secn.radio.duomode`
+
 # 2.4GHz Access Point configuration parameters
 SSID=`uci get secn.accesspoint.ssid`
 ENCRYPTION=`uci get secn.accesspoint.encryption`
@@ -74,19 +77,24 @@ AP_DISABLE1=`uci get secn.accesspoint1.ap_disable`
 MAXASSOC1=`uci get secn.accesspoint1.maxassoc`
 AP_ISOL1=`uci get secn.accesspoint1.ap_isol`
 
-# Set up AP enable
-if [ $AP_DISABLE1 = "0" ]; then
-  AP_ENABLE1="checked"
+# Mesh config
+MESH_DISABLE=`uci get secn.mesh.mesh_disable`
+MPGW=`uci get secn.mesh.mpgw`
+MPGW1=`uci get secn.mesh.mpgw` # Slave off mpgw setting
+
+# Set up Mesh enable
+if [ $MESH_DISABLE = "0" ]; then
+  MESH_ENABLE="checked"
 else
-  AP_ENABLE1="0"
+  MESH_ENABLE="0"
 fi 
 
-# Set AP Connections to show 'Disabled' if reqd.
+# Set AP1 Connections to show 'Disabled' if reqd.
 if [ $MAXASSOC1 = "0" ]; then
   MAXASSOC1="Disabled"
 fi 
 
-# Set up AP Isolation
+# Set up AP1 Isolation
 if [ $AP_ISOL1 = "1" ]; then
   AP_ISOL1="checked"
 else
@@ -107,10 +115,6 @@ OPTION_DNS=`uci get secn.dhcp.dns`
 OPTION_DNS2=`uci get secn.dhcp.dns2`
 DEVICE_IP=`uci get secn.dhcp.device_ip`
 
-# MPGW setting
-MPGW=`uci get secn.mesh.mpgw`
-MPGW1=`uci get secn.mesh.mpgw` # Slave off mpgw setting
-
 # Get network settings from /etc/config/network and wireless
 
 # br_lan configuration parameters
@@ -124,7 +128,6 @@ ATH0_IPADDR=`uci get network.mesh_0.ipaddr`
 ATH0_NETMASK=`uci get network.mesh_0.netmask`
 ATH0_SSID=`uci get wireless.ah_0.ssid`
 ATH0_BSSID=`uci get wireless.ah_0.bssid`
-MESH_ENABLE=`uci get secn.mesh.mesh_enable`
 
 # mesh_1 configuration parameters
 ATH0_IPADDR1=`uci get network.mesh_1.ipaddr`
@@ -160,6 +163,15 @@ if [ $RADIOMODE1 = "11na" ]; then
 else
 	RADIOMODE1="802.11A"
 fi
+
+# Radio2-USB
+CHANNEL1=`uci get wireless.radio1.channel`
+ATH0_TXPOWER1=`uci get wireless.radio1.txpower`
+ATH0_TXPOWER_ACTUAL1=`iwconfig | grep -A 2 'wlan1' | grep -m 1 'Tx-Power'| cut -d T -f 2|cut -d = -f 2`
+RADIOMODE1=`uci get wireless.radio1.hwmode`
+CHANBW1=`uci get wireless.radio1.chanbw`
+HTMODE1=`uci get wireless.radio1.htmode`
+COUNTRY1=`uci get wireless.radio1.country`
 
 # Get web server parameters
 AUTH=`uci get secn.http.auth`
@@ -203,6 +215,7 @@ APNUSER=`uci get secn.modem.username`
 APNPW=`uci get secn.modem.password`
 MODEMPIN=`uci get secn.modem.pin`
 MODEMPORT=`uci get secn.modem.modemport`
+MODEMURL=`uci get secn.modem.url`
 
 
 # GatewayTest Status message
