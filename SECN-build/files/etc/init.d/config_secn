@@ -18,10 +18,10 @@ PASSPHRASE=`echo "$PASSPHRASE" | sed -f /bin/url-decode.sed`
 uci set secn.accesspoint.passphrase=$PASSPHRASE
 
 ENCRYPTION=`uci get secn.accesspoint.encryption`
-AP_DISABLE=`uci get secn.accesspoint.ap_disable`
 AP_ISOL=`uci get secn.accesspoint.ap_isol`
 MAXASSOC=`uci get secn.accesspoint.maxassoc`
-MESH_ENABLE=`uci get secn.mesh.mesh_enable`
+AP_DISABLE=`uci get secn.accesspoint.ap_disable`
+MESH_DISABLE=`uci get secn.mesh.mesh_disable`
 
 # Set to WPA2 by default                                 
 ENCRYPT="psk2"
@@ -47,6 +47,7 @@ uci set wireless.ap_0.disabled=$AP_DISABLE
 uci set wireless.ap_0.encryption=$ENCRYPT
 uci set wireless.ap_0.maxassoc=$MAXASSOC
 uci set wireless.ap_0.isolate=$AP_ISOL
+uci set wireless.ah_0.disabled=$MESH_DISABLE
 
 uci set wireless.ap_1.key=$PASSPHRASE
 uci set wireless.ap_1.ssid=$SSID
@@ -55,28 +56,29 @@ uci set wireless.ap_1.disabled=$AP_DISABLE
 uci set wireless.ap_1.encryption=$ENCRYPT
 uci set wireless.ap_1.maxassoc=$MAXASSOC
 uci set wireless.ap_1.isolate=$AP_ISOL
+uci set wireless.ah_1.disabled=$MESH_DISABLE
 
 # Setup Duo mode
 DUOMODE=`uci get secn.radio.duomode`
 if [ $DUOMODE = "Int_AP..USB_Mesh" ]; then  
 	uci set wireless.radio0.disabled=0
 	uci set wireless.radio1.disabled=0
-	uci set wireless.ap_0.disabled=0
+	uci set wireless.ap_0.disabled=$AP_DISABLE
 	uci set wireless.ah_0.disabled=1
 	uci set wireless.ap_1.disabled=1
-	uci set wireless.ah_1.disabled=0
+	uci set wireless.ah_1.disabled=$MESH_DISABLE
 elif [ $DUOMODE = "Int_Mesh..USB_AP" ]; then  
 	uci set wireless.radio0.disabled=0
 	uci set wireless.radio1.disabled=0
 	uci set wireless.ap_0.disabled=1
-	uci set wireless.ah_0.disabled=0
-	uci set wireless.ap_1.disabled=0
+	uci set wireless.ah_0.disabled=$MESH_DISABLE
+	uci set wireless.ap_1.disabled=$AP_DISABLE
 	uci set wireless.ah_1.disabled=1
 else  # Single Int radio
 	uci set wireless.radio0.disabled=0
 	uci set wireless.radio1.disabled=1
-	uci set wireless.ap_0.disabled=0
-	uci set wireless.ah_0.disabled=0
+	uci set wireless.ap_0.disabled=$AP_DISABLE
+	uci set wireless.ah_0.disabled=$MESH_DISABLE
 	uci set wireless.ap_1.disabled=1
 	uci set wireless.ah_1.disabled=1
 fi
@@ -215,12 +217,13 @@ uci set wireless.sta_0.disabled='1' # Make sure wifi WAN is off.
 uci set secn.wan.wanlan_enable='0'
 
 # Set default LAN port to eth0
-	uci set network.lan.ifname='eth0'
+uci set network.lan.ifname='eth0'
 
 # Set up for WAN disabled
 if [ $WANPORT = "Disable" ]; then
-	uci set wireless.ah_0.disabled='0'
-	uci set wireless.sta_0.disabled='1'
+  uci set wireless.ah_0.disabled='0' #Re-enable mesh after WiFi-WAN 
+  uci set wireless.ah_1.disabled='0' 
+  uci set wireless.sta_0.disabled='1'
 fi
 
 # Set up for Ethernet WAN
@@ -241,39 +244,39 @@ fi
 
 # Set up for Mesh WAN
 if [ $WANPORT = "Mesh" ]; then
-	uci set network.lan.ifname='eth0'
-	uci set network.wan.ifname='bat0' 
-	uci set network.wan.type='bridge' # Reqd. See /etc/init.d/set-mesh-gw-mode
-	MESH_ENABLE='checked'
-	uci set secn.mesh.mesh_enable='checked'
-	uci set network.lan.gateway='255.255.255.255'
+  uci set network.lan.ifname='eth0'
+  uci set network.wan.ifname='bat0' 
+  uci set network.wan.type='bridge' # Reqd. See /etc/init.d/set-mesh-gw-mode
+  MESH_DISABLE='0'
+  uci set secn.mesh.mesh_disable='0'
+  uci set network.lan.gateway='255.255.255.255'
 fi
 
-# Set up for WiFi WAN
-if [ $WANPORT = "WiFi" ]; then
-	uci set network.wan.ifname='wlan0-2'
-	uci set wireless.ah_0.disabled='1'
-	uci set wireless.sta_0.disabled='0'
-	uci set network.lan.gateway='255.255.255.255'
-	# Disable mesh
-	uci set secn.mesh.mesh_enable='0'
-	MESH_ENABLE='0'
-fi
 
 # Disable mesh if required
-if [ $MESH_ENABLE = "checked" ] && [ $DUOMODE = "Int_AP_Mesh" ]; then
-	uci set wireless.ah_0.disabled='0'
-	uci set wireless.ah_1.disabled='1'
-elif [ $MESH_ENABLE = "checked" ] && [ $DUOMODE = "Int_AP..USB_Mesh" ]; then
-	uci set wireless.ah_0.disabled='1'
-	uci set wireless.ah_1.disabled='0'
-elif [ $MESH_ENABLE = "checked" ] && [ $DUOMODE = "Int_Mesh..USB_AP" ]; then
-	uci set wireless.ah_0.disabled='0'
-	uci set wireless.ah_1.disabled='1'
+if [ $MESH_DISABLE = "0" ] && [ $DUOMODE = "Int_AP_Mesh" ]; then
+  uci set wireless.ah_0.disabled='0'
+  uci set wireless.ah_1.disabled='1'
+elif [ $MESH_DISABLE = "0" ] && [ $DUOMODE = "Int_AP..USB_Mesh" ]; then
+  uci set wireless.ah_0.disabled='1'
+  uci set wireless.ah_1.disabled='0'
+elif [ $MESH_DISABLE = "0" ] && [ $DUOMODE = "Int_Mesh..USB_AP" ]; then
+  uci set wireless.ah_0.disabled='0'
+  uci set wireless.ah_1.disabled='1'
 else  # Make sure both adhoc interfaces are disabled
 	uci set wireless.ah_0.disabled='1'
 	uci set wireless.ah_1.disabled='1'
 fi
+
+
+# Set up for WiFi WAN on radio0                                                              
+if [ $WANPORT = "WiFi" ]; then                                                               
+        uci set network.wan.ifname='wlan0-2'                                                 
+        uci set wireless.ah_0.disabled='1'                                                   
+        uci set wireless.sta_0.disabled='0'                                                  
+        uci set network.lan.gateway='255.255.255.255'                                        
+fi                                                                                           
+                                                                                                                                                     
 
 # Set up for DHCP or Static
 if [ $ETHWANMODE = "Static" ]; then
