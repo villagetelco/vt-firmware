@@ -66,7 +66,7 @@ config wifi-iface 'ap_1'
 
 config wifi-iface 'ah_1'
 	option device 'radio1'
-	option network 'mesh'
+	option network 'mesh_0'
 	option ifname 'wlan1-1'
 	option mode 'adhoc'
 	option encryption 'none'
