@@ -46,6 +46,9 @@ cat > /tmp/config.html << EOF
 							<td class="label"><label for="BR_GATEWAY">LAN Gateway</label></td>
 							<td class="field"><input type="text" name="BR_GATEWAY" id="br_gateway" VALUE=$BR_GATEWAY></td>
 
+										<td class="label"><label for="BR_DNS">DNS</label></td>
+										<td class="field"><input type="text" name="BR_DNS" id="br_dns" VALUE=$BR_DNS ></td>
+
 
 							<td class="label"><label for="Test"> Internet Access </label></td>
 							<td class="field"> <INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Test" > </td>
@@ -244,7 +247,8 @@ cat > /tmp/config.html << EOF
 				<ul class='etabs'>
 				<li class='tab'><a href="#tab-adv">Advanced</a></li>
 				<li class='tab'><a href="#tab-adv2">WAN</a></li>
-				<li class='tab'><a href="#tab-fw">Firmware</a></li>
+				<li class='tab'><a href="#tab-adv3">SoftPhone</a></li>
+				<li class='tab'><a href="#tab-fw">Firmware/Config</a></li>
 				</ul>
 
 				<div class="panel-container">
@@ -935,7 +939,52 @@ cat > /tmp/config.html << EOF
 						</form>
 					</div>
 
-		<!-- Firmware Upgrade Page -->
+	<!-- Advanced Configuration Form Tab 3 SoftPhone Page -->
+		<div id="tab-adv3">
+			<form name="MP-ADV3" id="MP-ADV3" METHOD="GET" ACTION="/cgi-bin/config/conf-sub-adv3.sh">
+
+				<fieldset class="wifi-adv">
+					<legend> SoftPhone</legend>
+
+					<table>
+						<tr>
+							<td class="label"><label for="SP_NUMBER"> SoftPhone Number </label></td>
+							<td class="field"><input type="text" name="SP_NUMBER" id="sp_number" VALUE=$SP_NUMBER ></td>
+							<td class="label"><label> Range: 300 -> 399 </label> </td>
+						</tr>
+					</table>
+
+					<table>
+						<tr>
+							<td class="label"><label for="SP_NAME"> SoftPhone Name </label></td> <td>$SP_NAME </td>
+							<td class="field"><input type="text" name="SP_NAME" id="sp_name" VALUE=$SP_NAME ></td>
+							<td class="label"><label for="SP_PW1"> Enter Password</label></td>
+							<td class="field"><input name="SP_PW1" id="SP_PW1" type="password" autocomplete ="off" VALUE=$SP_PW1></td>
+							<td class="status"></td>
+							<td class="label"><label for="SP_PW2"> Repeat Password</label></td>
+							<td class="field"><input name="SP_PW2" id="SP_PW2" type="password" autocomplete ="off" VALUE=$SP_PW2></td>
+							<td class="status"></td>
+							<td class="field"> <INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Save" > </td>
+						</tr>
+					</table>
+				</fieldset>
+
+				<p> </p>
+				<h3> SoftPhone Directory </h3>     
+				<iframe id="FrameID1" src="/softph.txt"  width="100%" height="150" ></iframe>
+
+				<table class="submitform">
+					<tr>
+						<td>
+						<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Refresh" >
+						</td>
+					</tr>
+				</table>
+
+			</form>
+		</div>
+
+		<!-- Firmware Upgrade Page Tab 4-->
 					<div id="tab-fw">
 						<h2><a href="/cgi-bin/upgrade">Upgrade Firmware<a></h2>
 						<h2><a href="/cgi-bin/save-config">Save Configuration File<a></h2>

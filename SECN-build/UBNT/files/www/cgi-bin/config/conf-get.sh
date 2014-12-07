@@ -14,6 +14,9 @@ UPTIME=`uptime`
 TZ=`cat /etc/TZ`
 PROC=`ps|wc -l`
 
+#Get Softphone directory
+/bin/get-softph.sh
+
 # Set DHCP subnet to current subnet for Softphone Support
 /bin/setdhcpsubnet.sh > /dev/null
 
@@ -110,12 +113,13 @@ ENSSL=`uci get secn.http.enssl`
 /bin/get-reg-status.sh
 REG_STATUS=`cat /tmp/reg-status.txt | awk '{print $5;}'`
 REG_ACCT=`cat /tmp/reg-status.txt | awk '{print $1 " - " $3;}'`
+REGHOST_STATUS=`cat /tmp/reghost.txt`
 
 if [ $REG_STATUS = "Registered" ]; then
 	# Display Not Registered status
-	REG_STATUS="Registered Acct"
+	REG_STATUS="Registered Acct "
 else
-	REG_STATUS="Not Registered"
+	REG_STATUS="Not Registered. $REGHOST_STATUS"
 fi
 
 # Get WAN settings

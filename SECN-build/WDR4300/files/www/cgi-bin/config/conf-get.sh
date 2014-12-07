@@ -14,6 +14,9 @@ UPTIME=`uptime`
 TZ=`cat /etc/TZ`
 PROC=`ps|wc -l`
 
+#Get Softphone directory
+/bin/get-softph.sh
+
 # Get USB Modem details
 USBMODEM=`/bin/usbmodem.sh`
 USBSERIAL=`ls /dev/ttyUSB*`
