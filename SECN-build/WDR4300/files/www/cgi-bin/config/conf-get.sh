@@ -13,6 +13,13 @@ DATE=`date`
 UPTIME=`uptime`
 TZ=`cat /etc/TZ`
 PROC=`ps|wc -l`
+# Memory
+MEMFREE=`cat /proc/meminfo | grep MemFree |cut -d : -f2 | tr -d ' '|tr -d 'kB'`
+MEMTOT=`cat /proc/meminfo | grep MemTotal |cut -d : -f2 | tr -d ' '`
+MEMSTR=$MEMFREE" / "$MEMTOT
+
+#Get Softphone directory
+/bin/get-softph.sh
 
 # Get USB Modem details
 USBMODEM=`/bin/usbmodem.sh`
