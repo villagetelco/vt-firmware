@@ -43,10 +43,6 @@ echo "*** Make new directory"
 mkdir -p $OPENWRT_PATH
 echo " "
 
-echo "*** Get MP02 packages from GitHub repo"
-git clone https://github.com/villagetelco/vt-mp02-package   $OPENWRT_PATH/vt-mp02-package
-echo " "
-
 echo "*** Checkout the OpenWRT build environment"
 sleep 2
 svn checkout --revision=$REVISION svn://svn.openwrt.org/openwrt/branches/barrier_breaker/ $OPENWRT_PATH  > $OPENWRT_PATH/checkout.log
@@ -62,7 +58,6 @@ echo "src-git packages https://github.com/openwrt/packages.git;for-14.07"       
 echo "src-git telephony http://git.openwrt.org/feed/telephony.git"                >> $OPENWRT_PATH/feeds.conf.default
 echo "src-git routing https://github.com/openwrt-routing/packages.git;for-14.07"  >> $OPENWRT_PATH/feeds.conf.default
 echo "src-git alfred git://git.open-mesh.org/openwrt-feed-alfred.git"             >> $OPENWRT_PATH/feeds.conf.default
-#####echo "src-link dragino2      $OPENWRT_PATH/vt-mp02-package/packages-AA"   	      >> $OPENWRT_PATH/feeds.conf.default
 echo " "
 
 echo "*** Update the feeds (See ./feeds-update.log)"
@@ -71,16 +66,6 @@ $OPENWRT_PATH/scripts/feeds update         > $OPENWRT_PATH/feeds-update.log
 sleep 2
 echo " "
 tail -n 6 $OPENWRT_PATH/feeds-update.log
-echo " "
-
-echo "*** Copy MP02 Platform info "
-sleep 2
-######rsync -avC $OPENWRT_PATH/vt-mp02-package/platform-AA/target/ $OPENWRT_PATH/target/
-echo " "
-
-echo "*** Install MP02 hardware packages"
-sleep 2
-######$OPENWRT_PATH/scripts/feeds install -a -p dragino2
 echo " "
 
 echo "*** Install OpenWrt packages (See ./feeds-install.log)"
@@ -93,7 +78,6 @@ echo "#src-git packages https://github.com/openwrt/packages.git;for-14.07"      
 echo "src-git telephony http://git.openwrt.org/feed/telephony.git"                  >> $OPENWRT_PATH/feeds.conf.default
 echo "src-git routing https://github.com/openwrt-routing/packages.git;for-14.07"    >> $OPENWRT_PATH/feeds.conf.default
 echo "src-git alfred git://git.open-mesh.org/openwrt-feed-alfred.git"               >> $OPENWRT_PATH/feeds.conf.default
-#####echo "src-link dragino2      $OPENWRT_PATH/vt-mp02-package/packages-AA"   	    >> $OPENWRT_PATH/feeds.conf.default
 echo " "
 
 echo "*** Remove tmp directory"
