@@ -6,19 +6,18 @@
 
 
 # Test for the presence of the FXS daughter board
-FXS=`cat /proc/dfxs | tr -d '. ' | cut -d ':' -f2`
-if [ $FXS = "0x0" ]; then
-   uci set secn.asterisk.fxs_present="0"
-else
+if grep -q 'DFXS initialized.....: yes' /proc/dragino2_si3217x 2>/dev/null; then
    uci set secn.asterisk.fxs_present="1"
+else
+   uci set secn.asterisk.fxs_present="0"
 fi
 
 # ------------------------------------------------------------------
 if [ -f /etc/config/first-boot ]; then
-   if [ $FXS = "0x0" ]; then
-      uci set secn.asterisk.enable_ast="0"
-   else
+   if grep -q 'DFXS initialized.....: yes' /proc/dragino2_si3217x 2>/dev/null; then
       uci set secn.asterisk.enable_ast="checked"
+   else
+      uci set secn.asterisk.enable_ast="0"
    fi
    rm -f /etc/config/first-boot
 fi
