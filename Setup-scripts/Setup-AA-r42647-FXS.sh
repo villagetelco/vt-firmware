@@ -41,13 +41,6 @@ echo "*** Get MP02 packages from GitHub repo"
 git clone https://github.com/villagetelco/vt-mp02-package   $OPENWRT_PATH/vt-mp02-package
 echo " "
 
-# Temporarily get the MP02 FXS packages
-#echo "*** Get MP02 FXS packages from GitHub repo"
-#git clone https://github.com/villagetelco/vt-fxs-packages   $OPENWRT_PATH/vt-fxs-packages
-echo "*** Get MP02 FXS packages from local home directory"
-cp -r ~/vt-fxs-packages $OPENWRT_PATH
-echo " "
-
 echo "*** Get VT packages fixups from GitHub repo"
 git clone https://github.com/villagetelco/vt-packages-fixups   $OPENWRT_PATH/vt-packages-fixups
 echo " "
@@ -66,8 +59,8 @@ echo "*** Create new feeds.conf.default file"
 echo "src-svn packages svn://svn.openwrt.org/openwrt/branches/packages_12.09@42647" > $OPENWRT_PATH/feeds.conf.default
 echo "src-git routing git://github.com/openwrt-routing/packages.git;for-12.09.x"   >> $OPENWRT_PATH/feeds.conf.default
 echo "src-git alfred git://git.open-mesh.org/openwrt-feed-alfred.git"              >> $OPENWRT_PATH/feeds.conf.default
-echo "src-link dragino2      $OPENWRT_PATH/vt-mp02-package/packages-AA"   	   >> $OPENWRT_PATH/feeds.conf.default
-echo "src-link fxs   	     $OPENWRT_PATH/vt-fxs-packages/packages-AA"   	   >> $OPENWRT_PATH/feeds.conf.default
+echo "src-link dragino2 $OPENWRT_PATH/vt-mp02-package/packages-AA"                 >> $OPENWRT_PATH/feeds.conf.default
+echo "src-git fxs git://github.com/VittGam/vt-fxs-packages.git;for-12.09.x"        >> $OPENWRT_PATH/feeds.conf.default
 echo " "
 
 echo "*** Update the feeds (See ./feeds-update.log)"
@@ -108,8 +101,8 @@ echo "*** Lock the OpenWrt package feeds from further updating"
 echo "#src-svn packages svn://svn.openwrt.org/openwrt/branches/packages_12.09@42647" > $OPENWRT_PATH/feeds.conf.default
 echo "src-git routing git://github.com/openwrt-routing/packages.git;for-12.09.x"    >> $OPENWRT_PATH/feeds.conf.default
 echo "src-git alfred git://git.open-mesh.org/openwrt-feed-alfred.git"               >> $OPENWRT_PATH/feeds.conf.default
-echo "src-link dragino2      $OPENWRT_PATH/vt-mp02-package/packages-AA"   	    >> $OPENWRT_PATH/feeds.conf.default
-echo "src-link fxs   	     $OPENWRT_PATH/vt-fxs-packages/packages-AA"   	    >> $OPENWRT_PATH/feeds.conf.default
+echo "src-link dragino2 $OPENWRT_PATH/vt-mp02-package/packages-AA"                  >> $OPENWRT_PATH/feeds.conf.default
+echo "src-git fxs git://github.com/VittGam/vt-fxs-packages.git;for-12.09.x"         >> $OPENWRT_PATH/feeds.conf.default
 echo " "
 
 echo "*** Remove tmp directory"

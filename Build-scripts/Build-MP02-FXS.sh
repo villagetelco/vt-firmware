@@ -22,27 +22,6 @@ if [ ! -d $GITREPO"/"$REPO ]; then
 	exit
 fi
 
-##############################
-
-
-
-# Check to see if setup has already run
-if [ ! -f ./already_configured ]; then 
-  # make sure it only executes once
-  touch ./already_configured  
-  echo "Make builds directory"
-  mkdir ./bin/
-  mkdir ./bin/ar71xx/
-  mkdir ./bin/ar71xx/builds
-  mkdir ./bin/atheros/
-  mkdir ./bin/atheros/builds
-  echo "Initial set up completed. Continuing with build"
-  echo ""
-else
-  echo "Build environment is configured. Continuing with build"
-  echo ""
-fi
-
 
 #########################
 
@@ -77,7 +56,7 @@ DIR=$DATE"-MP02-"$DIRVER
 BINDIR="./bin/ar71xx"
 # Set up build directory
 echo "Set up new build directory  $BINDIR/builds/build-"$DIR
-mkdir $BINDIR/builds/build-$DIR
+mkdir -p $BINDIR/builds/build-$DIR
 
 # Create md5sums files
 echo $DIR > $BINDIR/builds/build-$DIR/md5sums
