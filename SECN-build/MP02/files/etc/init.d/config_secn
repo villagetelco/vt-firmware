@@ -15,6 +15,8 @@ REGISTER=`uci get secn.asterisk.register`
 USERNAME=`uci get secn.asterisk.username`
 FROMUSERNAME=`uci get secn.asterisk.fromusername`
 
+MAILBOX=`uci get dragino2-si3217x.mp02.mailbox`
+
 SECRET=`uci get secn.asterisk.secret` # May be empty
 SECRET=`echo "$SECRET" | sed -f /bin/url-decode.sed`
 uci set secn.accesspoint.secret=$SECRET
@@ -47,6 +49,12 @@ else
 REGFLAG=";"
 fi
 
+if [ $MAILBOX = "SECNProviderMailbox@SIP_Remote" ]; then
+MAILBOXFLAG=" "
+else
+MAILBOXFLAG=";"
+fi
+
 if [ $ENABLENAT = "checked" ]; then
 ENABLENATFLAG=" "
 else
@@ -73,7 +81,7 @@ SOFTPHCLIENT=";"
 fi
 
 if [ $SOFTPH = "CLIENT" ]; then
-SOFTPHFLAG=";"
+SOFTPHFLAG=" "
 SOFTPHMASTER=";"
 SOFTPHCLIENT=" "
 fi
@@ -117,12 +125,17 @@ $ENABLENATFLAG externip=$EXTERNIP
 ; Register to VoIP Provider
 $REGFLAG $ENFLAG register => $USERNAME:$SECRET@$REGHOST
 
+; Subscribe to VoIP Provider Mailbox
+$MAILBOXFLAG $ENFLAG mwi => $USERNAME:$SECRET@$REGHOST/SECNProviderMailbox
+
 [sipaccount]
 $ENFLAG host=$HOST
 $ENFLAG secret=$SECRET
 $ENFLAG defaultuser=$USERNAME
 $ENFLAG fromuser=$USERNAME
 $ENFLAG fromdomain=$REGHOST
+
+$MAILBOXFLAG $ENFLAG unsolicited_mailbox=SECNProviderMailbox
 
 insecure=port,invite
 type=friend
@@ -131,7 +144,7 @@ allow=$CODEC1,$CODEC2,$CODEC3
 dtmfmod=rfc2833
 qualify=yes
 canreinvite=nonat
-context=incoming-vsp
+context=incoming
 alwaysauthreject=yes
 ;----------------------------
 
@@ -160,17 +173,12 @@ cat > /etc/asterisk/potato.extensions.conf << EOF
 
 ; Make calls using a SIP host [sipaccount] 
 ; Dial # for access, and then required number string
-
-[outgoing-vsp]
 exten => _$DIALOUT.,1,Dial(SIP/\${EXTEN:1}@sipaccount,120,r)
 
 ; Make calls to Softphone extensions 
 ; Device is Softphone Master (SIP server) or Client (only if FXS present e.g. MP)
-
-[outgoing-softphone]
 ; For the Master device
 $SOFTPHMASTER exten => _3XX,1,Dial(SIP/softph\${EXTEN})
-
 ; For the Client device
 $SOFTPHCLIENT exten => _3XX,1,Dial(SIP/\${EXTEN}@$SOFTPHMASTERIP, 120, r)
 

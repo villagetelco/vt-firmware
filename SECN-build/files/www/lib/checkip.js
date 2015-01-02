@@ -255,6 +255,18 @@ $(document).ready( function() {
 		}
 	});
 
+	$('#MP-FXS').validate({
+		rules: {
+			TONEZONE: {
+			CountryChecker: true
+			},
+		},
+		success: function(label) {
+			label.html("").addClass("checked");
+		}
+	});
+
+
 });
 
 

@@ -42,6 +42,40 @@ ENABLENAT=`uci get secn.asterisk.enablenat`
 SOFTPH=`uci get secn.asterisk.softph`
 ENABLE_AST=`uci get secn.asterisk.enable_ast`
 
+# Get FXS params
+FXS="dragino2-si3217x.mp02"
+LINE_Z=`uci get $FXS.opermode`
+TONEZONE=`uci get $FXS.tonezone | tr '[a-z]' '[A-Z]'`
+RXGAIN=`uci get $FXS.rxgain`
+TXGAIN=`uci get $FXS.txgain`
+HOOKFLASH=`uci get $FXS.rxflash`
+
+LEC_ENABLE=`uci get $FXS.echocan`
+if [ $LEC_ENABLE = "1" ]; then
+	LEC_ENABLE="checked"
+else
+	LEC_ENABLE="0"
+fi
+
+MWI_ENABLE=`uci get $FXS.mwi`
+if [ $MWI_ENABLE = "1" ]; then
+	MWI_ENABLE="checked"
+else
+	MWI_ENABLE="0"
+fi
+
+MAIL_ENABLE=`uci get $FXS.mailbox`
+if [ $MAIL_ENABLE != "" ]; then                       
+	MAIL_ENABLE="checked"                                 
+fi                                                       
+
+LCD_ENABLE=`uci get $FXS.signalling`
+if [ $LCD_ENABLE = "ls" ]; then
+	LCD_ENABLE="checked"
+else
+	LCD_ENABLE="0"
+fi
+
 # Access Point configuration parameters
 SSID=`uci get secn.accesspoint.ssid`
 ENCRYPTION=`uci get secn.accesspoint.encryption`
