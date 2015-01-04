@@ -106,38 +106,6 @@ cat > /tmp/config.html << EOF
 					</table>
 				</fieldset>
 
-				<fieldset class="asterisk">
-					<legend>VoIP / SIP Configuration</legend>
-					<table>
-						<tr>
-							<td class="label"><label for="user">User Name</label></td>
-							<td class="field"><input type="text" name="USER" id="user" VALUE=$USERNAME> </td>
-
-							<td class="label"><label>Password</label></td>
-							<td class="field"><input  type="text" name="SECRET" id="secret" VALUE=$SECRET></td>
-						</tr>
-						<tr>
-							<td class="label"><label for="host">SIP Host</label></td>
-							<td class="field"><input type="text" name="HOST" id="host" VALUE=$HOST></td>
-							<td class="label"><label>Dialout Code</label></td>
-							<td class="field">
-							  <SELECT name="DIALOUT" id="dialout">
-								<option selected="$DIALOUT">$DIALOUT</option>
-								<option value="#"> # </option>
-								<option value="9"> 9 </option>
-								<option value="0"> 0 </option>
-							  </SELECT></td>
-						</tr>
-						<tr>
-							<td class="label"><label>SIP Enable</label></td>
-							<td class="field"><input  type="checkbox" name="ENABLE" id="enable" VALUE="checked" $ENABLE ></td>
-
-							<td class="label"><label> SIP Status </label> </td>
-							<td class="ast_reg"> <label> $REG_STATUS </label> </td>
-						</tr>
-					</table>
-				</fieldset>
-
 				<fieldset class="password">
 					<legend>Password</legend>
 					<table>
@@ -235,8 +203,7 @@ cat > /tmp/config.html << EOF
 				<div class="panel-container">
 					<div id="tab-adv">
 						<form name="MP-ADV" id="MP-ADV" METHOD=GET ACTION="/cgi-bin/config/conf-sub-adv.sh">
-
-							Time: $UPTIME  ...CPU Processes: $PROC  ...Memory: $MEMSTR
+							<pre> Time: $UPTIME   CPU Processes: $PROC   Free/Total Memory: $MEMSTR </pre>
 
 							<fieldset class="network-adv">
 								<legend>Network</legend>
@@ -747,8 +714,7 @@ cat > /tmp/config.html << EOF
 
 		<!-- Status Page -->
 		<div id="tabs1-status">
-			Time: $UPTIME  ...CPU Processes: $PROC  ...Memory: $MEMSTR
-			<p> </p>
+			<pre> Time: $UPTIME   CPU Processes: $PROC   Free/Total Memory: $MEMSTR </pre>
 			<h3> Mesh Nodes </h3>  
  			<div class="slideContainer">
   			<span class="slide"><iframe id="FrameID1" src="/bat1.txt"  height="150" ></iframe></span> 
