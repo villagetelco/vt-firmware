@@ -212,11 +212,14 @@ cat > /tmp/config.html << EOF
 			 <div class="tab-container" id="inner-container">
 				<ul class='etabs'>
 				<li class='tab'><a href="#tab-adv">Advanced</a></li>
+				<li class='tab'><a href="#tab-fxs">FXS</a></li>                                                                   
 				<li class='tab'><a href="#tab-adv2">WAN</a></li>
 				<li class='tab'><a href="#tab-fw">Firmware</a></li>
 				</ul>
 
-				<div class="panel-container">
+			<div class="panel-container">
+
+			<!-- Adv Configuration Form -->
 					<div id="tab-adv">
 						<form name="MP-ADV" id="MP-ADV" METHOD=GET ACTION="/cgi-bin/config/conf-sub-adv.sh">
 
@@ -553,7 +556,101 @@ cat > /tmp/config.html << EOF
 						</form>
 					</div>
 
-		<!-- Advanced Configuration Form Tab 2-->
+		<!-- FXS Configuration Form -->
+		<div id="tab-fxs">
+    	<form name="MP-FXS" id="MP-FXS" METHOD=GET ACTION="/cgi-bin/config/conf-sub-fxs.sh">
+				<fieldset class="network-adv">
+					<legend>FXS</legend>
+						<table>
+
+							<tr>
+								<td class="label"><label>Line Impedance</label></td>
+									<td class="field">
+									<SELECT name="LINE_Z" id="line_z">
+										<option selected="$LINE_Z"> $LINE_Z </option>
+										<option value="FCC">   FCC   US 600R  </option>
+										<option value="TBR21"> TBR21 EU 270R+(750R||150nF) </option>
+										<option value="TN12">  TN12  AU 220R+(820R||120nF) </option>
+										<option value="BT3">   BT3   NZ 370R+(620R||310nF) </option>
+									</SELECT>
+									</td>
+
+									<td class="label"><label for="TONEZONE"> Tones Country Code </label></td>
+									<td class="field"><input type="text" name="TONEZONE" id="tonezone" VALUE=$TONEZONE ></td>
+								</tr>
+
+								<tr>
+									<td class="label"><label>Microphone Gain (d)B</label></td>
+									<td class="field">
+									<SELECT name="RXGAIN" id="rxgain">
+										<option selected="$RXGAIN"> $RXGAIN </option>
+										<option value="6"> 6dB </option>
+										<option value="4"> 4dB </option>
+										<option value="2"> 2dB </option>
+										<option value="0"> 0dB </option>
+										<option value="-2"> -2dB </option>
+										<option value="-4"> -4dB </option>
+										<option value="-6"> -6dB </option>
+									</SELECT>
+									</td>
+
+									<td class="label"><label>Receiver Gain (dB)</label></td>
+									<td class="field">
+									<SELECT name="TXGAIN" id="txgain">
+										<option selected="$TXGAIN"> $TXGAIN </option>
+										<option value="6"> 6dB </option>
+										<option value="4"> 4dB </option>
+										<option value="2"> 2dB </option>
+										<option value="0"> 0dB </option>
+										<option value="-2"> -2dB </option>
+										<option value="-4"> -4dB </option>
+										<option value="-6"> -6dB </option>  
+									</SELECT>                                                      
+									</td>
+
+									<td class="label"><label>Hookflash</label></td>
+									<td class="field">
+									<SELECT name="HOOKFLASH" id="hookflash">
+										<option selected="$HOOKFLASH"> $HOOKFLASH </option>
+										<option value="60"> 60mS </option>
+										<option value="100"> 100mS </option>
+										<option value="400"> 400mS </option>
+										<option value="600"> 600mS </option>
+										<option value="1250"> 1250mS </option>
+										<option value="2000"> 2000mS </option>
+									</SELECT>
+									</td>
+								</tr>
+
+								<tr>
+									<td class="label"><label>Line Echo Cancellation</label>
+									<td class="field"><input type="checkbox" name="LEC_ENABLE" id="lec_enable" VALUE="checked" $LEC_ENABLE ></td>
+									<td class="label"><label>Line Current Disconnect </label>
+									<td class="field"><input type="checkbox" name="LCD_ENABLE" id="lcd_enable" VALUE="checked" $LCD_ENABLE ></td>
+									<td class="label"><label>Mailbox Enable</label>
+									<td class="field"><input type="checkbox" name="MAIL_ENABLE" id="mail_enable" VALUE="checked" $MAIL_ENABLE ></td>
+									<td class="label"><label>Message Waiting </label>
+									<td class="field"><input type="checkbox" name="MWI_ENABLE" id="mwi_enable" VALUE="checked" $MWI_ENABLE ></td>
+								</tr>
+
+							</table>
+						</fieldset>
+
+						<table class="submitform">
+							<tr>
+								<td>
+									<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Refresh">
+									<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Save">
+									<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Reboot" >
+								</td>
+							</tr>
+						</table>
+
+					</form>
+				</div>
+
+
+		<!-- WAN Configuration Form -->
 					<div id="tab-adv2">
 						<form name="MP-ADV2" id="MP-ADV2" METHOD="GET" ACTION="/cgi-bin/config/conf-sub-adv2.sh">
 							<fieldset class="dhcp">
@@ -563,7 +660,7 @@ cat > /tmp/config.html << EOF
 										<td class="label"><label> WAN Port</label></td>
 										<td class="field">
 										<SELECT name="WANPORT" id="wanport">
-											<option selected="$WANPORT">$WANPORT</option>
+										 	<option selected="$WANPORT">$WANPORT</option>
 											<option value="Disable"> Disable </option>
 											<option value="Ethernet"> Ethernet </option>
 											<option value="USB-Modem"> USB-Modem </option>
