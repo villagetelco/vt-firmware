@@ -1,0 +1,13 @@
+SECN 3.0 Duo BB Build Notes
+---------------------------
+
+1. By default the Ralink devices will not operate correctly in the BB build.
+The kmod-rt28xx-usb drive has a problem which causes the device to appear to work OK but 
+actually emits no RF signal.
+Removing three patches from the build directory corrects this problem as follows:
+
+  rm package/kernel/mac80211/patches/910-00-rt2x00-enable-rt2800soc-for-mt7620.patch 
+  rm package/kernel/mac80211/patches/910-01-add-support-for-mt7620.patch
+  rm package/kernel/mac80211/patches/925-rt2x00-backport_rf5362.patch
+
+2. 
