@@ -49,7 +49,7 @@ fi
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="BB-Alpha2-Duo"
+DIRVER="BB-Alpha8-Duo"
 VER="SECN-3_0-"$DIRVER
 
 ###########################
@@ -201,21 +201,6 @@ build_tp WR703 Duo
 build_tp WR841 Duo
 build_tp WR842 Duo
 build_tp MR3420 Duo
-
-echo "Build script TP complete"
-exit
-
-build_tp WR842
-#build_tp WR842   Pros
-build_tp WDR4300
-#build_tp WDR4300 Pros
-build_tp MR3020
-build_tp MR3040
-build_tp MR3420
-build_tp MR11U
-build_tp WR703
-build_tp WR741
-build_tp WR841
 
 echo " "
 echo "Build script TP complete"

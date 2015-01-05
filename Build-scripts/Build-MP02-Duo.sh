@@ -49,7 +49,7 @@ fi
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="BB-Alpha2-Duo"
+DIRVER="BB-Alpha8-Duo"
 VER="SECN-3_0-"$DIRVER
 
 ###########################
@@ -198,11 +198,6 @@ echo " "
 echo '----------------------------'
 
 build_mp02 MP02 Duo
-#build_mp02 MP02  Pros
-#build_mp02 MP02  noAst
-#build_mp02 MP02  CC
-#build_mp02 MP02  NDS
-#build_mp02 MP02  Pol
 
 echo " "
 echo " Build script MP02 complete"
