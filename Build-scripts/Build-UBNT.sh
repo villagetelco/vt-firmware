@@ -22,6 +22,14 @@ if [ ! -d $GITREPO"/"$REPO ]; then
 	exit
 fi
 
+echo "Check out the correct branch"
+BUILD_DIR=$(pwd)
+cd $GITREPO"/"$REPO
+git checkout secn_3.0 > /dev/null
+git branch | grep "*"
+cd $BUILD_DIR
+pwd
+
 ##############################
 
 
@@ -49,7 +57,7 @@ fi
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="BB-Alpha6"
+DIRVER="BB-Alpha8"
 VER="SECN-3_0-"$DIRVER
 
 ###########################
@@ -105,11 +113,11 @@ make defconfig > /dev/null
 
 # Set up target display strings
 TARGET=`cat .config | grep "CONFIG_TARGET" | grep "=y" | grep "_generic_" | cut -d _ -f 5 | cut -d = -f 1 `
-###OPENWRTVER=`cat ./.config | grep "OpenWrt version" | cut -d : -f 2`
+#OPENWRTVER=`cat ./.config | grep "OpenWrt version" | cut -d : -f 2`
 
 echo "Check .config version"
 echo "Target:  " $TARGET
-###echo "OpenWRT: " $OPENWRTVER
+#echo "OpenWRT: " $OPENWRTVER
 echo ""
 
 echo "Set up files for "$1 $2
@@ -135,7 +143,7 @@ echo "Version: " $VER $TARGET $2
 echo "Date stamp: " $DATE
 
 echo "Version:    " $VER $TARGET $2        > ./files/etc/secn_version
-###echo "OpenWRT:    " $OPENWRTVER           >> ./files/etc/secn_version
+#echo "OpenWRT:    " $OPENWRTVER           >> ./files/etc/secn_version
 echo "Build date: " $DATE                 >> ./files/etc/secn_version
 echo "GitHub:     " $REPO $REPOID         >> ./files/etc/secn_version
 echo " "                                  >> ./files/etc/secn_version
@@ -171,12 +179,10 @@ md5sum $BINDIR/*-squash*sysupgrade.bin >> $BINDIR/builds/build-$DIR/md5sums-$VER
 
 echo  "Move files to build folder"
 cp $BINDIR/openwrt*-squash*sysupgrade.bin $BINDIR/builds/build-$DIR
-####mv $BINDIR/openwrt*-squash*sysupgrade.bin $BINDIR/builds/build-$DIR
-#mv $BINDIR/*-squash*factory.bin    $BINDIR/builds/build-$DIR
 echo ""
 
 echo "Clean up unused files"
-####rm $BINDIR/openwrt-*
+rm $BINDIR/openwrt-*
 echo ""
 
 echo ""

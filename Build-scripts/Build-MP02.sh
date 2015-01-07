@@ -22,6 +22,14 @@ if [ ! -d $GITREPO"/"$REPO ]; then
 	exit
 fi
 
+echo "Check out the correct branch"
+BUILD_DIR=$(pwd)
+cd $GITREPO"/"$REPO
+git checkout secn_3.0 > /dev/null
+git branch | grep "*"
+cd $BUILD_DIR
+pwd
+
 ##############################
 
 
@@ -49,7 +57,7 @@ fi
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="BB-Alpha6"
+DIRVER="BB-Alpha8"
 VER="SECN-3_0-"$DIRVER
 
 ###########################
@@ -109,7 +117,7 @@ OPENWRTVER=`cat ./.config | grep "OpenWrt version" | cut -d : -f 2`
 
 echo "Check .config version"
 echo "Target:  " $TARGET
-###echo "OpenWRT: " $OPENWRTVER
+#echo "OpenWRT: " $OPENWRTVER
 echo ""
 
 echo "Set up files for "$1 $2
@@ -135,7 +143,7 @@ echo "Version: " $VER $TARGET $2
 echo "Date stamp: " $DATE
 
 echo "Version:    " $VER $TARGET $2        > ./files/etc/secn_version
-###echo "OpenWRT:    " $OPENWRTVER           >> ./files/etc/secn_version
+#echo "OpenWRT:    " $OPENWRTVER           >> ./files/etc/secn_version
 echo "Build date: " $DATE                 >> ./files/etc/secn_version
 echo "GitHub:     " $REPO $REPOID         >> ./files/etc/secn_version
 echo " "                                  >> ./files/etc/secn_version
@@ -198,11 +206,6 @@ echo " "
 echo '----------------------------'
 
 build_mp02 MP02 
-#build_mp02 MP02  Pros
-#build_mp02 MP02  noAst
-#build_mp02 MP02  CC
-#build_mp02 MP02  NDS
-#build_mp02 MP02  Pol
 
 echo " "
 echo " Build script MP02 complete"
