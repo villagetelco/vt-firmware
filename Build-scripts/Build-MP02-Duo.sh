@@ -22,6 +22,22 @@ if [ ! -d $GITREPO"/"$REPO ]; then
 	exit
 fi
 
+echo "Check out the correct branch"
+BUILD_DIR=$(pwd)
+cd $GITREPO"/"$REPO
+git checkout secn_2.0-Duo > /dev/null
+git branch | grep "*"
+cd $BUILD_DIR
+pwd
+
+echo "Check out the correct branch"
+BUILD_DIR=$(pwd)
+cd $GITREPO"/"$REPO
+git checkout secn_2.0-Duo > /dev/null
+git branch | grep "*"
+cd $BUILD_DIR
+pwd
+
 ##############################
 
 
@@ -42,7 +58,6 @@ else
   echo "Build environment is configured. Continuing with build"
   echo ""
 fi
-
 
 #########################
 
@@ -198,11 +213,6 @@ echo " "
 echo '----------------------------'
 
 build_mp02 MP02 Duo
-#build_mp02 MP02  Pros
-#build_mp02 MP02  noAst
-#build_mp02 MP02  CC
-#build_mp02 MP02  NDS
-#build_mp02 MP02  Pol
 
 echo " "
 echo " Build script MP02 complete"
