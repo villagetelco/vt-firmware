@@ -50,7 +50,7 @@ config wifi-device 'radio1'
 	option htmode 'HT20'
 	option chanbw '20'
 	option txpower '17'
-	option disabled '1'
+	option disabled '0'
 
 config wifi-iface 'ap_1'
 	option device 'radio1'
