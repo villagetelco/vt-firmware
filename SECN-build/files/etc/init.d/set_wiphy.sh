@@ -9,7 +9,7 @@
 # By default it is phy0 but may be assigned phy1 if Ralink USB device is present.
 # Atheros USB devices do not change the phy setting for the internal wifi.
 
-WIFI_INT="AR9330"   # Set this value to match the router's internal wifi id string in dmesg.
+WIFI_INT="AR933"   # Set this value to match the router's internal wifi id string in dmesg.
 
 # Check dmesg for phy assignment
 CHECK_PHY0=$(dmesg |grep $WIFI_INT |grep -c "phy0")
