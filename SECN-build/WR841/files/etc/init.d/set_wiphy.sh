@@ -19,12 +19,16 @@ CHECK_PHY1=$(dmesg |grep $WIFI_INT |grep -c "phy1")
 if [ $CHECK_PHY1 = "1" ]; then
         uci set wireless.radio0.phy="phy1"
         uci set wireless.radio1.phy="phy0"
+		uci set system.led_wlan.trigger="phy1tpt"
         uci commit wireless
+		uci commit system
 
 # If WIFI_INT is set to phy0
 elif [ $CHECK_PHY0 = "1" ]; then
         uci set wireless.radio0.phy="phy0"
         uci set wireless.radio1.phy="phy1"
+		uci set system.led_wlan.trigger="phy0tpt"
         uci commit wireless
+		uci commit system
 fi
 
