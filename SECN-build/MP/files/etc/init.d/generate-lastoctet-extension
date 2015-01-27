@@ -1,4 +1,0 @@
-#!/bin/sh
-
-/bin/generate-extension.sh
-

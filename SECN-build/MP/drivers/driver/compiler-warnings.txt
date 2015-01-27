@@ -1,8 +1,0 @@
-/home/elektra/SRC/trunk-MP-update-January-11th/david/driver/mp.c:904:8: warning: initialization from incompatible pointer type
-/home/elektra/SRC/trunk-MP-update-January-11th/david/driver/mp.c: In function '__wait_access':
-/home/elektra/SRC/trunk-MP-update-January-11th/david/driver/mp.c:386:19: warning: 'data' may be used uninitialized in this function
-/home/elektra/SRC/trunk-MP-update-January-11th/david/driver/8250mp.c: In function 'autoconfig':
-/home/elektra/SRC/trunk-MP-update-January-11th/david/driver/8250mp.c:1023:2: warning: format '%04x' expects type 'unsigned int', but argument 3 has type 'long unsigned int'
-WARNING: modpost: Found 1 section mismatch(es).
-To see full details build your kernel with:
-'make CONFIG_DEBUG_SECTION_MISMATCH=y'
