@@ -28,8 +28,8 @@ config secn 'accesspoint'
 	option encryption 'WPA2'
 
 config secn 'mesh'
-	option mesh_enable 'checked'
 	option mpgw 'OFF'
+	option mesh_disable '0'
 
 config secn 'dhcp'
 	option enable '0'
