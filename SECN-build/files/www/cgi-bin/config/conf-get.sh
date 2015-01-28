@@ -118,17 +118,15 @@ ATH0_BSSID=`uci get wireless.ah_0.bssid`
 CHANNEL=`uci get wireless.radio0.channel`
 ATH0_TXPOWER=`uci get wireless.radio0.txpower`
 ATH0_TXPOWER_ACTUAL=`iwconfig | grep -A 2 'wlan0' | grep -m 1 'Tx-Power'| cut -d T -f 2|cut -d = -f 2`
-RADIOMODE=`uci get wireless.radio0.hwmode`
+RADIOMODE=`uci get wireless.radio0.htmode`
 CHANBW=`uci get wireless.radio0.chanbw`
-HTMODE=`uci get wireless.radio0.htmode`
 COUNTRY=`uci get wireless.radio0.country`
 # Radio1
 CHANNEL1=`uci get wireless.radio1.channel`
 ATH0_TXPOWER1=`uci get wireless.radio1.txpower`
 ATH0_TXPOWER_ACTUAL1=`iwconfig | grep -A 2 'wlan1' | grep -m 1 'Tx-Power'| cut -d T -f 2|cut -d = -f 2`
-RADIOMODE1=`uci get wireless.radio1.hwmode`
+RADIOMODE1=`uci get wireless.radio1.htmode`
 CHANBW1=`uci get wireless.radio1.chanbw`
-HTMODE1=`uci get wireless.radio1.htmode`
 COUNTRY1=`uci get wireless.radio1.country`
 
 # Get web server parameters
