@@ -16,10 +16,9 @@ ENABLENAT="0"
 BUTTON="0"
 DHCP_ENABLE="0"
 ENABLE_AST="0"
-USREG_DOMAIN="0"
 DHCP_AUTH="0"
-MESH_ENABLE="0"
-AP_ENABLE="0"
+MESH_DISABLE="0"
+AP_DISABLE="0"
 DEVICE_IP="0"
 AP_ISOL="0"
 COUNTRY=" "
@@ -177,13 +176,13 @@ uci set wireless.radio0.channel=\$CHANNEL
 uci set wireless.radio0.txpower=\$ATH0_TXPOWER
 uci set wireless.radio0.chanbw=\$CHANBW
 uci set wireless.radio0.country=\$COUNTRY
-uci set wireless.radio0.hwmode=\$RADIOMODE
+uci set wireless.radio0.htmode=\$RADIOMODE
 
 uci set wireless.radio1.channel=\$CHANNEL1
 uci set wireless.radio1.txpower=\$ATH0_TXPOWER1
 uci set wireless.radio1.chanbw=\$CHANBW1
 uci set wireless.radio1.country=\$COUNTRY1
-uci set wireless.radio1.hwmode=\$RADIOMODE1
+uci set wireless.radio1.htmode=\$RADIOMODE1
 
 # Write the adhoc interface settings into /etc/config/wireless
 uci set wireless.ah_0.ssid=\$ATH0_SSID
