@@ -237,7 +237,7 @@ cat > /tmp/config.html << EOF
 				<div class="panel-container">
 					<div id="tab-adv">
 						<form name="MP-ADV" id="MP-ADV" METHOD=GET ACTION="/cgi-bin/config/conf-sub-adv.sh">
-						<pre> Time: $UPTIME   CPU Processes: $PROC   Free/Total Memory: $MEMSTR </pre>
+							<pre> Time: $UPTIME  CPU Processes: $PROC  Free/Total Memory: $MEMSTR </pre>
 
 							<fieldset class="network-adv">
 								<legend>Network</legend>
@@ -310,12 +310,12 @@ cat > /tmp/config.html << EOF
 
 			<table>
 				<tr>
-					<td class="label"><label for="RADIOMODE">Wifi Mode</label></td>
+					<td class="label"><label for="RADIOMODE">HT Mode</label></td>
 					<td class="field">
 						<SELECT name="RADIOMODE" id="radiomode">
 						<option selected="$RADIOMODE">$RADIOMODE</option>
-						<option value="11g">802.11G</option>
-						<option value="11ng">802.11N-G</option>
+						<option value="HT20">HT20</option>
+						<option value="NONE">NONE</option>
 						</SELECT>
 					</td>
 					<td class="label"><label for="COUNTRY"> Country Code</label></td>
@@ -384,14 +384,12 @@ cat > /tmp/config.html << EOF
 
 			<table>
 				<tr>
-					<td class="label"><label for="RADIOMODE1">Wifi Mode</label></td>
+					<td class="label"><label for="RADIOMODE1">HT Mode</label></td>
 					<td class="field">
 						<SELECT name="RADIOMODE1" id="radiomode1">
 						<option selected="$RADIOMODE1">$RADIOMODE1</option>
-						<option value="11g">802.11G</option>
-						<option value="11ng">802.11NG</option>
-						<option value="11a">802.11A</option>
-						<option value="11ag">802.11AG</option>
+						<option value="HT20">HT20</option>
+						<option value="NONE">NONE</option>
 						</SELECT>
 					</td>
 					<td class="label"><label for="COUNTRY1"> Country Code</label></td>
@@ -903,7 +901,7 @@ cat > /tmp/config.html << EOF
 
 		<!-- Status Page -->
 		<div id="tabs1-status">
-			<pre> Time: $UPTIME   CPU Processes: $PROC   Free/Total Memory: $MEMSTR </pre>
+			<pre> Time: $UPTIME  CPU Processes: $PROC  Free/Total Memory: $MEMSTR </pre>
 			<h3> Mesh Nodes </h3>  
  			<div class="slideContainer">
   			<span class="slide"><iframe id="FrameID1" src="/bat1.txt"  height="150" ></iframe></span> 

@@ -244,12 +244,12 @@ fi
 
 # Set up for Mesh WAN
 if [ $WANPORT = "Mesh" ]; then
-  uci set network.lan.ifname='eth0'
-  uci set network.wan.ifname='bat0' 
-  uci set network.wan.type='bridge' # Reqd. See /etc/init.d/set-mesh-gw-mode
-  MESH_DISABLE='0'
-  uci set secn.mesh.mesh_disable='0'
-  uci set network.lan.gateway='255.255.255.255'
+	uci set network.lan.ifname='eth0'
+	uci set network.wan.ifname='bat0' 
+	uci set network.wan.type='bridge' # Reqd. See /etc/init.d/set-mesh-gw-mode
+	MESH_DISABLE='0'
+	uci set secn.mesh.mesh_disable='0'
+	uci set network.lan.gateway='255.255.255.255'
 fi
 
 
