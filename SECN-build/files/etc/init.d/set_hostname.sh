@@ -19,5 +19,4 @@ uci commit uhttpd
 # Set the system hostname
 echo $HOSTNAME > /proc/sys/kernel/hostname
 
-# Add hostname to /etc/hosts
-echo "127.0.0.1  $HOSTNAME" >> /etc/hosts
+
