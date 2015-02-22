@@ -1,6 +1,6 @@
 #!/bin/sh
 
-HOST="RACHEL"
+HOST="VTRACHEL"
 
 # Set the hostname
 uci set system.@system[0].hostname=$HOST
