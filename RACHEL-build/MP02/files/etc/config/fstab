@@ -7,31 +7,21 @@ config global autoswap
 	option anon_swap '0'
 	
 config 'mount'
-	option 'target'		'/www/rachel'
-	option 'label'		'VT-RACHEL'
+	option 'device'		'/dev/sda'
+	option 'target'		'/mnt/sda'
 	option 'fstype'		'auto'
 
 config 'mount'
-	option 'device'		'/dev/sda2'
-	option 'target'		'/www/rachel2'
+	option 'device'		'/dev/sdb'
+	option 'target'		'/mnt/sdb'
 	option 'fstype'		'auto'
 
 config 'mount'
-	option 'device'		'/dev/sda1'
-	option 'target'		'/mnt/sda1'
+	option 'device'		'/dev/sdc'
+	option 'target'		'/mnt/sdc'
 	option 'fstype'		'auto'
 
-config 'mount'
-	option 'device'		'/dev/sdb1'
-	option 'target'		'/mnt/sdb1'
-	option 'fstype'		'auto'
-
-config 'mount'
-	option 'device'		'/dev/sdc1'
-	option 'target'		'/mnt/sdc1'
-	option 'fstype'		'auto'
-
-config swap
-	option device	'/dev/sda2'
-	option enabled	'0'
+#config swap
+#	option device	'/dev/sda2'
+#	option enabled	'0'
 
