@@ -9,17 +9,17 @@ mount /dev/sda2  /mnt/sda2
 
 # Check for RACHEL SD Card
 if [ -e "/mnt/sda2/var/www/modules" ]; then    
-ln -s /mnt/sda2/var/www/modules /tmp/modules
+ln -s -f /mnt/sda2/var/www/modules /www/rachel/modules
 fi
 
 # Check for RACHEL USB
 if [ -e "/mnt/sda1/RACHEL/bin/www/modules" ]; then
-ln -s /mnt/sda1/RACHEL/bin/www/modules /tmp/modules
+ln -s -f /mnt/sda1/RACHEL/bin/www/modules /www/rachel/modules
 fi
 
 # Check for VT USB
 if [ -e "/mnt/sda1/modules" ]; then
-ln -s /mnt/sda1/modules /tmp/modules
+ln -s -f /mnt/sda1/modules /www/rachel/modules
 fi
 
 # -----------------------------

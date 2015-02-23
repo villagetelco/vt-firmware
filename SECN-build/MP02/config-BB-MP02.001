@@ -261,10 +261,10 @@ CONFIG_KERNEL_SWAP=y
 CONFIG_KERNEL_DEBUG_FS=y
 # CONFIG_KERNEL_PERF_EVENTS is not set
 # CONFIG_KERNEL_PROFILING is not set
-# CONFIG_KERNEL_KALLSYMS is not set
+CONFIG_KERNEL_KALLSYMS=y
 # CONFIG_KERNEL_FTRACE is not set
-# CONFIG_KERNEL_DEBUG_KERNEL is not set
-# CONFIG_KERNEL_DEBUG_INFO is not set
+CONFIG_KERNEL_DEBUG_KERNEL=y
+CONFIG_KERNEL_DEBUG_INFO=y
 # CONFIG_KERNEL_DYNAMIC_DEBUG is not set
 # CONFIG_KERNEL_AIO is not set
 # CONFIG_KERNEL_DIRECT_IO is not set
@@ -1326,7 +1326,7 @@ CONFIG_PACKAGE_muninlite=y
 #
 # Boot Loaders
 #
-CONFIG_PACKAGE_uboot-ar71xx-nbg460n_550n_550nh=y
+# CONFIG_PACKAGE_uboot-ar71xx-nbg460n_550n_550nh is not set
 
 #
 # Development
@@ -1457,29 +1457,29 @@ CONFIG_PACKAGE_kmod-fs-vfat=y
 #
 # CONFIG_PACKAGE_kmod-hid is not set
 # CONFIG_PACKAGE_kmod-hid-generic is not set
-CONFIG_PACKAGE_kmod-input-core=y
+# CONFIG_PACKAGE_kmod-input-core is not set
 # CONFIG_PACKAGE_kmod-input-evdev is not set
 # CONFIG_PACKAGE_kmod-input-gpio-encoder is not set
 # CONFIG_PACKAGE_kmod-input-gpio-keys is not set
-CONFIG_PACKAGE_kmod-input-gpio-keys-polled=y
+# CONFIG_PACKAGE_kmod-input-gpio-keys-polled is not set
 # CONFIG_PACKAGE_kmod-input-joydev is not set
 # CONFIG_PACKAGE_kmod-input-matrixkmap is not set
-CONFIG_PACKAGE_kmod-input-polldev=y
+# CONFIG_PACKAGE_kmod-input-polldev is not set
 
 #
 # LED modules
 #
-CONFIG_PACKAGE_kmod-leds-gpio=y
+# CONFIG_PACKAGE_kmod-leds-gpio is not set
 # CONFIG_PACKAGE_kmod-leds-rb750 is not set
 # CONFIG_PACKAGE_kmod-leds-wndr3700-usb is not set
-CONFIG_PACKAGE_kmod-ledtrig-default-on=y
+# CONFIG_PACKAGE_kmod-ledtrig-default-on is not set
 # CONFIG_PACKAGE_kmod-ledtrig-gpio is not set
 # CONFIG_PACKAGE_kmod-ledtrig-heartbeat is not set
 # CONFIG_PACKAGE_kmod-ledtrig-morse is not set
-CONFIG_PACKAGE_kmod-ledtrig-netdev=y
+# CONFIG_PACKAGE_kmod-ledtrig-netdev is not set
 # CONFIG_PACKAGE_kmod-ledtrig-netfilter is not set
 # CONFIG_PACKAGE_kmod-ledtrig-oneshot is not set
-CONFIG_PACKAGE_kmod-ledtrig-timer=y
+# CONFIG_PACKAGE_kmod-ledtrig-timer is not set
 CONFIG_PACKAGE_kmod-ledtrig-usbdev=y
 
 #
@@ -1524,7 +1524,7 @@ CONFIG_PACKAGE_kmod-nls-iso8859-1=y
 #
 # CONFIG_PACKAGE_kmod-arptables is not set
 # CONFIG_PACKAGE_kmod-ebtables is not set
-# CONFIG_PACKAGE_kmod-ip6tables is not set
+CONFIG_PACKAGE_kmod-ip6tables=y
 # CONFIG_PACKAGE_kmod-ip6tables-extra is not set
 # CONFIG_PACKAGE_kmod-ipt-account is not set
 # CONFIG_PACKAGE_kmod-ipt-chaos is not set
@@ -1603,7 +1603,7 @@ CONFIG_PACKAGE_kmod-ipt-nathelper=y
 # CONFIG_PACKAGE_kmod-ifb is not set
 # CONFIG_PACKAGE_kmod-libphy is not set
 # CONFIG_PACKAGE_kmod-macvlan is not set
-# CONFIG_PACKAGE_kmod-mii is not set
+CONFIG_PACKAGE_kmod-mii=y
 # CONFIG_PACKAGE_kmod-natsemi is not set
 # CONFIG_PACKAGE_kmod-ne2k-pci is not set
 # CONFIG_PACKAGE_kmod-of-mdio is not set
@@ -1669,9 +1669,9 @@ CONFIG_PACKAGE_kmod-pppoe=y
 CONFIG_PACKAGE_kmod-pppox=y
 # CONFIG_PACKAGE_kmod-pptp is not set
 # CONFIG_PACKAGE_kmod-rxrpc is not set
-CONFIG_PACKAGE_kmod-sched=y
+# CONFIG_PACKAGE_kmod-sched is not set
 # CONFIG_PACKAGE_kmod-sched-connmark is not set
-CONFIG_PACKAGE_kmod-sched-core=y
+# CONFIG_PACKAGE_kmod-sched-core is not set
 # CONFIG_PACKAGE_kmod-sched-esfq is not set
 # CONFIG_PACKAGE_kmod-sctp is not set
 # CONFIG_PACKAGE_kmod-sit is not set
@@ -1687,7 +1687,7 @@ CONFIG_PACKAGE_kmod-slhc=y
 #
 # CONFIG_PACKAGE_kmod-bcma is not set
 # CONFIG_PACKAGE_kmod-bluetooth is not set
-CONFIG_PACKAGE_kmod-button-hotplug=y
+# CONFIG_PACKAGE_kmod-button-hotplug is not set
 # CONFIG_PACKAGE_kmod-eeprom-93cx6 is not set
 # CONFIG_PACKAGE_kmod-eeprom-at24 is not set
 # CONFIG_PACKAGE_kmod-eeprom-at25 is not set
@@ -1750,7 +1750,24 @@ CONFIG_PACKAGE_kmod-gpio-button-hotplug=y
 CONFIG_PACKAGE_kmod-usb-core=y
 # CONFIG_PACKAGE_kmod-usb-dwc2 is not set
 # CONFIG_PACKAGE_kmod-usb-hid is not set
-# CONFIG_PACKAGE_kmod-usb-net is not set
+CONFIG_PACKAGE_kmod-usb-net=y
+# CONFIG_PACKAGE_kmod-usb-net-asix is not set
+# CONFIG_PACKAGE_kmod-usb-net-cdc-eem is not set
+CONFIG_PACKAGE_kmod-usb-net-cdc-ether=y
+# CONFIG_PACKAGE_kmod-usb-net-cdc-mbim is not set
+# CONFIG_PACKAGE_kmod-usb-net-cdc-ncm is not set
+# CONFIG_PACKAGE_kmod-usb-net-cdc-subset is not set
+# CONFIG_PACKAGE_kmod-usb-net-dm9601-ether is not set
+# CONFIG_PACKAGE_kmod-usb-net-hso is not set
+# CONFIG_PACKAGE_kmod-usb-net-ipheth is not set
+# CONFIG_PACKAGE_kmod-usb-net-kalmia is not set
+# CONFIG_PACKAGE_kmod-usb-net-kaweth is not set
+# CONFIG_PACKAGE_kmod-usb-net-mcs7830 is not set
+# CONFIG_PACKAGE_kmod-usb-net-pegasus is not set
+# CONFIG_PACKAGE_kmod-usb-net-qmi-wwan is not set
+# CONFIG_PACKAGE_kmod-usb-net-rndis is not set
+# CONFIG_PACKAGE_kmod-usb-net-sierrawireless is not set
+# CONFIG_PACKAGE_kmod-usb-net-smsc95xx is not set
 CONFIG_PACKAGE_kmod-usb-ohci=y
 # CONFIG_PACKAGE_kmod-usb-printer is not set
 CONFIG_PACKAGE_kmod-usb-serial=y
@@ -1765,14 +1782,14 @@ CONFIG_PACKAGE_kmod-usb-serial=y
 # CONFIG_PACKAGE_kmod-usb-serial-mct is not set
 # CONFIG_PACKAGE_kmod-usb-serial-mos7720 is not set
 # CONFIG_PACKAGE_kmod-usb-serial-motorola-phone is not set
-CONFIG_PACKAGE_kmod-usb-serial-option=y
+# CONFIG_PACKAGE_kmod-usb-serial-option is not set
 # CONFIG_PACKAGE_kmod-usb-serial-oti6858 is not set
 # CONFIG_PACKAGE_kmod-usb-serial-pl2303 is not set
 # CONFIG_PACKAGE_kmod-usb-serial-qualcomm is not set
-CONFIG_PACKAGE_kmod-usb-serial-sierrawireless=y
+# CONFIG_PACKAGE_kmod-usb-serial-sierrawireless is not set
 # CONFIG_PACKAGE_kmod-usb-serial-ti-usb is not set
 # CONFIG_PACKAGE_kmod-usb-serial-visor is not set
-CONFIG_PACKAGE_kmod-usb-serial-wwan=y
+# CONFIG_PACKAGE_kmod-usb-serial-wwan is not set
 CONFIG_PACKAGE_kmod-usb-storage=y
 # CONFIG_PACKAGE_kmod-usb-storage-extras is not set
 # CONFIG_PACKAGE_kmod-usb-uhci is not set
@@ -1877,8 +1894,7 @@ CONFIG_PACKAGE_MAC80211_MESH=y
 # Lua
 #
 # CONFIG_PACKAGE_libiwinfo-lua is not set
-CONFIG_PACKAGE_lua=y
-# CONFIG_PACKAGE_lua-examples is not set
+# CONFIG_PACKAGE_lua is not set
 # CONFIG_PACKAGE_luabitop is not set
 # CONFIG_PACKAGE_luac is not set
 # CONFIG_PACKAGE_luaexpat is not set
@@ -1921,7 +1937,7 @@ CONFIG_PACKAGE_libxtables=y
 #
 # SSL
 #
-# CONFIG_PACKAGE_libcyassl is not set
+CONFIG_PACKAGE_libcyassl=y
 # CONFIG_PACKAGE_libgnutls is not set
 # CONFIG_PACKAGE_libgnutls-openssl is not set
 CONFIG_PACKAGE_libopenssl=y
@@ -1965,7 +1981,7 @@ CONFIG_PACKAGE_libpolarssl=y
 # CONFIG_PACKAGE_libavahi is not set
 # CONFIG_PACKAGE_libavahi-client is not set
 # CONFIG_PACKAGE_libavahi-dbus-support is not set
-CONFIG_PACKAGE_libblkid=y
+# CONFIG_PACKAGE_libblkid is not set
 CONFIG_PACKAGE_libblobmsg-json=y
 # CONFIG_PACKAGE_libbz2 is not set
 # CONFIG_PACKAGE_libcap is not set
@@ -2008,10 +2024,10 @@ CONFIG_PACKAGE_libblobmsg-json=y
 # CONFIG_PACKAGE_libiw is not set
 CONFIG_PACKAGE_libiwinfo=y
 # CONFIG_PACKAGE_libjpeg is not set
-CONFIG_PACKAGE_libjson=y
+# CONFIG_PACKAGE_libjson is not set
 CONFIG_PACKAGE_libjson-c=y
 # CONFIG_PACKAGE_libltdl is not set
-CONFIG_PACKAGE_liblua=y
+# CONFIG_PACKAGE_liblua is not set
 # CONFIG_PACKAGE_liblzo is not set
 # CONFIG_PACKAGE_libmad is not set
 # CONFIG_PACKAGE_libminiupnpc is not set
@@ -2075,10 +2091,10 @@ CONFIG_PACKAGE_libuci=y
 # CONFIG_PACKAGE_liburcu is not set
 CONFIG_PACKAGE_libusb-1.0=y
 # CONFIG_PACKAGE_libusb-compat is not set
-# CONFIG_PACKAGE_libustream-cyassl is not set
+CONFIG_PACKAGE_libustream-cyassl=y
 CONFIG_PACKAGE_libustream-openssl=y
 # CONFIG_PACKAGE_libustream-polarssl is not set
-CONFIG_PACKAGE_libuuid=y
+# CONFIG_PACKAGE_libuuid is not set
 # CONFIG_PACKAGE_libv4l is not set
 # CONFIG_PACKAGE_libvorbis is not set
 # CONFIG_PACKAGE_libvorbisidec is not set
@@ -2181,7 +2197,9 @@ CONFIG_PACKAGE_zlib=y
 # CONFIG_PACKAGE_ebtables is not set
 # CONFIG_PACKAGE_fwknop is not set
 # CONFIG_PACKAGE_fwknopd is not set
-# CONFIG_PACKAGE_ip6tables is not set
+CONFIG_PACKAGE_ip6tables=y
+# CONFIG_PACKAGE_ip6tables-extra is not set
+# CONFIG_PACKAGE_ip6tables-mod-nat is not set
 CONFIG_PACKAGE_iptables=y
 # CONFIG_PACKAGE_iptables-mod-account is not set
 # CONFIG_PACKAGE_iptables-mod-chaos is not set
@@ -2323,7 +2341,7 @@ CONFIG_PACKAGE_iptables=y
 # CONFIG_PACKAGE_relayd is not set
 # CONFIG_PACKAGE_ss is not set
 # CONFIG_PACKAGE_sslh is not set
-CONFIG_PACKAGE_tc=y
+# CONFIG_PACKAGE_tc is not set
 # CONFIG_PACKAGE_tcpproxy is not set
 # CONFIG_PACKAGE_vis is not set
 
@@ -2409,7 +2427,7 @@ CONFIG_PACKAGE_asterisk18=y
 # CONFIG_PACKAGE_asterisk18-app-mixmonitor is not set
 # CONFIG_PACKAGE_asterisk18-app-originate is not set
 # CONFIG_PACKAGE_asterisk18-app-playtones is not set
-# CONFIG_PACKAGE_asterisk18-app-read is not set
+CONFIG_PACKAGE_asterisk18-app-read=y
 # CONFIG_PACKAGE_asterisk18-app-readexten is not set
 # CONFIG_PACKAGE_asterisk18-app-record is not set
 # CONFIG_PACKAGE_asterisk18-app-sayunixtime is not set
@@ -2551,11 +2569,7 @@ CONFIG_PACKAGE_uhttpd-mod-tls_openssl=y
 # CONFIG_PACKAGE_6to4 is not set
 # CONFIG_PACKAGE_ahcpd is not set
 # CONFIG_PACKAGE_aiccu is not set
-CONFIG_PACKAGE_alfred=y
-CONFIG_ALFRED_NEEDS_lua=y
-CONFIG_PACKAGE_ALFRED_VIS=y
-CONFIG_PACKAGE_ALFRED_BATHOSTS=y
-# CONFIG_PACKAGE_ALFRED_GPSD is not set
+# CONFIG_PACKAGE_alfred is not set
 # CONFIG_PACKAGE_authsae is not set
 CONFIG_PACKAGE_batctl=y
 CONFIG_PACKAGE_chat=y
@@ -2603,7 +2617,9 @@ CONFIG_PACKAGE_iw=y
 # CONFIG_PACKAGE_mtr is not set
 # CONFIG_PACKAGE_ndppd is not set
 # CONFIG_PACKAGE_noping is not set
-# CONFIG_PACKAGE_odhcp6c is not set
+CONFIG_PACKAGE_odhcp6c=y
+CONFIG_PACKAGE_odhcp6c_ext_prefix_class=0
+CONFIG_PACKAGE_odhcp6c_ext_cer_id=0
 CONFIG_PACKAGE_odhcpd=y
 CONFIG_PACKAGE_odhcpd_ext_prefix_class=0
 CONFIG_PACKAGE_odhcpd_ext_cer_id=0
@@ -2649,7 +2665,7 @@ CONFIG_DRIVER_11N_SUPPORT=y
 # CONFIG_PACKAGE_wpa-supplicant-p2p is not set
 # CONFIG_PACKAGE_wpad is not set
 CONFIG_PACKAGE_wpad-mini=y
-CONFIG_PACKAGE_wshaper=y
+# CONFIG_PACKAGE_wshaper is not set
 CONFIG_PACKAGE_xinetd=y
 
 #
@@ -2726,14 +2742,14 @@ CONFIG_PACKAGE_xinetd=y
 #
 # disc
 #
-CONFIG_PACKAGE_blkid=y
+# CONFIG_PACKAGE_blkid is not set
 # CONFIG_PACKAGE_cfdisk is not set
 # CONFIG_PACKAGE_fdisk is not set
 # CONFIG_PACKAGE_findfs is not set
 # CONFIG_PACKAGE_lsblk is not set
 # CONFIG_PACKAGE_partx-utils is not set
 # CONFIG_PACKAGE_sfdisk is not set
-CONFIG_PACKAGE_swap-utils=y
+# CONFIG_PACKAGE_swap-utils is not set
 # CONFIG_PACKAGE_wipefs is not set
 # CONFIG_PACKAGE_alsa-utils is not set
 # CONFIG_PACKAGE_alsa-utils-seq is not set
@@ -2772,7 +2788,7 @@ CONFIG_PACKAGE_iwinfo=y
 # CONFIG_PACKAGE_jpeg-tools is not set
 CONFIG_PACKAGE_jshn=y
 # CONFIG_PACKAGE_kexec-tools is not set
-CONFIG_PACKAGE_ldconfig=y
+# CONFIG_PACKAGE_ldconfig is not set
 # CONFIG_PACKAGE_ldd is not set
 # CONFIG_PACKAGE_libhavege is not set
 CONFIG_PACKAGE_libjson-script=y
