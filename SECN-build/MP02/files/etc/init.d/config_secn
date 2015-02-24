@@ -81,7 +81,7 @@ SOFTPHCLIENT=";"
 fi
 
 if [ $SOFTPH = "CLIENT" ]; then
-SOFTPHFLAG=" "
+SOFTPHFLAG=";"
 SOFTPHMASTER=";"
 SOFTPHCLIENT=" "
 fi
@@ -144,7 +144,7 @@ allow=$CODEC1,$CODEC2,$CODEC3
 dtmfmod=rfc2833
 qualify=yes
 canreinvite=nonat
-context=incoming
+context=incoming-vsp
 alwaysauthreject=yes
 ;----------------------------
 
@@ -173,12 +173,17 @@ cat > /etc/asterisk/potato.extensions.conf << EOF
 
 ; Make calls using a SIP host [sipaccount] 
 ; Dial # for access, and then required number string
+
+[outgoing-vsp]
 exten => _$DIALOUT.,1,Dial(SIP/\${EXTEN:1}@sipaccount,120,r)
 
 ; Make calls to Softphone extensions 
 ; Device is Softphone Master (SIP server) or Client (only if FXS present e.g. MP)
+
+[outgoing-softphone]
 ; For the Master device
 $SOFTPHMASTER exten => _3XX,1,Dial(SIP/softph\${EXTEN})
+
 ; For the Client device
 $SOFTPHCLIENT exten => _3XX,1,Dial(SIP/\${EXTEN}@$SOFTPHMASTERIP, 120, r)
 
