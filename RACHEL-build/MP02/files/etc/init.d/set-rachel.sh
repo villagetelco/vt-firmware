@@ -2,6 +2,9 @@
 
 RPIMAC="b8:27"  # This is the first part of the MAC address for RPi devices 
 
+# Wait for devices to be available
+sleep 10
+
 # ------------------------------
 # Mount the RACHEL memory device in case auto mount doesn't work.
 mount /dev/sda1  /mnt/sda1
@@ -24,9 +27,7 @@ fi
 
 # -----------------------------
 # Set up RPi host in /etc/hosts
-
-# Give the RPi time to startup and get DHCP IP
-sleep 10
+# The RPi must have time to start up and get DHCP IP by this point.
 
 # Find the IP address of the RPi device from the MAC address
 RPI=`cat /proc/net/arp | grep $RPIMAC | cut -d " " -f 1`
