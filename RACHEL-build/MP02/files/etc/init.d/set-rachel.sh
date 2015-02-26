@@ -6,10 +6,11 @@ RPIMAC="b8:27"  # This is the first part of the MAC address for RPi devices
 sleep 10
 
 # ------------------------------
-# Mount the RACHEL memory device in case auto mount doesn't work.
+# Mount the RACHEL memory device in case auto mount did not work.
 mount /dev/sda1  /mnt/sda1
 mount /dev/sda2  /mnt/sda2
 
+# Find modules directory and force link
 # Check for RACHEL SD Card
 if [ -e "/mnt/sda2/var/www/modules" ]; then    
 ln -s -f /mnt/sda2/var/www/modules /www/rachel/modules
