@@ -22,6 +22,14 @@ if [ ! -d $GITREPO"/"$REPO ]; then
 	exit
 fi
 
+echo "Check out the correct branch"
+BUILD_DIR=$(pwd)
+cd $GITREPO"/"$REPO
+git checkout secn_3.0 > /dev/null
+git branch | grep "*"
+cd $BUILD_DIR
+pwd
+
 ##############################
 
 
@@ -49,7 +57,7 @@ fi
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="BB-Alpha6"
+DIRVER="BB-Alpha8b"
 VER="SECN-3_0-CR-"$DIRVER
 
 ###########################

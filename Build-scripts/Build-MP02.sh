@@ -57,7 +57,7 @@ fi
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="BB-Alpha8"
+DIRVER="BB-Alpha8b"
 VER="SECN-3_0-"$DIRVER
 
 ###########################
