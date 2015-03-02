@@ -1,7 +1,7 @@
 
 config wifi-device 'radio0'
 	option type 'mac80211'
-	option path 'platform/ar933x_wmac'
+	option phy 'phy0'
 	option htmode 'HT20'
 	option channel '1'
 	option txpower '17'
