@@ -86,8 +86,15 @@ OPTION_DNS=`uci get secn.dhcp.dns`
 OPTION_DNS2=`uci get secn.dhcp.dns2`
 DEVICE_IP=`uci get secn.dhcp.device_ip`
 
-# MPGW setting
-MESH_ENABLE=`uci get secn.mesh.mesh_enable`
+# Set up Mesh Enable
+MESH_DISABLE=`uci get secn.mesh.mesh_disable`
+if [ $MESH_DISABLE = "0" ]; then
+	MESH_ENABLE="checked"
+else
+	MESH_ENABLE="0"
+fi
+
+# Mesh gateway setting
 MPGW=`uci get secn.mesh.mpgw`
 
 # Get network settings from /etc/config/network and wireless

@@ -16,7 +16,6 @@ ENABLENAT="0"
 BUTTON="0"
 DHCP_ENABLE="0"
 ENABLE_AST="0"
-USREG_DOMAIN="0"
 DHCP_AUTH="0"
 MESH_ENABLE="0"
 AP_ENABLE="0"
@@ -145,6 +144,13 @@ else
 	AP_DISABLE="1"
 fi
 
+# Disable Mesh if required
+if [ \$MESH_ENABLE = "checked" ]; then
+	MESH_DISABLE="0"
+else
+	MESH_DISABLE="1"
+fi
+
 # Set up AP Isolation
 if [ \$AP_ISOL = "checked" ]; then
 	AP_ISOL="1"
@@ -170,7 +176,7 @@ uci set wireless.radio0.channel=\$CHANNEL
 uci set wireless.radio0.txpower=\$ATH0_TXPOWER
 uci set wireless.radio0.chanbw=\$CHANBW
 uci set wireless.radio0.country=\$COUNTRY
-uci set wireless.radio0.hwmode=\$RADIOMODE
+uci set wireless.radio0.htmode=\$RADIOMODE
 
 # Write the adhoc interface settings into /etc/config/wireless
 uci set wireless.ah_0.ssid=\$ATH0_SSID
@@ -180,10 +186,10 @@ uci set wireless.ah_0.bssid=\$ATH0_BSSID
 uci set secn.accesspoint.ssid=\$SSID
 uci set secn.accesspoint.encryption=\$ENCRYPTION
 uci set secn.accesspoint.passphrase=\$PASSPHRASE
-uci set secn.accesspoint.ap_disable=\$AP_DISABLE
 uci set secn.accesspoint.usreg_domain=\$USREG_DOMAIN  
 uci set secn.accesspoint.maxassoc=\$MAXASSOC
 uci set secn.accesspoint.ap_isol=\$AP_ISOL
+uci set secn.accesspoint.ap_disable=\$AP_DISABLE
 
 # Write the Asterisk settings into /etc/config/secn
 uci set secn.asterisk.host=\$HOST
@@ -221,8 +227,9 @@ uci set secn.dhcp.dns=\$OPTION_DNS
 uci set secn.dhcp.dns2=\$OPTION_DNS2
 uci set secn.dhcp.device_ip=\$DEVICE_IP
 
+
 # Save mesh settings to /etc/config/secn
-uci set secn.mesh.mesh_enable=\$MESH_ENABLE
+uci set secn.mesh.mesh_disable=\$MESH_DISABLE
 uci set secn.mesh.mpgw=\$MPGW
 
 # Set up mesh gateway mode on the fly
