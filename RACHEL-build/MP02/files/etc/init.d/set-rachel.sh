@@ -2,8 +2,8 @@
 
 RPIMAC="b8:27"  # This is the first part of the MAC address for RPi devices 
 
-# Wait for devices to be available
-sleep 10
+# Wait for memory and RPi devices to be available
+sleep 20
 
 # ------------------------------
 # Mount the RACHEL memory device in case auto mount did not work.
