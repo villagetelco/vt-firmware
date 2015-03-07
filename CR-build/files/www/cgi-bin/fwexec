@@ -1,0 +1,55 @@
+#!/usr/bin/haserl  --upload-limit=32768 --shell=/bin/ash
+<% PREAMBLE="env LD_LIBRARY_PATH=/lib:/usr/lib:/user/lib:/user/usr/lib:/lib/upgrade PATH=/bin:/sbin:/usr/bin:/usr/sbin:/user/bin:/user/sbin:/user/usr/bin:/user/usr/sbin " %>
+<% upgr_cmd="$PREAMBLE /sbin/sysupgrade -n $FORM_firmware" %>
+<% echo -en "content-type: text/html\r\n\r\n" %>
+<html>
+<head>
+  <title>Upgrading Firmware - Do not disconnect</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="refresh" content="140; URL=/index.html">
+	<style type="text/css">
+	@import url(/lib/configstyle.css); 
+	</style>
+</head>
+
+<body>
+  <div class="section">
+    <div class="topbar">
+      	<img src="/images/vtlogo.png" alt="Village Telco">
+		<div class="titletext">	
+		  <h1>VT SECN Configuration</h1>
+		</div>
+    </div>
+
+	
+	<h2> Upgrading firmware. Please wait for the timer to count down. </h2>
+
+  <h2>Time remaining:	<span id="seconds">200</span>.</h2>
+	<script>
+	  var seconds = 200;
+    setInterval(
+      function(){
+        if (seconds<=0){
+          window.location = 'http://10.130.99.254/index.html';
+        } else {
+          document.getElementById('seconds').innerHTML = --seconds;
+        }
+      }, 1000
+    );
+	</script>
+
+	<p></p>
+	<h2> Device will restart on IP address 10.130.99.254 </h2>
+	<p></p>
+	
+	Executing <i><% echo $upgr_cmd %></i><p>
+	<% echo "Processing upgrade..." %>
+	
+	<pre>
+		<% $upgr_cmd %>
+	</pre>
+	</div>
+
+
+</body>
+</html> 
