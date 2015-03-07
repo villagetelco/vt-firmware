@@ -94,7 +94,7 @@ BSSID='02:CA:FE:BA:BE:'$CLASSDIGIT2
 uci set wireless.ah_0.bssid=$BSSID 
 
 # Set up the mesh SSID
-MESHSSID="olpc-vt-mesh-"$CLASSDIGIT2
+MESHSSID="cr-vt-mesh-"$CLASSDIGIT2
 uci set wireless.ah_0.ssid=$MESHSSID
 
 # Set WiFi channel based on last digit of CLASS
@@ -147,9 +147,9 @@ uci set secn.dhcp.dns2=$MASTER_IP
 
 # Disable mesh if Single mode
 if [ $MODE = "Single" ];then
-	uci set secn.mesh.mesh_enable=0
+	uci set secn.mesh.mesh_disable='1'
 else
-	uci set secn.mesh.mesh_enable='checked'
+	uci set secn.mesh.mesh_disable='0'
 fi
 
 # Commit changes

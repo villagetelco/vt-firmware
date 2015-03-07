@@ -114,7 +114,7 @@ uci set secn.dhcp.dns=$MASTER_IP
 uci set secn.dhcp.dns2=$MASTER_IP
 
 # Disable mesh
-uci set secn.mesh.mesh_enable=0
+uci set secn.mesh.mesh_disable='1'
 
 # Commit changes
 uci commit wireless
