@@ -16,11 +16,11 @@ ENABLENAT="0"
 BUTTON="0"
 DHCP_ENABLE="0"
 ENABLE_AST="0"
-USREG_DOMAIN="0"
 DHCP_AUTH="0"
 MESH_ENABLE="0"
 MESH_ENABLE1="0"
 AP_ENABLE="0"
+AP_ENABLE1="0"
 DEVICE_IP="0"
 AP_ISOL="0"
 AP_ISOL1="0"
@@ -159,6 +159,13 @@ else
 	AP_DISABLE="1"
 fi
 
+# Disable Mesh if required
+if [ \$MESH_ENABLE = "checked" ]; then
+	MESH_DISABLE="0"
+else
+	MESH_DISABLE="1"
+fi
+
 # Set up AP Isolation
 if [ \$AP_ISOL = "checked" ]; then
 	AP_ISOL="1"
@@ -185,6 +192,12 @@ else
 	AP_ISOL1="0"
 fi
 
+# Disable Mesh1 if required
+if [ \$MESH_ENABLE1 = "checked" ]; then
+	MESH_DISABLE1="0"
+else
+	MESH_DISABLE1="1"
+fi
 
 # Write the Field values into the SECN config settings
 
@@ -205,13 +218,13 @@ uci set wireless.radio0.channel=\$CHANNEL
 uci set wireless.radio0.txpower=\$ATH0_TXPOWER
 uci set wireless.radio0.chanbw=\$CHANBW
 uci set wireless.radio0.country=\$COUNTRY
-uci set wireless.radio0.hwmode=\$RADIOMODE
+uci set wireless.radio0.htmode=\$RADIOMODE
 
 uci set wireless.radio1.country=\$COUNTRY
 uci set wireless.radio1.channel=\$CHANNEL1
 uci set wireless.radio1.txpower=\$ATH0_TXPOWER1
 uci set wireless.radio1.chanbw=\$CHANBW1
-uci set wireless.radio1.hwmode=\$RADIOMODE
+uci set wireless.radio1.htmode=\$RADIOMODE
 
 # Write the adhoc interface settings into /etc/config/wireless
 uci set wireless.ah_0.ssid=\$ATH0_SSID
@@ -223,10 +236,9 @@ uci set wireless.ah_1.bssid=\$ATH0_BSSID1
 uci set secn.accesspoint.ssid=\$SSID
 uci set secn.accesspoint.encryption=\$ENCRYPTION
 uci set secn.accesspoint.passphrase=\$PASSPHRASE
-uci set secn.accesspoint.ap_disable=\$AP_DISABLE
-uci set secn.accesspoint.usreg_domain=\$USREG_DOMAIN  
 uci set secn.accesspoint.maxassoc=\$MAXASSOC
 uci set secn.accesspoint.ap_isol=\$AP_ISOL
+uci set secn.accesspoint.ap_disable=\$AP_DISABLE
 
 uci set secn.accesspoint1.ssid=\$SSID1
 uci set secn.accesspoint1.encryption=\$ENCRYPTION1
@@ -272,11 +284,9 @@ uci set secn.dhcp.dns2=\$OPTION_DNS2
 uci set secn.dhcp.device_ip=\$DEVICE_IP
 
 # Save mesh settings to /etc/config/secn
-uci set secn.mesh.mesh_enable=\$MESH_ENABLE
-uci set secn.mesh1.mesh_enable=\$MESH_ENABLE1
-# Write the MPGW display setting into /etc/config/secn
+uci set secn.mesh.mesh_disable=\$MESH_DISABLE
+uci set secn.mesh1.mesh_disable=\$MESH_DISABLE1
 uci set secn.mesh.mpgw=\$MPGW
-
 
 # Set up mesh gateway mode on the fly
 if [ \$MPGW = "OFF" ]; then

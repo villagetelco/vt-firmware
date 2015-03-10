@@ -226,6 +226,7 @@ uci set wireless.ah_0.disabled=$MESH_DISABLE
 
 # Setup AP Isolation on mesh unless it is used for WAN
 WANPORT=`uci get secn.wan.wanport`
+
 if [ $AP_ISOL = "1" ] && [ $WANPORT != "Mesh" ]; then  
 	batctl ap 1
 else
@@ -364,8 +365,8 @@ fi
 
 # Set up for WAN disabled
 if [ $WANPORT = "Disable" ]; then
-  uci set wireless.ah_0.disabled='0' #Re-enable mesh after WiFi-WAN 
-  uci set wireless.sta_0.disabled='1'
+  # Nothing to do
+	true
 fi
 
 # Set up for Ethernet WAN
@@ -397,11 +398,10 @@ if [ $WANPORT = "Mesh" ]; then
 		uci set network.wan.ifname='bat0 eth1' 
 	fi
 	uci set network.wan.type='bridge' # Reqd. See /etc/init.d/set-mesh-gw-mode
+	uci set network.lan.gateway='255.255.255.255'
 	MESH_DISABLE='0'
 	uci set secn.mesh.mesh_disable='0'
-	uci set network.lan.gateway='255.255.255.255'
 fi
-
 
 # Disable mesh if required
 if [ $MESH_DISABLE = "0" ]; then
@@ -410,15 +410,14 @@ else
 	uci set wireless.ah_0.disabled='1'
 fi
 
-
-# Set up for WiFi WAN on radio0                                                              
-if [ $WANPORT = "WiFi" ]; then                                                               
-        uci set network.wan.ifname='wlan0-2'                                                 
-        uci set wireless.ah_0.disabled='1'                                                   
-        uci set wireless.sta_0.disabled='0'                                                  
-        uci set network.lan.gateway='255.255.255.255'                                        
-fi                                                                                           
-                                                                                                                                                     
+# Set up for WiFi WAN
+if [ $WANPORT = "WiFi" ]; then
+	uci set network.wan.ifname='wlan0-2'
+	uci set wireless.sta_0.disabled='0'
+	uci set network.lan.gateway='255.255.255.255'
+	uci set wireless.ah_0.disabled='1'
+	uci set secn.mesh.mesh_disable='1'
+fi
 
 # Set up for DHCP or Static
 if [ $ETHWANMODE = "Static" ]; then

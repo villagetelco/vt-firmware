@@ -186,7 +186,6 @@ uci set wireless.ah_0.bssid=\$ATH0_BSSID
 uci set secn.accesspoint.ssid=\$SSID
 uci set secn.accesspoint.encryption=\$ENCRYPTION
 uci set secn.accesspoint.passphrase=\$PASSPHRASE
-uci set secn.accesspoint.usreg_domain=\$USREG_DOMAIN  
 uci set secn.accesspoint.maxassoc=\$MAXASSOC
 uci set secn.accesspoint.ap_isol=\$AP_ISOL
 uci set secn.accesspoint.ap_disable=\$AP_DISABLE
@@ -226,7 +225,6 @@ uci set secn.dhcp.router=\$OPTION_ROUTER
 uci set secn.dhcp.dns=\$OPTION_DNS
 uci set secn.dhcp.dns2=\$OPTION_DNS2
 uci set secn.dhcp.device_ip=\$DEVICE_IP
-
 
 # Save mesh settings to /etc/config/secn
 uci set secn.mesh.mesh_disable=\$MESH_DISABLE
