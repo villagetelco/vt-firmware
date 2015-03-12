@@ -11,6 +11,7 @@ cat > /tmp/conf-save-adv2.sh << EOF
 
 # Clear settings for checkboxes and buttons
 WANLAN_ENABLE='0'
+PORT_FORWARD='0'
 
 # Get Field-Value pairs from QUERY_STRING environment variable
 # set by the form GET action
@@ -62,6 +63,7 @@ uci set secn.wan.wanip=\$WANIP
 uci set secn.wan.wangateway=\$WANGATEWAY
 uci set secn.wan.wanmask=\$WANMASK
 uci set secn.wan.wandns=\$WANDNS
+uci set secn.wan.port_forward=\$PORT_FORWARD
 
 # WiFi WAN settings
 uci set secn.wan.wanssid=\$WANSSID

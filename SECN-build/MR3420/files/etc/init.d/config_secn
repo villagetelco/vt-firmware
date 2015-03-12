@@ -52,6 +52,7 @@ uci set wireless.ah_0.disabled=$MESH_DISABLE
 
 # Setup AP Isolation on mesh unless it is used for WAN
 WANPORT=`uci get secn.wan.wanport`
+
 if [ $AP_ISOL = "1" ] && [ $WANPORT != "Mesh" ]; then  
 	batctl ap 1
 else
@@ -131,6 +132,7 @@ WANIP=`uci get secn.wan.wanip`
 WANGATEWAY=`uci get secn.wan.wangateway`
 WANMASK=`uci get secn.wan.wanmask`
 WANDNS=`uci get secn.wan.wandns`
+PORT_FORWARD=`uci get secn.wan.port_forward`
 
 WANSSID=`uci get secn.wan.wanssid`
 WANSSID=`echo "$WANSSID" | sed -f /bin/url-decode.sed`
@@ -227,7 +229,6 @@ if [ $WANPORT = "Mesh" ]; then
 	uci set secn.mesh.mesh_disable='0'
 	uci set network.lan.gateway='255.255.255.255'
 fi
-
 
 # Disable mesh if required
 if [ $MESH_DISABLE = "0" ]; then
@@ -378,7 +379,7 @@ uci commit dhcp
 uci commit network
 uci commit wireless
 uci commit secn
-
+uci commit firewall
 sleep 1
 
 # Note:Reboot for changes to be effective

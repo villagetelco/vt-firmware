@@ -280,6 +280,7 @@ WANIP=`uci get secn.wan.wanip`
 WANGATEWAY=`uci get secn.wan.wangateway`
 WANMASK=`uci get secn.wan.wanmask`
 WANDNS=`uci get secn.wan.wandns`
+PORT_FORWARD=`uci get secn.wan.port_forward`
 
 WANSSID=`uci get secn.wan.wanssid`
 WANSSID=`echo "$WANSSID" | sed -f /bin/url-decode.sed`
@@ -288,6 +289,14 @@ uci set secn.wan.wanssid=$WANSSID
 WANPASS=`uci get secn.wan.wanpass`
 WANPASS=`echo "$WANPASS" | sed -f /bin/url-decode.sed`
 uci set secn.wan.wanpass=$WANPASS
+
+# Set up WAN Port Forwarding for ssh and https
+	uci set firewall.https.dest="NULL"
+	uci set firewall.ssh.dest="NULL"
+if [ $PORT_FORWARD = "checked" ]; then                                   
+	uci set firewall.https.dest="lan"
+	uci set firewall.ssh.dest="lan"
+fi
 
 # Set up WAN wifi encryption 
 WANENCRYPTION=`uci get secn.wan.wanencr`
@@ -473,7 +482,7 @@ uci commit dhcp
 uci commit network
 uci commit wireless
 uci commit secn
-
+uci commit firewall
 sleep 1
 
 # Note:Reboot for changes to be effective

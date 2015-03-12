@@ -68,5 +68,6 @@ config secn 'wan'
 	option ethwanmode 'DHCP'
 	option wanport 'Disable'
 	option wanlan_enable '0'
+	option port_forward '0'
 
 
