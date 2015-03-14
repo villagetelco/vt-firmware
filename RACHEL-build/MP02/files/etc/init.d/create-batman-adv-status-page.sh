@@ -1,4 +1,5 @@
 #!/bin/ash 
+
 {
 # Check wireless type
 RADIO=`uci get wireless.radio0.type`
@@ -45,10 +46,11 @@ echo "Number of connected clients: "`iwinfo $WIRELESS"0" assoclist | grep -c SNR
 echo "Station MAC Addr     Signal    2.4Ghz"                              >> /tmp/wifi.txt
 iwinfo $WIRELESS'0' assoclist                                             >> /tmp/wifi.txt
 
-# Mount the RACHEL memory device in case auto mount did not work.
-mount /dev/sda1  /mnt/sda1
-mount /dev/sda2  /mnt/sda2
+# Generate log entry
+UPTIME=`uptime`
+COUNT=`iwinfo $WIRELESS"0" assoclist | grep -c SNR `
+echo "Connections: "$COUNT "Time: "$UPTIME >> /www/rachel/logs/log.txt
 
-sleep 10; \
+sleep 60; \
 done &
 } >/dev/null 2>&1    # dump unwanted output to avoid filling log
