@@ -48,8 +48,11 @@ iwinfo $WIRELESS'0' assoclist                                             >> /tm
 
 # Generate log entry
 UPTIME=`uptime`
-COUNT=`iwinfo $WIRELESS"0" assoclist | grep -c SNR `
-echo "Connections: "$COUNT "Time: "$UPTIME >> /www/rachel/logs/log.txt
+COUNT=`iwinfo $WIRELESS"0" assoclist | grep -c SNR`
+MEMFREE=`cat /proc/meminfo | grep MemFree |cut -d : -f2 | tr -d ' '|tr -d 'kB'`
+MEMTOT=`cat /proc/meminfo | grep MemTotal |cut -d : -f2 | tr -d ' '`
+
+echo "Connections: "$COUNT "Time: "$UPTIME " Mem Free / Tot: "$MEMFREE" / "$MEMTOT >> /www/rachel/logs/log.txt
 
 sleep 60; \
 done &

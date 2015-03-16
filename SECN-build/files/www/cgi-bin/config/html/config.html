@@ -483,11 +483,14 @@ cat > /tmp/config.html << EOF
 									</tr>
 
 									<tr>
-										<td class="label"><label for="WANIP">Static IP</label></td>
+										<td class="label"><label for="WANIP">Primary IP</label></td>
 										<td class="field"><input type="text" name="WANIP" id="wanip" VALUE=$WANIP ></td>
 										
 										<td class="label"><label for="WANGATEWAY">Gateway</label></td>
 										<td class="field"><input type="text" name="WANGATEWAY" id="wangateway" VALUE=$WANGATEWAY ></td>
+
+										<td class="label"><label for="SECWANIP">Secondary IP</label></td>
+										<td class="field"><input type="text" name="SECWANIP" id="secwanip" VALUE=$SECWANIP ></td>
 									</tr>
 
 									<tr>

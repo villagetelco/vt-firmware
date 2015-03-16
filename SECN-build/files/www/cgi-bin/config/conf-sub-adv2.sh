@@ -10,6 +10,8 @@ cat > /tmp/conf-save-adv2.sh << EOF
 #!/bin/sh
 
 # Clear settings for checkboxes and buttons
+DHCP_ENABLE="0"
+DHCP_AUTH='0'
 WANLAN_ENABLE='0'
 PORT_FORWARD='0'
 
@@ -60,6 +62,7 @@ uci set secn.wan.wanport=\$WANPORT
 uci set secn.wan.wanlan_enable=\$WANLAN_ENABLE
 uci set secn.wan.ethwanmode=\$ETHWANMODE
 uci set secn.wan.wanip=\$WANIP
+uci set secn.wan.secwanip=\$SECWANIP
 uci set secn.wan.wangateway=\$WANGATEWAY
 uci set secn.wan.wanmask=\$WANMASK
 uci set secn.wan.wandns=\$WANDNS

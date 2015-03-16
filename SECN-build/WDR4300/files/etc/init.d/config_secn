@@ -356,6 +356,7 @@ WANGATEWAY=`uci get secn.wan.wangateway`
 WANMASK=`uci get secn.wan.wanmask`
 WANDNS=`uci get secn.wan.wandns`
 PORT_FORWARD=`uci get secn.wan.port_forward`
+SECWANIP=`uci get secn.wan.secwanip`
 
 WANSSID=`uci get secn.wan.wanssid`
 WANSSID=`echo "$WANSSID" | sed -f /bin/url-decode.sed`
@@ -437,7 +438,7 @@ if [ $WANPORT = "Ethernet" ]; then
 	uci set network.lan.ifname='eth0.1'
 	uci set network.lan.gateway='255.255.255.255'
 	uci set network.wan.ifname='eth0.2'
-	# Clear WAN port bridging
+	# Disable WAN port as LAN
 	uci set secn.wan.wanlan_enable='0'
 fi
 
@@ -459,8 +460,8 @@ if [ $WANPORT = "Mesh" ]; then
 		uci set network.lan.ifname='eth0.1'
 		uci set network.wan.ifname='bat0 eth0.2' 
 	fi
-	uci set network.wan.type='bridge' # Reqd. See /etc/init.d/set-mesh-gw-mode
 	uci set network.lan.gateway='255.255.255.255'
+	uci set network.wan.type='bridge' # Reqd. See /etc/init.d/set-mesh-gw-mode
 	MESH_DISABLE='0'
 	uci set secn.mesh.mesh_disable='0'
 fi
@@ -481,19 +482,19 @@ fi
 
 # Set up for WiFi WAN
 if [ $WANPORT = "2.4GHz_WiFi" ]; then
-	uci set network.wan.ifname='wlan0-2'
-	uci set wireless.sta_0.disabled='0'
 	uci set network.lan.gateway='255.255.255.255'
+	uci set wireless.sta_0.disabled='0'
 	uci set wireless.ah_0.disabled='1'
 	uci set secn.mesh.mesh_disable='1'
+	uci set network.wan.ifname='wlan0-2'
 fi
 
 if [ $WANPORT = "5.0GHz_WiFi" ]; then
-	uci set network.wan.ifname='wlan1-2'
+	uci set network.lan.gateway='255.255.255.255'
 	uci set wireless.sta_1.disabled='0'
 	uci set wireless.ah_1.disabled='1'
-	uci set network.lan.gateway='255.255.255.255'
 	uci set secn.mesh1.mesh_disable='1' 
+	uci set network.wan.ifname='wlan1-2'
 fi
 
 # Set up for DHCP or Static
