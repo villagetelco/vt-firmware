@@ -4,9 +4,16 @@
 # Get the wanport mode
 WANPORT=`uci get olpc.setup.wanport`
 # Do nothing if in SECN Advanced mode
+
 if [ $WANPORT = "SECN-Adv" ]; then
+	# Re-enable LAN port
+	uci set secn.wan.lanport_disable=0
 	exit
 fi
+
+# Disable LAN port to prevent accidental use as WAN port
+uci set secn.wan.lanport_disable=1
+uci set secn.wan.port_forward=1
 
 # Get OLPC USB modem settings
 MODEMPORT=`uci get olpc.modem.modemport`

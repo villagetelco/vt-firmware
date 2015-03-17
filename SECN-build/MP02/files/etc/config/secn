@@ -70,5 +70,6 @@ config secn 'wan'
 	option wanport 'Disable'
 	option wanlan_enable '0'
 	option port_forward '0'
+	option lanport_disable '0'
 
 
