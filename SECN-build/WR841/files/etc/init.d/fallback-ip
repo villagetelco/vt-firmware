@@ -10,5 +10,5 @@ SECWANIP=`uci get secn.wan.secwanip`
 if [ $WANPORT = "Mesh" ]; then
 	ifconfig br-wan:9 $SECWANIP netmask 255.255.255.0
 elif [ $WANPORT = "Ethernet" ]; then
-	ifconfig 'eth0':9 $SECWANIP netmask 255.255.255.0  # Single port devices
+	ifconfig 'eth0':9 $SECWANIP netmask 255.255.255.0  # Note eth0 WAN port is particular for 841 device
 fi
