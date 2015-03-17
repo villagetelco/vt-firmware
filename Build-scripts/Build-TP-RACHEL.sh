@@ -58,7 +58,7 @@ echo "Start build process"
 
 echo "Set up version strings"
 DIRVER="BB-Alpha10"
-VER="SECN-3_0-"$DIRVER
+VER="SECN-3_0-RACHEL-"$DIRVER
 
 ###########################
 echo "Copy files from Git repo into build folder"
@@ -66,6 +66,8 @@ rm -rf ./SECN-build/
 cp -rp $GITREPO/$REPO/SECN-build/ .
 cp -fp $GITREPO/$REPO/Build-scripts/FactoryRestore.sh  .
 
+echo "Overlay RACHEL files"
+cp -rp $GITREPO/$REPO/RACHEL-build/* ./SECN-build
 
 ###########################
 
@@ -79,7 +81,7 @@ echo "Source repo details: "$REPO $REPOID
 
 # Set up new directory name with date and version
 DATE=`date +%Y-%m-%d-%H:%M`
-DIR=$DATE"-TP-"$DIRVER
+DIR=$DATE"-TP-RACHEL-"$DIRVER
 
 ###########################
 BINDIR="./bin/ar71xx"
@@ -198,17 +200,7 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-
-build_tp MR3020
-build_tp WR842
-#build_tp WR842   Pros
-build_tp WR841
-build_tp MR3020
 build_tp MR3040
-build_tp MR3420
-build_tp MR11U
-build_tp WR703
-build_tp WR741
 
 echo " "
 echo "Build script TP complete"

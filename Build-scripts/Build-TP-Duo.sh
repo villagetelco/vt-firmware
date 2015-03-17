@@ -10,7 +10,7 @@ REPO="vt-firmware"
 
 echo "************************************"
 echo ""
-echo "Build script for TP Link devices"
+echo "Build script for TP Link Duo devices"
 
 echo "Git directory: "$GITREPO
 echo "Repo: "$REPO
@@ -25,7 +25,7 @@ fi
 echo "Check out the correct branch"
 BUILD_DIR=$(pwd)
 cd $GITREPO"/"$REPO
-git checkout secn_3.0 > /dev/null
+git checkout secn_3.0-Duo > /dev/null
 git branch | grep "*"
 cd $BUILD_DIR
 pwd
@@ -57,7 +57,7 @@ fi
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="BB-Alpha10"
+DIRVER="BB-Alpha11-Duo"
 VER="SECN-3_0-"$DIRVER
 
 ###########################
@@ -198,20 +198,15 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-
-build_tp MR3020
-build_tp WR842
-#build_tp WR842   Pros
-build_tp WR841
-build_tp MR3020
-build_tp MR3040
-build_tp MR3420
-build_tp MR11U
-build_tp WR703
-build_tp WR741
+build_tp MR3020 Duo
+build_tp WR842 Duo
+build_tp WR703 Duo
+build_tp MR3040 Duo
+build_tp MR11U Duo
+build_tp WR841 Duo
 
 echo " "
-echo "Build script TP complete"
+echo "Build script TP Duo complete"
 echo " "
 echo '----------------------------'
 

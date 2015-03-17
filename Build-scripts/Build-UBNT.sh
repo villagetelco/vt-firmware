@@ -10,7 +10,7 @@ REPO="vt-firmware"
 
 echo "************************************"
 echo ""
-echo "Build script for Ubiquity devices"
+echo "Build script for Ubiquity UBNT M devices"
 
 echo "Git directory: "$GITREPO
 echo "Repo: "$REPO
@@ -57,7 +57,7 @@ fi
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="BB-Alpha8"
+DIRVER="BB-Alpha9"
 VER="SECN-3_0-"$DIRVER
 
 ###########################
@@ -113,11 +113,9 @@ make defconfig > /dev/null
 
 # Set up target display strings
 TARGET=`cat .config | grep "CONFIG_TARGET" | grep "=y" | grep "_generic_" | cut -d _ -f 5 | cut -d = -f 1 `
-#OPENWRTVER=`cat ./.config | grep "OpenWrt version" | cut -d : -f 2`
 
 echo "Check .config version"
 echo "Target:  " $TARGET
-#echo "OpenWRT: " $OPENWRTVER
 echo ""
 
 echo "Set up files for "$1 $2
@@ -143,7 +141,6 @@ echo "Version: " $VER $TARGET $2
 echo "Date stamp: " $DATE
 
 echo "Version:    " $VER $TARGET $2        > ./files/etc/secn_version
-#echo "OpenWRT:    " $OPENWRTVER           >> ./files/etc/secn_version
 echo "Build date: " $DATE                 >> ./files/etc/secn_version
 echo "GitHub:     " $REPO $REPOID         >> ./files/etc/secn_version
 echo " "                                  >> ./files/etc/secn_version
@@ -179,6 +176,7 @@ md5sum $BINDIR/*-squash*sysupgrade.bin >> $BINDIR/builds/build-$DIR/md5sums-$VER
 
 echo  "Move files to build folder"
 cp $BINDIR/openwrt*-squash*sysupgrade.bin $BINDIR/builds/build-$DIR
+#cp $BINDIR/*-squash*factory.bin    $BINDIR/builds/build-$DIR
 echo ""
 
 echo "Clean up unused files"
@@ -203,7 +201,7 @@ echo '----------------------------'
 build_ubnt UBNT 
 
 echo " "
-echo " Build script UBNT complete"
+echo " Build script for UBNT M devices complete"
 echo " "
 echo '----------------------------'
 

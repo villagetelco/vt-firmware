@@ -10,7 +10,7 @@ REPO="vt-firmware"
 
 echo "************************************"
 echo ""
-echo "CR Build script for MP-02 device"
+echo "CR Build script for MP-02 CR device"
 
 echo "Git directory: "$GITREPO
 echo "Repo: "$REPO
@@ -57,7 +57,7 @@ fi
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="BB-Alpha8b"
+DIRVER="BB-Alpha10"
 VER="SECN-3_0-CR-"$DIRVER
 
 ###########################
@@ -210,7 +210,7 @@ echo '----------------------------'
 build_mp02 MP02 
 
 echo " "
-echo " Build script MP02 complete"
+echo " Build script MP02 CR complete"
 echo " "
 echo '----------------------------'
 
