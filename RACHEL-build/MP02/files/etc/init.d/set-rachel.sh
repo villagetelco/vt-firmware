@@ -6,7 +6,12 @@ RPIMAC="b8:27"  # This is the first part of the MAC address for RPi devices
 sleep 20
 
 # ------------------------------
+
 # Mount the RACHEL memory device in case auto mount did not work.
+# Make dirs in case it is first boot
+mkdir /mnt/sda1
+mkdir /mnt/sda2
+
 mount /dev/sda1  /mnt/sda1
 mount /dev/sda2  /mnt/sda2
 
