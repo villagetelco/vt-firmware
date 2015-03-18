@@ -13,7 +13,7 @@ fi
 
 # Disable LAN port to prevent accidental use as WAN port
 uci set secn.wan.lanport_disable=1
-uci set secn.wan.port_forward=1
+uci set secn.wan.port_forward='checked'
 
 # Get OLPC USB modem settings
 MODEMPORT=`uci get olpc.modem.modemport`
