@@ -196,7 +196,7 @@ uci set wireless.sta_0.disabled='1' # Make sure wifi WAN is off.
 if [ $WANLAN_ENABLE = "checked" ]; then
 	uci set network.lan.ifname='eth0 eth1'
 else
-	uci set network.lan.ifname='eth1'  # Note eth1 LAN port is particular for 841 device
+	uci set network.lan.ifname='eth0'  
 fi
 
 # Set up for WAN disabled
@@ -208,9 +208,9 @@ fi
 # Set up for Ethernet WAN
 if [ $WANPORT = "Ethernet" ]; then
  	# Set up for Eth WAN port
-	uci set network.lan.ifname='eth1'   # Note eth1 LAN port is particular for 841 device
+	uci set network.lan.ifname='eth0'
 	uci set network.lan.gateway='255.255.255.255'
-	uci set network.wan.ifname='eth0'   # Note eth0 WAN port is particular for 841 device
+	uci set network.wan.ifname='eth1'
 	# Disable WAN port as LAN
 	uci set secn.wan.wanlan_enable='0'
 fi
@@ -227,11 +227,11 @@ fi
 if [ $WANPORT = "Mesh" ]; then
  	# Set up eth1 as LAN or WAN
 	if [ $WANLAN_ENABLE = "checked" ]; then
-		uci set network.lan.ifname='eth1 eth0' # Note eth1 LAN port is particular for 841 device
+		uci set network.lan.ifname='eth0 eth1'
 		uci set network.wan.ifname='bat0'
 	else
-		uci set network.lan.ifname='eth1'      # Note eth1 LAN port is particular for 841 device
-		uci set network.wan.ifname='bat0 eth0' # Note eth0 WAN port is particular for 841 device
+		uci set network.lan.ifname='eth0'
+		uci set network.wan.ifname='bat0 eth1'
 	fi
 	uci set network.lan.gateway='255.255.255.255'
 	uci set network.wan.type='bridge' # Reqd. See /etc/init.d/set-mesh-gw-mode
