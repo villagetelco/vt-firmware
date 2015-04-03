@@ -1,4 +1,0 @@
-0x00000000	serial8250_resume_port	/home/build/SECN2-MP-buildtree/trunk/david/driver/8250mp	EXPORT_SYMBOL
-0x00000000	serial8250_suspend_port	/home/build/SECN2-MP-buildtree/trunk/david/driver/8250mp	EXPORT_SYMBOL
-0x00000000	serial8250_register_port	/home/build/SECN2-MP-buildtree/trunk/david/driver/8250mp	EXPORT_SYMBOL
-0x00000000	serial8250_unregister_port	/home/build/SECN2-MP-buildtree/trunk/david/driver/8250mp	EXPORT_SYMBOL

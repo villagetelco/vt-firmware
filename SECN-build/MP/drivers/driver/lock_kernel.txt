@@ -1,3 +1,0 @@
-lock/unlock kernel 
-
-grep nach "Baustelle"
