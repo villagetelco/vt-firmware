@@ -466,15 +466,11 @@ fi
 LANPORT_DISABLE=`uci get secn.wan.lanport_disable`
 LANIFNAME=`uci get network.lan.ifname`
 
-echo "LANPORT_DISABLE: "$LANPORT_DISABLE  "LANIFNAME: "$LANIFNAME
-
-if [ $LANPORT_DISABLE = "1" ] && [ $LANIFNAME = 'eth0' ]; then
+if [ $LANPORT_DISABLE != "0" ] && [ $LANIFNAME = 'eth0' ]; then
         uci set network.lan.ifname='eth99'
-elif [ $LANPORT_DISABLE = "1" ] && [ $LANIFNAME = 'eth0 eth1' ]; then
+elif [ $LANPORT_DISABLE != "0" ] && [ $LANIFNAME = 'eth0 eth1' ]; then
 	uci set network.lan.ifname='eth1'
 fi
-echo "LANIFNAME: "`uci get network.lan.ifname`
-
 
 # Make sure firewall is enabled
 /etc/init.d/firewall enable  

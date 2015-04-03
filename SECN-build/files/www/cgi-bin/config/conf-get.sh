@@ -152,6 +152,9 @@ WANSSID=`uci get secn.wan.wanssid`
 WANENCR=`uci get secn.wan.wanencr`
 WANPASS=`uci get secn.wan.wanpass`
 
+# LAN Port disable setting
+LANPORT_DISABLE=`uci get secn.wan.lanport_disable`
+
 # Get 3G USB Modem
 MODEM_ENABLE=`uci get secn.modem.enabled`
 MODEMSERVICE=`uci get secn.modem.service`

@@ -22,6 +22,7 @@ AP_ENABLE="0"
 DEVICE_IP="0"
 AP_ISOL="0"
 COUNTRY=" "
+LANPORT_DISABLE="0"
 
 # Get Field-Value pairs from QUERY_STRING environment variable
 # set by the form GET action
@@ -181,6 +182,9 @@ uci set wireless.radio0.htmode=\$RADIOMODE
 # Write the adhoc interface settings into /etc/config/wireless
 uci set wireless.ah_0.ssid=\$ATH0_SSID
 uci set wireless.ah_0.bssid=\$ATH0_BSSID
+
+# Write LAN Port Disable setting
+uci set secn.wan.lanport_disable=\$LANPORT_DISABLE
 
 # Write the Access Point wifi settings into /etc/config/secn
 uci set secn.accesspoint.ssid=\$SSID
