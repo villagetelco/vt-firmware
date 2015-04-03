@@ -4,8 +4,21 @@
 # This script creates various config files based on parameters in 
 # /etc/config/secn, /etc/config/network and /etc/config/wireless
 
-# ------------------------------------------------------------------
+# -----------------
+# Set up network for WR841 version
 
+WR841VER=`cat /proc/cpuinfo | grep machine | cut -d "v" -f 2`
+if [ $WR841VER -lt "9" ]; then 
+	LANETH="eth1"
+	WANETH="eth0"
+else
+	LANETH="eth0"
+	WANETH="eth1"
+fi
+
+uci set network.lan.ifname=$LANETH
+
+# -----------------
 # Set up WiFi 
 
 # Get the params from uci config file /etc/config/secn and wireless
@@ -192,11 +205,11 @@ uci set network.wan.pin=''
 uci set network.wan.device=''
 uci set wireless.sta_0.disabled='1' # Make sure wifi WAN is off.
 
-# Set default LAN port to eth0 and eth1 if 'WAN' port changed to LAN
+# Set default LAN bridge to include both eth0 and eth1 if 'WAN' port changed to LAN
 if [ $WANLAN_ENABLE = "checked" ]; then
-	uci set network.lan.ifname='eth0 eth1'
+	uci set network.lan.ifname='$LANETH $WANETH'
 else
-	uci set network.lan.ifname='eth0'  
+	uci set network.lan.ifname='$LANETH'  
 fi
 
 # Set up for WAN disabled
@@ -208,9 +221,9 @@ fi
 # Set up for Ethernet WAN
 if [ $WANPORT = "Ethernet" ]; then
  	# Set up for Eth WAN port
-	uci set network.lan.ifname='eth0'
+	uci set network.lan.ifname='$LANETH'
 	uci set network.lan.gateway='255.255.255.255'
-	uci set network.wan.ifname='eth1'
+	uci set network.wan.ifname='$WANETH'
 	# Disable WAN port as LAN
 	uci set secn.wan.wanlan_enable='0'
 fi
@@ -218,20 +231,20 @@ fi
 # Set up for 4G Eth Modem
 if [ $WANPORT = "USB-Eth-Modem" ]; then
  	# Set up for Eth WAN port
-	uci set network.lan.ifname='eth0'
+	uci set network.lan.ifname='$LANETH'
 	uci set network.lan.gateway='255.255.255.255'
 	uci set network.wan.ifname='eth2'
 fi
 
 # Set up for Mesh WAN
 if [ $WANPORT = "Mesh" ]; then
- 	# Set up eth1 as LAN or WAN
+ 	# Set up WAN eth port as LAN or WAN
 	if [ $WANLAN_ENABLE = "checked" ]; then
-		uci set network.lan.ifname='eth0 eth1'
+		uci set network.lan.ifname='$LANETH $WANETH'
 		uci set network.wan.ifname='bat0'
 	else
-		uci set network.lan.ifname='eth0'
-		uci set network.wan.ifname='bat0 eth1'
+		uci set network.lan.ifname='$LANETH'
+		uci set network.wan.ifname='bat0 $WANETH'
 	fi
 	uci set network.lan.gateway='255.255.255.255'
 	uci set network.wan.type='bridge' # Reqd. See /etc/init.d/set-mesh-gw-mode

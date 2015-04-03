@@ -36,3 +36,4 @@ config switch_vlan
         option vlan '1'
         option ports '0 1 2 3 4'
 
+
