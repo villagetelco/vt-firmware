@@ -137,6 +137,7 @@ WANPORT=`uci get secn.wan.wanport`
 ETHWANMODE=`uci get secn.wan.ethwanmode`
 WANLAN_ENABLE=`uci get secn.wan.wanlan_enable`
 WANIP=`uci get secn.wan.wanip`
+SECWANIP=`uci get secn.wan.secwanip`
 WANGATEWAY=`uci get secn.wan.wangateway`
 WANMASK=`uci get secn.wan.wanmask`
 WANDNS=`uci get secn.wan.wandns`
@@ -145,6 +146,9 @@ PORT_FORWARD=`uci get secn.wan.port_forward`
 WANSSID=`uci get secn.wan.wanssid`
 WANENCR=`uci get secn.wan.wanencr`
 WANPASS=`uci get secn.wan.wanpass`
+
+# LAN Port disable setting
+LANPORT_DISABLE=`uci get secn.wan.lanport_disable`
 
 # GatewayTest Status message
 GATEWAY_STATUS=`cat /tmp/gatewaystatus.txt`

@@ -25,4 +25,3 @@ config interface 'mesh_0'
 
 config interface 'wan'
 	option proto 'dhcp'	
-
