@@ -10,7 +10,10 @@ cat > /tmp/conf-save-adv2.sh << EOF
 #!/bin/sh
 
 # Clear settings for checkboxes and buttons
+DHCP_ENABLE="0"
+DHCP_AUTH='0'
 WANLAN_ENABLE='0'
+PORT_FORWARD='0'
 
 # Get Field-Value pairs from QUERY_STRING environment variable
 # set by the form GET action
@@ -59,9 +62,11 @@ uci set secn.wan.wanport=\$WANPORT
 uci set secn.wan.wanlan_enable=\$WANLAN_ENABLE
 uci set secn.wan.ethwanmode=\$ETHWANMODE
 uci set secn.wan.wanip=\$WANIP
+uci set secn.wan.secwanip=\$SECWANIP
 uci set secn.wan.wangateway=\$WANGATEWAY
 uci set secn.wan.wanmask=\$WANMASK
 uci set secn.wan.wandns=\$WANDNS
+uci set secn.wan.port_forward=\$PORT_FORWARD
 
 # WiFi WAN settings
 uci set secn.wan.wanssid=\$WANSSID
@@ -80,6 +85,10 @@ uci set secn.modem.password=\$APNPW
 uci set secn.modem.pin=\$MODEMPIN
 uci set secn.modem.service=\$MODEMSERVICE
 uci set secn.modem.apn=\$APN
+
+# Write USB ethernet modem settings
+MODEMURL=\$(echo \$MODEMURL | sed -e s/%3A/:/g | sed -e 's/%2F/\//g')
+uci set secn.modem.url=\$MODEMURL
 
 # Commit the settings into /etc/config/ files
 uci commit secn

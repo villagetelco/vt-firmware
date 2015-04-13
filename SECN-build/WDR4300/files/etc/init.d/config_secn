@@ -194,10 +194,11 @@ PASSPHRASE=`echo "$PASSPHRASE" | sed -f /bin/url-decode.sed`
 uci set secn.accesspoint.passphrase=$PASSPHRASE
 
 ENCRYPTION=`uci get secn.accesspoint.encryption`
-AP_DISABLE=`uci get secn.accesspoint.ap_disable`
 AP_ISOL=`uci get secn.accesspoint.ap_isol`
 MAXASSOC=`uci get secn.accesspoint.maxassoc`
 CHANNEL=`uci get wireless.radio0.channel`
+AP_DISABLE=`uci get secn.accesspoint.ap_disable`
+MESH_DISABLE=`uci get secn.mesh.mesh_disable`
 
 # Set to WPA2 by default                                 
 ENCRYPT="psk2"
@@ -216,13 +217,14 @@ elif [ $ENCRYPTION = "NONE" ]; then
 ENCRYPT="none"                                                      
 fi
 
-uci set wireless.ap_0.encryption=$ENCRYPT
 uci set wireless.ap_0.key=$PASSPHRASE
 uci set wireless.ap_0.ssid=$SSID
 uci set wireless.ap_0.mode="ap"
 uci set wireless.ap_0.disabled=$AP_DISABLE
+uci set wireless.ap_0.encryption=$ENCRYPT
 uci set wireless.ap_0.maxassoc=$MAXASSOC
 uci set wireless.ap_0.isolate=$AP_ISOL
+uci set wireless.ah_0.disabled=$MESH_DISABLE
 
 
 # ------------------------------------------------------------------
@@ -243,6 +245,7 @@ AP_DISABLE=`uci get secn.accesspoint1.ap_disable`
 MAXASSOC=`uci get secn.accesspoint1.maxassoc`
 CHANNEL=`uci get wireless.radio1.channel`
 AP_ISOL1=`uci get secn.accesspoint1.ap_isol`
+MESH_DISABLE1=`uci get secn.mesh1.mesh_disable`
 
 # Set to WPA2 by default                                 
 ENCRYPT="psk2"
@@ -268,16 +271,14 @@ uci set wireless.ap_1.mode="ap"
 uci set wireless.ap_1.disabled=$AP_DISABLE
 uci set wireless.ap_1.maxassoc=$MAXASSOC
 uci set wireless.ap_1.isolate=$AP_ISOL1
-
+uci set wireless.ah_1.disabled=$MESH_DISABLE1
 
 # Check to see if mesh AP isolation is required by either band.
 WANPORT=`uci get secn.wan.wanport`
-MESH_ENABLE1=`uci get secn.mesh1.mesh_enable`
-MESH_ENABLE=`uci get secn.mesh.mesh_enable`
 
-if [ $AP_ISOL = "1" ] && [ $MESH_ENABLE = "checked" ] && [ $WANPORT != "Mesh" ]; then  
+if [ $AP_ISOL = "1" ] && [ $MESH_DISABLE = "0" ] && [ $WANPORT != "Mesh" ]; then  
 	batctl ap 1
-elif [ $AP_ISOL1 = "1" ] && [ $MESH_ENABLE1 = "checked" ] && [ $WANPORT != "Mesh" ]; then  
+elif [ $AP_ISOL1 = "1" ] && [ $MESH_DISABLE1 = "0" ] && [ $WANPORT != "Mesh" ]; then  
 	batctl ap 1
 else
 	batctl ap 0
@@ -356,6 +357,8 @@ WANIP=`uci get secn.wan.wanip`
 WANGATEWAY=`uci get secn.wan.wangateway`
 WANMASK=`uci get secn.wan.wanmask`
 WANDNS=`uci get secn.wan.wandns`
+PORT_FORWARD=`uci get secn.wan.port_forward`
+SECWANIP=`uci get secn.wan.secwanip`
 
 WANSSID=`uci get secn.wan.wanssid`
 WANSSID=`echo "$WANSSID" | sed -f /bin/url-decode.sed`
@@ -364,6 +367,14 @@ uci set secn.wan.wanssid=$WANSSID
 WANPASS=`uci get secn.wan.wanpass`
 WANPASS=`echo "$WANPASS" | sed -f /bin/url-decode.sed`
 uci set secn.wan.wanpass=$WANPASS
+
+# Set up WAN Port Forwarding for ssh and https
+	uci set firewall.https.dest="NULL"
+	uci set firewall.ssh.dest="NULL"
+if [ $PORT_FORWARD = "checked" ]; then                                   
+	uci set firewall.https.dest="lan"
+	uci set firewall.ssh.dest="lan"
+fi
 
 # Set up WAN wifi encryption 
 WANENCRYPTION=`uci get secn.wan.wanencr`
@@ -407,8 +418,8 @@ uci set network.wan.username=''
 uci set network.wan.password=''
 uci set network.wan.pin=''
 uci set network.wan.device=''
-uci set wireless.sta_0.disabled='1' # Make sure wifi WAN is off.
-uci set wireless.sta_1.disabled='1' 
+uci set wireless.sta_0.disabled='1' # Make sure wifi WAN is off by default
+uci set wireless.sta_1.disabled='1'
 
 # Set up for WAN port bridged to LAN
 if [ $WANLAN_ENABLE = "checked" ]; then
@@ -419,10 +430,8 @@ fi
 
 # Set up for WAN disabled
 if [ $WANPORT = "Disable" ]; then
-	uci set wireless.ah_0.disabled='0'
-	uci set wireless.sta_0.disabled='1'
-	uci set wireless.ah_1.disabled='0'
-	uci set wireless.sta_1.disabled='1'
+  # Nothing to do
+	true
 fi
 
 # Set up for Ethernet WAN
@@ -431,8 +440,16 @@ if [ $WANPORT = "Ethernet" ]; then
 	uci set network.lan.ifname='eth0.1'
 	uci set network.lan.gateway='255.255.255.255'
 	uci set network.wan.ifname='eth0.2'
-	# Clear WAN port bridging
+	# Disable WAN port as LAN
 	uci set secn.wan.wanlan_enable='0'
+fi
+
+# Set up for 4G Eth Modem
+if [ $WANPORT = "USB-Eth-Modem" ]; then
+ 	# Set up for Eth WAN port
+	uci set network.lan.ifname='eth0.1'
+	uci set network.lan.gateway='255.255.255.255'
+	uci set network.wan.ifname='eth1'
 fi
 
 # Set up for Mesh WAN
@@ -445,47 +462,41 @@ if [ $WANPORT = "Mesh" ]; then
 		uci set network.lan.ifname='eth0.1'
 		uci set network.wan.ifname='bat0 eth0.2' 
 	fi
+	uci set network.lan.gateway='255.255.255.255'
 	uci set network.wan.type='bridge' # Reqd. See /etc/init.d/set-mesh-gw-mode
-	MESH_ENABLE='checked'
-	uci set secn.mesh.mesh_enable='checked'
-	uci set network.lan.gateway='255.255.255.255'
+	MESH_DISABLE='0'
+	uci set secn.mesh.mesh_disable='0'
 fi
 
-# Set up for WiFi WAN
-if [ $WANPORT = "2.4GHz_WiFi" ]; then
-  # Set up for wlan0 WAN port
-	uci set wireless.ah_0.disabled='1'
-	uci set wireless.sta_0.disabled='0'
-	uci set network.wan.ifname='wlan0-2'
-	uci set network.lan.gateway='255.255.255.255'
-	# Disable mesh
-	uci set secn.mesh.mesh_enable='0' 
-	MESH_ENABLE='0'
-fi
-
-if [ $WANPORT = "5.0GHz_WiFi" ]; then
- 	# Set up for wlan1 WAN port
-	uci set wireless.ah_1.disabled='1'
-	uci set wireless.sta_1.disabled='0'
-	uci set network.wan.ifname='wlan1-2'
-  uci set network.lan.gateway='255.255.255.255'
-	# Disable mesh-1
-	uci set secn.mesh1.mesh_enable='0' 
-	MESH_ENABLE1='0'
-fi
-
-# Disable mesh if required
-if [ $MESH_ENABLE = "checked" ]; then
-	uci set wireless.ah_0.disabled='0'
+# Disable mesh-0 if required
+if [ $MESH_DISABLE = "0" ]; then
+  uci set wireless.ah_0.disabled='0'
 else
 	uci set wireless.ah_0.disabled='1'
 fi
 
 # Disable mesh-1 if required
-if [ $MESH_ENABLE1 = "checked" ]; then
+if [ $MESH_DISABLE1 = "0" ]; then
 	uci set wireless.ah_1.disabled='0'
 else
 	uci set wireless.ah_1.disabled='1'
+fi
+
+# Set up for WiFi WAN
+if [ $WANPORT = "2.4GHz_WiFi" ]; then
+	uci set network.lan.gateway='255.255.255.255'
+	uci set wireless.sta_0.disabled='0'
+	uci set wireless.ah_0.disabled='1'
+	uci set secn.mesh.mesh_disable='1'
+	uci set network.wan.ifname='wlan0-2'
+fi
+
+if [ $WANPORT = "5.0GHz_WiFi" ]; then
+	uci set network.lan.gateway='255.255.255.255'
+	uci set wireless.sta_1.disabled='0'
+	uci set wireless.ah_1.disabled='1'
+	uci set secn.mesh1.mesh_disable='1' 
+	uci set network.wan.ifname='wlan1-2'
 fi
 
 # Set up for DHCP or Static
@@ -620,7 +631,7 @@ uci commit dhcp
 uci commit network
 uci commit wireless
 uci commit secn
-
+uci commit firewall
 sleep 1
 
 # Note:Reboot for changes to be effective

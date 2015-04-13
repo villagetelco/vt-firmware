@@ -91,13 +91,13 @@ cat > /tmp/config.html << EOF
 
 							<td class="label"><label>Encryption</label></td>
 							<td class="field">
-								<SELECT name="ENCRYPTION" id="encryption">
-								<option selected="$ENCRYPTION">$ENCRYPTION</option>
-								<option value="WPA2">WPA2</option>
-								<option value="WPA">WPA</option>
-								<option value="WEP">WEP</option>
-								<option value="NONE">NONE</option>
-								</SELECT>
+							<SELECT name="ENCRYPTION" id="encryption">
+							<option selected="$ENCRYPTION">$ENCRYPTION</option>
+							<option value="WPA2">WPA2</option>
+							<option value="WPA">WPA</option>
+							<option value="WEP">WEP</option>
+							<option value="NONE">NONE</option>
+							</SELECT>
 							</td>
 						</tr>
 					</table>
@@ -200,8 +200,7 @@ cat > /tmp/config.html << EOF
 				<div class="panel-container">
 					<div id="tab-adv">
 						<form name="MP-ADV" id="MP-ADV" METHOD=GET ACTION="/cgi-bin/config/conf-sub-adv.sh">
-
-							<pre> Time: $UPTIME   CPU Processes: $PROC   Free/Total Memory: $MEMSTR </pre>
+							<pre> Time: $UPTIME  CPU Processes: $PROC  Free/Total Memory: $MEMSTR </pre>
 
 							<fieldset class="network-adv">
 								<legend>Network</legend>
@@ -251,18 +250,18 @@ cat > /tmp/config.html << EOF
 					<td class="label"><label for="ATH0_TXPOWER"> Tx Power 0-27 dBm</label></td>
 					<td class="field"><input type="text" name="ATH0_TXPOWER" id="ath0_txpower" VALUE=$ATH0_TXPOWER ></td>
 
-					<td class="label"><label for="ATH0_TXPOWER_ACTUAL"> Actual Power: </label></td> <td>$ATH0_TXPOWER_ACTUAL </td>
+					<td class="label"><label for="ATH0_TXPOWER_ACTUAL"> Reported Power: </label></td> <td>$ATH0_TXPOWER_ACTUAL </td>
 				</tr>
 			</table>
 
 			<table>
 				<tr>
-					<td class="label"><label for="RADIOMODE">Wifi Mode</label></td>
+					<td class="label"><label for="RADIOMODE">HT Mode</label></td>
 					<td class="field">
 						<SELECT name="RADIOMODE" id="radiomode">
 						<option selected="$RADIOMODE">$RADIOMODE</option>
-						<option value="11g">802.11G</option>
-						<option value="11ng">802.11N-G</option>
+						<option value="HT20">HT20</option>
+						<option value="NONE">NONE</option>
 						</SELECT>
 					</td>
 					<td class="label"><label for="COUNTRY"> Country Code</label></td>
@@ -454,6 +453,7 @@ cat > /tmp/config.html << EOF
 											<option value="Disable"> Disable </option>
 											<option value="Ethernet"> Ethernet </option>
 											<option value="USB-Modem"> USB-Modem </option>
+											<option value="USB-Eth-Modem"> USB-Eth-Modem </option>
 											<option value="WiFi"> WiFi </option>
 											<option value="Mesh"> Mesh </option>
 											</SELECT>
@@ -474,6 +474,8 @@ cat > /tmp/config.html << EOF
 										</td>
 										<td class="label"><label>Change WAN socket to LAN</label> </td>
 										<td class="field"><input  type="checkbox" name="WANLAN_ENABLE" id="wanlan_enable" VALUE="checked" $WANLAN_ENABLE > </td>
+										<td class="label"><label>Enable Port Forward SSH, HTTPS</label> </td>
+										<td class="field"><input  type="checkbox" name="PORT_FORWARD" id="port_forward" VALUE="checked" $PORT_FORWARD > </td>
 									</tr>
 
 									<tr>	
@@ -481,11 +483,14 @@ cat > /tmp/config.html << EOF
 									</tr>
 
 									<tr>
-										<td class="label"><label for="WANIP">Static IP</label></td>
+										<td class="label"><label for="WANIP">Primary IP</label></td>
 										<td class="field"><input type="text" name="WANIP" id="wanip" VALUE=$WANIP ></td>
 										
 										<td class="label"><label for="WANGATEWAY">Gateway</label></td>
 										<td class="field"><input type="text" name="WANGATEWAY" id="wangateway" VALUE=$WANGATEWAY ></td>
+
+										<td class="label"><label for="SECWANIP">Secondary IP</label></td>
+										<td class="field"><input type="text" name="SECWANIP" id="secwanip" VALUE=$SECWANIP ></td>
 									</tr>
 
 									<tr>
@@ -566,8 +571,7 @@ cat > /tmp/config.html << EOF
 										<td class="field"><input type="text" name="APNPW" id="apnpw" VALUE=$APNPW ></td>
 									</tr>
 
-									<tr>
-										<td class="label"><label for="MODEMPIN">PIN</label></td>
+									<tr><td class="label"><label for="MODEMPIN">PIN</label></td>
 										<td class="field"><input type="text" name="MODEMPIN" id="modempin" VALUE=$MODEMPIN ></td>
 
 										<td class="label"><label>USB Serial Port</label></td>
@@ -583,30 +587,32 @@ cat > /tmp/config.html << EOF
 											<option value="6"> 6 </option>
 											<option value="7"> 7 </option>
 										</SELECT>
-					  				</td>
-						  		</tr>
+					  			</td></tr>
 								</table>
 
-								<table>
-									<tr>	
-										<td class="label"><label> USB Device Detected</label> </td>
-										<td class="ast_reg"> $USBMODEM </td>
-									</tr>
-								</table>
+								<tr><td class="label"><label> <h4>Modem Status</h4> </label> </td></tr>
 
-								<table>
-									<tr>	
-										<td class="label"><label> USB Serial Ports Detected</label> </td>
+								<table><tr>
+									<td class="label"><label> USB Device Detected:</label> </td>
+									<td class="ast_reg"> $USBMODEM </td>
+								</tr></table>
+
+								<table><tr>	
+										<td class="label"><label> USB Serial Ports Detected:</label> </td>
 										<td class="ast_reg"> $USBSERIAL </td>
-									</tr>
-								</table>
+								</tr></table>
 
-								<table>
-									<tr>	
-										<td class="label"><label>USB Modem Status</label> </td>
+								<table><tr>	
+										<td class="label"><label>Connection Status:</label> </td>
 										<td class="ast_reg"> $USBSTATUS </td>
-									</tr>
-								</table>
+								</tr></table>
+
+								<h4> USB Ethernet Modem Interface</h4>
+                <td class="label"><label for="MODEMURL">Modem URL</label></td>
+                <td class="field"><input type="text" name="MODEMURL" id="modemurl" VALUE=$MODEMURL ></td>
+								<br></br>
+								<iframe id="FrameID5" src=$MODEMURL width="100%" height="150" ></iframe>
+
 							</fieldset>
 
 							<table class="submitform">
@@ -633,7 +639,7 @@ cat > /tmp/config.html << EOF
 
 		<!-- Status Page -->
 		<div id="tabs1-status">
-			<pre> Time: $UPTIME   CPU Processes: $PROC   Free/Total Memory: $MEMSTR </pre>
+			<pre> Time: $UPTIME  CPU Processes: $PROC  Free/Total Memory: $MEMSTR </pre>
 			<h3> Mesh Nodes </h3>  
  			<div class="slideContainer">
   			<span class="slide"><iframe id="FrameID1" src="/bat1.txt"  height="150" ></iframe></span> 

@@ -209,6 +209,9 @@ $(document).ready( function() {
 			WANIP: {
 			IP4Checker: true
 			},
+			SECWANIP: {
+			IP4Checker: true
+			},
 			WANGATEWAY: {
 			IP4Checker: true
 			},

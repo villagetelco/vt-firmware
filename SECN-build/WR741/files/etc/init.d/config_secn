@@ -18,11 +18,11 @@ PASSPHRASE=`echo "$PASSPHRASE" | sed -f /bin/url-decode.sed`
 uci set secn.accesspoint.passphrase=$PASSPHRASE
 
 ENCRYPTION=`uci get secn.accesspoint.encryption`
-AP_DISABLE=`uci get secn.accesspoint.ap_disable`
 AP_ISOL=`uci get secn.accesspoint.ap_isol`
 MAXASSOC=`uci get secn.accesspoint.maxassoc`
 CHANNEL=`uci get wireless.radio0.channel`
-MESH_ENABLE=`uci get secn.mesh.mesh_enable`
+AP_DISABLE=`uci get secn.accesspoint.ap_disable`
+MESH_DISABLE=`uci get secn.mesh.mesh_disable`
 
 # Set to WPA2 by default                                 
 ENCRYPT="psk2"
@@ -41,16 +41,18 @@ elif [ $ENCRYPTION = "NONE" ]; then
 ENCRYPT="none"                                                      
 fi
 
-uci set wireless.ap_0.encryption=$ENCRYPT
 uci set wireless.ap_0.key=$PASSPHRASE
 uci set wireless.ap_0.ssid=$SSID
 uci set wireless.ap_0.mode="ap"
 uci set wireless.ap_0.disabled=$AP_DISABLE
+uci set wireless.ap_0.encryption=$ENCRYPT
 uci set wireless.ap_0.maxassoc=$MAXASSOC
 uci set wireless.ap_0.isolate=$AP_ISOL
+uci set wireless.ah_0.disabled=$MESH_DISABLE
 
 # Setup AP Isolation on mesh unless it is used for WAN
 WANPORT=`uci get secn.wan.wanport`
+
 if [ $AP_ISOL = "1" ] && [ $WANPORT != "Mesh" ]; then  
 	batctl ap 1
 else
@@ -130,6 +132,8 @@ WANIP=`uci get secn.wan.wanip`
 WANGATEWAY=`uci get secn.wan.wangateway`
 WANMASK=`uci get secn.wan.wanmask`
 WANDNS=`uci get secn.wan.wandns`
+PORT_FORWARD=`uci get secn.wan.port_forward`
+SECWANIP=`uci get secn.wan.secwanip`
 
 WANSSID=`uci get secn.wan.wanssid`
 WANSSID=`echo "$WANSSID" | sed -f /bin/url-decode.sed`
@@ -138,6 +142,14 @@ uci set secn.wan.wanssid=$WANSSID
 WANPASS=`uci get secn.wan.wanpass`
 WANPASS=`echo "$WANPASS" | sed -f /bin/url-decode.sed`
 uci set secn.wan.wanpass=$WANPASS
+
+# Set up WAN Port Forwarding for ssh and https
+	uci set firewall.https.dest="NULL"
+	uci set firewall.ssh.dest="NULL"
+if [ $PORT_FORWARD = "checked" ]; then                                   
+	uci set firewall.https.dest="lan"
+	uci set firewall.ssh.dest="lan"
+fi
 
 # Set up WAN wifi encryption 
 WANENCRYPTION=`uci get secn.wan.wanencr`
@@ -189,8 +201,8 @@ fi
 
 # Set up for WAN disabled
 if [ $WANPORT = "Disable" ]; then
-	uci set wireless.ah_0.disabled='0'
-	uci set wireless.sta_0.disabled='1'
+  # Nothing to do
+	true
 fi
 
 # Set up for Ethernet WAN
@@ -203,6 +215,14 @@ if [ $WANPORT = "Ethernet" ]; then
 	uci set secn.wan.wanlan_enable='0'
 fi
 
+# Set up for 4G Eth Modem
+if [ $WANPORT = "USB-Eth-Modem" ]; then
+ 	# Set up for Eth WAN port
+	uci set network.lan.ifname='eth0'
+	uci set network.lan.gateway='255.255.255.255'
+	uci set network.wan.ifname='eth2'
+fi
+
 # Set up for Mesh WAN
 if [ $WANPORT = "Mesh" ]; then
  	# Set up eth1 as LAN or WAN
@@ -213,28 +233,26 @@ if [ $WANPORT = "Mesh" ]; then
 		uci set network.lan.ifname='eth0'
 		uci set network.wan.ifname='bat0 eth1' 
 	fi
-	uci set network.wan.type='bridge' # Reqd. See /etc/init.d/set-mesh-gw-mode
-	MESH_ENABLE='checked'
-	uci set secn.mesh.mesh_enable='checked'
 	uci set network.lan.gateway='255.255.255.255'
+	uci set network.wan.type='bridge' # Reqd. See /etc/init.d/set-mesh-gw-mode
+	MESH_DISABLE='0'
+	uci set secn.mesh.mesh_disable='0'
+fi
+
+# Disable mesh if required
+if [ $MESH_DISABLE = "0" ]; then
+  uci set wireless.ah_0.disabled='0'
+else
+	uci set wireless.ah_0.disabled='1'
 fi
 
 # Set up for WiFi WAN
 if [ $WANPORT = "WiFi" ]; then
-	uci set network.wan.ifname='wlan0-2'
-	uci set wireless.ah_0.disabled='1'
-	uci set wireless.sta_0.disabled='0'
 	uci set network.lan.gateway='255.255.255.255'
-	# Disable mesh
-	uci set secn.mesh.mesh_enable='0'
-	MESH_ENABLE='0'
-fi
-
-# Disable mesh if required
-if [ $MESH_ENABLE = "checked" ]; then
-	uci set wireless.ah_0.disabled='0'
-else
+	uci set wireless.sta_0.disabled='0'
 	uci set wireless.ah_0.disabled='1'
+	uci set secn.mesh.mesh_disable='1'
+	uci set network.wan.ifname='wlan0-2'
 fi
 
 # Set up for DHCP or Static
@@ -369,7 +387,7 @@ uci commit dhcp
 uci commit network
 uci commit wireless
 uci commit secn
-
+uci commit firewall
 sleep 1
 
 # Note:Reboot for changes to be effective

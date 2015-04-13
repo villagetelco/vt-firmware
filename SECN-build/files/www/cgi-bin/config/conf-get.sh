@@ -86,8 +86,15 @@ OPTION_DNS=`uci get secn.dhcp.dns`
 OPTION_DNS2=`uci get secn.dhcp.dns2`
 DEVICE_IP=`uci get secn.dhcp.device_ip`
 
-# MPGW setting
-MESH_ENABLE=`uci get secn.mesh.mesh_enable`
+# Set up Mesh Enable
+MESH_DISABLE=`uci get secn.mesh.mesh_disable`
+if [ $MESH_DISABLE = "0" ]; then
+	MESH_ENABLE="checked"
+else
+	MESH_ENABLE="0"
+fi
+
+# Mesh gateway setting
 MPGW=`uci get secn.mesh.mpgw`
 
 # Get network settings from /etc/config/network and wireless
@@ -108,9 +115,8 @@ ATH0_BSSID=`uci get wireless.ah_0.bssid`
 CHANNEL=`uci get wireless.radio0.channel`
 ATH0_TXPOWER=`uci get wireless.radio0.txpower`
 ATH0_TXPOWER_ACTUAL=`iwconfig | grep -A 2 'wlan0' | grep -m 1 'Tx-Power'| cut -d T -f 2|cut -d = -f 2`
-RADIOMODE=`uci get wireless.radio0.hwmode`
+RADIOMODE=`uci get wireless.radio0.htmode`
 CHANBW=`uci get wireless.radio0.chanbw`
-HTMODE=`uci get wireless.radio0.htmode`
 COUNTRY=`uci get wireless.radio0.country`
 
 # Get web server parameters
@@ -136,13 +142,18 @@ WANPORT=`uci get secn.wan.wanport`
 ETHWANMODE=`uci get secn.wan.ethwanmode`
 WANLAN_ENABLE=`uci get secn.wan.wanlan_enable`
 WANIP=`uci get secn.wan.wanip`
+SECWANIP=`uci get secn.wan.secwanip`
 WANGATEWAY=`uci get secn.wan.wangateway`
 WANMASK=`uci get secn.wan.wanmask`
 WANDNS=`uci get secn.wan.wandns`
+PORT_FORWARD=`uci get secn.wan.port_forward`
 
 WANSSID=`uci get secn.wan.wanssid`
 WANENCR=`uci get secn.wan.wanencr`
 WANPASS=`uci get secn.wan.wanpass`
+
+# LAN Port disable setting
+LANPORT_DISABLE=`uci get secn.wan.lanport_disable`
 
 # Get 3G USB Modem
 MODEM_ENABLE=`uci get secn.modem.enabled`
@@ -155,6 +166,7 @@ APNUSER=`uci get secn.modem.username`
 APNPW=`uci get secn.modem.password`
 MODEMPIN=`uci get secn.modem.pin`
 MODEMPORT=`uci get secn.modem.modemport`
+MODEMURL=`uci get secn.modem.url`
 
 
 # GatewayTest Status message

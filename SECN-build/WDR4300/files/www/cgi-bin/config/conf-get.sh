@@ -114,7 +114,22 @@ OPTION_DNS=`uci get secn.dhcp.dns`
 OPTION_DNS2=`uci get secn.dhcp.dns2`
 DEVICE_IP=`uci get secn.dhcp.device_ip`
 
-# MPGW setting
+# Set up Mesh Enable
+MESH_DISABLE=`uci get secn.mesh.mesh_disable`
+if [ $MESH_DISABLE = "0" ]; then
+	MESH_ENABLE="checked"
+else
+	MESH_ENABLE="0"
+fi
+
+MESH_DISABLE1=`uci get secn.mesh1.mesh_disable`
+if [ $MESH_DISABLE1 = "0" ]; then
+	MESH_ENABLE1="checked"
+else
+	MESH_ENABLE1="0"
+fi
+
+# Mesh gateway setting
 MPGW=`uci get secn.mesh.mpgw`
 MPGW1=`uci get secn.mesh.mpgw` # Slave off mpgw setting
 
@@ -131,42 +146,28 @@ ATH0_IPADDR=`uci get network.mesh_0.ipaddr`
 ATH0_NETMASK=`uci get network.mesh_0.netmask`
 ATH0_SSID=`uci get wireless.ah_0.ssid`
 ATH0_BSSID=`uci get wireless.ah_0.bssid`
-MESH_ENABLE=`uci get secn.mesh.mesh_enable`
 
 # mesh_1 configuration parameters
 ATH0_IPADDR1=`uci get network.mesh_1.ipaddr`
 ATH0_NETMASK1=`uci get network.mesh_1.netmask`
 ATH0_SSID1=`uci get wireless.ah_1.ssid`
 ATH0_BSSID1=`uci get wireless.ah_1.bssid`
-MESH_ENABLE1=`uci get secn.mesh1.mesh_enable`
+MESH_DISABLE1=`uci get secn.mesh1.mesh_disnable`
 
 # 2.4GHz Radio 
 CHANNEL=`uci get wireless.radio0.channel`
 ATH0_TXPOWER=`uci get wireless.radio0.txpower`
 ATH0_TXPOWER_ACTUAL=`iwconfig | grep -A 2 'wlan0' | grep -m 1 'Tx-Power'| cut -d T -f 2|cut -d = -f 2`
-RADIOMODE=`uci get wireless.radio0.hwmode`
+RADIOMODE=`uci get wireless.radio0.htmode`
 CHANBW=`uci get wireless.radio0.chanbw`
-HTMODE=`uci get wireless.radio0.htmode`
 COUNTRY=`uci get wireless.radio0.country`
-
-if [ $RADIOMODE = "11ng" ]; then
-	RADIOMODE="802.11N-G"
-else
-	RADIOMODE="802.11G"
-fi
 
 # 5GHz Radio
 CHANNEL1=`uci get wireless.radio1.channel`
 ATH0_TXPOWER1=`uci get wireless.radio1.txpower`
 ATH0_TXPOWER1_ACTUAL=`iwconfig | grep -A 2 'wlan1' | grep -m 1 'Tx-Power'| cut -d T -f 2|cut -d = -f 2`
-RADIOMODE1=`uci get wireless.radio1.hwmode`
+RADIOMODE1=`uci get wireless.radio1.htmode`
 CHANBW1=`uci get wireless.radio1.chanbw`
-
-if [ $RADIOMODE1 = "11na" ]; then
-	RADIOMODE1="802.11N-A"
-else
-	RADIOMODE1="802.11A"
-fi
 
 # Get web server parameters
 AUTH=`uci get secn.http.auth`
@@ -191,9 +192,11 @@ WANPORT=`uci get secn.wan.wanport`
 ETHWANMODE=`uci get secn.wan.ethwanmode`
 WANLAN_ENABLE=`uci get secn.wan.wanlan_enable`
 WANIP=`uci get secn.wan.wanip`
+SECWANIP=`uci get secn.wan.secwanip`
 WANGATEWAY=`uci get secn.wan.wangateway`
 WANMASK=`uci get secn.wan.wanmask`
 WANDNS=`uci get secn.wan.wandns`
+PORT_FORWARD=`uci get secn.wan.port_forward`
 
 WANSSID=`uci get secn.wan.wanssid`
 WANENCR=`uci get secn.wan.wanencr`
@@ -210,6 +213,7 @@ APNUSER=`uci get secn.modem.username`
 APNPW=`uci get secn.modem.password`
 MODEMPIN=`uci get secn.modem.pin`
 MODEMPORT=`uci get secn.modem.modemport`
+MODEMURL=`uci get secn.modem.url`
 
 
 # GatewayTest Status message
