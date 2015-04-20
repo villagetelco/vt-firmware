@@ -37,10 +37,11 @@ mkdir /mnt/sda1/RACHEL/bin/www/logs
 ln -s -f /mnt/sda1/RACHEL/bin/www/logs    /www/rachel/logs
 fi
 
-# Check for VT USB
+# Check for VT SD/USB
 if [ -e "/mnt/sda1/modules" ]; then
 ln -s -f /mnt/sda1/modules /www/rachel/modules
 ln -s -f /mnt/sda1/local   /www/rachel/local
+ln -s -f /mnt/sda1/index.html   /www/rachel/index.html # VT-RACHEL home page
 mkdir /mnt/sda1/logs
 ln -s -f /mnt/sda1/logs    /www/rachel/logs
 fi
