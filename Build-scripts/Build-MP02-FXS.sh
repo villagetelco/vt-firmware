@@ -22,14 +22,43 @@ if [ ! -d $GITREPO"/"$REPO ]; then
 	exit
 fi
 
+echo "Check out the correct branch"
+BUILD_DIR=$(pwd)
+cd $GITREPO"/"$REPO
+git checkout secn_3.1 > /dev/null
+git branch | grep "*"
+cd $BUILD_DIR
+pwd
+
+##############################
+
+
+
+# Check to see if setup has already run
+if [ ! -f ./already_configured ]; then 
+  # make sure it only executes once
+  touch ./already_configured  
+  echo "Make builds directory"
+  mkdir ./bin/
+  mkdir ./bin/ar71xx/
+  mkdir ./bin/ar71xx/builds
+  mkdir ./bin/atheros/
+  mkdir ./bin/atheros/builds
+  echo "Initial set up completed. Continuing with build"
+  echo ""
+else
+  echo "Build environment is configured. Continuing with build"
+  echo ""
+fi
+
 
 #########################
 
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="Alpha10"
-VER="SECN-2_1-"$DIRVER
+DIRVER="Alpha1"
+VER="SECN-3_1-"$DIRVER
 
 ###########################
 echo "Copy files from Git repo into build folder"
@@ -56,7 +85,7 @@ DIR=$DATE"-MP02-"$DIRVER
 BINDIR="./bin/ar71xx"
 # Set up build directory
 echo "Set up new build directory  $BINDIR/builds/build-"$DIR
-mkdir -p $BINDIR/builds/build-$DIR
+mkdir $BINDIR/builds/build-$DIR
 
 # Create md5sums files
 echo $DIR > $BINDIR/builds/build-$DIR/md5sums
@@ -72,11 +101,11 @@ echo "Set up .config for "$1 $2
 rm ./.config
 
 if [ $2 ]; then
-	echo "Config file: config-"$1-$2
-	cp ./SECN-build/$1/config-$1-$2  ./.config
+	echo "Config file: config-BB-"$1-$2
+	cp ./SECN-build/$1/config-BB-$1-$2  ./.config
 else
-	echo "Config file: config-"$1
-	cp ./SECN-build/$1/config-$1  ./.config
+	echo "Config file: config-BB-"$1
+	cp ./SECN-build/$1/config-BB-$1  ./.config
 fi
 
 echo "Run defconfig"
@@ -88,7 +117,6 @@ OPENWRTVER=`cat ./.config | grep "OpenWrt version" | cut -d : -f 2`
 
 echo "Check .config version"
 echo "Target:  " $TARGET
-echo "OpenWRT: " $OPENWRTVER
 echo ""
 
 echo "Set up files for "$1 $2
@@ -113,8 +141,7 @@ echo ""
 echo "Version: " $VER $TARGET $2
 echo "Date stamp: " $DATE
 
-echo "Version:    " $VER $TARGET $2     > ./files/etc/secn_version
-echo "OpenWRT:    " $OPENWRTVER           >> ./files/etc/secn_version
+echo "Version:    " $VER $TARGET $2        > ./files/etc/secn_version
 echo "Build date: " $DATE                 >> ./files/etc/secn_version
 echo "GitHub:     " $REPO $REPOID         >> ./files/etc/secn_version
 echo " "                                  >> ./files/etc/secn_version
@@ -129,7 +156,7 @@ rm $BINDIR/openwrt-*
 echo ""
 
 echo "Run make for "$1 $2
-make -j8
+make
 echo ""
 
 echo "Update original md5sums file"
@@ -176,13 +203,7 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-#build mp02 MP02
 build_mp02 MP02 FXS
-#build_mp02 MP02  Pros
-#build_mp02 MP02  noAst
-#build_mp02 MP02  CC
-#build_mp02 MP02  NDS
-#build_mp02 MP02  Pol
 
 echo " "
 echo " Build script MP02 complete"
