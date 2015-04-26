@@ -57,7 +57,7 @@ fi
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="Alpha1"
+DIRVER="FXS-Alpha2"
 VER="SECN-3_1-"$DIRVER
 
 ###########################
