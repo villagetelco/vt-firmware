@@ -1,0 +1,43 @@
+#!/usr/bin/haserl  --upload-limit=32768 --shell=/bin/ash
+
+<% PREAMBLE="env LD_LIBRARY_PATH=/lib:/usr/lib:/user/lib:/user/usr/lib:/lib/upgrade PATH=/bin:/sbin:/usr/bin:/usr/sbin:/user/bin:/user/sbin:/user/usr/bin:/user/usr/sbin " %>
+
+<% upgr_cmd="$PREAMBLE tar -czvf /tmp/secn-config.tar.gz -C / `cat /etc/backup.conf` " %>
+<% echo -en "content-type: text/html\r\n\r\n" %>
+<html>
+<head>
+  <title>Exporting configuration file</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="refresh" content="140; URL=/index.html">
+    <style type="text/css">
+      @import url(/lib/configstyle.css); 
+    </style>
+</head>
+
+<body>
+  <div class="section">
+    <div class="topbar">
+      <img src="/images/vtlogo.png" alt="Village Telco">
+        <div class="titletext"> 
+          <h1>VT SECN Configuration Export</h1>
+        </div>
+    </div>
+
+        
+  <h2> Preparing configuration file. </h2>
+  <% echo "Filename: /tmp/secn-config.tar.gz" %> 
+  <br></br>
+  <% echo "Contents:" %>
+
+  <pre>
+    <% echo " " %>
+    <% $upgr_cmd %> 
+  </pre>
+
+  <h2><a href="/secn-config.tar.gz">Download Configuration File</a></h2>
+  <h2><a href="/cgi-bin/secn-tabs">Return to Configuration</a></h2>
+
+ </div>
+</body>
+</html> 
+
