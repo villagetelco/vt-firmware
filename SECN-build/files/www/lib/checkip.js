@@ -209,6 +209,9 @@ $(document).ready( function() {
 			WANIP: {
 			IP4Checker: true
 			},
+			SECWANIP: {
+			IP4Checker: true
+			},
 			WANGATEWAY: {
 			IP4Checker: true
 			},
@@ -255,17 +258,32 @@ $(document).ready( function() {
 		}
 	});
 
-	$('#MP-FXS').validate({
+	$('#MP-ADV3').validate({
 		rules: {
-			TONEZONE: {
-			CountryChecker: true
+			SP_NAME: {
+			minlength: 4,
+			maxlength: 16,
+			PassChecker: true
+			},
+			SP_PW1: {
+			minlength: 4,
+			maxlength: 16,
+			PassChecker: true
+			},
+			SP_PW2: {
+			minlength: 4,
+			maxlength: 16,
+			equalTo: "#SP_PW1"
+			},
+			SP_NUMBER: {
+			range: [300, 399],
+			PassChecker: true
 			},
 		},
 		success: function(label) {
 			label.html("").addClass("checked");
 		}
 	});
-
 
 });
 

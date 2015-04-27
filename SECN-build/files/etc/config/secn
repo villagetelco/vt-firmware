@@ -25,7 +25,7 @@ config secn 'accesspoint'
 	option encryption 'WPA2'
 
 config secn 'mesh'
-	option mesh_enable 'checked'
+	option mesh_disable '0'
 	option mpgw 'OFF'
 
 config secn 'dhcp'
@@ -55,9 +55,11 @@ config secn 'modem'
 	option modemport '0'
 	option service 'umts'
 	option dialstr '*99#'
+	option url     'http://'
 
 config secn 'wan'
-	option wanip '10.0.0.100'
+	option wanip '10.0.0.20'
+	option secwanip '10.0.1.20'
 	option wangateway '10.0.0.1'
 	option wanmask '255.255.255.0'
 	option wandns '8.8.8.8'
@@ -67,5 +69,6 @@ config secn 'wan'
 	option ethwanmode 'DHCP'
 	option wanport 'Disable'
 	option wanlan_enable '0'
+	option port_forward '0'
 
 

@@ -1,5 +1,5 @@
-
 #!/bin/sh -x
+
 # /etc/init.d/config_secn-2
 
 # This is the second part of config_secn which is run at the end of the start up sequence

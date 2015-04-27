@@ -13,6 +13,13 @@ DATE=`date`
 UPTIME=`uptime`
 TZ=`cat /etc/TZ`
 PROC=`ps|wc -l`
+# Memory
+MEMFREE=`cat /proc/meminfo | grep MemFree |cut -d : -f2 | tr -d ' '|tr -d 'kB'`
+MEMTOT=`cat /proc/meminfo | grep MemTotal |cut -d : -f2 | tr -d ' '`
+MEMSTR=$MEMFREE" / "$MEMTOT
+
+#Get Softphone directory
+/bin/get-softph.sh
 
 # Get USB Modem details
 USBMODEM=`/bin/usbmodem.sh`
@@ -41,40 +48,6 @@ EXTERNIP=`uci get secn.asterisk.externip`
 ENABLENAT=`uci get secn.asterisk.enablenat`
 SOFTPH=`uci get secn.asterisk.softph`
 ENABLE_AST=`uci get secn.asterisk.enable_ast`
-
-# Get FXS params
-FXS="dragino2-si3217x.mp02"
-LINE_Z=`uci get $FXS.opermode`
-TONEZONE=`uci get $FXS.tonezone | tr '[a-z]' '[A-Z]'`
-RXGAIN=`uci get $FXS.rxgain`
-TXGAIN=`uci get $FXS.txgain`
-HOOKFLASH=`uci get $FXS.rxflash`
-
-LEC_ENABLE=`uci get $FXS.echocan`
-if [ $LEC_ENABLE = "1" ]; then
-	LEC_ENABLE="checked"
-else
-	LEC_ENABLE="0"
-fi
-
-MWI_ENABLE=`uci get $FXS.mwi`
-if [ $MWI_ENABLE = "1" ]; then
-	MWI_ENABLE="checked"
-else
-	MWI_ENABLE="0"
-fi
-
-MAIL_ENABLE=`uci get $FXS.mailbox`
-if [ $MAIL_ENABLE != "" ]; then                       
-	MAIL_ENABLE="checked"                                 
-fi                                                       
-
-LCD_ENABLE=`uci get $FXS.signalling`
-if [ $LCD_ENABLE = "ls" ]; then
-	LCD_ENABLE="checked"
-else
-	LCD_ENABLE="0"
-fi
 
 # Access Point configuration parameters
 SSID=`uci get secn.accesspoint.ssid`
@@ -113,8 +86,15 @@ OPTION_DNS=`uci get secn.dhcp.dns`
 OPTION_DNS2=`uci get secn.dhcp.dns2`
 DEVICE_IP=`uci get secn.dhcp.device_ip`
 
-# MPGW setting
-MESH_ENABLE=`uci get secn.mesh.mesh_enable`
+# Set up Mesh Enable
+MESH_DISABLE=`uci get secn.mesh.mesh_disable`
+if [ $MESH_DISABLE = "0" ]; then
+	MESH_ENABLE="checked"
+else
+	MESH_ENABLE="0"
+fi
+
+# Mesh gateway setting
 MPGW=`uci get secn.mesh.mpgw`
 
 # Get network settings from /etc/config/network and wireless
@@ -135,9 +115,8 @@ ATH0_BSSID=`uci get wireless.ah_0.bssid`
 CHANNEL=`uci get wireless.radio0.channel`
 ATH0_TXPOWER=`uci get wireless.radio0.txpower`
 ATH0_TXPOWER_ACTUAL=`iwconfig | grep -A 2 'wlan0' | grep -m 1 'Tx-Power'| cut -d T -f 2|cut -d = -f 2`
-RADIOMODE=`uci get wireless.radio0.hwmode`
+RADIOMODE=`uci get wireless.radio0.htmode`
 CHANBW=`uci get wireless.radio0.chanbw`
-HTMODE=`uci get wireless.radio0.htmode`
 COUNTRY=`uci get wireless.radio0.country`
 
 # Get web server parameters
@@ -163,13 +142,18 @@ WANPORT=`uci get secn.wan.wanport`
 ETHWANMODE=`uci get secn.wan.ethwanmode`
 WANLAN_ENABLE=`uci get secn.wan.wanlan_enable`
 WANIP=`uci get secn.wan.wanip`
+SECWANIP=`uci get secn.wan.secwanip`
 WANGATEWAY=`uci get secn.wan.wangateway`
 WANMASK=`uci get secn.wan.wanmask`
 WANDNS=`uci get secn.wan.wandns`
+PORT_FORWARD=`uci get secn.wan.port_forward`
 
 WANSSID=`uci get secn.wan.wanssid`
 WANENCR=`uci get secn.wan.wanencr`
 WANPASS=`uci get secn.wan.wanpass`
+
+# LAN Port disable setting
+LANPORT_DISABLE=`uci get secn.wan.lanport_disable`
 
 # Get 3G USB Modem
 MODEM_ENABLE=`uci get secn.modem.enabled`
@@ -182,6 +166,7 @@ APNUSER=`uci get secn.modem.username`
 APNPW=`uci get secn.modem.password`
 MODEMPIN=`uci get secn.modem.pin`
 MODEMPORT=`uci get secn.modem.modemport`
+MODEMURL=`uci get secn.modem.url`
 
 
 # GatewayTest Status message
