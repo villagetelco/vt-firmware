@@ -12,38 +12,41 @@ sleep 20
 mkdir /mnt/sda1
 mkdir /mnt/sda2
 
-mount /dev/sda1  /mnt/sda1
-mount /dev/sda2  /mnt/sda2
+mount -r /dev/sda1  /mnt/sda1
+mount -r /dev/sda2  /mnt/sda2
 
 # Remove old links
 rm /www/rachel/modules
 rm /www/rachel/local
 rm /www/rachel/logs
 
+# Set up default home page
+ln -s -f /www/rachel/rachel.index.html   /www/rachel/index.html
+
 # Find modules directory and force link
 # Check for RACHEL SD Card
 if [ -e "/mnt/sda2/var/www/modules" ]; then    
-ln -s -f /mnt/sda2/var/www/modules /www/rachel/modules
-ln -s -f /mnt/sda2/var/www/local   /www/rachel/local
-mkdir /mnt/sda2/var/www/logs
-ln -s -f /mnt/sda2/var/www/logs    /www/rachel/logs
+	ln -s -f /mnt/sda2/var/www/modules /www/rachel/modules
+	ln -s -f /mnt/sda2/var/www/local   /www/rachel/local
+	mkdir /mnt/sda2/var/www/logs
+	ln -s -f /mnt/sda2/var/www/logs    /www/rachel/logs
 fi
 
 # Check for RACHEL USB
 if [ -e "/mnt/sda1/RACHEL/bin/www/modules" ]; then
-ln -s -f /mnt/sda1/RACHEL/bin/www/modules /www/rachel/modules
-ln -s -f /mnt/sda1/RACHEL/bin/www/local   /www/rachel/local
-mkdir /mnt/sda1/RACHEL/bin/www/logs
-ln -s -f /mnt/sda1/RACHEL/bin/www/logs    /www/rachel/logs
+	ln -s -f /mnt/sda1/RACHEL/bin/www/modules /www/rachel/modules
+	ln -s -f /mnt/sda1/RACHEL/bin/www/local   /www/rachel/local
+	mkdir /mnt/sda1/RACHEL/bin/www/logs
+	ln -s -f /mnt/sda1/RACHEL/bin/www/logs    /www/rachel/logs
 fi
 
 # Check for VT SD/USB
 if [ -e "/mnt/sda1/modules" ]; then
-ln -s -f /mnt/sda1/modules /www/rachel/modules
-ln -s -f /mnt/sda1/local   /www/rachel/local
-ln -s -f /mnt/sda1/index.html   /www/rachel/index.html # VT-RACHEL home page
-mkdir /mnt/sda1/logs
-ln -s -f /mnt/sda1/logs    /www/rachel/logs
+	ln -s -f /mnt/sda1/modules /www/rachel/modules
+	ln -s -f /mnt/sda1/local   /www/rachel/local
+	ln -s -f /mnt/sda1/index.html   /www/rachel/index.html # Set up VT-RACHEL home page
+	mkdir /mnt/sda1/logs
+	ln -s -f /mnt/sda1/logs    /www/rachel/logs
 fi
 
 # Set up logs
