@@ -161,8 +161,8 @@ EOF
 # Everything from here to EOF will be written to the file
 
 # Set up for dialout
-if [ $DIALOUT == "None" ]; then
-		DIALOUT="XXXXXX"
+if [ $DIALOUT == "Auto" ]; then
+		DIALOUT="XXXXX"
     Y=0
 else
     Y=1

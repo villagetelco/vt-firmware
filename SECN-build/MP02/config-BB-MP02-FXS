@@ -2599,14 +2599,14 @@ CONFIG_PACKAGE_asterisk11-codec-dahdi=y
 # CONFIG_PACKAGE_asterisk11-codec-g722 is not set
 # CONFIG_PACKAGE_asterisk11-codec-g726 is not set
 # CONFIG_PACKAGE_asterisk11-codec-g729 is not set
-# CONFIG_PACKAGE_asterisk11-codec-gsm is not set
+CONFIG_PACKAGE_asterisk11-codec-gsm=y
 # CONFIG_PACKAGE_asterisk11-codec-ilbc is not set
 # CONFIG_PACKAGE_asterisk11-codec-lpc10 is not set
 # CONFIG_PACKAGE_asterisk11-codec-resample is not set
 CONFIG_PACKAGE_asterisk11-curl=y
 # CONFIG_PACKAGE_asterisk11-format-g726 is not set
 # CONFIG_PACKAGE_asterisk11-format-g729 is not set
-# CONFIG_PACKAGE_asterisk11-format-gsm is not set
+CONFIG_PACKAGE_asterisk11-format-gsm=y
 # CONFIG_PACKAGE_asterisk11-format-h263 is not set
 # CONFIG_PACKAGE_asterisk11-format-h264 is not set
 # CONFIG_PACKAGE_asterisk11-format-ilbc is not set
