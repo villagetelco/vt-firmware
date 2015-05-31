@@ -158,15 +158,16 @@ EOF
 #-----------------------------------------------------------
 
 # Create 'potato.extensions.conf' include file
-# Everything from here to EOF will be written to the file
 
-# Set up for dialout
+# Set up for Auto dialout for six or more digits
 if [ $DIALOUT == "Auto" ]; then
 		DIALOUT="XXXXX"
     Y=0
 else
     Y=1
 fi
+
+# Everything from here to EOF will be written to the file
 
 cat > /etc/asterisk/potato.extensions.conf << EOF
 
@@ -181,7 +182,7 @@ cat > /etc/asterisk/potato.extensions.conf << EOF
 
 ; Make calls using a SIP host [sipaccount] 
 ; Dial <DIALOUT> digit for access, and then required number string.
-; DIALOUT may be null, so dial strings of six or more digits will match. 
+; If DIALOUT is Auto, dial strings of six or more digits will match. 
 
 [outgoing-vsp]
 exten => _$DIALOUT.,1,Dial(SIP/\${EXTEN:$Y}@sipaccount,120,r)
