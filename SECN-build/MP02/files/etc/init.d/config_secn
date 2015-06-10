@@ -158,6 +158,15 @@ EOF
 #-----------------------------------------------------------
 
 # Create 'potato.extensions.conf' include file
+
+# Set up for Auto dialout for six or more digits
+if [ $DIALOUT == "Auto" ]; then
+		DIALOUT="XXXXXX"
+    Y=0
+else
+    Y=1
+fi
+
 # Everything from here to EOF will be written to the file
 
 cat > /etc/asterisk/potato.extensions.conf << EOF
@@ -172,10 +181,11 @@ cat > /etc/asterisk/potato.extensions.conf << EOF
 ; See /etc/config/secn for config parameters
 
 ; Make calls using a SIP host [sipaccount] 
-; Dial # for access, and then required number string
+; Dial <DIALOUT> digit for access, and then required number string.
+; If DIALOUT is Auto, dial strings of six or more digits will match. 
 
 [outgoing-vsp]
-exten => _$DIALOUT.,1,Dial(SIP/\${EXTEN:1}@sipaccount,120,r)
+exten => _$DIALOUT.,1,Dial(SIP/\${EXTEN:$Y}@sipaccount,120,r)
 
 ; Make calls to Softphone extensions 
 ; Device is Softphone Master (SIP server) or Client (only if FXS present e.g. MP)
