@@ -176,13 +176,7 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-#build mp02 MP02
 build_mp02 MP02 FXS
-#build_mp02 MP02  Pros
-#build_mp02 MP02  noAst
-#build_mp02 MP02  CC
-#build_mp02 MP02  NDS
-#build_mp02 MP02  Pol
 
 echo " "
 echo " Build script MP02 complete"
