@@ -8,7 +8,7 @@ ifconfig br-lan:9 172.31.255.254 netmask 255.255.255.252
 WANPORT=`uci get secn.wan.wanport`
 SECWANIP=`uci get secn.wan.secwanip`
 if [ $WANPORT = "Mesh" ]; then
-	ifconfig br-wan:9 $SECWANIP netmask 255.255.255.0
+	ifconfig "br-wan:9" $SECWANIP netmask 255.255.255.0
 elif [ $WANPORT = "Ethernet" ]; then
-	ifconfig 'eth0.2':9 $SECWANIP netmask 255.255.255.0
+	ifconfig "eth0.2:9" $SECWANIP netmask 255.255.255.0
 fi
