@@ -21,6 +21,9 @@ MEMSTR=$MEMFREE" / "$MEMTOT
 #Get Softphone directory
 /bin/get-softph.sh
 
+# Get WAN IP
+WANIPASSIGNED=`/bin/get-wanip.sh`
+
 # Set DHCP subnet to current subnet for Softphone Support
 /bin/setdhcpsubnet.sh > /dev/null
 
