@@ -21,6 +21,9 @@ MEMSTR=$MEMFREE" / "$MEMTOT
 #Get Softphone directory
 /bin/get-softph.sh
 
+# Get WAN IP
+WANIPASSIGNED=`/bin/get-wanip.sh`
+
 # Get USB Modem details
 USBMODEM=`/bin/usbmodem.sh`
 USBSERIAL=`ls /dev/ttyUSB*`
