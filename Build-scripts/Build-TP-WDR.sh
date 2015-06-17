@@ -57,7 +57,7 @@ fi
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="BB-Alpha10-WDR"
+DIRVER="RC2-WDR"
 VER="SECN-3_0-"$DIRVER
 
 ###########################
@@ -88,8 +88,8 @@ echo "Set up new build directory  $BINDIR/builds/build-"$DIR
 mkdir $BINDIR/builds/build-$DIR
 
 # Create md5sums files
-echo $DIR > $BINDIR/builds/build-$DIR/md5sums
-echo $DIR > $BINDIR/builds/build-$DIR/md5sums-$VER
+echo $DIR > $BINDIR/builds/build-$DIR/md5sums.txt
+echo $DIR > $BINDIR/builds/build-$DIR/md5sums-$VER.txt
 
 ##########################
 
@@ -162,7 +162,7 @@ echo ""
 HWVER=`echo $1 | sed s/WDR//`
 
 echo "Update original md5sums file"
-cat $BINDIR/md5sums | grep "squashfs" | grep $HWVER | grep ".bin" >> $BINDIR/builds/build-$DIR/md5sums
+cat $BINDIR/md5sums.txt | grep "squashfs" | grep $HWVER | grep ".bin" >> $BINDIR/builds/build-$DIR/md5sums.txt
 echo ""
 
 echo  "Rename files to add version info"
@@ -174,8 +174,8 @@ else
 fi
 
 echo "Update new md5sums file"
-md5sum $BINDIR/*wdr$HWVER*-squash*sysupgrade.bin >> $BINDIR/builds/build-$DIR/md5sums-$VER
-#md5sum $BINDIR/*wdr$HWVER*-squash*factory.bin    >> $BINDIR/builds/build-$DIR/md5sums-$VER
+md5sum $BINDIR/*wdr$HWVER*-squash*sysupgrade.bin >> $BINDIR/builds/build-$DIR/md5sums-$VER.txt
+#md5sum $BINDIR/*wdr$HWVER*-squash*factory.bin    >> $BINDIR/builds/build-$DIR/md5sums-$VER.txt
 
 echo  "Copy files to build folder"
 cp $BINDIR/openwrt*wdr$HWVER*-squash*sysupgrade.bin $BINDIR/builds/build-$DIR
@@ -201,8 +201,8 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-build_tp WDR3500
 build_tp WDR4300
+build_tp WDR3500
 
 
 echo " "
