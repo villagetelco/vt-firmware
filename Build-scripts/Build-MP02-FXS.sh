@@ -57,8 +57,8 @@ fi
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="FXS-Alpha3"
-VER="SECN-3_1-"$DIRVER
+DIRVER="FXS-RC1"
+VER="SECN-3.1-"$DIRVER
 
 ###########################
 echo "Copy files from Git repo into build folder"
