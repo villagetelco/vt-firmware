@@ -57,7 +57,7 @@ fi
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="FXS-RC1"
+DIRVER="FXS-RC2"
 VER="SECN-3.1-"$DIRVER
 
 ###########################
@@ -88,8 +88,8 @@ echo "Set up new build directory  $BINDIR/builds/build-"$DIR
 mkdir $BINDIR/builds/build-$DIR
 
 # Create md5sums files
-echo $DIR > $BINDIR/builds/build-$DIR/md5sums
-echo $DIR > $BINDIR/builds/build-$DIR/md5sums-$VER
+echo $DIR > $BINDIR/builds/build-$DIR/md5sums.txt
+echo $DIR > $BINDIR/builds/build-$DIR/md5sums-$VER.txt
 
 ##########################
 
@@ -160,9 +160,9 @@ make
 echo ""
 
 echo "Update original md5sums file"
-cat $BINDIR/md5sums | grep "squashfs.bin"   | grep ".bin" >> $BINDIR/builds/build-$DIR/md5sums
-cat $BINDIR/md5sums | grep "kernel.bin"     | grep ".bin" >> $BINDIR/builds/build-$DIR/md5sums
-cat $BINDIR/md5sums | grep "sysupgrade.bin" | grep ".bin" >> $BINDIR/builds/build-$DIR/md5sums
+cat $BINDIR/md5sums.txt | grep "squashfs.bin"   | grep ".bin" >> $BINDIR/builds/build-$DIR/md5sums.txt
+cat $BINDIR/md5sums.txt | grep "kernel.bin"     | grep ".bin" >> $BINDIR/builds/build-$DIR/md5sums.txt
+cat $BINDIR/md5sums.txt | grep "sysupgrade.bin" | grep ".bin" >> $BINDIR/builds/build-$DIR/md5sums.txt
 echo ""
 
 echo  "Rename files to add version info"
@@ -174,9 +174,9 @@ else
 fi
 
 echo "Update new md5sums file"
-md5sum $BINDIR/*-squash*sysupgrade.bin >> $BINDIR/builds/build-$DIR/md5sums-$VER
-md5sum $BINDIR/openwrt*kernel.bin >>     $BINDIR/builds/build-$DIR/md5sums-$VER
-md5sum $BINDIR/openwrt*squashfs.bin >>   $BINDIR/builds/build-$DIR/md5sums-$VER
+md5sum $BINDIR/*-squash*sysupgrade.bin >> $BINDIR/builds/build-$DIR/md5sums-$VER.txt
+md5sum $BINDIR/openwrt*kernel.bin >>     $BINDIR/builds/build-$DIR/md5sums-$VER.txt
+md5sum $BINDIR/openwrt*squashfs.bin >>   $BINDIR/builds/build-$DIR/md5sums-$VER.txt
 
 echo  "Move files to build folder"
 mv $BINDIR/openwrt*-squash*sysupgrade.bin $BINDIR/builds/build-$DIR
