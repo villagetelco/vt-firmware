@@ -11,6 +11,8 @@ if [ $WANPORT = "Mesh" ]; then
 	ifconfig "br-wan:9" $SECWANIP netmask 255.255.255.0
 elif [ $WANPORT = "Ethernet" ]; then
 	ifconfig "eth1:9" $SECWANIP netmask 255.255.255.0
-elif [ $WANPORT = "WiFi" ]; then
+elif [ $WANPORT = "2.4GHz_WiFi" ]; then
 	ifconfig "wlan0-2:9" $SECWANIP netmask 255.255.255.0  # Single port devices
+elif [ $WANPORT = "5.0GHz_WiFi" ]; then
+	ifconfig "wlan1-2:9" $SECWANIP netmask 255.255.255.0  # Single port devices
 fi
