@@ -160,9 +160,9 @@ make
 echo ""
 
 echo "Update original md5sums file"
-cat $BINDIR/md5sums.txt | grep "squashfs.bin"   | grep ".bin" >> $BINDIR/builds/build-$DIR/md5sums.txt
-cat $BINDIR/md5sums.txt | grep "kernel.bin"     | grep ".bin" >> $BINDIR/builds/build-$DIR/md5sums.txt
-cat $BINDIR/md5sums.txt | grep "sysupgrade.bin" | grep ".bin" >> $BINDIR/builds/build-$DIR/md5sums.txt
+cat $BINDIR/md5sums | grep "squashfs.bin"   | grep ".bin" >> $BINDIR/builds/build-$DIR/md5sums.txt
+cat $BINDIR/md5sums | grep "kernel.bin"     | grep ".bin" >> $BINDIR/builds/build-$DIR/md5sums.txt
+cat $BINDIR/md5sums | grep "sysupgrade.bin" | grep ".bin" >> $BINDIR/builds/build-$DIR/md5sums.txt
 echo ""
 
 echo  "Rename files to add version info"

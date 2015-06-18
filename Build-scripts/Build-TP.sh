@@ -57,7 +57,7 @@ fi
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="RC2-test1"
+DIRVER="RC2"
 VER="SECN-3_0-"$DIRVER
 
 ###########################
@@ -159,7 +159,7 @@ make
 echo ""
 
 echo "Update original md5sums file"
-cat $BINDIR/md5sums.txt | grep "squashfs" | grep ".bin" >> $BINDIR/builds/build-$DIR/md5sums.txt
+cat $BINDIR/md5sums | grep "squashfs" | grep ".bin" >> $BINDIR/builds/build-$DIR/md5sums.txt
 echo ""
 
 echo  "Rename files to add version info"

@@ -161,7 +161,7 @@ make
 echo ""
 
 echo "Update original md5sums file"
-cat $BINDIR/md5sums.txt | grep "squashfs" | grep ".bin" >> $BINDIR/builds/build-$DIR/md5sums.txt
+cat $BINDIR/md5sums | grep "squashfs" | grep ".bin" >> $BINDIR/builds/build-$DIR/md5sums.txt
 echo ""
 
 echo  "Rename files to add version info"

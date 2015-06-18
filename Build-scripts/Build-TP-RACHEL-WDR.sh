@@ -57,7 +57,7 @@ fi
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="RC2-WDR"
+DIRVER="WDR-RC2"
 VER="SECN-3_0-RACHEL-"$DIRVER
 
 ###########################
@@ -164,7 +164,7 @@ echo ""
 HWVER=`echo $1 | sed s/WDR//`
 
 echo "Update original md5sums file"
-cat $BINDIR/md5sums.txt | grep "squashfs" | grep $HWVER | grep ".bin" >> $BINDIR/builds/build-$DIR/md5sums.txt
+cat $BINDIR/md5sums | grep "squashfs" | grep $HWVER | grep ".bin" >> $BINDIR/builds/build-$DIR/md5sums.txt
 echo ""
 
 echo  "Rename files to add version info"
