@@ -66,7 +66,7 @@ config secn 'modem'
 	option modemport '0'
 	option service 'umts'
 	option dialstr '*99#'
-	option url     'http://'
+	option url     'http://10.130.1.20/nomodem.html'
 
 config secn 'wan'
 	option wanip '10.0.0.20'
