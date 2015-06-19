@@ -1,7 +1,7 @@
 #!/bin/sh -x
 
 # /www/cgi-bin/config/config-sub-adv2.sh
-# This script saves the settings when the Advanced2 page is submitted
+# This script saves the settings when the WAN page is submitted
 
 # Build the new script file
 #---------------------------------------------------
@@ -90,6 +90,10 @@ uci set secn.modem.password=\$APNPW
 uci set secn.modem.pin=\$MODEMPIN
 uci set secn.modem.service=\$MODEMSERVICE
 uci set secn.modem.apn=\$APN
+
+# Write USB ethernet modem settings
+MODEMURL=\$(echo \$MODEMURL | sed -e s/%3A/:/g | sed -e 's/%2F/\//g')
+uci set secn.modem.url=\$MODEMURL
 
 # Commit the settings into /etc/config/ files
 uci commit secn
