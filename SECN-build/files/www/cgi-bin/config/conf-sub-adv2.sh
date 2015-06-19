@@ -1,7 +1,7 @@
 #!/bin/sh -x
 
 # /www/cgi-bin/config/config-sub-adv2.sh
-# This script saves the settings when the Advanced2 page is submitted
+# This script saves the settings when the WAN page is submitted
 
 # Build the new script file
 #---------------------------------------------------
