@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 USAGE1="Usage:   ./Setup-BB.sh  < /your-preferred-source-installation-path >  < revision >"
-USAGE2="Example: ./Setup-BB.sh  < ~/openwrt/my-new-build-env  40757"
+USAGE2="Example: ./Setup-BB.sh  < ~/openwrt/my-new-build-env  44952"
 
 if (( $# < 2 ))
 then
