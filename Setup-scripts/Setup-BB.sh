@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 USAGE1="Usage:   ./Setup-BB.sh  < /your-preferred-source-installation-path >  < revision >"
-USAGE2="Example: ./Setup-BB.sh  < ~/openwrt/my-new-build-env  40757"
+USAGE2="Example: ./Setup-BB.sh  < ~/openwrt/my-new-build-env  45951"
 
 if (( $# < 2 ))
 then
@@ -54,10 +54,12 @@ mv $OPENWRT_PATH/feeds.conf.default  $OPENWRT_PATH/feeds.conf.default.bak
 echo " "
 
 echo "*** Create new feeds.conf.default file"
-echo "src-git packages https://github.com/openwrt/packages.git;for-14.07"         > $OPENWRT_PATH/feeds.conf.default
-echo "src-git telephony http://git.openwrt.org/feed/telephony.git"                >> $OPENWRT_PATH/feeds.conf.default
-echo "src-git routing https://github.com/openwrt-routing/packages.git;for-14.07"  >> $OPENWRT_PATH/feeds.conf.default
-echo "src-git alfred git://git.open-mesh.org/openwrt-feed-alfred.git"             >> $OPENWRT_PATH/feeds.conf.default
+echo "src-git pkgsmaster https://github.com/openwrt/packages.git"                           > $OPENWRT_PATH/feeds.conf.default
+echo "src-git packages https://github.com/openwrt/packages.git;for-14.07"                   >> $OPENWRT_PATH/feeds.conf.default
+echo "src-git telephony https://github.com/openwrt/telephony.git^47c2c1f"                   >> $OPENWRT_PATH/feeds.conf.default
+echo "src-git routing https://github.com/openwrt-routing/packages.git;for-14.07"            >> $OPENWRT_PATH/feeds.conf.default
+echo "src-git alfred git://git.open-mesh.org/openwrt-feed-alfred.git"                       >> $OPENWRT_PATH/feeds.conf.default
+echo "src-git fxs git://github.com/villagetelco/vt-fxs-packages.git"                        >> $OPENWRT_PATH/feeds.conf.default
 echo " "
 
 echo "*** Update the feeds (See ./feeds-update.log)"
@@ -68,16 +70,25 @@ echo " "
 tail -n 6 $OPENWRT_PATH/feeds-update.log
 echo " "
 
+$OPENWRT_PATH/scripts/feeds update -i      > $OPENWRT_PATH/feeds-update.log
+
 echo "*** Install OpenWrt packages (See ./feeds-install.log)"
 sleep 10
-$OPENWRT_PATH/scripts/feeds install -a      > $OPENWRT_PATH/feeds-install.log
+$OPENWRT_PATH/scripts/feeds install -a -p packages          > $OPENWRT_PATH/feeds-install.log
+$OPENWRT_PATH/scripts/feeds install -a -p telephony         >> $OPENWRT_PATH/feeds-install.log
+$OPENWRT_PATH/scripts/feeds install -a -p routing           >> $OPENWRT_PATH/feeds-install.log
+$OPENWRT_PATH/scripts/feeds install -a -p alfred            >> $OPENWRT_PATH/feeds-install.log
+$OPENWRT_PATH/scripts/feeds install -a -p fxs               >> $OPENWRT_PATH/feeds-install.log
+$OPENWRT_PATH/scripts/feeds install php5                    >> $OPENWRT_PATH/feeds-install.log
 echo " "
 
 echo "*** Lock the OpenWrt package feeds from further updating"
-echo "#src-git packages https://github.com/openwrt/packages.git;for-14.07"           > $OPENWRT_PATH/feeds.conf.default
-echo "src-git telephony http://git.openwrt.org/feed/telephony.git"                  >> $OPENWRT_PATH/feeds.conf.default
-echo "src-git routing https://github.com/openwrt-routing/packages.git;for-14.07"    >> $OPENWRT_PATH/feeds.conf.default
-echo "src-git alfred git://git.open-mesh.org/openwrt-feed-alfred.git"               >> $OPENWRT_PATH/feeds.conf.default
+echo "#src-git pkgsmaster https://github.com/openwrt/packages.git"                          > $OPENWRT_PATH/feeds.conf.default
+echo "#src-git packages https://github.com/openwrt/packages.git;for-14.07"                  >> $OPENWRT_PATH/feeds.conf.default
+echo "src-git telephony https://github.com/openwrt/telephony.git^47c2c1f"                   >> $OPENWRT_PATH/feeds.conf.default
+echo "src-git routing https://github.com/openwrt-routing/packages.git;for-14.07"            >> $OPENWRT_PATH/feeds.conf.default
+echo "src-git alfred git://git.open-mesh.org/openwrt-feed-alfred.git"                       >> $OPENWRT_PATH/feeds.conf.default
+echo "src-git fxs git://github.com/villagetelco/vt-fxs-packages.git"                        >> $OPENWRT_PATH/feeds.conf.default
 echo " "
 
 echo "*** Remove tmp directory"
