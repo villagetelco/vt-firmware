@@ -45,7 +45,7 @@ pwd
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="RC1"
+DIRVER="FXS-RC1"
 VER="SECN-2_1-"$DIRVER
 
 ###########################
