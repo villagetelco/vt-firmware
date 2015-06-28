@@ -420,6 +420,8 @@ uci set network.wan.pin=''
 uci set network.wan.device=''
 uci set wireless.sta_0.disabled='1' # Make sure wifi WAN is off by default
 uci set wireless.sta_1.disabled='1'
+uci set network.stabridge.network='wwan' # Disable wifi relay bridge
+/etc/init.d/relayd disable # Disable relayd
 
 # Set up for WAN port bridged to LAN
 if [ $WANLAN_ENABLE = "checked" ]; then
@@ -485,6 +487,7 @@ fi
 # Set up for WiFi WAN
 if [ $WANPORT = "2.4GHz_WiFi" ]; then
 	uci set network.lan.gateway='255.255.255.255'
+	uci set wireless.sta_0.network='wan'
 	uci set wireless.sta_0.disabled='0'
 	uci set wireless.ah_0.disabled='1'
 	uci set secn.mesh.mesh_disable='1'
@@ -493,10 +496,30 @@ fi
 
 if [ $WANPORT = "5.0GHz_WiFi" ]; then
 	uci set network.lan.gateway='255.255.255.255'
+	uci set wireless.sta_1.network='wan'
 	uci set wireless.sta_1.disabled='0'
 	uci set wireless.ah_1.disabled='1'
 	uci set secn.mesh1.mesh_disable='1' 
 	uci set network.wan.ifname='wlan1-2'
+fi
+
+# Set up for WiFi Relay WAN
+if [ $WANPORT = "2.4GHz_WiFi-Relay" ]; then
+	uci set network.stabridge.network='lan wwan'
+	uci set wireless.sta_0.network='wwan'
+	uci set wireless.sta_0.disabled='0'
+	uci set wireless.ah_0.disabled='1'
+	uci set secn.mesh.mesh_disable='1'
+	/etc/init.d/relayd enable
+fi
+
+if [ $WANPORT = "5.0GHz_WiFi-Relay" ]; then
+	uci set network.stabridge.network='lan wwan'
+	uci set wireless.sta_1.network='wwan'
+	uci set wireless.sta_1.disabled='0'
+	uci set wireless.ah_1.disabled='1'
+	uci set secn.mesh1.mesh_disable='1'
+	/etc/init.d/relayd enable
 fi
 
 # Set up for DHCP or Static

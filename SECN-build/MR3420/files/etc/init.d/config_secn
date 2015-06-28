@@ -191,6 +191,8 @@ uci set network.wan.password=''
 uci set network.wan.pin=''
 uci set network.wan.device=''
 uci set wireless.sta_0.disabled='1' # Make sure wifi WAN is off.
+uci set network.stabridge.network='wwan' # Disable wifi relay bridge
+/etc/init.d/relayd disable # Disable relayd
 
 # Set default LAN port to eth0 and eth1 if 'WAN' port changed to LAN
 if [ $WANLAN_ENABLE = "checked" ]; then
@@ -248,8 +250,9 @@ fi
 
 # Set up for WiFi WAN
 if [ $WANPORT = "WiFi" ]; then
-	uci set network.lan.gateway='255.255.255.255'                                        
+	uci set network.lan.gateway='255.255.255.255'
 	uci set wireless.sta_0.disabled='0'
+	uci set wireless.sta_0.network='wan'
 	uci set wireless.ah_0.disabled='1'
 	uci set secn.mesh.mesh_disable='1'
 	uci set network.wan.ifname='wlan0-2'
@@ -283,6 +286,17 @@ if [ $WANPORT = "USB-Modem" ]; then
 	uci set network.wan.password=$APNPW
 	uci set network.wan.pin=$PIN
 	uci set network.wan.device=$TTY
+fi
+
+
+# Set up for LAN port disabled
+LANPORT_DISABLE=`uci get secn.wan.lanport_disable`
+LANIFNAME=`uci get network.lan.ifname`
+
+if [ $LANPORT_DISABLE != "0" ] && [ $LANIFNAME = 'eth0' ]; then
+        uci set network.lan.ifname='eth99'
+elif [ $LANPORT_DISABLE != "0" ] && [ $LANIFNAME = 'eth0 eth1' ]; then
+	uci set network.lan.ifname='eth1'
 fi
 
 # Make sure firewall is enabled
