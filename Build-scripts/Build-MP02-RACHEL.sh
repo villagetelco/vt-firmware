@@ -67,7 +67,7 @@ fi
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="RC2"
+DIRVER="RC3"
 VER="SECN-3_0-RACHEL-"$DIRVER
 
 ###########################
