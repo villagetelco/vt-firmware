@@ -8,7 +8,11 @@
 if [ $1 = "allow" ] || [ $1 = "deny" ] || [ $1 = "disable" ]; then
   uci set wireless.ap_0.macfilter=$1
 else
-  exit
+  exit 1
+fi
+
+if [ !$2 ]; then
+	exit
 fi
 
 if [ $2 = "-f" ]; then
