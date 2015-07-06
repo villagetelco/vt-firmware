@@ -12,7 +12,7 @@ config zone
 	list   network	'wwan'
 	option input		ACCEPT
 	option output		ACCEPT
-	option forward	ACCEPT
+	option forward		ACCEPT
 
 config zone
 	option name		wan

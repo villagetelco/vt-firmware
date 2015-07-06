@@ -42,8 +42,6 @@ pwd
 
 ##############################
 
-
-
 # Check to see if setup has already run
 if [ ! -f ./already_configured ]; then 
   # make sure it only executes once
@@ -60,7 +58,6 @@ else
   echo "Build environment is configured. Continuing with build"
   echo ""
 fi
-
 
 #########################
 

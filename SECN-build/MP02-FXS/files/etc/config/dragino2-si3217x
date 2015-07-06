@@ -1,0 +1,15 @@
+
+config fxs 'mp02'
+	option debug '1'
+	option immediate 'no'
+	option tonezone 'us'
+	option opermode 'FCC'
+	option rxgain '0'
+	option txgain '0'
+	option rxflash '1250'
+	option signalling 'ks'
+	option mailbox ''
+	option mwi '0'
+	option echocan '1'
+
+
