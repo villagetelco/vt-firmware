@@ -6,7 +6,7 @@
 <head>
   <title>Upgrading Firmware - Do not disconnect</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="refresh" content="140; URL=/index.html">
+  <meta http-equiv="refresh" content="180; URL=/index.html">
 	<style type="text/css">
 	@import url(/lib/configstyle.css); 
 	</style>
@@ -24,7 +24,7 @@
 	
 	<h2> Upgrading firmware. Please wait for the timer to count down. </h2>
 
-  <h2>Time remaining:	<span id="seconds">200</span>.</h2>
+  <h2>Time remaining:	<span id="seconds">180</span>.</h2>
 	<script>
 	  var seconds = 200;
     setInterval(
