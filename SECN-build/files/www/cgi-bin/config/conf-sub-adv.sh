@@ -223,7 +223,6 @@ uci set secn.dhcp.endip=\$ENDIP
 uci set secn.dhcp.maxleases=\$MAXLEASES
 uci set secn.dhcp.leaseterm=\$LEASETERM
 uci set secn.dhcp.domain=\$DOMAIN
-uci set secn.dhcp.dns=\$OPTION_DNS
 uci set secn.dhcp.subnet=\$OPTION_SUBNET
 uci set secn.dhcp.router=\$OPTION_ROUTER
 uci set secn.dhcp.dns=\$OPTION_DNS
