@@ -22,8 +22,10 @@ if [ ! -d $GITREPO"/"$REPO ]; then
 	exit
 fi
 
+
 echo "Check out the correct branch"
 BRANCH="secn_3.0"
+
 BUILD_DIR=$(pwd)
 cd $GITREPO"/"$REPO
 git checkout $BRANCH > /dev/null
@@ -42,6 +44,8 @@ pwd
 
 ##############################
 
+
+
 # Check to see if setup has already run
 if [ ! -f ./already_configured ]; then 
   # make sure it only executes once
@@ -59,13 +63,14 @@ else
   echo ""
 fi
 
+
 #########################
 
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="FXS-RC3"
-VER="SECN-3_0-"$DIRVER
+DIRVER="FXS-RC3-test"
+VER="SECN-3.0-"$DIRVER
 
 ###########################
 echo "Copy files from Git repo into build folder"
@@ -109,7 +114,7 @@ rm ./.config
 
 if [ $2 ]; then
 	echo "Config file: config-BB-"$1-$2
-	cp ./SECN-build/$1/config-BB-$1-$2  ./.config
+	cp ./SECN-build/$1-$2/config-BB-$1-$2  ./.config
 else
 	echo "Config file: config-BB-"$1
 	cp ./SECN-build/$1/config-BB-$1  ./.config
@@ -134,7 +139,7 @@ echo "Copy generic files"
 cp -r ./SECN-build/files     .  
 
 echo "Overlay device specific files"
-cp -r ./SECN-build/$1/files  .  
+cp -r ./SECN-build/$1-$2/files  .  
 echo ""
 
 echo "Build Factory Restore tar file"
