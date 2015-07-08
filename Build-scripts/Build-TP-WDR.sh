@@ -67,7 +67,7 @@ fi
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="WDR-RC2"
+DIRVER="WDR-RC3"
 VER="SECN-3_0-"$DIRVER
 
 ###########################
