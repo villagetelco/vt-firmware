@@ -23,7 +23,7 @@ if [ ! -d $GITREPO"/"$REPO ]; then
 fi
 
 echo "Check out the correct branch"
-BRANCH="secn_3.0"
+BRANCH="secn_4.0"
 BUILD_DIR=$(pwd)
 cd $GITREPO"/"$REPO
 git checkout $BRANCH > /dev/null
@@ -64,8 +64,8 @@ fi
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="RC3"
-VER="SECN-3_0-"$DIRVER
+DIRVER="Alpha1"
+VER="SECN-4_0-"$DIRVER
 
 ###########################
 echo "Copy files from Git repo into build folder"

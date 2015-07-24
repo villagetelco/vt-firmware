@@ -24,7 +24,7 @@ fi
 
 
 echo "Check out the correct branch"
-BRANCH="secn_3.0"
+BRANCH="secn_4.0"
 
 BUILD_DIR=$(pwd)
 cd $GITREPO"/"$REPO
@@ -69,8 +69,8 @@ fi
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="FXS-RC3-test"
-VER="SECN-3.0-"$DIRVER
+DIRVER="FXS-Alpha1-test"
+VER="SECN-4.0-"$DIRVER
 
 ###########################
 echo "Copy files from Git repo into build folder"
