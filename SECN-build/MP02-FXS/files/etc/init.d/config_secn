@@ -62,7 +62,7 @@ ENABLENATFLAG=";"
 fi
 
 # Check whether device is already at Softphone Master IP address
-CURRENTOCTET4=`uci show network.lan.ipaddr | cut -d = -f 2 | cut -d . -f 4`
+CURRENTOCTET4=`uci get network.lan.ipaddr | cut -d = -f 2 | cut -d . -f 4`
 
 # If so, set new IP addr to default of .20 in case device is made non-Master
 # and the user forgets to change the IP address in the web UI at the same time
@@ -95,7 +95,7 @@ OCTET4="252"
 fi
 
 # Set up the default Softphone Master IP address 
-OCTET123=`uci show network.lan.ipaddr | cut -d = -f 2 | cut -d . -f 1,2,3`
+OCTET123=`uci get network.lan.ipaddr | cut -d = -f 2 | cut -d . -f 1,2,3`
 # Default Softphone Master IP is .252
 SOFTPHMASTERIP=$OCTET123.252
 
