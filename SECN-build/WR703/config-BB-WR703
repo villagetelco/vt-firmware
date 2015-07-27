@@ -285,7 +285,7 @@ CONFIG_KERNEL_RELAY=y
 # Package build options
 #
 # CONFIG_DEBUG is not set
-CONFIG_IPV6=y
+# CONFIG_IPV6 is not set
 CONFIG_PKG_BUILD_PARALLEL=y
 CONFIG_PKG_BUILD_USE_JOBSERVER=y
 
@@ -1262,8 +1262,6 @@ CONFIG_BUSYBOX_DEFAULT_FEATURE_IPC_SYSLOG_BUFFER_SIZE=0
 CONFIG_BUSYBOX_DEFAULT_LOGGER=y
 # CONFIG_PACKAGE_ca-certificates is not set
 CONFIG_PACKAGE_dnsmasq=y
-# CONFIG_PACKAGE_dnsmasq-dhcpv6 is not set
-# CONFIG_PACKAGE_dnsmasq-full is not set
 CONFIG_PACKAGE_dropbear=y
 
 #
@@ -1419,7 +1417,7 @@ CONFIG_PACKAGE_kmod-crypto-hash=y
 # CONFIG_PACKAGE_kmod-fs-configfs is not set
 # CONFIG_PACKAGE_kmod-fs-cramfs is not set
 # CONFIG_PACKAGE_kmod-fs-exportfs is not set
-CONFIG_PACKAGE_kmod-fs-ext4=y
+# CONFIG_PACKAGE_kmod-fs-ext4 is not set
 # CONFIG_PACKAGE_kmod-fs-fscache is not set
 # CONFIG_PACKAGE_kmod-fs-hfs is not set
 # CONFIG_PACKAGE_kmod-fs-hfsplus is not set
@@ -1527,7 +1525,7 @@ CONFIG_PACKAGE_kmod-nls-iso8859-1=y
 #
 # CONFIG_PACKAGE_kmod-arptables is not set
 # CONFIG_PACKAGE_kmod-ebtables is not set
-CONFIG_PACKAGE_kmod-ip6tables=y
+# CONFIG_PACKAGE_kmod-ip6tables is not set
 # CONFIG_PACKAGE_kmod-ip6tables-extra is not set
 # CONFIG_PACKAGE_kmod-ipt-account is not set
 # CONFIG_PACKAGE_kmod-ipt-chaos is not set
@@ -1653,7 +1651,7 @@ CONFIG_KMOD_BATMAN_ADV_MCAST=y
 # CONFIG_PACKAGE_kmod-ipip is not set
 # CONFIG_PACKAGE_kmod-ipsec is not set
 # CONFIG_PACKAGE_kmod-iptunnel6 is not set
-CONFIG_PACKAGE_kmod-ipv6=y
+# CONFIG_PACKAGE_kmod-ipv6 is not set
 # CONFIG_PACKAGE_kmod-isdn4linux is not set
 # CONFIG_PACKAGE_kmod-l2tp is not set
 # CONFIG_PACKAGE_kmod-l2tp-eth is not set
@@ -2031,7 +2029,6 @@ CONFIG_PACKAGE_libpolarssl=y
 # CONFIG_PACKAGE_ccid is not set
 # CONFIG_PACKAGE_engine_pkcs11 is not set
 # CONFIG_PACKAGE_fcgi is not set
-# CONFIG_PACKAGE_freeradius-client is not set
 # CONFIG_PACKAGE_glib2 is not set
 # CONFIG_PACKAGE_libaio is not set
 # CONFIG_PACKAGE_libapr is not set
@@ -2271,9 +2268,6 @@ CONFIG_PACKAGE_terminfo=y
 # CONFIG_PACKAGE_ebtables is not set
 # CONFIG_PACKAGE_fwknop is not set
 # CONFIG_PACKAGE_fwknopd is not set
-CONFIG_PACKAGE_ip6tables=y
-# CONFIG_PACKAGE_ip6tables-extra is not set
-# CONFIG_PACKAGE_ip6tables-mod-nat is not set
 CONFIG_PACKAGE_iptables=y
 # CONFIG_PACKAGE_iptables-mod-account is not set
 # CONFIG_PACKAGE_iptables-mod-chaos is not set
@@ -2609,6 +2603,7 @@ CONFIG_PACKAGE_relayd=y
 #
 # CONFIG_PACKAGE_apache is not set
 # CONFIG_PACKAGE_haproxy is not set
+# CONFIG_PACKAGE_haproxy-nossl is not set
 # CONFIG_PACKAGE_lighttpd is not set
 # CONFIG_PACKAGE_nginx is not set
 # CONFIG_PACKAGE_polipo is not set
@@ -2661,11 +2656,8 @@ CONFIG_PACKAGE_iftop=y
 # CONFIG_PACKAGE_iputils-arping is not set
 # CONFIG_PACKAGE_iputils-clockdiff is not set
 # CONFIG_PACKAGE_iputils-ping is not set
-# CONFIG_PACKAGE_iputils-ping6 is not set
 # CONFIG_PACKAGE_iputils-tftpd is not set
 # CONFIG_PACKAGE_iputils-tracepath is not set
-# CONFIG_PACKAGE_iputils-tracepath6 is not set
-# CONFIG_PACKAGE_iputils-traceroute6 is not set
 CONFIG_PACKAGE_iw=y
 # CONFIG_PACKAGE_krb5-client is not set
 # CONFIG_PACKAGE_krb5-libs is not set
@@ -2679,13 +2671,10 @@ CONFIG_PACKAGE_iw=y
 # CONFIG_PACKAGE_mosquitto-client is not set
 # CONFIG_PACKAGE_mosquitto-client-nossl is not set
 # CONFIG_PACKAGE_mosquitto-nossl is not set
-# CONFIG_PACKAGE_mrd6 is not set
 # CONFIG_PACKAGE_mtr is not set
 # CONFIG_PACKAGE_ndppd is not set
 # CONFIG_PACKAGE_noping is not set
-CONFIG_PACKAGE_odhcp6c=y
-CONFIG_PACKAGE_odhcp6c_ext_prefix_class=0
-CONFIG_PACKAGE_odhcp6c_ext_cer_id=0
+# CONFIG_PACKAGE_odhcp6c is not set
 CONFIG_PACKAGE_odhcpd=y
 CONFIG_PACKAGE_odhcpd_ext_prefix_class=0
 CONFIG_PACKAGE_odhcpd_ext_cer_id=0
