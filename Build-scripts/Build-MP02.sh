@@ -40,7 +40,10 @@ git branch | grep "*"
 cd $BUILD_DIR
 pwd
 
+
 ##############################
+
+
 
 # Check to see if setup has already run
 if [ ! -f ./already_configured ]; then 
@@ -58,6 +61,7 @@ else
   echo "Build environment is configured. Continuing with build"
   echo ""
 fi
+
 
 #########################
 
@@ -108,11 +112,11 @@ echo "Set up .config for "$1 $2
 rm ./.config
 
 if [ $2 ]; then
-	echo "Config file: config-BB-"$1-$2
-	cp ./SECN-build/$1/config-BB-$1-$2  ./.config
+	echo "Config file: config-"$1-$2
+	cp ./SECN-build/$1/config-$1-$2  ./.config
 else
-	echo "Config file: config-BB-"$1
-	cp ./SECN-build/$1/config-BB-$1  ./.config
+	echo "Config file: config-"$1
+	cp ./SECN-build/$1/config-$1  ./.config
 fi
 
 echo "Run defconfig"
@@ -163,7 +167,9 @@ rm $BINDIR/openwrt-*
 echo ""
 
 echo "Run make for "$1 $2
-make
+#make -j5 V=s 2>&1 | tee ~/build.txt
+#make -j5 2>&1 | tee ~/build.txt
+make -j 5
 echo ""
 
 echo "Update original md5sums file"
@@ -210,7 +216,7 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-build_mp02 MP02 
+build_mp02 MP02
 
 echo " "
 echo " Build script MP02 complete"

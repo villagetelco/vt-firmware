@@ -111,11 +111,11 @@ echo "Set up .config for "$1 $2
 rm ./.config
 
 if [ $2 ]; then
-	echo "Config file: config-BB-"$1-$2
-	cp ./SECN-build/$1/config-BB-$1-$2  ./.config
+	echo "Config file: config-"$1-$2
+	cp ./SECN-build/$1/config-$1-$2  ./.config
 else
-	echo "Config file: config-BB-"$1
-	cp ./SECN-build/$1/config-BB-$1  ./.config
+	echo "Config file: config-"$1
+	cp ./SECN-build/$1/config-$1  ./.config
 fi
 
 echo "Run defconfig"
@@ -165,7 +165,7 @@ rm $BINDIR/openwrt-*
 echo ""
 
 echo "Run make for "$1 $2
-make
+make -j 5
 echo ""
 
 # Get the hardware version eg (WDR) 4300 or 3500 
