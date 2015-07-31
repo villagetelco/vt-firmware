@@ -22,6 +22,24 @@ if [ ! -d $GITREPO"/"$REPO ]; then
 	exit
 fi
 
+echo "Check out the correct branch"
+BRANCH="secn_2.0"
+BUILD_DIR=$(pwd)
+cd $GITREPO"/"$REPO
+git checkout $BRANCH > /dev/null
+# Make sure checkout worked
+CHK_BR=`git branch | grep "*" | cut -d " " -f2`
+if [ $CHK_BR != $BRANCH ]; then
+	echo "Branch checkout failed"
+	echo "*****"
+	exit
+else
+	echo "Branch checkout successful"
+fi
+git branch | grep "*"
+cd $BUILD_DIR
+pwd
+
 ##############################
 
 # Check to see if setup has already run
@@ -78,8 +96,8 @@ echo "Set up new build directory  $BINDIR/builds/build-"$DIR
 mkdir $BINDIR/builds/build-$DIR
 
 # Create md5sums files
-echo $DIR > $BINDIR/builds/build-$DIR/md5sums
-echo $DIR > $BINDIR/builds/build-$DIR/md5sums-$VER
+echo $DIR > $BINDIR/builds/build-$DIR/md5sums.txt
+echo $DIR > $BINDIR/builds/build-$DIR/md5sums-$VER.txt
 
 ##########################
 
@@ -182,12 +200,12 @@ make
 echo ""
 
 echo "Update original md5sums file"
-cat $BINDIR/md5sums | grep "openwrt"  >> $BINDIR/builds/build-$DIR/md5sums
+cat $BINDIR/md5sums | grep "openwrt"  >> $BINDIR/builds/build-$DIR/md5sums.txt
 echo ""
 
 echo "Update new md5sums file"
-md5sum $BINDIR/*root.squashfs >> $BINDIR/builds/build-$DIR/md5sums-$VER
-md5sum $BINDIR/*.lzma         >> $BINDIR/builds/build-$DIR/md5sums-$VER
+md5sum $BINDIR/*root.squashfs >> $BINDIR/builds/build-$DIR/md5sums-$VER.txt
+md5sum $BINDIR/*.lzma         >> $BINDIR/builds/build-$DIR/md5sums-$VER.txt
 
 echo  "Move files to build folder"
 mv $BINDIR/*root.squashfs  $BINDIR/builds/build-$DIR
