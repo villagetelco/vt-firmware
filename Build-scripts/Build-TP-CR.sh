@@ -49,7 +49,7 @@ fi
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="Alpha3"
+DIRVER="CR-GA01"
 VER="SECN-2_0_1-"$DIRVER
 
 ###########################
@@ -74,7 +74,7 @@ echo "Source repo details: "$REPO $REPOID
 
 # Set up new directory name with date and version
 DATE=`date +%Y-%m-%d-%H:%M`
-DIR=$DATE"-TP-CR-"$DIRVER
+DIR=$DATE"-TP-"$DIRVER
 
 ###########################
 BINDIR="./bin/ar71xx"
@@ -153,7 +153,7 @@ rm $BINDIR/openwrt-*
 echo ""
 
 echo "Run make for "$1 $2
-make
+make -j5
 echo ""
 
 echo "Update original md5sums file"
@@ -170,11 +170,11 @@ fi
 
 echo "Update new md5sums file"
 md5sum $BINDIR/*-squash*sysupgrade.bin >> $BINDIR/builds/build-$DIR/md5sums-$VER
-#md5sum $BINDIR/*-squash*factory.bin    >> $BINDIR/builds/build-$DIR/md5sums-$VER
+md5sum $BINDIR/*-squash*factory.bin    >> $BINDIR/builds/build-$DIR/md5sums-$VER
 
 echo  "Move files to build folder"
 mv $BINDIR/openwrt*-squash*sysupgrade.bin $BINDIR/builds/build-$DIR
-#mv $BINDIR/*-squash*factory.bin    $BINDIR/builds/build-$DIR
+mv $BINDIR/*-squash*factory.bin    $BINDIR/builds/build-$DIR
 echo ""
 
 echo "Clean up unused files"

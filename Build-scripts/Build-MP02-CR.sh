@@ -49,7 +49,7 @@ fi
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="Alpha3"
+DIRVER="CR-GA01"
 VER="SECN-2_0_1-"$DIRVER
 
 ###########################
@@ -73,7 +73,7 @@ echo "Source repo details: "$REPO $REPOID
 
 # Set up new directory name with date and version
 DATE=`date +%Y-%m-%d-%H:%M`
-DIR=$DATE"-MP02-CR-"$DIRVER
+DIR=$DATE"-MP02-"$DIRVER
 
 ###########################
 BINDIR="./bin/ar71xx"
@@ -152,7 +152,7 @@ rm $BINDIR/openwrt-*
 echo ""
 
 echo "Run make for "$1 $2
-make -j8
+make -j5
 echo ""
 
 echo "Update original md5sums file"

@@ -16,6 +16,8 @@ echo "Git directory: "$GITREPO
 echo "Repo: "$REPO
 echo " "
 
+###########################
+
 if [ ! -d $GITREPO"/"$REPO ]; then
 	echo "Repo does not exist. Exiting build process"
 	echo " "
@@ -23,12 +25,30 @@ if [ ! -d $GITREPO"/"$REPO ]; then
 fi
 
 echo "Check out the correct branch"
+BRANCH="secn_2.0"
+
 BUILD_DIR=$(pwd)
 cd $GITREPO"/"$REPO
-git checkout secn_2.0 > /dev/null
+git checkout $BRANCH > /dev/null
+# Make sure checkout worked
+CHK_BR=`git branch | grep "*" | cut -d " " -f2`
+if [ $CHK_BR != $BRANCH ]; then
+	echo "Branch checkout failed"
+	echo "*****"
+	exit
+else
+	echo "Branch checkout successful"
+fi
 git branch | grep "*"
 cd $BUILD_DIR
 pwd
+
+#############################
+
+echo "Update the MP02 platform repo"
+rm -rf ./vt-mp02-package
+git clone https://github.com/villagetelco/vt-mp02-package   
+rsync -avC ./vt-mp02-package/platform-AA/target/ ./target/  > /dev/null
 
 ##############################
 
@@ -57,7 +77,7 @@ fi
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="Alpha5"
+DIRVER="GA01"
 VER="SECN-2_0_1-"$DIRVER
 
 ###########################
@@ -158,7 +178,7 @@ rm $BINDIR/openwrt-*
 echo ""
 
 echo "Run make for "$1 $2
-make -j8
+make -j5
 echo ""
 
 echo "Update original md5sums file"

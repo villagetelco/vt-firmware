@@ -56,7 +56,7 @@ fi
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="Alpha5"
+DIRVER="GA01"
 VER="SECN-2_0_1-"$DIRVER
 
 ###########################
@@ -157,7 +157,7 @@ rm $BINDIR/openwrt-*
 echo ""
 
 echo "Run make for "$1 $2
-make
+make -j5
 echo ""
 
 echo "Update original md5sums file"
@@ -174,11 +174,11 @@ fi
 
 echo "Update new md5sums file"
 md5sum $BINDIR/*-squash*sysupgrade.bin >> $BINDIR/builds/build-$DIR/md5sums-$VER
-#md5sum $BINDIR/*-squash*factory.bin    >> $BINDIR/builds/build-$DIR/md5sums-$VER
+md5sum $BINDIR/*-squash*factory.bin    >> $BINDIR/builds/build-$DIR/md5sums-$VER
 
 echo  "Move files to build folder"
 mv $BINDIR/openwrt*-squash*sysupgrade.bin $BINDIR/builds/build-$DIR
-#mv $BINDIR/*-squash*factory.bin    $BINDIR/builds/build-$DIR
+mv $BINDIR/*-squash*factory.bin    $BINDIR/builds/build-$DIR
 echo ""
 
 echo "Clean up unused files"
@@ -202,7 +202,9 @@ echo '----------------------------'
 
 
 build_tp WR842
+#build_tp WR842   Pros
 build_tp WDR4300
+#build_tp WDR4300 Pros
 build_tp MR3020
 build_tp MR3040
 build_tp MR3420
