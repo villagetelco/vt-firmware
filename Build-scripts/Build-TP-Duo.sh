@@ -221,8 +221,6 @@ build_tp MR3040 Duo
 build_tp MR3420 Duo
 build_tp MR11U Duo
 build_tp WR703 Duo
-build_tp WR741 Duo
-build_tp WR841 Duo
 
 echo " "
 echo "Build script TP complete"
