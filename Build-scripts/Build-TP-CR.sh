@@ -22,6 +22,25 @@ if [ ! -d $GITREPO"/"$REPO ]; then
 	exit
 fi
 
+echo "Check out the correct branch"
+BRANCH="secn_2.0"
+
+BUILD_DIR=$(pwd)
+cd $GITREPO"/"$REPO
+git checkout $BRANCH > /dev/null
+# Make sure checkout worked
+CHK_BR=`git branch | grep "*" | cut -d " " -f2`
+if [ $CHK_BR != $BRANCH ]; then
+	echo "Branch checkout failed"
+	echo "*****"
+	exit
+else
+	echo "Branch checkout successful"
+fi
+git branch | grep "*"
+cd $BUILD_DIR
+pwd
+
 ##############################
 
 
