@@ -38,45 +38,38 @@
 
 </head>
 
-<body onload="$('#main-search').focus();">
+<!-- <body onload="$('#main-search').focus();"> -->
+<body>
 <div id="rachel">
 Rachel
+
+<!--
 <div id="ip">http://127.0.1.1/</div>
+-->
 </div>
 
 <div class="haut cf">
     <ul>
-    <li><a href="index.php">HOME</a></li>
+    <li><a href="index.html">HOME</a></li>
     <li><a href="about.html">ABOUT</a></li>
     <li><a href="local/">LOCAL CONTENT</a></li>
-    <li><a href="uploads/">UPLOAD CONTENT</a></li>
+    <li><a href="/cgi-bin/load-content">UPLOAD LOCAL CONTENT</a></li>
     <li><a href="http://rachelpi/">RACHEL Pi</a></li>
     </ul>
-    <form action="rsphider/search.php">
-      <div>
-      <input id="main-search" name="query_t" value="" size="50" autocomplete="off">
-      <input type="submit" value="Search RACHEL">
-      <input type="hidden" name="search" value="1">
-      </div>
-    </form>
 </div>
 
 <div id="content">
 
 <!-- position:10 -->
 <div class="indexmodule">
-
-    <form action="rsphider/search.php">
-      <div>
-        <input type="text" id="wiki-search" name="query_t" value="" autocomplete="off">
-        <input type="submit" name="search" value="Search Wikipedia">
-        <input type="hidden" name="category" value="3">
-      </div>
-    </form>
-
     <a href="modules/wikipedia_for_schools/index.htm" target="content"><img src="modules/wikipedia_for_schools/wikipedia120.png" alt="Wikipedia"></a>
 
-    <h2><a href="modules/wikipedia_for_schools/index.htm" target="content">Wikipedia for Schools</a></h2>
+    <h2>Wikipedia for Schools</h2>    
+    <h3><a href="modules/wikipedia_for_schools/index.htm" target="content">English</a></h3>
+    <h3><a href="modules/wikipedia_for_schools-fr/index.htm" target="content">French</a></h3>
+    <h3><a href="modules/wikipedia_for_schools-es/index.htm" target="content">Spanish</a></h3>
+    <h3><a href="modules/wikipedia_for_schools-pt/index.htm" target="content">Portuguese</a></h3>
+    <h3><a href="modules/wikipedia_for_schools-kh/index.htm" target="content">Khmer</a></h3>
 
     <p>This curated selection of articles from Wikipedia can be used offline by
     school children around the world. 6000 articles, 26 million words and 50,000
@@ -84,7 +77,6 @@ Rachel
     Rings and the Chronicles of Narnia put together!</p>
 
     <ul class="triple">
-	<li><a href="wikipedia_for_schools/wp/index/subject.Art.htm" target="content">Art</a></li>
 	<li><a href="modules/wikipedia_for_schools/wp/index/subject.Art.htm" target="content">Art</a></li>
 	<li><a href="modules/wikipedia_for_schools/wp/index/subject.Business_Studies.htm" target="content">Business Studies</a></li>
 	<li><a href="modules/wikipedia_for_schools/wp/index/subject.Citizenship.htm" target="content">Citizenship</a></li>
@@ -108,16 +100,19 @@ Rachel
 <!-- position:15 -->
 <div class="indexmodule">
 
-    <a href="modules/motoli/index.htm" target="content"><img src="modules/common/motolilogo.png" alt="MoToLi"></a>
+    <a href="modules/motoli/menu/index.html" target="content"><img src="modules/motoli/common/motolilogo.png" alt="MoToLi"></a>
 
-    <h2><a href="modules/motoli/index.htm" target="content">MoToLi</a></h2>
+    <h2><a href="modules/motoli/menu/index.html" target="content">MoToLi</a></h2>
 
-    <p>MoToLi - Mother Tongue Literacy</p>
+    <p>Mother Tongue Literacy</p>
+		<p>MoToLi is a suite of applications, developed by <a href="http://www.et4d.com/">et4d</a>, that focuses on improving literacy by teaching reading in local languages. The content has been adapted for use with the RACHEL library.</p>
+
+
 
     <ul class="triple">
 		<li><a href="modules/motoli/english-us/index.html" target="content">English US</a></li>
 		<li><a href="modules/motoli/french/index.html" target="content">Francais - French</a></li>
-		<li><a href="modules/motoli/spanish/index.html" target="content">Espanol - Spanish</a></li>
+		<!-- <li><a href="modules/motoli/spanish/index.html" target="content">Espanol - Spanish</a></li> -->
 		<li><a href="modules/motoli/khmer/index.html" target="content">Khmer</a></li>
     </ul>
 
@@ -127,9 +122,13 @@ Rachel
 <!-- position:20 -->
 <div class="indexmodule">
 
-    <a href="modules/khan_academy/index.html"><img src="modules/khan_academy/kalogo.png" alt="Khan Academy"></a>
+    <a href="modules/kaos-en/index.html" target="content"><img src="modules/kaos-en/kalogo.png" alt="Khan Academy"></a>
 
-    <h2><a href="modules/khan_academy/index.html">Khan Academy</a></h2>
+    <h2>Khan Academy</h2>
+    <h3><a href="modules/kaos-en/index.html" target="content">English</a></h3>
+    <h3><a href="modules/kaos-fr/index.html" target="content">French</a></h3>
+    <h3><a href="modules/kaos-pt/index.html" target="content">Portuguese</a></h3>
+    <h3><a href="modules/kaos-es/index.html" target="content">Spanish</a></h3>
 
     <p>Over 2000 videos on math and science, from the basic to the
        advanced. All Khan Academy content is available for free at
@@ -138,20 +137,25 @@ Rachel
 
     <ul class="double">
         <li class="listhead">Math
-        <li><a href="modules/khan_academy/math/arithmetic/index.html">Arithmetic and pre-algebra</a></li>
-        <li><a href="modules/khan_academy/math/algebra/index.html">Algebra</a></li>
-        <li><a href="modules/khan_academy/math/geometry/index.html">Geometry</a></li>
-        <li><a href="modules/khan_academy/math/trigonometry/index.html">Trigonometry and Precalculus</a></li>
-        <li><a href="modules/khan_academy/math/calculus/index.html">Calculus</a></li>
-        <li><a href="modules/khan_academy/math/differential-equations/index.html">Differential Equations</a></li>
-        <li><a href="modules/khan_academy/math/probability/index.html">Probability and Statistics</a></li>
+        <li><a href="modules/kaos-en/math/arithmetic/index.html" target="content">Arithmetic and pre-algebra</a></li>
+        <li><a href="modules/kaos-en/math/algebra/index.html" target="content">Algebra I</a></li>
+        <li><a href="modules/kaos-en/math/algebra2/index.html" target="content">Algebra II</a></li>
+        <li><a href="modules/kaos-en/math/geometry/index.html" target="content">Geometry</a></li>
+        <li><a href="modules/kaos-en/math/trigonometry/index.html" target="content">Trigonometry</a></li>
+        <li><a href="modules/kaos-en/math/precalculus/index.html" target="content">Pre-calculus</a></li>
+        <li><a href="modules/kaos-en/math/differential-calculus/index.html" target="content">Differential Calculus</a></li>
+        <li><a href="modules/kaos-en/math/differential-equations/index.html" target="content">Differential Equations</a></li>
+        <li><a href="modules/kaos-en/math/probability/index.html" target="content">Probability and Statistics</a></li>
         <li class="listhead">Science
-        <li><a href="modules/khan_academy/science/biology/index.html">Biology</a></li>
-        <li><a href="modules/khan_academy/science/chemistry/index.html">Chemistry</a></li>
-        <li><a href="modules/khan_academy/science/cosmology-and-astronomy/index.html">Cosmology and Astronomy</a></li>
-        <li><a href="modules/khan_academy/science/healthcare-and-medicine/index.html">Healthcare and Medicine</a></li>
-        <li><a href="modules/khan_academy/science/organic-chemistry/index.html">Organic Chemistry</a></li>
-        <li><a href="modules/khan_academy/science/physics/index.html">Physics</a></li>
+        <li><a href="modules/kaos-en/science/biology/index.html" target="content">Biology</a></li>
+        <li><a href="modules/kaos-en/science/chemistry/index.html" target="content">Chemistry</a></li>
+        <li><a href="modules/kaos-en/science/cosmology-and-astronomy/index.html" target="content">Cosmology and Astronomy</a></li>
+        <li><a href="modules/kaos-en/science/health-and-medicine/index.html" target="content">Health and Medicine</a></li>
+        <li><a href="modules/kaos-en/science/organic-chemistry/index.html" target="content">Organic Chemistry</a></li>
+        <li><a href="modules/kaos-en/science/physics/index.html" target="content">Physics</a></li>
+        <li>&nbsp</li>
+        <li>&nbsp</li>
+        <li>&nbsp</li>
     </ul>
 
 </div>
@@ -159,9 +163,9 @@ Rachel
 <!-- position:30 -->
 <div class="indexmodule">
 
-    <a href="modules/medline_plus/index.html"><img src="modules/medline_plus/medlinepluslogo.png" alt="MedlinePlus"></a>
+    <a href="modules/medline_plus/index.html" target="content"><img src="modules/medline_plus/medlinepluslogo.png" alt="MedlinePlus"></a>
 
-    <h2><a href="modules/medline_plus/index.html">MedlinePlus Medical Encyclopedia</a></h2>
+    <h2><a href="modules/medline_plus/index.html" target="content">MedlinePlus Medical Encyclopedia</a></h2>
 
     <p>
         More than 4,000 cross-referenced medical articles from the U.S.
@@ -249,57 +253,57 @@ Rachel
 
     <ul>
 
-    <li><a href="modules/hesperian_health/en_wtnd_2011_full/page1.html">
+    <li><a href="modules/hesperian_health/en_wtnd_2011_full/page1.html" target="content">
         Where There Is No Doctor. A village health care handbook.</a>
-        (<a href="modules/hesperian_health/en_wtnd_2011_full.pdf">Printable PDF</a>)
+        (<a href="modules/hesperian_health/en_wtnd_2011_full.pdf" target="content">Printable PDF</a>)
 
-    <li><a href="modules/hesperian_health/en_dent_2012_full/page1.html">
+    <li><a href="modules/hesperian_health/en_dent_2012_full/page1.html" target="content">
         Where There Is No Dentist</a>
-        (<a href="modules/hesperian_health/en_dent_2012_full.pdf">Printable PDF</a>)
+        (<a href="modules/hesperian_health/en_dent_2012_full.pdf" target="content">Printable PDF</a>)
 
-    <li><a href="modules/hesperian_health/en_wwhnd_2012_full/page1.html">
+    <li><a href="modules/hesperian_health/en_wwhnd_2012_full/page1.html" target="content">
         Where Women Have No Doctor</a>
-        (<a href="modules/hesperian_health/en_wwhnd_2012_full.pdf">Printable PDF</a>)
+        (<a href="modules/hesperian_health/en_wwhnd_2012_full.pdf" target="content">Printable PDF</a>)
 
-    <li><a href="modules/hesperian_health/DVC_2009/page1.html">
+    <li><a href="modules/hesperian_health/DVC_2009/page1.html" target="content">
         Disabled Village Children</a>
-        (<a href="modules/hesperian_health/DVC_2009.pdf">Printable PDF</a>)
+        (<a href="modules/hesperian_health/DVC_2009.pdf" target="content">Printable PDF</a>)
 
-    <li><a href="modules/hesperian_health/en_WWD_2008_full_book/page1.html">
+    <li><a href="modules/hesperian_health/en_WWD_2008_full_book/page1.html" target="content">
         Women with Disabilities - A Health Handbook</a>
-        (<a href="modules/hesperian_health/en_WWD_2008_full_book.pdf">Printable PDF</a>)
+        (<a href="modules/hesperian_health/en_WWD_2008_full_book.pdf" target="content">Printable PDF</a>)
 
-    <li><a href="modules/hesperian_health/en_midw_2011_Full_Book/page1.html">
+    <li><a href="modules/hesperian_health/en_midw_2011_Full_Book/page1.html" target="content">
         A Book for Midwives: Care for pregnancy and birth</a>
-        (<a href="modules/hesperian_health/en_midw_2011_Full_Book.pdf">Printable PDF</a>)
+        (<a href="modules/hesperian_health/en_midw_2011_Full_Book.pdf" target="content">Printable PDF</a>)
 
-    <li><a href="modules/hesperian_health/en_hcwd_2004_Full_Book/page1.html">
+    <li><a href="modules/hesperian_health/en_hcwd_2004_Full_Book/page1.html" target="content">
         Helping Children Who Are Deaf</a>
-        (<a href="modules/hesperian_health/en_hcwd_2004_Full_Book.pdf">Printable PDF</a>)
+        (<a href="modules/hesperian_health/en_hcwd_2004_Full_Book.pdf" target="content">Printable PDF</a>)
 
-    <li><a href="modules/hesperian_health/en_hcwb_2000_whole_book/page1.html">
+    <li><a href="modules/hesperian_health/en_hcwb_2000_whole_book/page1.html" target="content">
         Helping Children Who Are Blind</a>
-        (<a href="modules/hesperian_health/en_hcwb_2000_whole_book.pdf">Printable PDF</a>)
+        (<a href="modules/hesperian_health/en_hcwb_2000_whole_book.pdf" target="content">Printable PDF</a>)
 
-    <li><a href="modules/hesperian_health/Cholera_EN/page1.html">
+    <li><a href="modules/hesperian_health/Cholera_EN/page1.html" target="content">
         Cholera Prevention Fact Sheet</a>
-        (<a href="modules/hesperian_health/Cholera_EN.pdf">Printable PDF</a>)
+        (<a href="modules/hesperian_health/Cholera_EN.pdf" target="content">Printable PDF</a>)
 
-    <li><a href="modules/hesperian_health/EHB_Sanitation_EN_watermark/page1.html">
+    <li><a href="modules/hesperian_health/EHB_Sanitation_EN_watermark/page1.html" target="content">
         Sanitation and Cleanliness for a Healthy Environment</a>
-        (<a href="modules/hesperian_health/EHB_Sanitation_EN_watermark.pdf">Printable PDF</a>)
+        (<a href="modules/hesperian_health/EHB_Sanitation_EN_watermark.pdf" target="content">Printable PDF</a>)
 
-    <li><a href="modules/hesperian_health/ehb_water_EN_watermark/page1.html">
+    <li><a href="modules/hesperian_health/ehb_water_EN_watermark/page1.html" target="content">
         Water for Life - Community water security</a>
-        (<a href="modules/hesperian_health/ehb_water_EN_watermar.pdf">Printable PDF</a>)
+        (<a href="modules/hesperian_health/ehb_water_EN_watermar.pdf" target="content">Printable PDF</a>)
 
-    <li><a href="modules/hesperian_health/en_cgeh_2012_full/page1.html">
+    <li><a href="modules/hesperian_health/en_cgeh_2012_full/page1.html" target="content">
         A Community Guide to Environmental Health</a>
-        (<a href="modules/hesperian_health/en_cgeh_2012_full.pdf">Printable PDF</a>)
+        (<a href="modules/hesperian_health/en_cgeh_2012_full.pdf" target="content">Printable PDF</a>)
 
-    <li><a href="modules/hesperian_health/en_hhwl_2012_full/page1.html">
+    <li><a href="modules/hesperian_health/en_hhwl_2012_full/page1.html" target="content">
         Helping Health Workers Learn</a>
-        (<a href="modules/hesperian_health/en_hhwl_2012_full.pdf">Printable PDF</a>)
+        (<a href="modules/hesperian_health/en_hhwl_2012_full.pdf" target="content">Printable PDF</a>)
 
     </ul>
 
@@ -316,40 +320,44 @@ Rachel
 <!-- position:50 -->
 <div class="indexmodule">
 
-    <a href="modules/khan_academy/science/healthcare-and-medicine/index.html"><img src="modules/khan_health/khanhealthlogo.png" alt="Khan Academy Health"></a>
+    <a href="modules/kaos-en/science/health-and-medicine/index.html" target="content"><img src="modules/khan_health/khanhealthlogo.png" alt="Khan Academy Health"></a>
 
-    <h2><a href="modules/khan_academy/science/healthcare-and-medicine/index.html">Khan Academy Health &amp; Medicine</a></h2>
+    <h2>Khan Academy Health &amp; Medicine</a></h2>
+    <h3><a href="modules/kaos-en/science/health-and-medicine/index.html" target="content">English</a></h3>
+    <h3><a href="modules/kaos-fr/science/health-and-medicine/index.html" target="content">French</a></h3>
+    <h3><a href="modules/kaos-pt/science/health-and-medicine/index.html" target="content">Portuguese</a></h3>
+    <h3><a href="modules/kaos-es/science/health-and-medicine/index.html" target="content">Spanish</a></h3>
 
     <p>Nearly 200 videos on health topics, covering the workings of major body
        systems and the diseases that affect them. All Khan Academy content is
        available for free at <a href="http://www.khanacademy.org/">www.khanacademy.org</a>.
     </p>
-
+<!--
     <ul class="double">
-    <li><a href="modules/khan_academy/science/healthcare-and-medicine/the-heart/index.html"> The Heart</a></li>
-    <li><a href="modules/khan_academy/science/healthcare-and-medicine/the-lungs/index.html"> The Lungs</a></li>
-    <li><a href="modules/khan_academy/science/healthcare-and-medicine/influenza/index.html"> Influenza</a></li>
-    <li><a href="modules/khan_academy/science/healthcare-and-medicine/blood/index.html"> Blood</a></li>
-    <li><a href="modules/khan_academy/science/healthcare-and-medicine/blood-vessel-diseases/index.html"> Blood Vessel Diseases</a></li>
-    <li><a href="modules/khan_academy/science/healthcare-and-medicine/fetal-circulation/index.html"> Fetal Circulation</a></li>
-    <li><a href="modules/khan_academy/science/healthcare-and-medicine/arterial-stiffness/index.html"> Arterial Stiffness</a></li>
-    <li><a href="modules/khan_academy/science/healthcare-and-medicine/healthy-lifestyle/index.html"> Healthy Lifestyle</a></li>
-    <li><a href="modules/khan_academy/science/healthcare-and-medicine/endocrinology-and-diabetes/index.html"> Endocrinology and Diabetes</a></li>
-    <li><a href="modules/khan_academy/science/healthcare-and-medicine/health-care-system/index.html"> Health Care System</a></li>
-    <li><a href="modules/khan_academy/science/healthcare-and-medicine/colon-disease/index.html"> Colon Disease</a></li>
-    <li><a href="modules/khan_academy/science/healthcare-and-medicine/cervical-spine/index.html"> Cervical Spine</a></li>
-    <li><a href="modules/khan_academy/science/healthcare-and-medicine/hypertension/index.html"> Hypertension</a></li>
-    <li><a href="modules/khan_academy/science/healthcare-and-medicine/lab-values/index.html"> Lab Values and Concentrations</a></li>
-    <li><a href="modules/khan_academy/science/healthcare-and-medicine/heart-disease-and-stroke/index.html"> Heart Disease and Stroke</a></li>
-    <li><a href="modules/khan_academy/science/healthcare-and-medicine/heart-muscle-contraction/index.html"> Heart Muscle Contraction</a></li>
-    <li><a href="modules/khan_academy/science/healthcare-and-medicine/heart-depolarization/index.html"> Heart Depolarization</a></li>
-    <li><a href="modules/khan_academy/science/healthcare-and-medicine/nerve-regulation-of-the-heart/index.html"> Nerve Regulation of the Heart</a></li>
-    <li><a href="modules/khan_academy/science/healthcare-and-medicine/pressure-volume-loops/index.html"> Pressure Volume Loops</a></li>
-    <li><a href="modules/khan_academy/science/healthcare-and-medicine/changing-the-PV-loop/index.html"> Changing the PV Loop</a></li>
-    <li><a href="modules/khan_academy/science/healthcare-and-medicine/preload-and-afterload/index.html"> Preload and Afterload</a></li>
-    <li><a href="modules/khan_academy/science/healthcare-and-medicine/healthcare-misc/index.html"> Miscellaneous</a></li>
+    <li><a href="modules/kaos-en/science/health-and-medicine/the-heart/index.html" target="content"> The Heart</a></li>
+    <li><a href="modules/kaos-en/science/health-and-medicine/the-lungs/index.html" target="content"> The Lungs</a></li>
+    <li><a href="modules/kaos-en/science/health-and-medicine/influenza/index.html" target="content"> Influenza</a></li>
+    <li><a href="modules/kaos-en/science/health-and-medicine/blood/index.html" target="content"> Blood</a></li>
+    <li><a href="modules/kaos-en/science/health-and-medicine/blood-vessel-diseases/index.html" target="content"> Blood Vessel Diseases</a></li>
+    <li><a href="modules/kaos-en/science/health-and-medicine/fetal-circulation/index.html" target="content"> Fetal Circulation</a></li>
+    <li><a href="modules/kaos-en/science/health-and-medicine/arterial-stiffness/index.html" target="content"> Arterial Stiffness</a></li>
+    <li><a href="modules/kaos-en/science/health-and-medicine/healthy-lifestyle/index.html" target="content"> Healthy Lifestyle</a></li>
+    <li><a href="modules/kaos-en/science/health-and-medicine/endocrinology-and-diabetes/index.html" target="content"> Endocrinology and Diabetes</a></li>
+    <li><a href="modules/kaos-en/science/health-and-medicine/health-care-system/index.html" target="content"> Health Care System</a></li>
+    <li><a href="modules/kaos-en/science/health-and-medicine/colon-disease/index.html" target="content"> Colon Disease</a></li>
+    <li><a href="modules/kaos-en/science/health-and-medicine/cervical-spine/index.html" target="content"> Cervical Spine</a></li>
+    <li><a href="modules/kaos-en/science/health-and-medicine/hypertension/index.html" target="content"> Hypertension</a></li>
+    <li><a href="modules/kaos-en/science/health-and-medicine/lab-values/index.html" target="content"> Lab Values and Concentrations</a></li>
+    <li><a href="modules/kaos-en/science/health-and-medicine/heart-disease-and-stroke/index.html" target="content"> Heart Disease and Stroke</a></li>
+    <li><a href="modules/kaos-en/science/health-and-medicine/heart-muscle-contraction/index.html" target="content"> Heart Muscle Contraction</a></li>
+    <li><a href="modules/kaos-en/science/health-and-medicine/heart-depolarization/index.html" target="content"> Heart Depolarization</a></li>
+    <li><a href="modules/kaos-en/science/health-and-medicine/nerve-regulation-of-the-heart/index.html" target="content"> Nerve Regulation of the Heart</a></li>
+    <li><a href="modules/kaos-en/science/health-and-medicine/pressure-volume-loops/index.html" target="content"> Pressure Volume Loops</a></li>
+    <li><a href="modules/kaos-en/science/health-and-medicine/changing-the-PV-loop/index.html" target="content"> Changing the PV Loop</a></li>
+    <li><a href="modules/kaos-en/science/health-and-medicine/preload-and-afterload/index.html" target="content"> Preload and Afterload</a></li>
+    <li><a href="modules/kaos-en/science/health-and-medicine/healthcare-misc/index.html" target="content"> Miscellaneous</a></li>
     </ul>
-
+-->
     <p class="smallblurb">
         These materials do not provide medical advice and are for informational purposes only.
         This content is not intended to be a substitute for professional medical advice, diagnosis or
@@ -446,9 +454,9 @@ Rachel
 <!-- position:60 -->
 <div class="indexmodule">
 
-    <a href="modules/ebooks/index.html"><img src="modules/ebooks/coolbooksmall.jpg" alt="Great Books of the World"></a>
+    <a href="modules/ebooks/index.html" target="content"><img src="modules/ebooks/coolbooksmall.jpg" alt="Great Books of the World"></a>
 
-    <h2><a href="modules/ebooks/index.html">Great Books of the World</a></h2>
+    <h2><a href="modules/ebooks/index.html" target="content">Great Books of the World</a></h2>
 
     <p>A searchable, categorized selection of over 400 of the most beloved and
        respected books from around the world, collected from
@@ -456,24 +464,24 @@ Rachel
     </p>
 
     <ul class="double">
-    <li><a href="modules/ebooks/top100favorites.html">Top 100 Favorites</a>
-    <li><a href="modules/ebooks/top100nonfiction.html">Top 100 Non-Fiction</a>
-    <li><a href="modules/ebooks/adventure.html">Adventure</a> <small>(24 titles)</small>
-    <li><a href="modules/ebooks/biographies.html">Biographies</a> <small>(24 titles)</small>
-    <li><a href="modules/ebooks/childrensstories.html">Children's Stories</a> <small>(23 titles)</small>
-    <li><a href="modules/ebooks/comedyhumor.html">Comedy & Humor</a> <small>(38 titles)</small>
-    <li><a href="modules/ebooks/drama.html">Drama</a> <small>(35 titles)</small>
-    <li><a href="modules/ebooks/fantasy.html">Fantasy</a> <small>(20 titles)</small>
-    <li><a href="modules/ebooks/folklore.html">Folklore</a> <small>(7 titles)</small>
-    <li><a href="modules/ebooks/historicalfiction.html">Historical Fiction</a> <small>(38 titles)</small>
-    <li><a href="modules/ebooks/historicalnonfiction.html">Historical Non-Fiction</a> <small>(30 titles)</small>
-    <li><a href="modules/ebooks/horror.html">Horror</a> <small>(18 titles)</small>
-    <li><a href="modules/ebooks/mystery.html">Mystery</a> <small>(17 titles)</small>
-    <li><a href="modules/ebooks/philosophyreligion.html">Philosophy & Religion</a> <small>(30 titles)</small>
-    <li><a href="modules/ebooks/poetry.html">Poetry</a> <small>(41 titles)</small>
-    <li><a href="modules/ebooks/romance.html">Romance</a> <small>(35 titles)</small>
-    <li><a href="modules/ebooks/sciencefiction.html">Science Fiction</a> <small>(27 titles)</small>
-    <li><a href="modules/ebooks/shortstories.html">Short Stories</a> <small>(25 titles)</small>
+    <li><a href="modules/ebooks/top100favorites.html" target="content">Top 100 Favorites</a>
+    <li><a href="modules/ebooks/top100nonfiction.html" target="content">Top 100 Non-Fiction</a>
+    <li><a href="modules/ebooks/adventure.html" target="content">Adventure</a> <small>(24 titles)</small>
+    <li><a href="modules/ebooks/biographies.html" target="content">Biographies</a> <small>(24 titles)</small>
+    <li><a href="modules/ebooks/childrensstories.html" target="content">Children's Stories</a> <small>(23 titles)</small>
+    <li><a href="modules/ebooks/comedyhumor.html" target="content">Comedy & Humor</a> <small>(38 titles)</small>
+    <li><a href="modules/ebooks/drama.html" target="content">Drama</a> <small>(35 titles)</small>
+    <li><a href="modules/ebooks/fantasy.html" target="content">Fantasy</a> <small>(20 titles)</small>
+    <li><a href="modules/ebooks/folklore.html" target="content">Folklore</a> <small>(7 titles)</small>
+    <li><a href="modules/ebooks/historicalfiction.html" target="content">Historical Fiction</a> <small>(38 titles)</small>
+    <li><a href="modules/ebooks/historicalnonfiction.html" target="content">Historical Non-Fiction</a> <small>(30 titles)</small>
+    <li><a href="modules/ebooks/horror.html" target="content">Horror</a> <small>(18 titles)</small>
+    <li><a href="modules/ebooks/mystery.html" target="content">Mystery</a> <small>(17 titles)</small>
+    <li><a href="modules/ebooks/philosophyreligion.html" target="content">Philosophy & Religion</a> <small>(30 titles)</small>
+    <li><a href="modules/ebooks/poetry.html" target="content">Poetry</a> <small>(41 titles)</small>
+    <li><a href="modules/ebooks/romance.html" target="content">Romance</a> <small>(35 titles)</small>
+    <li><a href="modules/ebooks/sciencefiction.html" target="content">Science Fiction</a> <small>(27 titles)</small>
+    <li><a href="modules/ebooks/shortstories.html" target="content">Short Stories</a> <small>(25 titles)</small>
     </ul>
 
 </div>
@@ -579,9 +587,9 @@ Rachel
 <!-- position:110 -->
 <div class="indexmodule">
 
-    <a href="modules/math_expression/index.html"><img src="modules/math_expression/mathexpressionlogo.jpg" alt="Math Expression"></a>
+    <a href="modules/math_expression/index.html" target="content"><img src="modules/math_expression/mathexpressionlogo.jpg" alt="Math Expression"></a>
 
-    <h2><a href="modules/math_expression/index.html">Math Expression</a></h2>
+    <h2><a href="modules/math_expression/index.html" target="content">Math Expression</a></h2>
 
     <p>Math tutoring materials that include Math videos, Study Tips, Practice Questions and Step-by-Step solutions.</p>
 
@@ -594,9 +602,9 @@ Rachel
 <!-- position:120 -->
 <div class="indexmodule">
 
-    <a href="modules/powertyping/index.html"><img src="modules/powertyping/powertypinglogo.jpg" alt="Powertyping"></a>
+    <a href="modules/powertyping/index.html" target="content"><img src="modules/powertyping/powertypinglogo.jpg" alt="Powertyping"></a>
 
-    <h2><a href="modules/powertyping/index.html">Powertyping</a></h2>
+    <h2><a href="modules/powertyping/index.html" target="content">Powertyping</a></h2>
 
     <p>Full lessons and exercises to learn touch typing or improve your typing skills.
        Include many entertaining typing games, tests an practice drills.</p>
@@ -606,9 +614,9 @@ Rachel
 <!-- position:130 -->
 <div class="indexmodule">
 
-    <a href="modules/scratch/index.html"><img src="modules/scratch/scratchlogo.jpg" alt="MIT Scratch"></a>
+    <a href="modules/scratch/index.html" target="content"><img src="modules/scratch/scratchlogo.jpg" alt="MIT Scratch"></a>
 
-    <h2><a href="modules/scratch/index.html">MIT Scratch</a></h2>
+    <h2><a href="modules/scratch/index.html" target="content">MIT Scratch</a></h2>
 
     <p>Scratch is a programming language that makes it easy to create your own
        interactive stories, animations, games, music, and art.</p>
@@ -623,9 +631,9 @@ Rachel
 <!-- position:130 -->
 <div class="indexmodule">
 
-    <a href="modules/musictheory/index.html"><img src="modules/musictheory/musictheorylogo.jpg" alt="Music Theory"></a>
+    <a href="modules/musictheory/index.html" target="content"><img src="modules/musictheory/musictheorylogo.jpg" alt="Music Theory"></a>
 
-    <h2><a href="modules/musictheory/index.html">Music Theory</a></h2>
+    <h2><a href="modules/musictheory/index.html" target="content">Music Theory</a></h2>
 
     <p>Comprehensive music theory lessons and exercises to begin your journey into the realm of music.</p>
 
@@ -634,17 +642,18 @@ Rachel
 <!-- position:140 -->
 <div class="indexmodule">
 
-    <a href="modules/understanding_algebra/default.htm"><img src="modules/understanding_algebra/understandingalgebralogo.png" alt="Understanding Algebra"></a>
+    <a href="modules/understanding_algebra/default.htm" target="content"><img src="modules/understanding_algebra/understandingalgebralogo.png" alt="Understanding Algebra"></a>
 
-    <h2><a href="modules/understanding_algebra/default.htm">Understanding Algebra</a></h2>
+    <h2><a href="modules/understanding_algebra/default.htm" target="content">Understanding Algebra</a></h2>
 
-    <p>A complere, concise, and illustrated textbook introducing algebra
+    <p>A complete, concise, and illustrated textbook introducing algebra
        that can be viewed here or printed out.</p>
 
 </div>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <!-- position:190 -->
+<!--
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html;
@@ -676,6 +685,7 @@ Rachel
     </div>
   </body>
 </html>
+-->
 
 </div>
 
@@ -687,7 +697,7 @@ Rachel
     <li><a href="uploads/">UPLOAD CONTENT</a></li>
     <li><a href+"mailto:info@worldpossible.org">email: info@worldpossible.org</a></li>
     </ul>
-    <div id="footer_right">RACHEL - 32GB 3.1.0 version</div>
+    <div id="footer_right">RACHEL</div>
 </div>
 
 </body>
