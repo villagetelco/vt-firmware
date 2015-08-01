@@ -24,6 +24,7 @@ fi
 
 echo "Check out the correct branch"
 BRANCH="secn_3.0"
+
 BUILD_DIR=$(pwd)
 cd $GITREPO"/"$REPO
 git checkout $BRANCH > /dev/null
@@ -67,8 +68,8 @@ fi
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="WDR-RC2"
-VER="SECN-3_0-RACHEL-"$DIRVER
+DIRVER="WDR-RACHEL-GA01"
+VER="SECN-3_0-"$DIRVER
 
 ###########################
 echo "Copy files from Git repo into build folder"
@@ -167,7 +168,7 @@ rm $BINDIR/openwrt-*
 echo ""
 
 echo "Run make for "$1 $2
-make
+make -j5
 echo ""
 
 # Get the hardware version eg (WDR) 4300 or 3500 
@@ -187,11 +188,11 @@ fi
 
 echo "Update new md5sums file"
 md5sum $BINDIR/*wdr$HWVER*-squash*sysupgrade.bin >> $BINDIR/builds/build-$DIR/md5sums-$VER.txt
-#md5sum $BINDIR/*wdr$HWVER*-squash*factory.bin    >> $BINDIR/builds/build-$DIR/md5sums-$VER.txt
+md5sum $BINDIR/*wdr$HWVER*-squash*factory.bin    >> $BINDIR/builds/build-$DIR/md5sums-$VER.txt
 
 echo  "Copy files to build folder"
 cp $BINDIR/openwrt*wdr$HWVER*-squash*sysupgrade.bin $BINDIR/builds/build-$DIR
-#cp $BINDIR/openwrt*wdr$HWVER*-squash*factory.bin    $BINDIR/builds/build-$DIR
+cp $BINDIR/openwrt*wdr$HWVER*-squash*factory.bin    $BINDIR/builds/build-$DIR
 echo ""
 
 echo "Clean up unused files"

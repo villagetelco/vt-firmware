@@ -24,6 +24,7 @@ fi
 
 echo "Check out the correct branch"
 BRANCH="secn_3.0"
+
 BUILD_DIR=$(pwd)
 cd $GITREPO"/"$REPO
 git checkout $BRANCH > /dev/null
@@ -42,6 +43,8 @@ pwd
 
 ##############################
 
+
+
 # Check to see if setup has already run
 if [ ! -f ./already_configured ]; then 
   # make sure it only executes once
@@ -59,12 +62,13 @@ else
   echo ""
 fi
 
+
 #########################
 
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="RC3"
+DIRVER="GA01"
 VER="SECN-3_0-"$DIRVER
 
 ###########################
@@ -163,7 +167,9 @@ rm $BINDIR/openwrt-*
 echo ""
 
 echo "Run make for "$1 $2
-make
+#make -j5 V=s 2>&1 | tee ~/build.txt
+#make -j5 2>&1 | tee ~/build.txt
+make -j5
 echo ""
 
 echo "Update original md5sums file"

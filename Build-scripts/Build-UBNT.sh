@@ -24,6 +24,7 @@ fi
 
 echo "Check out the correct branch"
 BRANCH="secn_3.0"
+
 BUILD_DIR=$(pwd)
 cd $GITREPO"/"$REPO
 git checkout $BRANCH > /dev/null
@@ -67,7 +68,7 @@ fi
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="RC3"
+DIRVER="GA01"
 VER="SECN-3_0-"$DIRVER
 
 ###########################
@@ -165,7 +166,7 @@ rm $BINDIR/openwrt-*
 echo ""
 
 echo "Run make for "$1 $2
-make
+make -j5
 echo ""
 
 echo "Update original md5sums file"
@@ -182,11 +183,11 @@ fi
 
 echo "Update new md5sums file"
 md5sum $BINDIR/*-squash*sysupgrade.bin >> $BINDIR/builds/build-$DIR/md5sums-$VER.txt
-#md5sum $BINDIR/*-squash*factory.bin    >> $BINDIR/builds/build-$DIR/md5sums-$VER.txt
+md5sum $BINDIR/*-squash*factory.bin    >> $BINDIR/builds/build-$DIR/md5sums-$VER.txt
 
 echo  "Move files to build folder"
 cp $BINDIR/openwrt*-squash*sysupgrade.bin $BINDIR/builds/build-$DIR
-#cp $BINDIR/*-squash*factory.bin    $BINDIR/builds/build-$DIR
+cp $BINDIR/*-squash*factory.bin    $BINDIR/builds/build-$DIR
 echo ""
 
 echo "Clean up unused files"

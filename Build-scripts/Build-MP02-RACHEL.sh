@@ -24,6 +24,7 @@ fi
 
 echo "Check out the correct branch"
 BRANCH="secn_3.0"
+
 BUILD_DIR=$(pwd)
 cd $GITREPO"/"$REPO
 git checkout $BRANCH > /dev/null
@@ -67,7 +68,7 @@ fi
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="RC3"
+DIRVER="GA01"
 VER="SECN-3_0-RACHEL-"$DIRVER
 
 ###########################
@@ -170,7 +171,7 @@ rm $BINDIR/openwrt-*
 echo ""
 
 echo "Run make for "$1 $2
-make -j8
+make -j5
 echo ""
 
 echo "Update original md5sums file"

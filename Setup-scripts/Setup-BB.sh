@@ -56,7 +56,8 @@ echo " "
 echo "*** Create new feeds.conf.default file"
 echo "src-git pkgsmaster https://github.com/openwrt/packages.git"                           > $OPENWRT_PATH/feeds.conf.default
 echo "src-git packages https://github.com/openwrt/packages.git;for-14.07"                   >> $OPENWRT_PATH/feeds.conf.default
-echo "src-git telephony https://github.com/openwrt/telephony.git^47c2c1f"                   >> $OPENWRT_PATH/feeds.conf.default
+#echo "src-git telephony https://github.com/openwrt/telephony.git^47c2c1f"                   >> $OPENWRT_PATH/feeds.conf.default
+echo "src-git telephony https://github.com/openwrt/telephony.git;for-14.07"                 >> $OPENWRT_PATH/feeds.conf.default
 echo "src-git routing https://github.com/openwrt-routing/packages.git;for-14.07"            >> $OPENWRT_PATH/feeds.conf.default
 echo "src-git alfred git://git.open-mesh.org/openwrt-feed-alfred.git"                       >> $OPENWRT_PATH/feeds.conf.default
 echo "src-git fxs git://github.com/villagetelco/vt-fxs-packages.git"                        >> $OPENWRT_PATH/feeds.conf.default
@@ -85,7 +86,8 @@ echo " "
 echo "*** Lock the OpenWrt package feeds from further updating"
 echo "#src-git pkgsmaster https://github.com/openwrt/packages.git"                          > $OPENWRT_PATH/feeds.conf.default
 echo "#src-git packages https://github.com/openwrt/packages.git;for-14.07"                  >> $OPENWRT_PATH/feeds.conf.default
-echo "src-git telephony https://github.com/openwrt/telephony.git^47c2c1f"                   >> $OPENWRT_PATH/feeds.conf.default
+#echo "src-git telephony https://github.com/openwrt/telephony.git^47c2c1f"                   >> $OPENWRT_PATH/feeds.conf.default
+echo "src-git telephony https://github.com/openwrt/telephony.git;for-14.07"                 >> $OPENWRT_PATH/feeds.conf.default
 echo "src-git routing https://github.com/openwrt-routing/packages.git;for-14.07"            >> $OPENWRT_PATH/feeds.conf.default
 echo "src-git alfred git://git.open-mesh.org/openwrt-feed-alfred.git"                       >> $OPENWRT_PATH/feeds.conf.default
 echo "src-git fxs git://github.com/villagetelco/vt-fxs-packages.git"                        >> $OPENWRT_PATH/feeds.conf.default
