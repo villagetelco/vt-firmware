@@ -22,13 +22,26 @@ if [ ! -d $GITREPO"/"$REPO ]; then
 	exit
 fi
 
+
 echo "Check out the correct branch"
+BRANCH="secn_2.0-Duo"
+
 BUILD_DIR=$(pwd)
 cd $GITREPO"/"$REPO
-git checkout secn_2.0-Duo > /dev/null
+git checkout $BRANCH > /dev/null
+# Make sure checkout worked
+CHK_BR=`git branch | grep "*" | cut -d " " -f2`
+if [ $CHK_BR != $BRANCH ]; then
+	echo "Branch checkout failed"
+	echo "*****"
+	exit
+else
+	echo "Branch checkout successful"
+fi
 git branch | grep "*"
 cd $BUILD_DIR
 pwd
+
 
 ##############################
 
@@ -57,7 +70,7 @@ fi
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="Alpha5-Duo"
+DIRVER="Duo-GA01"
 VER="SECN-2_0_1-"$DIRVER
 
 ###########################
@@ -158,7 +171,7 @@ rm $BINDIR/openwrt-*
 echo ""
 
 echo "Run make for "$1 $2
-make
+make -j5
 echo ""
 
 echo "Update original md5sums file"
@@ -175,11 +188,11 @@ fi
 
 echo "Update new md5sums file"
 md5sum $BINDIR/*-squash*sysupgrade.bin >> $BINDIR/builds/build-$DIR/md5sums-$VER
-#md5sum $BINDIR/*-squash*factory.bin    >> $BINDIR/builds/build-$DIR/md5sums-$VER
+md5sum $BINDIR/*-squash*factory.bin    >> $BINDIR/builds/build-$DIR/md5sums-$VER
 
 echo  "Move files to build folder"
 mv $BINDIR/openwrt*-squash*sysupgrade.bin $BINDIR/builds/build-$DIR
-#mv $BINDIR/*-squash*factory.bin    $BINDIR/builds/build-$DIR
+mv $BINDIR/*-squash*factory.bin    $BINDIR/builds/build-$DIR
 echo ""
 
 echo "Clean up unused files"
@@ -201,8 +214,8 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
+
 build_tp WR842 Duo
-build_tp WDR4300 Duo
 build_tp MR3020 Duo
 build_tp MR3040 Duo
 build_tp MR3420 Duo
