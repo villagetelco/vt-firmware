@@ -80,6 +80,7 @@ echo "Copy files from Git repo into build folder"
 rm -rf ./SECN-build/
 cp -rp $GITREPO/$REPO/SECN-build/ .
 cp -fp $GITREPO/$REPO/Build-scripts/FactoryRestore.sh  .
+cp -fp $GITREPO/$REPO/Build-scripts/GetGitVersions.sh  .
 
 
 ###########################
