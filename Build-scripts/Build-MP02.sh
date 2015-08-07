@@ -22,8 +22,10 @@ if [ ! -d $GITREPO"/"$REPO ]; then
 	exit
 fi
 
-echo "Check out the correct branch"
+
+echo "Check out the correct vt-firmware branch"
 BRANCH="secn_4.0"
+
 BUILD_DIR=$(pwd)
 cd $GITREPO"/"$REPO
 git checkout $BRANCH > /dev/null
@@ -40,7 +42,6 @@ git branch | grep "*"
 cd $BUILD_DIR
 pwd
 
-
 ##############################
 
 
@@ -50,11 +51,11 @@ if [ ! -f ./already_configured ]; then
   # make sure it only executes once
   touch ./already_configured  
   echo "Make builds directory"
-  mkdir ./bin/
-  mkdir ./bin/ar71xx/
-  mkdir ./bin/ar71xx/builds
-  mkdir ./bin/atheros/
-  mkdir ./bin/atheros/builds
+  mkdir ./Builds/
+  mkdir ./Builds/ar71xx/
+  mkdir ./Builds/ar71xx/builds
+  mkdir ./Builds/atheros/
+  mkdir ./Builds/atheros/builds
   echo "Initial set up completed. Continuing with build"
   echo ""
 else
@@ -68,8 +69,11 @@ fi
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="Alpha1"
-VER="SECN-4_0-"$DIRVER
+DIRVER="Alpha2"
+VER="SECN-4.0-"$DIRVER
+
+BINDIR="./bin/ar71xx"
+BUILDDIR="./Builds/ar71xx"
 
 ###########################
 echo "Copy files from Git repo into build folder"
@@ -93,14 +97,13 @@ DATE=`date +%Y-%m-%d-%H:%M`
 DIR=$DATE"-MP02-"$DIRVER
 
 ###########################
-BINDIR="./bin/ar71xx"
 # Set up build directory
-echo "Set up new build directory  $BINDIR/builds/build-"$DIR
-mkdir $BINDIR/builds/build-$DIR
+echo "Set up new build directory  $BUILDDIR/builds/build-"$DIR
+mkdir $BUILDDIR/builds/build-$DIR
 
 # Create md5sums files
-echo $DIR > $BINDIR/builds/build-$DIR/md5sums.txt
-echo $DIR > $BINDIR/builds/build-$DIR/md5sums-$VER.txt
+echo $DIR > $BUILDDIR/builds/build-$DIR/md5sums.txt
+echo $DIR > $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 
 ##########################
 
@@ -113,7 +116,7 @@ rm ./.config
 
 if [ $2 ]; then
 	echo "Config file: config-"$1-$2
-	cp ./SECN-build/$1/config-$1-$2  ./.config
+	cp ./SECN-build/$1-$2/config-$1-$2  ./.config
 else
 	echo "Config file: config-"$1
 	cp ./SECN-build/$1/config-$1  ./.config
@@ -138,7 +141,7 @@ echo "Copy generic files"
 cp -r ./SECN-build/files     .  
 
 echo "Overlay device specific files"
-cp -r ./SECN-build/$1/files  .  
+cp -r ./SECN-build/$1-$2/files  .  
 echo ""
 
 echo "Build Factory Restore tar file"
@@ -166,16 +169,17 @@ echo "Clean up any left over files"
 rm $BINDIR/openwrt-*
 echo ""
 
+#exit ####################################################
+
 echo "Run make for "$1 $2
-#make -j5 V=s 2>&1 | tee ~/build.txt
-#make -j5 2>&1 | tee ~/build.txt
-make -j 5
+make -j5
+#make -j1 V=s 2>&1 | tee ~/build.txt
 echo ""
 
 echo "Update original md5sums file"
-cat $BINDIR/md5sums | grep "squashfs.bin"   | grep ".bin" >> $BINDIR/builds/build-$DIR/md5sums.txt
-cat $BINDIR/md5sums | grep "kernel.bin"     | grep ".bin" >> $BINDIR/builds/build-$DIR/md5sums.txt
-cat $BINDIR/md5sums | grep "sysupgrade.bin" | grep ".bin" >> $BINDIR/builds/build-$DIR/md5sums.txt
+cat $BINDIR/md5sums | grep "squashfs.bin"   | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
+cat $BINDIR/md5sums | grep "kernel.bin"     | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
+cat $BINDIR/md5sums | grep "sysupgrade.bin" | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
 echo ""
 
 echo  "Rename files to add version info"
@@ -187,14 +191,14 @@ else
 fi
 
 echo "Update new md5sums file"
-md5sum $BINDIR/*-squash*sysupgrade.bin >> $BINDIR/builds/build-$DIR/md5sums-$VER.txt
-md5sum $BINDIR/openwrt*kernel.bin >>     $BINDIR/builds/build-$DIR/md5sums-$VER.txt
-md5sum $BINDIR/openwrt*squashfs.bin >>   $BINDIR/builds/build-$DIR/md5sums-$VER.txt
+md5sum $BINDIR/*-squash*sysupgrade.bin >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
+md5sum $BINDIR/openwrt*kernel.bin      >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
+md5sum $BINDIR/openwrt*squashfs.bin    >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 
 echo  "Move files to build folder"
-mv $BINDIR/openwrt*-squash*sysupgrade.bin $BINDIR/builds/build-$DIR
-mv $BINDIR/openwrt*kernel.bin     $BINDIR/builds/build-$DIR
-mv $BINDIR/openwrt*squashfs.bin   $BINDIR/builds/build-$DIR
+mv $BINDIR/openwrt*-squash*sysupgrade.bin $BUILDDIR/builds/build-$DIR
+mv $BINDIR/openwrt*kernel.bin             $BUILDDIR/builds/build-$DIR
+mv $BINDIR/openwrt*squashfs.bin           $BUILDDIR/builds/build-$DIR
 echo ""
 
 echo "Clean up unused files"
@@ -216,6 +220,7 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
+build_mp02 MP02 FXS
 build_mp02 MP02
 
 echo " "
