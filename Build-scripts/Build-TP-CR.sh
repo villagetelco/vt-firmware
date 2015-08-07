@@ -214,12 +214,7 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-build_tp WDR4300
 build_tp WR842
-build_tp MR3020
-build_tp MR3420
-build_tp WR703
-build_tp WR741
 
 echo " "
 echo "Build script TP complete"

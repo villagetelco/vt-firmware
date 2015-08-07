@@ -208,12 +208,7 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-build_tp MR3020 Duo
 build_tp WR842 Duo
-build_tp WR703 Duo
-build_tp MR3040 Duo
-build_tp MR11U Duo
-build_tp WR841 Duo
 
 echo " "
 echo "Build script TP Duo complete"

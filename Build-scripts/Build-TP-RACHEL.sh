@@ -210,7 +210,6 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-build_tp MR3040
 build_tp WR842
 
 echo " "
