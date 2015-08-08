@@ -12,8 +12,10 @@ sleep 20
 mkdir /mnt/sda1
 mkdir /mnt/sda2
 
-mount -r /dev/sda1  /mnt/sda1
-mount -r /dev/sda2  /mnt/sda2
+#mount -r /dev/sda1  /mnt/sda1
+#mount -r /dev/sda2  /mnt/sda2
+mount /dev/sda1  /mnt/sda1
+mount /dev/sda2  /mnt/sda2
 
 # Remove old links
 rm /www/rachel/modules
