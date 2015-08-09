@@ -80,6 +80,8 @@ cp -rp $GITREPO/$REPO/SECN-build/ .
 cp -fp $GITREPO/$REPO/Build-scripts/FactoryRestore.sh  .
 cp -fp $GITREPO/$REPO/Build-scripts/GetGitVersions.sh  .
 
+echo "Overlay RACHEL files"
+cp -rp $GITREPO/$REPO/RACHEL-build/* ./SECN-build
 
 ###########################
 
@@ -93,7 +95,7 @@ echo "Source repo details: "$REPO $REPOID
 
 # Set up new directory name with date and version
 DATE=`date +%Y-%m-%d-%H:%M`
-DIR=$DATE"-TP-"$DIRVER
+DIR=$DATE"-TP-RACHEL-"$DIRVER
 
 ###########################
 # Set up build directory
@@ -125,7 +127,7 @@ echo "Run defconfig"
 make defconfig > /dev/null
 
 # Set up target display strings
-TARGET=`cat .config | grep "CONFIG_TARGET" | grep "=y" | grep "_generic_" | cut -d _ -f 5 | cut -d = -f 1 `
+TARGET="TL-"$1
 
 echo "Check .config version"
 echo "Target:  " $TARGET
@@ -172,26 +174,28 @@ make -j5
 #make -j1 V=s 2>&1 | tee ~/build.txt
 echo ""
 
+# Get the hardware version eg (WDR) 4300 or 3500 
+HWVER=`echo $1 | sed s/WDR//`
+
 echo "Update original md5sums file"
-cat $BINDIR/md5sums | grep "squashfs" | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
+cat $BINDIR/md5sums | grep "squashfs" | grep $HWVER | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
 echo ""
 
 echo  "Rename files to add version info"
 echo ""
 if [ $2 ]; then
-	for n in `ls $BINDIR/openwrt*.bin`; do mv  $n   $BINDIR/openwrt-$VER-$2-`echo $n|cut -d '-' -f 5-10`; done
+	for n in `ls $BINDIR/openwrt*.bin | grep $HWVER`; do mv  $n   $BINDIR/openwrt-$VER-$2-`echo $n|cut -d '-' -f 5-10`; done
 else
-	for n in `ls $BINDIR/openwrt*.bin`; do mv  $n   $BINDIR/openwrt-$VER-`echo $n|cut -d '-' -f 5-10`; done
+	for n in `ls $BINDIR/openwrt*.bin | grep $HWVER`; do mv  $n   $BINDIR/openwrt-$VER-`echo $n|cut -d '-' -f 5-10`; done
 fi
 
 echo "Update new md5sums file"
-md5sum $BINDIR/*-squash*sysupgrade.bin >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
-#md5sum $BINDIR/*-squash*factory.bin    >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
-echo ""
+md5sum $BINDIR/*wdr$HWVER*-squash*sysupgrade.bin >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
+#md5sum $BINDIR/*wdr$HWVER*-squash*factory.bin    >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 
-echo  "Move files to build folder"
-mv $BINDIR/openwrt*-squash*sysupgrade.bin $BUILDDIR/builds/build-$DIR
-#mv $BINDIR/*-squash*factory.bin    $BUILDDIR/builds/build-$DIR
+echo  "Copy files to build folder"
+cp $BINDIR/openwrt*wdr$HWVER*-squash*sysupgrade.bin $BUILDDIR/builds/build-$DIR
+#cp $BINDIR/openwrt*wdr$HWVER*-squash*factory.bin    $BUILDDIR/builds/build-$DIR
 echo ""
 
 echo "Clean up unused files"
@@ -213,20 +217,12 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
+build_tp WDR4300
+build_tp WDR3500
 
-build_tp WR842
-build_tp WR841
-build_tp MR3020
-build_tp MR3040
-build_tp MR3420
-build_tp MR11U
-build_tp WR703
-build_tp WR741
-build_tp WA701
-build_tp WA901
 
 echo " "
-echo "Build script TP complete"
+echo "Build script TP WDR complete"
 echo " "
 echo '----------------------------'
 
