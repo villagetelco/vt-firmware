@@ -93,7 +93,7 @@ echo "Source repo details: "$REPO $REPOID
 
 # Set up new directory name with date and version
 DATE=`date +%Y-%m-%d-%H:%M`
-DIR=$DATE"-TP-"$DIRVER
+DIR=$DATE"-TP-WDR-"$DIRVER
 
 ###########################
 # Set up build directory
