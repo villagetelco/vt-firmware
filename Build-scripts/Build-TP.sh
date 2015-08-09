@@ -6,6 +6,11 @@
 
 # Select the repo to use
 REPO="vt-firmware"
+BRANCH="secn_3.0"
+
+echo "Set up version strings"
+DIRVER="GA01.1"
+VER="SECN-3.0-TP-"$DIRVER
 
 
 echo "************************************"
@@ -22,7 +27,7 @@ if [ ! -d $GITREPO"/"$REPO ]; then
 	exit
 fi
 
-BRANCH="secn_3.0"
+
 echo "Check out the correct vt-firmware branch - $BRANCH"
 
 BUILD_DIR=$(pwd)
@@ -42,8 +47,6 @@ cd $BUILD_DIR
 pwd
 
 ##############################
-
-
 
 # Check to see if setup has already run
 if [ ! -f ./already_configured ]; then 
@@ -66,10 +69,6 @@ fi
 #########################
 
 echo "Start build process"
-
-echo "Set up version strings"
-DIRVER="GA01.1"
-VER="SECN-3.0-"$DIRVER
 
 BINDIR="./bin/ar71xx"
 BUILDDIR="./Builds/ar71xx"
@@ -187,12 +186,12 @@ fi
 
 echo "Update new md5sums file"
 md5sum $BINDIR/*-squash*sysupgrade.bin >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
-md5sum $BINDIR/*-squash*factory.bin    >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
+#md5sum $BINDIR/*-squash*factory.bin    >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 echo ""
 
 echo  "Move files to build folder"
 mv $BINDIR/openwrt*-squash*sysupgrade.bin $BUILDDIR/builds/build-$DIR
-mv $BINDIR/*-squash*factory.bin    $BUILDDIR/builds/build-$DIR
+#mv $BINDIR/*-squash*factory.bin    $BUILDDIR/builds/build-$DIR
 echo ""
 
 echo "Clean up unused files"

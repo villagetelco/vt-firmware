@@ -6,11 +6,16 @@
 
 # Select the repo to use
 REPO="vt-firmware"
+BRANCH="secn_3.0"
+
+echo "Set up version strings"
+DIRVER="GA01.1"
+VER="SECN-3.0-MP02-"$DIRVER
 
 
 echo "************************************"
 echo ""
-echo "Build script for MP-02 device"
+echo "Build script for MP02 and MP02FXS devices"
 
 echo "Git directory: "$GITREPO
 echo "Repo: "$REPO
@@ -22,7 +27,7 @@ if [ ! -d $GITREPO"/"$REPO ]; then
 	exit
 fi
 
-BRANCH="secn_3.0"
+
 echo "Check out the correct vt-firmware branch - $BRANCH"
 
 BUILD_DIR=$(pwd)
@@ -42,8 +47,6 @@ cd $BUILD_DIR
 pwd
 
 ##############################
-
-
 
 # Check to see if setup has already run
 if [ ! -f ./already_configured ]; then 
@@ -66,10 +69,6 @@ fi
 #########################
 
 echo "Start build process"
-
-echo "Set up version strings"
-DIRVER="GA01.1"
-VER="SECN-3.0-"$DIRVER
 
 BINDIR="./bin/ar71xx"
 BUILDDIR="./Builds/ar71xx"
@@ -127,7 +126,6 @@ make defconfig > /dev/null
 
 # Set target string
 TARGET=$1
-OPENWRTVER=`cat ./.config | grep "OpenWrt version" | cut -d : -f 2`
 
 echo "Check .config version"
 echo "Target:  " $TARGET
@@ -141,7 +139,7 @@ echo "Copy generic files"
 cp -r ./SECN-build/files     .  
 
 echo "Overlay device specific files"
-cp -r ./SECN-build/$1-$2/files  .  
+cp -r ./SECN-build/$1/files  .  
 echo ""
 
 echo "Build Factory Restore tar file"
@@ -168,8 +166,6 @@ echo ""
 echo "Clean up any left over files"
 rm $BINDIR/openwrt-*
 echo ""
-
-#exit ####################################################
 
 echo "Run make for "$1 $2
 make -j5
@@ -220,8 +216,8 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-build_mp02 MP02 FXS
 build_mp02 MP02
+build_mp02 MP02FXS
 
 echo " "
 echo " Build script MP02 complete"

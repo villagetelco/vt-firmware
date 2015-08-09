@@ -6,6 +6,11 @@
 
 # Select the repo to use
 REPO="vt-firmware"
+BRANCH="secn_3.0"
+
+echo "Set up version strings"
+DIRVER="GA01.1"
+VER="SECN-3.0-TP-WDR-"$DIRVER
 
 
 echo "************************************"
@@ -22,7 +27,7 @@ if [ ! -d $GITREPO"/"$REPO ]; then
 	exit
 fi
 
-BRANCH="secn_3.0"
+
 echo "Check out the correct vt-firmware branch - $BRANCH"
 
 BUILD_DIR=$(pwd)
@@ -42,7 +47,6 @@ cd $BUILD_DIR
 pwd
 
 ##############################
-
 
 # Check to see if setup has already run
 if [ ! -f ./already_configured ]; then 
@@ -66,10 +70,6 @@ fi
 
 echo "Start build process"
 
-echo "Set up version strings"
-DIRVER="WDR-GA01.1"
-VER="SECN-3.0-"$DIRVER
-
 BINDIR="./bin/ar71xx"
 BUILDDIR="./Builds/ar71xx"
 
@@ -83,7 +83,6 @@ cp -fp $GITREPO/$REPO/Build-scripts/GetGitVersions.sh  .
 
 ###########################
 
-# Get source repo details
 BUILDPWD=`pwd`
 cd  $GITREPO/$REPO
 REPOID=`git describe --long --dirty --abbrev=10 --tags`
@@ -94,7 +93,7 @@ echo "Source repo details: "$REPO $REPOID
 
 # Set up new directory name with date and version
 DATE=`date +%Y-%m-%d-%H:%M`
-DIR=$DATE"-TP-"$DIRVER
+DIR=$DATE"-TP-WDR-"$DIRVER
 
 ###########################
 # Set up build directory
@@ -190,11 +189,11 @@ fi
 
 echo "Update new md5sums file"
 md5sum $BINDIR/*wdr$HWVER*-squash*sysupgrade.bin >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
-md5sum $BINDIR/*wdr$HWVER*-squash*factory.bin    >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
+#md5sum $BINDIR/*wdr$HWVER*-squash*factory.bin    >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 
-echo  "Copy files to build folder"
-cp $BINDIR/openwrt*wdr$HWVER*-squash*sysupgrade.bin $BUILDDIR/builds/build-$DIR
-cp $BINDIR/openwrt*wdr$HWVER*-squash*factory.bin    $BUILDDIR/builds/build-$DIR
+echo  "Move files to build folder"
+mv $BINDIR/openwrt*wdr$HWVER*-squash*sysupgrade.bin $BUILDDIR/builds/build-$DIR
+#mv $BINDIR/openwrt*wdr$HWVER*-squash*factory.bin    $BUILDDIR/builds/build-$DIR
 echo ""
 
 echo "Clean up unused files"

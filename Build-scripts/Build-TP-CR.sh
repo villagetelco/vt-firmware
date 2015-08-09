@@ -6,11 +6,16 @@
 
 # Select the repo to use
 REPO="vt-firmware"
+BRANCH="secn_3.0"
+
+echo "Set up version strings"
+DIRVER="GA01.1"
+VER="SECN-3.0-TP-CR-"$DIRVER
 
 
 echo "************************************"
 echo ""
-echo "CR Build script for TP Link devices"
+echo "Build script for TP Link CR devices"
 
 echo "Git directory: "$GITREPO
 echo "Repo: "$REPO
@@ -22,7 +27,7 @@ if [ ! -d $GITREPO"/"$REPO ]; then
 	exit
 fi
 
-BRANCH="secn_3.0"
+
 echo "Check out the correct vt-firmware branch - $BRANCH"
 
 BUILD_DIR=$(pwd)
@@ -42,7 +47,6 @@ cd $BUILD_DIR
 pwd
 
 ##############################
-
 
 # Check to see if setup has already run
 if [ ! -f ./already_configured ]; then 
@@ -66,10 +70,6 @@ fi
 
 echo "Start build process"
 
-echo "Set up version strings"
-DIRVER="GA01.1"
-VER="SECN-3.0-"$DIRVER
-
 BINDIR="./bin/ar71xx"
 BUILDDIR="./Builds/ar71xx"
 
@@ -85,7 +85,6 @@ cp -rp $GITREPO/$REPO/CR-build/* ./SECN-build
 
 ###########################
 
-# Get source repo details
 BUILDPWD=`pwd`
 cd  $GITREPO/$REPO
 REPOID=`git describe --long --dirty --abbrev=10 --tags`
@@ -129,11 +128,9 @@ make defconfig > /dev/null
 
 # Set up target display strings
 TARGET=`cat .config | grep "CONFIG_TARGET" | grep "=y" | grep "_generic_" | cut -d _ -f 5 | cut -d = -f 1 `
-OPENWRTVER=`cat ./.config | grep "OpenWrt version" | cut -d : -f 2`
 
 echo "Check .config version"
 echo "Target:  " $TARGET
-echo "OpenWRT: " $OPENWRTVER
 echo ""
 
 echo "Set up files for "$1 $2
@@ -159,7 +156,6 @@ echo "Version: " $VER $TARGET $2
 echo "Date stamp: " $DATE
 
 echo "Version:    " $VER $TARGET $2        > ./files/etc/secn_version
-echo "OpenWRT:    " $OPENWRTVER           >> ./files/etc/secn_version
 echo "Build date: " $DATE                 >> ./files/etc/secn_version
 echo "GitHub:     " $REPO $REPOID         >> ./files/etc/secn_version
 echo " "                                  >> ./files/etc/secn_version
@@ -179,7 +175,7 @@ make -j5
 echo ""
 
 echo "Update original md5sums file"
-cat $BINDIR/md5sums.txt | grep "squashfs" | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
+cat $BINDIR/md5sums | grep "squashfs" | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
 echo ""
 
 echo  "Rename files to add version info"
@@ -193,6 +189,7 @@ fi
 echo "Update new md5sums file"
 md5sum $BINDIR/*-squash*sysupgrade.bin >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 #md5sum $BINDIR/*-squash*factory.bin    >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
+echo ""
 
 echo  "Move files to build folder"
 mv $BINDIR/openwrt*-squash*sysupgrade.bin $BUILDDIR/builds/build-$DIR
