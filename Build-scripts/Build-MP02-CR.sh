@@ -10,7 +10,7 @@ BRANCH="secn_4.0"
 
 echo "Set up version strings"
 DIRVER="Alpha2"
-VER="SECN-4.0-CR-"$DIRVER
+VER="SECN-4.0-MP02-CR-"$DIRVER
 
 
 echo "************************************"
