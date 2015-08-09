@@ -22,8 +22,8 @@ if [ ! -d $GITREPO"/"$REPO ]; then
 	exit
 fi
 
-echo "Check out the correct branch"
 BRANCH="secn_3.0"
+echo "Check out the correct vt-firmware branch - $BRANCH"
 
 BUILD_DIR=$(pwd)
 cd $GITREPO"/"$REPO
@@ -44,17 +44,16 @@ pwd
 ##############################
 
 
-
 # Check to see if setup has already run
 if [ ! -f ./already_configured ]; then 
   # make sure it only executes once
   touch ./already_configured  
   echo "Make builds directory"
-  mkdir ./bin/
-  mkdir ./bin/ar71xx/
-  mkdir ./bin/ar71xx/builds
-  mkdir ./bin/atheros/
-  mkdir ./bin/atheros/builds
+  mkdir ./Builds/
+  mkdir ./Builds/ar71xx/
+  mkdir ./Builds/ar71xx/builds
+  mkdir ./Builds/atheros/
+  mkdir ./Builds/atheros/builds
   echo "Initial set up completed. Continuing with build"
   echo ""
 else
@@ -68,20 +67,25 @@ fi
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="GA01"
-VER="SECN-3_0-RACHEL-"$DIRVER
+DIRVER="GA01.1"
+VER="SECN-3.0-"$DIRVER
+
+BINDIR="./bin/ar71xx"
+BUILDDIR="./Builds/ar71xx"
 
 ###########################
 echo "Copy files from Git repo into build folder"
 rm -rf ./SECN-build/
 cp -rp $GITREPO/$REPO/SECN-build/ .
 cp -fp $GITREPO/$REPO/Build-scripts/FactoryRestore.sh  .
+cp -fp $GITREPO/$REPO/Build-scripts/GetGitVersions.sh  .
 
 echo "Overlay RACHEL files"
 cp -rp $GITREPO/$REPO/RACHEL-build/* ./SECN-build
 
 ###########################
 
+# Get source repo details
 BUILDPWD=`pwd`
 cd  $GITREPO/$REPO
 REPOID=`git describe --long --dirty --abbrev=10 --tags`
@@ -95,14 +99,13 @@ DATE=`date +%Y-%m-%d-%H:%M`
 DIR=$DATE"-TP-RACHEL-"$DIRVER
 
 ###########################
-BINDIR="./bin/ar71xx"
 # Set up build directory
-echo "Set up new build directory  $BINDIR/builds/build-"$DIR
-mkdir $BINDIR/builds/build-$DIR
+echo "Set up new build directory  $BUILDDIR/builds/build-"$DIR
+mkdir $BUILDDIR/builds/build-$DIR
 
 # Create md5sums files
-echo $DIR > $BINDIR/builds/build-$DIR/md5sums.txt
-echo $DIR > $BINDIR/builds/build-$DIR/md5sums-$VER.txt
+echo $DIR > $BUILDDIR/builds/build-$DIR/md5sums.txt
+echo $DIR > $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 
 ##########################
 
@@ -114,11 +117,11 @@ echo "Set up .config for "$1 $2
 rm ./.config
 
 if [ $2 ]; then
-	echo "Config file: config-BB-"$1-$2
-	cp ./SECN-build/$1/config-BB-$1-$2  ./.config
+	echo "Config file: config-"$1-$2
+	cp ./SECN-build/$1/config-$1-$2  ./.config
 else
-	echo "Config file: config-BB-"$1
-	cp ./SECN-build/$1/config-BB-$1  ./.config
+	echo "Config file: config-"$1
+	cp ./SECN-build/$1/config-$1  ./.config
 fi
 
 echo "Run defconfig"
@@ -169,10 +172,11 @@ echo ""
 
 echo "Run make for "$1 $2
 make -j5
+#make -j1 V=s 2>&1 | tee ~/build.txt
 echo ""
 
 echo "Update original md5sums file"
-cat $BINDIR/md5sums | grep "squashfs" | grep ".bin" >> $BINDIR/builds/build-$DIR/md5sums.txt
+cat $BINDIR/md5sums | grep "squashfs" | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
 echo ""
 
 echo  "Rename files to add version info"
@@ -184,12 +188,12 @@ else
 fi
 
 echo "Update new md5sums file"
-md5sum $BINDIR/*-squash*sysupgrade.bin >> $BINDIR/builds/build-$DIR/md5sums-$VER.txt
-md5sum $BINDIR/*-squash*factory.bin    >> $BINDIR/builds/build-$DIR/md5sums-$VER.txt
+md5sum $BINDIR/*-squash*sysupgrade.bin >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
+md5sum $BINDIR/*-squash*factory.bin    >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 
 echo  "Move files to build folder"
-cp $BINDIR/openwrt*-squash*sysupgrade.bin $BINDIR/builds/build-$DIR
-cp $BINDIR/*-squash*factory.bin    $BINDIR/builds/build-$DIR
+mv $BINDIR/openwrt*-squash*sysupgrade.bin $BUILDDIR/builds/build-$DIR
+mv $BINDIR/*-squash*factory.bin    $BUILDDIR/builds/build-$DIR
 echo ""
 
 echo "Clean up unused files"
@@ -211,9 +215,10 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
+build_tp WR842
 build_tp MR3020
 build_tp MR3040
-build_tp WR842
+build_tp MR3420
 
 echo " "
 echo "Build script TP complete"

@@ -69,7 +69,7 @@ fi
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="FXS-RC3-test"
+DIRVER="FXS-GA01.1"
 VER="SECN-3.0-"$DIRVER
 
 ###########################
@@ -114,7 +114,7 @@ rm ./.config
 
 if [ $2 ]; then
 	echo "Config file: config-BB-"$1-$2
-	cp ./SECN-build/$1-$2/config-BB-$1-$2  ./.config
+	cp ./SECN-build/$1/config-BB-$1-$2  ./.config
 else
 	echo "Config file: config-BB-"$1
 	cp ./SECN-build/$1/config-BB-$1  ./.config

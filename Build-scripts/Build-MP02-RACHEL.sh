@@ -68,7 +68,7 @@ fi
 echo "Start build process"
 
 echo "Set up version strings"
-DIRVER="GA01"
+DIRVER="GA01.1"
 VER="SECN-3_0-RACHEL-"$DIRVER
 
 ###########################
