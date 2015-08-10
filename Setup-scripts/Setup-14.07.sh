@@ -48,8 +48,16 @@ if [ $SETSHA == "TRUE" ]; then
 fi
 echo " "
 
+
+echo "Set up additional pre-requisites"
+sudo apt-get update > ./apt-get.log
+sudo apt-get install -y git-core build-essential libssl-dev libncurses5-dev unzip >> ./apt-get.log
+echo " "
+
+
 echo "*** Checkout the OpenWRT build environment - git://git.openwrt.org/$REVISION/"
 git clone git://git.openwrt.org/$REVISION/openwrt.git $OPENWRT_PATH   
+echo " "
 
 echo "*** Change to build directory "$OPENWRT_PATH
 cd $OPENWRT_PATH
@@ -77,7 +85,7 @@ cat > feeds.conf.default << EOF
 src-git packages https://github.com/openwrt/packages.git^de5e37ac           # for-14.07 @ 5/8/2015
 
 #src-git telephony https://github.com/openwrt/telephony.git;$REV
-src-git telephony https://github.com/openwrt/telephony.git^4165841e         # Specific version to avoid bug in for-15.05 @ 5/8/2015
+src-git telephony https://github.com/openwrt/telephony.git^4165841e         # Specific version with dahdi compat with 14.07 @ 5/8/2015
 
 #src-git routing https://github.com/openwrt-routing/packages.git;$REV
 src-git routing https://github.com/openwrt-routing/packages.git^7b166ede    # For-14.07 @ 5/8/2015
@@ -107,9 +115,7 @@ echo "*** Install OpenWrt packages (See ./feeds-install.log)"
 ./scripts/feeds install -a -p alfred          2>&1  >> feeds-install.log
 
 echo " "
-
 cat feeds-install.log
-
 echo " "
 
 
@@ -161,17 +167,26 @@ EOF
 
 echo " "
 
+echo "Update feeds"
+./scripts/feeds update -a
+
+echo " "
+
 echo "*** Remove tmp directory"
 rm -rf tmp/
+echo " "
 
 echo "*** Run make defconfig to set up initial .config file (see ./defconfig.log)"
 make defconfig > defconfig.log
+echo " "
 
 echo "*** Backup the .config file"
 cp .config .config.orig
 echo " "
 
-
+echo "Check pre-requisites"
+make prereq 2>&1 | tee ./prereq.log
+echo " "
 
 echo "End of script"
 
