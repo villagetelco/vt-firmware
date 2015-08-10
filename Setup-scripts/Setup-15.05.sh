@@ -95,7 +95,7 @@ echo " "
 
 echo "*** Update the feeds (See ./feeds-update.log)"
 
-./scripts/feeds update   2>&1 | tee ./feeds-update.log
+./scripts/feeds update -a  2>&1 | tee ./feeds-update.log
 echo " "
 
 echo "*** Install OpenWrt packages (See ./feeds-install.log)"
