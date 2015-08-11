@@ -48,8 +48,16 @@ if [ $SETSHA == "TRUE" ]; then
 fi
 echo " "
 
+
+echo "Set up additional pre-requisites"
+sudo apt-get update > ./apt-get.log
+sudo apt-get install -y git-core build-essential libssl-dev libncurses5-dev unzip >> ./apt-get.log
+echo " "
+
+
 echo "*** Checkout the OpenWRT build environment - git://git.openwrt.org/$REVISION/"
 git clone git://git.openwrt.org/$REVISION/openwrt.git $OPENWRT_PATH   
+echo " "
 
 echo "*** Change to build directory "$OPENWRT_PATH
 cd $OPENWRT_PATH
@@ -79,14 +87,14 @@ src-git packages https://github.com/openwrt/packages.git^1ee31bd            # fo
 #src-git telephony https://github.com/openwrt/telephony.git;$REV
 src-git telephony https://github.com/openwrt/telephony.git^bbf0cbf          # Specific version to avoid bug in for-15.05 @ 5/8/2015
 
-#src-git fxs git://github.com/villagetelco/vt-fxs-packages.git
-src-git fxs git://github.com/villagetelco/vt-fxs-packages.git^3d99242       # Master @ 5/8/2015
-
 #src-git routing https://github.com/openwrt-routing/packages.git;$REV
 src-git routing https://github.com/openwrt-routing/packages.git^0e8fd18     # for-15.05 @ 5/8/2015
 
+#src-git fxs git://github.com/villagetelco/vt-fxs-packages.git
+src-git fxs git://github.com/villagetelco/vt-fxs-packages.git^3d992429      # Master @ 5/8/2015
+
 #src-git alfred git://git.open-mesh.org/openwrt-feed-alfred.git
-src-git alfred git://git.open-mesh.org/openwrt-feed-alfred.git^472f627    # Master @ 5/8/2015
+src-git alfred git://git.open-mesh.org/openwrt-feed-alfred.git^472f627d    # Master @ 5/8/2015
 
 EOF
 ###################
@@ -107,9 +115,7 @@ echo "*** Install OpenWrt packages (See ./feeds-install.log)"
 ./scripts/feeds install -a -p alfred          2>&1  >> feeds-install.log
 
 echo " "
-
 cat feeds-install.log
-
 echo " "
 
 
@@ -161,17 +167,26 @@ EOF
 
 echo " "
 
+echo "Update feeds"
+./scripts/feeds update -a
+
+echo " "
+
 echo "*** Remove tmp directory"
 rm -rf tmp/
+echo " "
 
 echo "*** Run make defconfig to set up initial .config file (see ./defconfig.log)"
 make defconfig > defconfig.log
+echo " "
 
 echo "*** Backup the .config file"
 cp .config .config.orig
 echo " "
 
-
+echo "Check pre-requisites"
+make prereq 2>&1 | tee ./prereq.log
+echo " "
 
 echo "End of script"
 
