@@ -4,21 +4,8 @@
 # This script creates various config files based on parameters in 
 # /etc/config/secn, /etc/config/network and /etc/config/wireless
 
-# -----------------
-# Set up network for WR841 version
+# ------------------------------------------------------------------
 
-WR841VER=`cat /proc/cpuinfo | grep machine | cut -d "v" -f 2`
-if [ $WR841VER -lt "9" ]; then 
-	LANETH="eth1"
-	WANETH="eth0"
-else
-	LANETH="eth0"
-	WANETH="eth1"
-fi
-
-uci set network.lan.ifname=$LANETH
-
-# -----------------
 # Set up WiFi 
 
 # Get the params from uci config file /etc/config/secn and wireless
@@ -61,6 +48,40 @@ uci set wireless.ap_0.encryption=$ENCRYPT
 uci set wireless.ap_0.maxassoc=$MAXASSOC
 uci set wireless.ap_0.isolate=$AP_ISOL
 uci set wireless.ah_0.disabled=$MESH_DISABLE
+
+uci set wireless.ap_1.key=$PASSPHRASE
+uci set wireless.ap_1.ssid=$SSID
+uci set wireless.ap_1.mode="ap"
+uci set wireless.ap_1.disabled=$AP_DISABLE
+uci set wireless.ap_1.encryption=$ENCRYPT
+uci set wireless.ap_1.maxassoc=$MAXASSOC
+uci set wireless.ap_1.isolate=$AP_ISOL
+uci set wireless.ah_1.disabled=$MESH_DISABLE
+
+# Setup Duo mode
+DUOMODE=`uci get secn.radio.duomode`
+if [ $DUOMODE = "Int_AP..USB_Mesh" ]; then  
+	uci set wireless.radio0.disabled=0
+	uci set wireless.radio1.disabled=0
+	uci set wireless.ap_0.disabled=$AP_DISABLE
+	uci set wireless.ah_0.disabled=1
+	uci set wireless.ap_1.disabled=1
+	uci set wireless.ah_1.disabled=$MESH_DISABLE
+elif [ $DUOMODE = "Int_Mesh..USB_AP" ]; then  
+	uci set wireless.radio0.disabled=0
+	uci set wireless.radio1.disabled=0
+	uci set wireless.ap_0.disabled=1
+	uci set wireless.ah_0.disabled=$MESH_DISABLE
+	uci set wireless.ap_1.disabled=$AP_DISABLE
+	uci set wireless.ah_1.disabled=1
+else  # Single Int radio
+	uci set wireless.radio0.disabled=0
+	uci set wireless.radio1.disabled=0
+	uci set wireless.ap_0.disabled=$AP_DISABLE
+	uci set wireless.ah_0.disabled=$MESH_DISABLE
+	uci set wireless.ap_1.disabled=1
+	uci set wireless.ah_1.disabled=1
+fi
 
 # Setup AP Isolation on mesh unless it is used for WAN
 WANPORT=`uci get secn.wan.wanport`
@@ -138,7 +159,6 @@ TTY="/dev/ttyUSB"$MODEMPORT
 
 # Get WAN settings
 WANPORT=`uci get secn.wan.wanport`
-WANLAN_ENABLE=`uci get secn.wan.wanlan_enable`
 ETHWANMODE=`uci get secn.wan.ethwanmode`
 WANIP=`uci get secn.wan.wanip`
 WANGATEWAY=`uci get secn.wan.wangateway`
@@ -206,12 +226,11 @@ uci set wireless.sta_0.disabled='1' # Make sure wifi WAN is off.
 uci set network.stabridge.network='wwan' # Disable wifi relay bridge
 /etc/init.d/relayd disable # Disable relayd
 
-# Set default LAN bridge to include both eth0 and eth1 if 'WAN' port changed to LAN
-if [ $WANLAN_ENABLE = "checked" ]; then
-	uci set network.lan.ifname="$LANETH $WANETH"
-else
-	uci set network.lan.ifname=$LANETH
-fi
+# Disable WAN port as LAN for Single Eth port devices
+uci set secn.wan.wanlan_enable='0'
+
+# Set default LAN port to eth0
+uci set network.lan.ifname='eth0'
 
 # Set up for WAN disabled
 if [ $WANPORT = "Disable" ]; then
@@ -222,31 +241,23 @@ fi
 # Set up for Ethernet WAN
 if [ $WANPORT = "Ethernet" ]; then
  	# Set up for Eth WAN port
-	uci set network.lan.ifname=$LANETH
+	uci set network.lan.ifname='eth9'   # This is just a dummy
 	uci set network.lan.gateway='255.255.255.255'
-	uci set network.wan.ifname=$WANETH
-	# Disable WAN port as LAN
-	uci set secn.wan.wanlan_enable='0'
+	uci set network.wan.ifname='eth0'   # Single Eth port devices
 fi
 
 # Set up for 4G Eth Modem
 if [ $WANPORT = "USB-Eth-Modem" ]; then
  	# Set up for Eth WAN port
-	uci set network.lan.ifname=$LANETH
+	uci set network.lan.ifname='eth0'
 	uci set network.lan.gateway='255.255.255.255'
-	uci set network.wan.ifname='eth2'
+	uci set network.wan.ifname='eth1'   # Single Eth port devices
 fi
 
 # Set up for Mesh WAN
 if [ $WANPORT = "Mesh" ]; then
- 	# Set up WAN eth port as LAN or WAN
-	if [ $WANLAN_ENABLE = "checked" ]; then
-		uci set network.lan.ifname="$LANETH $WANETH"
-		uci set network.wan.ifname="bat0"
-	else
-		uci set network.lan.ifname=$LANETH
-		uci set network.wan.ifname="bat0 $WANETH"
-	fi
+	uci set network.lan.ifname='eth0'
+	uci set network.wan.ifname='bat0' 
 	uci set network.lan.gateway='255.255.255.255'
 	uci set network.wan.type='bridge' # Reqd. See /etc/init.d/set-mesh-gw-mode
 	MESH_DISABLE='0'
@@ -254,10 +265,18 @@ if [ $WANPORT = "Mesh" ]; then
 fi
 
 # Disable mesh if required
-if [ $MESH_DISABLE = "0" ]; then
+if [ $MESH_DISABLE = "0" ] && [ $DUOMODE = "Int_AP_Mesh" ]; then
   uci set wireless.ah_0.disabled='0'
-else
+  uci set wireless.ah_1.disabled='1'
+elif [ $MESH_DISABLE = "0" ] && [ $DUOMODE = "Int_AP..USB_Mesh" ]; then
+  uci set wireless.ah_0.disabled='1'
+  uci set wireless.ah_1.disabled='0'
+elif [ $MESH_DISABLE = "0" ] && [ $DUOMODE = "Int_Mesh..USB_AP" ]; then
+  uci set wireless.ah_0.disabled='0'
+  uci set wireless.ah_1.disabled='1'
+else  # Make sure both adhoc interfaces are disabled
 	uci set wireless.ah_0.disabled='1'
+	uci set wireless.ah_1.disabled='1'
 fi
 
 # Set up for WiFi WAN
