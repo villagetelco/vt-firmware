@@ -1,0 +1,440 @@
+#!/bin/sh -x
+# /etc/init.d/config_secn  
+
+# This script creates various config files based on parameters in 
+# /etc/config/secn, /etc/config/network and /etc/config/wireless
+
+# ------------------------------------------------------------------
+
+# Set up WiFi 
+
+# Get the params from uci config file /etc/config/secn and wireless
+SSID=`uci get secn.accesspoint.ssid`
+SSID=`echo "$SSID" | sed -f /bin/url-decode.sed`
+uci set secn.accesspoint.ssid=$SSID
+
+PASSPHRASE=`uci get secn.accesspoint.passphrase`
+PASSPHRASE=`echo "$PASSPHRASE" | sed -f /bin/url-decode.sed`
+uci set secn.accesspoint.passphrase=$PASSPHRASE
+
+ENCRYPTION=`uci get secn.accesspoint.encryption`
+AP_ISOL=`uci get secn.accesspoint.ap_isol`
+MAXASSOC=`uci get secn.accesspoint.maxassoc`
+AP_DISABLE=`uci get secn.accesspoint.ap_disable`
+MESH_DISABLE=`uci get secn.mesh.mesh_disable`
+
+# Set to WPA2 by default                                 
+ENCRYPT="psk2"
+
+if [ $ENCRYPTION = "WPA-WPA2-AES" ]; then                                   
+ENCRYPT="mixed-psk+tkip+aes"
+elif [ $ENCRYPTION = "WPA-WPA2" ]; then                          
+ENCRYPT="mixed-psk"                                                     
+elif [ $ENCRYPTION = "WPA2" ]; then                          
+ENCRYPT="psk2"                                                      
+elif [ $ENCRYPTION = "WPA" ]; then                                   
+ENCRYPT="psk"
+elif [ $ENCRYPTION = "WEP" ]; then                          
+ENCRYPT="wep"                                                     
+elif [ $ENCRYPTION = "NONE" ]; then                          
+ENCRYPT="none"                                                      
+fi
+
+uci set wireless.ap_0.key=$PASSPHRASE
+uci set wireless.ap_0.ssid=$SSID
+uci set wireless.ap_0.mode="ap"
+uci set wireless.ap_0.disabled=$AP_DISABLE
+uci set wireless.ap_0.encryption=$ENCRYPT
+uci set wireless.ap_0.maxassoc=$MAXASSOC
+uci set wireless.ap_0.isolate=$AP_ISOL
+uci set wireless.ah_0.disabled=$MESH_DISABLE
+
+uci set wireless.ap_1.key=$PASSPHRASE
+uci set wireless.ap_1.ssid=$SSID
+uci set wireless.ap_1.mode="ap"
+uci set wireless.ap_1.disabled=$AP_DISABLE
+uci set wireless.ap_1.encryption=$ENCRYPT
+uci set wireless.ap_1.maxassoc=$MAXASSOC
+uci set wireless.ap_1.isolate=$AP_ISOL
+uci set wireless.ah_1.disabled=$MESH_DISABLE
+
+# Setup Duo mode
+DUOMODE=`uci get secn.radio.duomode`
+if [ $DUOMODE = "Int_AP..USB_Mesh" ]; then  
+	uci set wireless.radio0.disabled=0
+	uci set wireless.radio1.disabled=0
+	uci set wireless.ap_0.disabled=$AP_DISABLE
+	uci set wireless.ah_0.disabled=1
+	uci set wireless.ap_1.disabled=1
+	uci set wireless.ah_1.disabled=$MESH_DISABLE
+elif [ $DUOMODE = "Int_Mesh..USB_AP" ]; then  
+	uci set wireless.radio0.disabled=0
+	uci set wireless.radio1.disabled=0
+	uci set wireless.ap_0.disabled=1
+	uci set wireless.ah_0.disabled=$MESH_DISABLE
+	uci set wireless.ap_1.disabled=$AP_DISABLE
+	uci set wireless.ah_1.disabled=1
+else  # Single Int radio
+	uci set wireless.radio0.disabled=0
+	uci set wireless.radio1.disabled=0
+	uci set wireless.ap_0.disabled=$AP_DISABLE
+	uci set wireless.ah_0.disabled=$MESH_DISABLE
+	uci set wireless.ap_1.disabled=1
+	uci set wireless.ah_1.disabled=1
+fi
+
+# Setup AP Isolation on mesh unless it is used for WAN
+WANPORT=`uci get secn.wan.wanport`
+
+if [ $AP_ISOL = "1" ] && [ $WANPORT != "Mesh" ]; then  
+	batctl ap 1
+else
+	batctl ap 0
+fi
+
+#----------------------------------------------
+
+# Set up DHCP server
+# Get the DHCP parameters from uci config file /etc/config/secn
+DHCP_ENABLE=`uci get secn.dhcp.enable`
+DHCP_AUTH_CHK=`uci get secn.dhcp.dhcp_auth`
+
+if [ $DHCP_AUTH_CHK = "checked" ]; then
+  DHCP_AUTH='1'
+else
+  DHCP_AUTH='0'
+fi
+
+STARTIP=`uci get secn.dhcp.startip | cut -d = -f 2 | cut -d . -f 4`
+ENDIP=`uci get secn.dhcp.endip | cut -d = -f 2 | cut -d . -f 4`
+LIMIT=$((ENDIP - STARTIP))
+
+MAXLEASES=`uci get secn.dhcp.maxleases`
+LEASETERM=`uci get secn.dhcp.leaseterm`
+LEASETERM=$((LEASETERM / 60))'m'
+DOMAIN=`uci get secn.dhcp.domain`
+OPTION_DNS=`uci get secn.dhcp.dns`
+OPTION_DNS2=`uci get secn.dhcp.dns2`
+OPTION_SUBNET=`uci get secn.dhcp.subnet`
+OPTION_ROUTER=`uci get secn.dhcp.router`
+
+uci set dhcp.setup.dhcpleasemax=$MAXLEASES
+uci set dhcp.setup.domain=$DOMAIN
+uci set dhcp.setup.authoritative=$DHCP_AUTH
+
+uci set dhcp.lan.start=$STARTIP
+uci set dhcp.lan.limit=$LIMIT
+uci set dhcp.lan.leasetime=$LEASETERM
+uci set dhcp.lan.dhcp_option="1,$OPTION_SUBNET  3,$OPTION_ROUTER  6,$OPTION_DNS,$OPTION_DNS2"
+
+#---------------------------------------------
+
+#Set up WAN Port
+
+# Set up 3G USB Modem
+VENDOR=`uci get secn.modem.vendor`
+PRODUCT=`uci get secn.modem.product`
+# Create the new usb-serial file
+rm /etc/modules.d/60-usb-serial
+cat >> /etc/modules.d/60-usb-serial << EOF
+usbserial vendor=0x$VENDOR product=0x$PRODUCT
+EOF
+
+# Get modem params
+SERVICE=`uci get secn.modem.service`
+MODEMPORT=`uci get secn.modem.modemport`
+APN=`uci get secn.modem.apn`
+PIN=`uci get secn.modem.pin`
+
+APNUSER=`uci get secn.modem.username`
+APNUSER=`echo "$APNUSER" | sed -f /bin/url-decode.sed`
+uci set secn.modem.username=$APNUSER
+
+APNPW=`uci get secn.modem.password`
+APNPW=`echo "$APNPW" | sed -f /bin/url-decode.sed`
+uci set secn.modem.password=$APNPW
+
+# Set up USBtty port string
+TTY="/dev/ttyUSB"$MODEMPORT
+
+# Get WAN settings
+WANPORT=`uci get secn.wan.wanport`
+ETHWANMODE=`uci get secn.wan.ethwanmode`
+WANIP=`uci get secn.wan.wanip`
+WANGATEWAY=`uci get secn.wan.wangateway`
+WANMASK=`uci get secn.wan.wanmask`
+WANDNS=`uci get secn.wan.wandns`
+PORT_FORWARD=`uci get secn.wan.port_forward`
+SECWANIP=`uci get secn.wan.secwanip`
+
+WANSSID=`uci get secn.wan.wanssid`
+WANSSID=`echo "$WANSSID" | sed -f /bin/url-decode.sed`
+uci set secn.wan.wanssid=$WANSSID
+
+WANPASS=`uci get secn.wan.wanpass`
+WANPASS=`echo "$WANPASS" | sed -f /bin/url-decode.sed`
+uci set secn.wan.wanpass=$WANPASS
+
+# Set up WAN Port Forwarding for ssh and https
+	uci set firewall.https.dest="NULL"
+	uci set firewall.ssh.dest="NULL"
+if [ $PORT_FORWARD = "checked" ]; then                                   
+	uci set firewall.https.dest="lan"
+	uci set firewall.ssh.dest="lan"
+fi
+
+# Set up WAN wifi encryption 
+WANENCRYPTION=`uci get secn.wan.wanencr`
+# Set to WPA by default                                 
+WANENCR="psk"
+
+if [ $WANENCRYPTION = "WPA-WPA2-AES" ]; then                                   
+	WANENCR="mixed-psk+tkip+aes"
+elif [ $WANENCRYPTION = "WPA-WPA2" ]; then                          
+	WANENCR="mixed-psk"
+elif [ $WANENCRYPTION = "WPA2" ]; then                          
+	WANENCR="psk2"
+elif [ $WANENCRYPTION = "WPA" ]; then                                   
+	WANENCR="psk"
+elif [ $WANENCRYPTION = "WEP" ]; then                          
+	WANENCR="wep"                                                     
+elif [ $WANENCRYPTION = "NONE" ]; then                          
+	WANENCR="none"                                                      
+fi
+
+# Set WAN wifi config
+uci set wireless.sta_0.ssid=$WANSSID
+uci set wireless.sta_0.key=$WANPASS
+uci set wireless.sta_0.encryption=$WANENCR
+
+# Clear WAN settings
+uci set network.wan.ifname=''
+uci set network.wan.proto=''
+uci set network.wan.type=''
+uci set network.wan.ipaddr=''
+uci set network.wan.gateway=''
+uci set network.wan.netmask=''
+uci set network.wan.dns=''
+
+uci set network.wan.service=''
+uci set network.wan.apn=''
+uci set network.wan.username=''
+uci set network.wan.password=''
+uci set network.wan.pin=''
+uci set network.wan.device=''
+uci set wireless.sta_0.disabled='1' # Make sure wifi WAN is off.
+uci set network.stabridge.network='wwan' # Disable wifi relay bridge
+/etc/init.d/relayd disable # Disable relayd
+
+# Disable WAN port as LAN for Single Eth port devices
+uci set secn.wan.wanlan_enable='0'
+
+# Set default LAN port to eth0
+uci set network.lan.ifname='eth0'
+
+# Set up for WAN disabled
+if [ $WANPORT = "Disable" ]; then
+  # Nothing to do
+	true
+fi
+
+# Set up for Ethernet WAN
+if [ $WANPORT = "Ethernet" ]; then
+ 	# Set up for Eth WAN port
+	uci set network.lan.ifname='eth9'   # This is just a dummy
+	uci set network.lan.gateway='255.255.255.255'
+	uci set network.wan.ifname='eth0'   # Single Eth port devices
+fi
+
+# Set up for 4G Eth Modem
+if [ $WANPORT = "USB-Eth-Modem" ]; then
+ 	# Set up for Eth WAN port
+	uci set network.lan.ifname='eth0'
+	uci set network.lan.gateway='255.255.255.255'
+	uci set network.wan.ifname='eth1'   # Single Eth port devices
+fi
+
+# Set up for Mesh WAN
+if [ $WANPORT = "Mesh" ]; then
+	uci set network.lan.ifname='eth0'
+	uci set network.wan.ifname='bat0' 
+	uci set network.lan.gateway='255.255.255.255'
+	uci set network.wan.type='bridge' # Reqd. See /etc/init.d/set-mesh-gw-mode
+	MESH_DISABLE='0'
+	uci set secn.mesh.mesh_disable='0'
+fi
+
+# Disable mesh if required
+if [ $MESH_DISABLE = "0" ] && [ $DUOMODE = "Int_AP_Mesh" ]; then
+  uci set wireless.ah_0.disabled='0'
+  uci set wireless.ah_1.disabled='1'
+elif [ $MESH_DISABLE = "0" ] && [ $DUOMODE = "Int_AP..USB_Mesh" ]; then
+  uci set wireless.ah_0.disabled='1'
+  uci set wireless.ah_1.disabled='0'
+elif [ $MESH_DISABLE = "0" ] && [ $DUOMODE = "Int_Mesh..USB_AP" ]; then
+  uci set wireless.ah_0.disabled='0'
+  uci set wireless.ah_1.disabled='1'
+else  # Make sure both adhoc interfaces are disabled
+	uci set wireless.ah_0.disabled='1'
+	uci set wireless.ah_1.disabled='1'
+fi
+
+# Set up for WiFi WAN
+if [ $WANPORT = "WiFi" ]; then
+	uci set network.lan.gateway='255.255.255.255'
+	uci set wireless.sta_0.disabled='0'
+	uci set wireless.sta_0.network='wan'
+	uci set wireless.ah_0.disabled='1'
+	uci set secn.mesh.mesh_disable='1'
+	uci set network.wan.ifname='wlan0-2'
+fi
+
+# Set up for WiFi Relay WAN
+if [ $WANPORT = "WiFi-Relay" ]; then
+	uci set network.stabridge.network='lan wwan'
+	uci set wireless.sta_0.network='wwan'
+	uci set wireless.sta_0.disabled='0'
+	uci set wireless.ah_0.disabled='1'
+	uci set secn.mesh.mesh_disable='1'
+	/etc/init.d/relayd enable
+fi
+
+# Set up for DHCP or Static
+if [ $ETHWANMODE = "Static" ]; then
+	uci set network.wan.proto='static'
+	uci set network.wan.ipaddr=$WANIP
+	uci set network.wan.gateway=$WANGATEWAY
+	uci set network.wan.netmask=$WANMASK
+	uci set network.wan.dns=$WANDNS
+
+else  # Set up for DHCP
+	uci set network.wan.proto='dhcp'
+	uci set network.wan.ipaddr=''
+	uci set network.wan.gateway=''
+	uci set network.wan.netmask=''
+	uci set network.wan.dns=''
+fi
+
+# Set up for 3G Modem
+# Note this must follow Static/DHCP test to ensure wan.proto is set to '3g'
+if [ $WANPORT = "USB-Modem" ]; then
+	uci set network.lan.gateway='255.255.255.255'
+	uci set network.wan.ifname='ppp0'
+	uci set network.wan.proto='3g'
+	uci set network.wan.service=$SERVICE
+	uci set network.wan.apn=$APN
+	uci set network.wan.username=$APNUSER
+	uci set network.wan.password=$APNPW
+	uci set network.wan.pin=$PIN
+	uci set network.wan.device=$TTY
+fi
+
+# Make sure firewall is enabled
+/etc/init.d/firewall enable  
+
+#--------------------------------
+
+# Set up modem chat scripts
+DIALSTR=`uci get secn.modem.dialstr`
+DIALSTR=`echo "$DIALSTR" | sed -f /bin/url-decode.sed`
+uci set secn.modem.dialstr=$DIALSTR
+
+# Set up dialstring line
+DIALSTR2='"ATD'$DIALSTR'"'
+DIALSTR3='ATD'$DIALSTR''
+
+# Create the new chatscript files
+rm /etc/chatscripts/3g.chat
+
+cat >> /etc/chatscripts/3g.chat << EOF
+
+ABORT   BUSY
+ABORT   'NO CARRIER'
+ABORT   ERROR
+REPORT  CONNECT
+TIMEOUT 10
+""      "AT&F"
+OK      "ATE1"
+OK      'AT+CGDCONT=1,"IP","\$USE_APN"'
+SAY     "Calling UMTS/GPRS"
+TIMEOUT 30
+OK      $DIALSTR2
+CONNECT ' '
+
+EOF
+
+rm /etc/chatscripts/evdo.chat
+cat >> /etc/chatscripts/evdo.chat << EOF
+
+# This is a simple chat script based on the one provided by Sierra Wireless
+# for CDMA connections.
+ABORT  	BUSY
+ABORT 	'NO CARRIER'
+ABORT   ERROR
+ABORT 	'NO DIAL TONE'
+ABORT 	'NO ANSWER'
+ABORT 	DELAYED
+REPORT	CONNECT
+TIMEOUT	10
+''      AT
+OK      ATZ
+SAY     'Calling CDMA/EVDO'
+TIMEOUT 30
+OK      $DIALSTR3
+CONNECT ''
+
+EOF
+
+#----------------------------------------------
+
+# Set up web server security configuration
+
+# Get checkbox values
+AUTH=`uci get secn.http.auth`
+LIMITIP=`uci get secn.http.limitip`
+ENSSL=`uci get secn.http.enssl`
+
+# Set up basic auth
+if [ $AUTH = "checked" ]; then                          
+  uci set uhttpd.main.config="/etc/http.conf"
+else
+  uci set uhttpd.main.config="/etc/http.conf.off"
+fi
+
+
+# Set up Restricted IP and SSL
+
+if [ $LIMITIP != "checked" ] && [ $ENSSL != "checked" ]; then
+  uci set uhttpd.main.listen_http="0.0.0.0:80"
+  uci set uhttpd.main.listen_https=""
+fi
+
+if [ $LIMITIP = "checked" ] && [ $ENSSL != "checked" ]; then
+  uci set uhttpd.main.listen_http="172.31.255.254:80"
+  uci set uhttpd.main.listen_https=""
+fi
+
+if [ $LIMITIP != "checked" ] && [ $ENSSL = "checked" ]; then
+      uci set uhttpd.main.listen_http=""                                                  
+      uci set uhttpd.main.listen_https="0.0.0.0:443"
+fi
+
+if [ $LIMITIP = "checked" ] && [ $ENSSL = "checked" ]; then
+    uci set uhttpd.main.listen_http=""
+    uci set uhttpd.main.listen_https="172.31.255.254:443"
+fi
+
+
+# Save the changes 
+uci commit uhttpd
+uci commit dhcp
+uci commit network
+uci commit wireless
+uci commit secn
+uci commit firewall
+sleep 1
+
+# Note:Reboot for changes to be effective
+
+#----------------------------------------------
+
