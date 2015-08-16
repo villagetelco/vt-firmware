@@ -77,16 +77,16 @@ if [ $CLASSDIGIT2 -lt 10 ]; then
 fi
 
 # Set WiFi channel based on last digit of CLASS
-if [ $CLASSDIGIT = '1' ] || [ $CLASSDIGIT = '6' ]; then
+if [ $CLASSDIGIT = '1' ] || [ $CLASSDIGIT = '4' ] || [ $CLASSDIGIT = '7' ]; then
 	CHAN=1
-elif [ $CLASSDIGIT = '2' ] || [ $CLASSDIGIT = '7' ]; then
-	CHAN=3
-elif [ $CLASSDIGIT = '3' ] || [ $CLASSDIGIT = '8' ]; then
+elif [ $CLASSDIGIT = '2' ] || [ $CLASSDIGIT = '5' ] || [ $CLASSDIGIT = '8' ]; then
 	CHAN=6
-elif [ $CLASSDIGIT = '4' ] || [ $CLASSDIGIT = '9' ]; then
-	CHAN=9
-elif [ $CLASSDIGIT = '5' ] || [ $CLASSDIGIT = '0' ]; then
+elif [ $CLASSDIGIT = '3' ] || [ $CLASSDIGIT = '6' ] || [ $CLASSDIGIT = '9' ]; then
 	CHAN=11
+elif [ $CLASSDIGIT = '0' ]; then
+	CHAN=6
+else
+	CHAN=1
 fi
 
 uci set wireless.radio0.channel=$CHAN
