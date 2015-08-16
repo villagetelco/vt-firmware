@@ -10,12 +10,12 @@ BRANCH="secn_4.0"
 
 echo "Set up version strings"
 DIRVER="Alpha2"
-VER="SECN-4.0-TP-RACHEL-"$DIRVER
+VER="SECN-4.0-MP02-Duo-"$DIRVER
 
 
 echo "************************************"
 echo ""
-echo "Build script for TP Link devices"
+echo "Build script for MP02 Duo device"
 
 echo "Git directory: "$GITREPO
 echo "Repo: "$REPO
@@ -80,8 +80,8 @@ cp -rp $GITREPO/$REPO/SECN-build/ .
 cp -fp $GITREPO/$REPO/Build-scripts/FactoryRestore.sh  .
 cp -fp $GITREPO/$REPO/Build-scripts/GetGitVersions.sh  .
 
-echo "Overlay RACHEL files"
-cp -rp $GITREPO/$REPO/RACHEL-build/* ./SECN-build
+echo "Overlay Duo files"
+cp -rp $GITREPO/$REPO/Duo-build/* ./SECN-build/
 
 ###########################
 
@@ -95,7 +95,7 @@ echo "Source repo details: "$REPO $REPOID
 
 # Set up new directory name with date and version
 DATE=`date +%Y-%m-%d-%H:%M`
-DIR=$DATE"-TP-RACHEL-"$DIRVER
+DIR=$DATE"-MP02-Duo-"$DIRVER
 
 ###########################
 # Set up build directory
@@ -110,7 +110,7 @@ echo $DIR > $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 
 # Build function
 
-function build_tp() {
+function build_mp02() {
 
 echo "Set up .config for "$1 $2
 rm ./.config
@@ -126,8 +126,8 @@ fi
 echo "Run defconfig"
 make defconfig > /dev/null
 
-# Set up target display strings
-TARGET=`cat .config | grep "CONFIG_TARGET" | grep "=y" | grep "_generic_" | cut -d _ -f 5 | cut -d = -f 1 `
+# Set target string
+TARGET=$1
 
 echo "Check .config version"
 echo "Target:  " $TARGET
@@ -175,25 +175,28 @@ make -j5
 echo ""
 
 echo "Update original md5sums file"
-cat $BINDIR/md5sums | grep "squashfs" | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
+cat $BINDIR/md5sums | grep "squashfs.bin"   | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
+cat $BINDIR/md5sums | grep "kernel.bin"     | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
+cat $BINDIR/md5sums | grep "sysupgrade.bin" | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
 echo ""
 
 echo  "Rename files to add version info"
 echo ""
 if [ $2 ]; then
-	for n in `ls $BINDIR/openwrt*.bin`; do mv  $n   $BINDIR/openwrt-$VER-$2-`echo $n|cut -d '-' -f 5-10`; done
+	for n in `ls $BINDIR/openwrt*.bin`; do mv  $n   $BINDIR/openwrt-$VER-$1-$2-`echo $n|cut -d '-' -f 5-10`; done
 else
-	for n in `ls $BINDIR/openwrt*.bin`; do mv  $n   $BINDIR/openwrt-$VER-`echo $n|cut -d '-' -f 5-10`; done
+	for n in `ls $BINDIR/openwrt*.bin`; do mv  $n   $BINDIR/openwrt-$VER-$1-`echo $n|cut -d '-' -f 5-10`; done
 fi
 
 echo "Update new md5sums file"
 md5sum $BINDIR/*-squash*sysupgrade.bin >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
-#md5sum $BINDIR/*-squash*factory.bin    >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
-echo ""
+md5sum $BINDIR/openwrt*kernel.bin      >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
+md5sum $BINDIR/openwrt*squashfs.bin    >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 
 echo  "Move files to build folder"
 mv $BINDIR/openwrt*-squash*sysupgrade.bin $BUILDDIR/builds/build-$DIR
-#mv $BINDIR/*-squash*factory.bin    $BUILDDIR/builds/build-$DIR
+mv $BINDIR/openwrt*kernel.bin             $BUILDDIR/builds/build-$DIR
+mv $BINDIR/openwrt*squashfs.bin           $BUILDDIR/builds/build-$DIR
 echo ""
 
 echo "Clean up unused files"
@@ -215,13 +218,10 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-build_tp WR842
-build_tp MR3020
-#build_tp MR3040
-#build_tp MR3420
+build_mp02 MP02 Duo
 
 echo " "
-echo "Build script TP complete"
+echo " Build script Duo MP02 complete"
 echo " "
 echo '----------------------------'
 

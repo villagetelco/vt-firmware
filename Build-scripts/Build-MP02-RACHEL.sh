@@ -15,7 +15,7 @@ VER="SECN-4.0-MP02-RACHEL-"$DIRVER
 
 echo "************************************"
 echo ""
-echo "RACHEL Build script for MP02 device"
+echo "Build script for MP02 RACHEL device"
 
 echo "Git directory: "$GITREPO
 echo "Repo: "$REPO
@@ -128,11 +128,9 @@ make defconfig > /dev/null
 
 # Set target string
 TARGET=$1
-OPENWRTVER=`cat ./.config | grep "OpenWrt version" | cut -d : -f 2`
 
 echo "Check .config version"
 echo "Target:  " $TARGET
-echo "OpenWRT: " $OPENWRTVER
 echo ""
 
 echo "Set up files for "$1 $2
@@ -157,8 +155,7 @@ echo ""
 echo "Version: " $VER $TARGET $2
 echo "Date stamp: " $DATE
 
-echo "Version:    " $VER $TARGET $2     > ./files/etc/secn_version
-echo "OpenWRT:    " $OPENWRTVER           >> ./files/etc/secn_version
+echo "Version:    " $VER $TARGET $2        > ./files/etc/secn_version
 echo "Build date: " $DATE                 >> ./files/etc/secn_version
 echo "GitHub:     " $REPO $REPOID         >> ./files/etc/secn_version
 echo " "                                  >> ./files/etc/secn_version
@@ -224,7 +221,7 @@ echo '----------------------------'
 build_mp02 MP02
 
 echo " "
-echo " Build script MP02 complete"
+echo " Build script MP02 RACHEL complete"
 echo " "
 echo '----------------------------'
 

@@ -9,13 +9,13 @@ REPO="vt-firmware"
 BRANCH="secn_4.0"
 
 echo "Set up version strings"
-DIRVER="Alpha2"
-VER="SECN-4.0-TP-RACHEL-"$DIRVER
+DIRVER="Duo-Alpha2"
+VER="SECN-4.0-TP-"$DIRVER
 
 
 echo "************************************"
 echo ""
-echo "Build script for TP Link devices"
+echo "Build script for TP Link Duo devices"
 
 echo "Git directory: "$GITREPO
 echo "Repo: "$REPO
@@ -80,8 +80,8 @@ cp -rp $GITREPO/$REPO/SECN-build/ .
 cp -fp $GITREPO/$REPO/Build-scripts/FactoryRestore.sh  .
 cp -fp $GITREPO/$REPO/Build-scripts/GetGitVersions.sh  .
 
-echo "Overlay RACHEL files"
-cp -rp $GITREPO/$REPO/RACHEL-build/* ./SECN-build
+echo "Overlay Duo files"
+cp -rp $GITREPO/$REPO/Duo-build/* ./SECN-build/
 
 ###########################
 
@@ -95,7 +95,7 @@ echo "Source repo details: "$REPO $REPOID
 
 # Set up new directory name with date and version
 DATE=`date +%Y-%m-%d-%H:%M`
-DIR=$DATE"-TP-RACHEL-"$DIRVER
+DIR=$DATE"-TP-"$DIRVER
 
 ###########################
 # Set up build directory
@@ -181,7 +181,8 @@ echo ""
 echo  "Rename files to add version info"
 echo ""
 if [ $2 ]; then
-	for n in `ls $BINDIR/openwrt*.bin`; do mv  $n   $BINDIR/openwrt-$VER-$2-`echo $n|cut -d '-' -f 5-10`; done
+#	for n in `ls $BINDIR/openwrt*.bin`; do mv  $n   $BINDIR/openwrt-$VER-$2-`echo $n|cut -d '-' -f 5-10`; done
+	for n in `ls $BINDIR/openwrt*.bin`; do mv  $n   $BINDIR/openwrt-$VER-`echo $n|cut -d '-' -f 5-10`; done
 else
 	for n in `ls $BINDIR/openwrt*.bin`; do mv  $n   $BINDIR/openwrt-$VER-`echo $n|cut -d '-' -f 5-10`; done
 fi
@@ -189,11 +190,9 @@ fi
 echo "Update new md5sums file"
 md5sum $BINDIR/*-squash*sysupgrade.bin >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 #md5sum $BINDIR/*-squash*factory.bin    >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
-echo ""
 
 echo  "Move files to build folder"
-mv $BINDIR/openwrt*-squash*sysupgrade.bin $BUILDDIR/builds/build-$DIR
-#mv $BINDIR/*-squash*factory.bin    $BUILDDIR/builds/build-$DIR
+cp $BINDIR/openwrt*-squash*sysupgrade.bin $BUILDDIR/builds/build-$DIR
 echo ""
 
 echo "Clean up unused files"
@@ -215,13 +214,16 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-build_tp WR842
-build_tp MR3020
-#build_tp MR3040
-#build_tp MR3420
+build_tp WR842 Duo
+build_tp MR3020 Duo
+#build_tp WR703 Duo
+#build_tp MR3040 Duo
+#build_tp MR11U Duo
+#build_tp WR841 Duo
+#build_tp MR3420 Duo
 
 echo " "
-echo "Build script TP complete"
+echo "Build script Duo TP complete"
 echo " "
 echo '----------------------------'
 
