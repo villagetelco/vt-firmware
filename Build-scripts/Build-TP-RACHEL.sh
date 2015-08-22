@@ -216,9 +216,6 @@ echo " "
 echo '----------------------------'
 
 build_tp WR842
-build_tp MR3020
-#build_tp MR3040
-#build_tp MR3420
 
 echo " "
 echo "Build script TP complete"
