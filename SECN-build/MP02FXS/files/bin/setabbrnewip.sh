@@ -33,9 +33,9 @@ if [ $IPOCTET -gt "254" ] || [ $IPOCTET -lt "1" ] || [ `echo $IPOCTET | grep "*"
   fi
 
 # Build up the full IP address
-OCTET_A=`uci show network.lan.ipaddr | cut -d = -f2 | cut -d . -f1`
-OCTET_B=`uci show network.lan.ipaddr | cut -d = -f2 | cut -d . -f2`
-OCTET_C=`uci show network.lan.ipaddr | cut -d = -f2 | cut -d . -f3`
+OCTET_A=`uci get network.lan.ipaddr | cut -d = -f2 | cut -d . -f1`
+OCTET_B=`uci get network.lan.ipaddr | cut -d = -f2 | cut -d . -f2`
+OCTET_C=`uci get network.lan.ipaddr | cut -d = -f2 | cut -d . -f3`
 
 IPADDR=$OCTET_A.$OCTET_B.$OCTET_C.$IPOCTET
 
