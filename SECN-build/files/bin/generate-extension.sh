@@ -9,7 +9,7 @@ if [ ! -d /etc/asterisk ]; then
 fi 
 
 # Get first three octets of IP address
-OCTET123=`uci show network.lan.ipaddr | cut -d = -f 2 | cut -d . -f 1,2,3`
+OCTET123=`uci get network.lan.ipaddr | cut -d = -f 2 | cut -d . -f 1,2,3`
 
 EXT="\${EXTEN}"
 EXT4="\${EXTEN:4}"
