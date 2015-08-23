@@ -215,12 +215,6 @@ echo " "
 echo '----------------------------'
 
 build_tp WR842 Duo
-build_tp MR3020 Duo
-#build_tp WR703 Duo
-#build_tp MR3040 Duo
-#build_tp MR11U Duo
-#build_tp WR841 Duo
-#build_tp MR3420 Duo
 
 echo " "
 echo "Build script Duo TP complete"
