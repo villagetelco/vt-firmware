@@ -6,8 +6,8 @@ SETSHA="TRUE"
 SHA="48e7befb"    # 15.05 branch as at 5 Aug 2015
 
 
-USAGE1="Usage:   ./Setup-BB-44952.sh  < /your-preferred-source-installation-path >"
-USAGE2="Example: ./Setup-BB-44952.sh  < ~/openwrt/my-new-build-env"
+USAGE1="Usage:   ./Setup-15.05.sh   /your-preferred-source-installation-path "
+USAGE2="Example: ./Setup-15.05.sh   ~/openwrt/my-new-build-env"
 
 if (( $# < 1 ))
 then
@@ -99,7 +99,7 @@ src-git routing https://github.com/openwrt-routing/packages.git^0e8fd18     # fo
 src-git fxs git://github.com/villagetelco/vt-fxs-packages.git^3d992429      # Master @ 5/8/2015
 
 #src-git alfred git://git.open-mesh.org/openwrt-feed-alfred.git
-src-git alfred git://git.open-mesh.org/openwrt-feed-alfred.git^472f627d    # Master @ 5/8/2015
+src-git alfred git://git.open-mesh.org/openwrt-feed-alfred.git^472f627d     # Master @ 5/8/2015
 
 EOF
 ###################
@@ -174,7 +174,7 @@ EOF
 echo " "
 
 echo "*** Update all feeds"
-./scripts/feeds update -i
+./scripts/feeds update -a
 
 echo " "
 
@@ -192,6 +192,10 @@ echo " "
 
 echo "*** Check pre-requisites"
 make prereq 2>&1 | tee ./prereq.log
+echo " "
+
+echo "*** Make clean"
+make clean
 echo " "
 
 echo "End of script"
