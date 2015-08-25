@@ -168,8 +168,8 @@ rm $BINDIR/openwrt-*
 echo ""
 
 echo "Run make for "$1 $2
-make -j5
-#make -j1 V=s 2>&1 | tee ~/build.txt
+#make -j5
+make -j1 V=s 2>&1 | tee ~/build.txt
 echo ""
 
 # Get the hardware version eg (WDR) 4300 or 3500 
