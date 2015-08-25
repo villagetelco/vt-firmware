@@ -6,8 +6,8 @@ SETSHA="TRUE"
 SHA="f816c49"    # 14.07 as at 5 Aug 2015
 
 
-USAGE1="Usage:   ./Setup-BB-44952.sh  < /your-preferred-source-installation-path >"
-USAGE2="Example: ./Setup-BB-44952.sh  < ~/openwrt/my-new-build-env"
+USAGE1="Usage:   ./Setup-14.07.sh   /your-preferred-source-installation-path "
+USAGE2="Example: ./Setup-14.07.sh   ~/openwrt/my-new-build-env"
 
 if (( $# < 1 ))
 then
@@ -174,7 +174,7 @@ EOF
 echo " "
 
 echo "*** Update all feeds"
-./scripts/feeds update -i
+./scripts/feeds update -a
 
 echo " "
 
@@ -192,6 +192,10 @@ echo " "
 
 echo "*** Check pre-requisites"
 make prereq 2>&1 | tee ./prereq.log
+echo " "
+
+echo "*** Make clean"
+make clean
 echo " "
 
 echo "End of script"
