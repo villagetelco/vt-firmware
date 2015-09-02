@@ -674,7 +674,7 @@ cat > /tmp/config.html << EOF
 											<option selected="$WANPORT">$WANPORT</option>
 											<option value="Disable"> Disable </option>
 											<option value="Ethernet"> Ethernet </option>
-											<option value="USB-Modem"> USB-Modem </option>
+<!--											<option value="USB-Modem"> USB-Modem </option> -->
 											<option value="USB-Eth-Modem"> USB-Eth-Modem </option>
 											<option value="WiFi"> WiFi </option>
 											<option value="Mesh"> Mesh </option>
@@ -746,7 +746,7 @@ cat > /tmp/config.html << EOF
 											</SELECT>
 										</td>
 									</tr>
-
+<!--
 									<tr>	
 										<td class="label"><label> <H4>USB Modem Settings</H4> </label> </td>
 									</tr>
@@ -808,12 +808,12 @@ cat > /tmp/config.html << EOF
 								</table>
 
 								<tr><td class="label"><label> <h4>Modem Status</h4> </label> </td></tr>
-
+-->
 								<table><tr>
 									<td class="label"><label> USB Device Detected:</label> </td>
 									<td class="ast_reg"> $USBMODEM </td>
 								</tr></table>
-
+<!--
 								<table><tr>	
 										<td class="label"><label> USB Serial Ports Detected:</label> </td>
 										<td class="ast_reg"> $USBSERIAL </td>
@@ -823,7 +823,7 @@ cat > /tmp/config.html << EOF
 										<td class="label"><label>Connection Status:</label> </td>
 										<td class="ast_reg"> $USBSTATUS </td>
 								</tr></table>
-
+-->
 								<h4> USB Ethernet Modem Interface</h4>
                 <td class="label"><label for="MODEMURL">Modem URL</label></td>
                 <td class="field"><input type="text" name="MODEMURL" id="modemurl" VALUE=$MODEMURL ></td>
