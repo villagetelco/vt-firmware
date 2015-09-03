@@ -1,5 +1,5 @@
 
-config wifi-device 'radio0'
+config wifi-device radio0
 	option type 'mac80211'
 	option phy 'phy0'
 	option htmode 'HT20'
@@ -9,7 +9,7 @@ config wifi-device 'radio0'
 	option hwmode '11ng'
 	option disabled '0'
 
-config wifi-iface 'ap_0'
+config wifi-iface ap_0
 	option device 'radio0'
 	option ifname 'wlan0'
 	option network 'lan'
@@ -22,7 +22,7 @@ config wifi-iface 'ap_0'
 	option disabled '0'
 	option isolate '0'
 
-config wifi-iface 'ah_0'
+config wifi-iface ah_0
 	option device 'radio0'
 	option ifname 'wlan0-1'
 	option network 'mesh_0'
@@ -33,7 +33,7 @@ config wifi-iface 'ah_0'
 	option mode 'adhoc'
 	option hidden '0'
 
-config wifi-iface 'sta_0'
+config wifi-iface sta_0
 	option device 'radio0'
 	option ifname 'wlan0-2'
 	option mode 'sta'

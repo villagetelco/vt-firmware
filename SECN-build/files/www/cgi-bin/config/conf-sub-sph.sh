@@ -5,7 +5,7 @@
 
 # Build the new script file
 #---------------------------------------------------
-cat > /tmp/conf-save-adv3.sh << EOF
+cat > /tmp/conf-save-sph.sh << EOF
 
 #!/bin/sh
 
@@ -44,14 +44,14 @@ EOF
 
 # Make the file executable and run it to update the config settings.
 # Catch any error messages
-chmod +x /tmp/conf-save-adv3.sh   > /dev/null
-/tmp/conf-save-adv3.sh
+chmod +x /tmp/conf-save-sph.sh   > /dev/null
+/tmp/conf-save-sph.sh
 
 # Build the configuration screen and send it back to the browser.
 /www/cgi-bin/secn-tabs
 
 # Clean up temporary files
-rm /tmp/conf-save-adv3.sh  > /dev/null
-rm /tmp/config.html        > /dev/null
+#rm /tmp/conf-save-sph.sh  > /dev/null
+rm /tmp/config.html       > /dev/null
 
 

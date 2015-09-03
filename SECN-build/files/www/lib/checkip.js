@@ -204,7 +204,7 @@ $(document).ready( function() {
 		}
 	});
 
-	$('#MP-ADV2').validate({
+	$('#MP-WAN').validate({
 		rules: {
 			WANIP: {
 			IP4Checker: true
@@ -258,7 +258,7 @@ $(document).ready( function() {
 		}
 	});
 
-	$('#MP-ADV3').validate({
+	$('#MP-SPH').validate({
 		rules: {
 			SP_NAME: {
 			minlength: 4,

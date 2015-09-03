@@ -245,8 +245,8 @@ cat > /tmp/config.html << EOF
 			 <div class="tab-container" id="inner-container">
 				<ul class='etabs'>
 				<li class='tab'><a href="#tab-adv">Advanced</a></li>
-				<li class='tab'><a href="#tab-adv2">WAN</a></li>
-				<li class='tab'><a href="#tab-adv3">SoftPhone</a></li>
+				<li class='tab'><a href="#tab-wan">WAN</a></li>
+				<li class='tab'><a href="#tab-sph">SoftPhone</a></li>
 				<li class='tab'><a href="#tab-fw">Firmware/Config</a></li>
 				</ul>
 
@@ -604,8 +604,8 @@ cat > /tmp/config.html << EOF
 					</div>
 
 		<!-- Advanced Configuration Form Tab 2-->
-					<div id="tab-adv2">
-						<form name="MP-ADV2" id="MP-ADV2" METHOD="GET" ACTION="/cgi-bin/config/conf-sub-adv2.sh">
+					<div id="tab-wan">
+						<form name="MP-WAN" id="MP-WAN" METHOD="GET" ACTION="/cgi-bin/config/conf-sub-wan.sh">
 							<fieldset class="dhcp">
 								<legend>WAN Configuration</legend>
 								<table>
@@ -709,8 +709,8 @@ cat > /tmp/config.html << EOF
 					</div>
 
 	<!-- Advanced Configuration Form Tab 3 SoftPhone Page -->
-		<div id="tab-adv3">
-			<form name="MP-ADV3" id="MP-ADV3" METHOD="GET" ACTION="/cgi-bin/config/conf-sub-adv3.sh">
+		<div id="tab-sph">
+			<form name="MP-SPH" id="MP-SPH" METHOD="GET" ACTION="/cgi-bin/config/conf-sub-sph.sh">
 
 				<fieldset class="wifi-adv">
 					<legend> SoftPhone</legend>

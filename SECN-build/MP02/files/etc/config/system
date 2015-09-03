@@ -1,7 +1,7 @@
 
 config system
 	option timezone 'UTC'
-	option hostname 'TP-20'
+	option hostname 'MP-20'
 
 config timeserver 'ntp'
 	list server '0.openwrt.pool.ntp.org'
