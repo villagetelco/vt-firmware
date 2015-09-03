@@ -9,7 +9,7 @@ REPO="vt-firmware"
 BRANCH="secn_4.0"
 
 echo "Set up version strings"
-DIRVER="Alpha2"
+DIRVER="Alpha3"
 VER="SECN-4.0-TP-RACHEL-"$DIRVER
 
 
@@ -139,6 +139,8 @@ rm -r ./files
 
 echo "Copy generic files"
 cp -r ./SECN-build/files     .  
+echo "Copy additional files"    #### Note: This will only be correct for WR842!!!!!  ########
+cp -rf ./SECN-build/files-2/*         ./files  
 
 echo "Overlay device specific files"
 cp -r ./SECN-build/$1/files  .  

@@ -9,7 +9,7 @@ REPO="vt-firmware"
 BRANCH="secn_4.0"
 
 echo "Set up version strings"
-DIRVER="Duo-Alpha2"
+DIRVER="Duo-Alpha3"
 VER="SECN-4.0-TP-"$DIRVER
 
 
@@ -140,6 +140,11 @@ rm -r ./files
 echo "Copy generic files"
 cp -r ./SECN-build/files     .  
 
+echo "Copy additional files"    #### Note: This will only be correct for WR842!!!!!  ########
+cp -rf ./SECN-build/files-2/*         ./files  
+cp -rf ./SECN-build/files-aster/*     ./files  
+cp -rf ./SECN-build/files-usbmodem/*  ./files  
+
 echo "Overlay device specific files"
 cp -r ./SECN-build/$1/files  .  
 echo ""
@@ -190,9 +195,11 @@ fi
 echo "Update new md5sums file"
 md5sum $BINDIR/*-squash*sysupgrade.bin >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 #md5sum $BINDIR/*-squash*factory.bin    >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
+echo ""
 
 echo  "Move files to build folder"
-cp $BINDIR/openwrt*-squash*sysupgrade.bin $BUILDDIR/builds/build-$DIR
+mv $BINDIR/openwrt*-squash*sysupgrade.bin $BUILDDIR/builds/build-$DIR
+#mv $BINDIR/*-squash*factory.bin    $BUILDDIR/builds/build-$DIR
 echo ""
 
 echo "Clean up unused files"

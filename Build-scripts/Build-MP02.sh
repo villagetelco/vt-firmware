@@ -9,7 +9,7 @@ REPO="vt-firmware"
 BRANCH="secn_4.0"
 
 echo "Set up version strings"
-DIRVER="Alpha2"
+DIRVER="Alpha3"
 VER="SECN-4.0-MP02-"$DIRVER
 
 
@@ -126,7 +126,6 @@ make defconfig > /dev/null
 
 # Set target string
 TARGET=$1
-OPENWRTVER=`cat ./.config | grep "OpenWrt version" | cut -d : -f 2`
 
 echo "Check .config version"
 echo "Target:  " $TARGET
@@ -136,8 +135,13 @@ echo "Set up files for "$1 $2
 echo "Remove files directory"
 rm -r ./files
 
-echo "Copy generic files"
-cp -r ./SECN-build/files     .  
+echo "Copy base files"
+cp -rf ./SECN-build/files             .  
+
+echo "Copy additional files"
+cp -rf ./SECN-build/files-2/*         ./files  
+cp -rf ./SECN-build/files-aster/*     ./files  
+cp -rf ./SECN-build/files-usbmodem/*  ./files  
 
 echo "Overlay device specific files"
 cp -r ./SECN-build/$1/files  .  
