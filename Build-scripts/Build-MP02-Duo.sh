@@ -6,11 +6,11 @@
 
 # Select the repo to use
 REPO="vt-firmware"
-BRANCH="secn_3.0"
+BRANCH="secn_3.0-Duo"
 
 echo "Set up version strings"
-DIRVER="Alpha9a"
-VER="SECN-3.0-MP02-Duo-"$DIRVER
+DIRVER="Duo-GA01.1"
+VER="SECN-3.0-MP02-"$DIRVER
 
 
 echo "************************************"
@@ -80,8 +80,6 @@ cp -rp $GITREPO/$REPO/SECN-build/ .
 cp -fp $GITREPO/$REPO/Build-scripts/FactoryRestore.sh  .
 cp -fp $GITREPO/$REPO/Build-scripts/GetGitVersions.sh  .
 
-echo "Overlay Duo files"
-cp -rp $GITREPO/$REPO/Duo-build/* ./SECN-build/
 
 ###########################
 
@@ -95,7 +93,7 @@ echo "Source repo details: "$REPO $REPOID
 
 # Set up new directory name with date and version
 DATE=`date +%Y-%m-%d-%H:%M`
-DIR=$DATE"-MP02-Duo-"$DIRVER
+DIR=$DATE"-MP02-"$DIRVER
 
 ###########################
 # Set up build directory
@@ -170,8 +168,8 @@ rm $BINDIR/openwrt-*
 echo ""
 
 echo "Run make for "$1 $2
-#make -j5
-make -j1 V=s 2>&1 | tee ~/build.txt
+make -j5
+#make -j1 V=s 2>&1 | tee ~/build.txt
 echo ""
 
 echo "Update original md5sums file"
@@ -221,7 +219,7 @@ echo '----------------------------'
 build_mp02 MP02 Duo
 
 echo " "
-echo " Build script Duo MP02 complete"
+echo " Build script MP02 complete"
 echo " "
 echo '----------------------------'
 
