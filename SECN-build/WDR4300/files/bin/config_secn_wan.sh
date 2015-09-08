@@ -83,9 +83,9 @@ uci set network.stabridge.network='wwan' # Disable wifi relay bridge
 
 # Set up for WAN port bridged to LAN
 if [ $WANLAN_ENABLE = "checked" ]; then
-	uci set network.lan.ifname='eth0 eth1'
+	uci set network.lan.ifname='eth0.1 eth0.2'
 else
-	uci set network.lan.ifname='eth0'
+	uci set network.lan.ifname='eth0.1'
 fi
 
 # Set up for WAN disabled
@@ -97,9 +97,9 @@ fi
 # Set up for Ethernet WAN
 if [ $WANPORT = "Ethernet" ]; then
  	# Set up for Eth WAN port
-	uci set network.lan.ifname='eth0'
+	uci set network.lan.ifname='eth0.1'
 	uci set network.lan.gateway='255.255.255.255'
-	uci set network.wan.ifname='eth1'
+	uci set network.wan.ifname='eth0.2'
 	# Disable WAN port as LAN
 	uci set secn.wan.wanlan_enable='0'
 fi
@@ -107,7 +107,7 @@ fi
 # Set up for 4G Eth Modem
 if [ $WANPORT = "USB-Eth-Modem" ]; then
  	# Set up for Eth WAN port
-#	uci set network.lan.ifname='eth0'
+#	uci set network.lan.ifname='eth0.1'
 	uci set network.lan.gateway='255.255.255.255'
 	uci set network.wan.ifname='eth1'
 fi
@@ -116,11 +116,11 @@ fi
 if [ $WANPORT = "Mesh" ]; then
  	# Set up eth1 as LAN or WAN
 	if [ $WANLAN_ENABLE = "checked" ]; then
-		uci set network.lan.ifname='eth0 eth1'
+		uci set network.lan.ifname='eth0.1 eth0.2'
 		uci set network.wan.ifname='bat0'
 	else
-		uci set network.lan.ifname='eth0'
-		uci set network.wan.ifname='bat0 eth1' 
+		uci set network.lan.ifname='eth0.1'
+		uci set network.wan.ifname='bat0 eth0.2' 
 	fi
 	uci set network.lan.gateway='255.255.255.255'
 	uci set network.wan.type='bridge' # Reqd. See /etc/init.d/set-mesh-gw-mode
@@ -215,10 +215,10 @@ fi
 LANPORT_DISABLE=`uci get secn.wan.lanport_disable`
 LANIFNAME=`uci get network.lan.ifname`
 
-if [ $LANPORT_DISABLE != "0" ] && [ $LANIFNAME = 'eth0' ]; then
+if [ $LANPORT_DISABLE != "0" ] && [ $LANIFNAME = 'eth0.1' ]; then
         uci set network.lan.ifname='eth99'
-elif [ $LANPORT_DISABLE != "0" ] && [ $LANIFNAME = 'eth0 eth1' ]; then
-	uci set network.lan.ifname='eth1'
+elif [ $LANPORT_DISABLE != "0" ] && [ $LANIFNAME = 'eth0.1 eth0.2' ]; then
+	uci set network.lan.ifname='eth0.2'
 fi
 
 # Make sure firewall is enabled
