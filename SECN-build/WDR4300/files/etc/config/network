@@ -39,17 +39,17 @@ config 'interface' 'stabridge'
 	option 'network' 'wwan'
 
 config switch
-	option name 'eth0'
+	option name 'switch0'
 	option reset '1'
 	option enable_vlan '1'
 
 config switch_vlan
-	option device 'eth0'
+	option device 'switch0'
 	option vlan '1'
 	option ports '0t 2 3 4 5'
 
 config switch_vlan
-	option device 'eth0'
+	option device 'switch0'
 	option vlan '2'
 	option ports '0t 1'
 
