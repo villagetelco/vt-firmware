@@ -1,0 +1,92 @@
+; /etc/asterisk/extensions.conf - Asterisk dial plan for SECN 2
+;--------------------------------------------------------------
+
+[general]
+static=yes
+writeprotect=no
+clearglobalvars=no
+
+[globals]
+
+[incoming-local]
+include => outgoing-softphone
+include => outgoing-analog
+include => outgoing-vsp
+include => ivr-user 
+include => ivr-admin
+
+[incoming-analog]
+include => outgoing-local
+include => outgoing-softphone
+include => outgoing-vsp
+
+[incoming-softphone]
+include => outgoing-local
+include => outgoing-analog
+include => outgoing-softphone
+include => outgoing-vsp
+include => ivr-user 
+
+[incoming-vsp]
+include => outgoing-local
+
+; This include file is intended for user customisation. 
+; File must exist for Asterisk startup.
+
+[incoming-custom]
+#include "custom.incoming.extensions.conf"
+
+[outgoing-local]
+; Dial the local FXS phone
+exten => s,1,Dial(dahdi/1)
+
+exten => 252,1,Dial(dahdi/1)
+
+exten => 4000,1,Dial(dahdi/1) 
+
+[outgoing-analog]
+; See lastoctet.extensions.conf for IP address last-octet dialing. 
+#include lastoctet.extensions.conf
+
+; Full IP dialing, e.g. 10*130*1*144*
+;-------------------------------------
+; Dialled calls e.g. dial 10*130*1*144
+exten => _X*.,1,Set(OCTETS=${EXTEN})
+exten => _X*.,n,Set(IP=${CUT(OCTETS,*,1)}.${CUT(OCTETS,*,2)}.${CUT(OCTETS,*,3)}.${CUT(OCTETS,*,4)})
+exten => _X*.,n,Dial(SIP/4000@${IP})
+exten => _XX*.,1,Set(OCTETS=${EXTEN})
+exten => _XX*.,n,Set(IP=${CUT(OCTETS,*,1)}.${CUT(OCTETS,*,2)}.${CUT(OCTETS,*,3)}.${CUT(OCTETS,*,4)})
+exten => _XX*.,n,Dial(SIP/4000@${IP})
+exten => _XXX*.,1,Set(OCTETS=${EXTEN})
+exten => _XXX*.,n,Set(IP=${CUT(OCTETS,*,1)}.${CUT(OCTETS,*,2)}.${CUT(OCTETS,*,3)}.${CUT(OCTETS,*,4)})
+exten => _XXX*.,n,Dial(SIP/4000@${IP})
+
+; See potato.extensions.conf for [outgoing-softphone] and [outgoing-vsp] contexts. 
+#include potato.extensions.conf
+
+[ivr-user]
+; Local echo test
+; ---------------
+exten => _3246,1,Answer()
+exten => _3246,n,Playback(echo-test)
+exten => _3246,n,Echo() 
+exten => _3246,n,Hangup()
+
+; Remote echo test e.g. dial 3246*10*130*1*144
+exten => _3246*X*.,1,Set(OCTETS=${EXTEN})
+exten => _3246*X*.,n,Set(IP=${CUT(OCTETS,*,2)}.${CUT(OCTETS,*,3)}.${CUT(OCTETS,*,4)}.${CUT(OCTETS,*,5)})
+exten => _3246*X*.,n,SIPAddHeader(Alert-Info: Echo)
+exten => _3246*X*.,n,Dial(SIP/s@${IP})
+
+exten => _3246*XX*.,1,Set(OCTETS=${EXTEN})
+exten => _3246*XX*.,n,Set(IP=${CUT(OCTETS,*,2)}.${CUT(OCTETS,*,3)}.${CUT(OCTETS,*,4)}.${CUT(OCTETS,*,5)})
+exten => _3246*XX*.,n,SIPAddHeader(Alert-Info: Echo)
+exten => _3246*XX*.,n,Dial(SIP/s@${IP})
+
+exten => _3246*XXX*.,1,Set(OCTETS=${EXTEN})
+exten => _3246*XXX*.,n,Set(IP=${CUT(OCTETS,*,2)}.${CUT(OCTETS,*,3)}.${CUT(OCTETS,*,4)}.${CUT(OCTETS,*,5)})
+exten => _3246*XXX*.,n,SIPAddHeader(Alert-Info: Echo)
+exten => _3246*XXX*.,n,Dial(SIP/s@${IP})
+
+
+
