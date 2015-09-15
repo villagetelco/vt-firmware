@@ -15,7 +15,7 @@ VER="SECN-4.0-MP02-"$DIRVER
 
 echo "************************************"
 echo ""
-echo "Build script for MP02 device"
+echo "Build script for MP02FXS devices"
 
 echo "Git directory: "$GITREPO
 echo "Repo: "$REPO
@@ -126,8 +126,6 @@ make defconfig > /dev/null
 
 # Set target string
 TARGET=$1
-
-echo "Check .config version"
 echo "Target:  " $TARGET
 echo ""
 
@@ -138,9 +136,10 @@ rm -r ./files
 echo "Copy base files"
 cp -rf ./SECN-build/files             .  
 
-echo "Copy additional files"
+echo "Overlay additional files"
 cp -rf ./SECN-build/files-2/*         ./files  
 cp -rf ./SECN-build/files-aster/*     ./files  
+cp -rf ./SECN-build/files-ivr/*       ./files  
 cp -rf ./SECN-build/files-usbmodem/*  ./files  
 
 echo "Overlay device specific files"
@@ -222,12 +221,12 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-build_mp02 MP02
-#build_mp02 MP02 dundi
+build_mp02 MP02FXS
+#build_mp02 MP02FXS dundi
 #build_mp02 MP02FXS 729
 
 echo " "
-echo " Build script MP02 complete"
+echo " Build script MP02FXS complete"
 echo " "
 echo '----------------------------'
 

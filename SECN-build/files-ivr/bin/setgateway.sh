@@ -3,7 +3,7 @@
 # /bin/setgateway.sh
 # This script is called from Asterisk IVR GATE command 4283
 # Sets Gateway IP address in network config
-# author TLG
+# Author TLG
 
 # Get PIN and Gateway from temp file created by Asterisk and delete
 PINNUM=`cat /tmp/gwoctet.txt  | awk '{ print $1 }'`
@@ -14,13 +14,13 @@ rm /tmp/gwoctet.txt
 PIN=`uci get secn.ivr.pin`
 if [ $PIN != $PINNUM ]; then
 echo Pin Fail  > /tmp/test.txt
-  cp /usr/lib/asterisk/sounds/fail.gsm /usr/lib/asterisk/sounds/result.gsm
+  cp /usr/lib/asterisk/sounds/fail.gsm /tmp/result.gsm
   exit
   fi
 
 # Test for valid address (0 < gwoctet < 255, except 999, no * chars) and exit if invalid
 if [ $GWOCTET != "999" ] && [ $GWOCTET -gt "254" ] || [ $GWOCTET -lt "1" ] || [ `echo $GWOCTET | grep "*"` ]; then
-  cp /usr/lib/asterisk/sounds/fail.gsm /usr/lib/asterisk/sounds/result.gsm
+  cp /usr/lib/asterisk/sounds/fail.gsm /tmp/result.gsm
   exit
   fi
 
@@ -34,12 +34,19 @@ if [ $GWOCTET = "999" ]; then
   GW=`cat /tmp/gateway.txt | grep .`
   fi
 
+GW2="-"$GW"-"                                                                                                 
+                                                                    
+# If no gateway found, set to .1 on current subnet                                      
+if [ $GW2 = '--' ]; then                                                                                      
+  GW=$GW1".1"                                                       
+fi                                                                  
+
 # Save the gateway IP address
 uci set network.lan.gateway=$GW
 uci commit network
 
 # Setup success message
-cp /usr/lib/asterisk/sounds/completed-restart.gsm /usr/lib/asterisk/sounds/result.gsm
+cp /usr/lib/asterisk/sounds/completed-restart.gsm /tmp/result.gsm
 
 exit
 

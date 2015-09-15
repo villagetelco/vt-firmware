@@ -13,13 +13,13 @@ rm /tmp/mpgw.txt
 # Check the pin, and if not matched, set result message to FAIL and exit
 PIN=`uci get secn.ivr.pin`
 if [ $PIN != $PINNUM ]; then
-  cp /usr/lib/asterisk/sounds/fail.gsm /usr/lib/asterisk/sounds/result.gsm
+  cp /usr/lib/asterisk/sounds/fail.gsm /tmp/result.gsm
   exit
   fi
 
 # Check code and if invalid, set Fail message and exit
 if [ $MPGW -gt "2" ] || [ $MPGW = "*" ]; then
-  cp /usr/lib/asterisk/sounds/fail.gsm /usr/lib/asterisk/sounds/result.gsm
+  cp /usr/lib/asterisk/sounds/fail.gsm /tmp/result.gsm
   exit
   fi
 
@@ -27,19 +27,19 @@ if [ $MPGW -gt "2" ] || [ $MPGW = "*" ]; then
 if [ $MPGW = "0" ]; then
   batctl gw off
   uci set batman-adv.bat0.gw_mode=off
-  uci set secn.mpgw.mode=OFF
+  uci set secn.mesh.mpgw=OFF
   fi
 # Check code and if "1" Set GW to Server
 if [ $MPGW = "1" ]; then
   batctl gw server
   uci set batman-adv.bat0.gw_mode=server
-  uci set secn.mpgw.mode=SERVER
+  uci set secn.mesh.mpgw=SERVER
   fi
 # Check code and if "2" Set GW to Client
 if [ $MPGW = "2" ]; then
   batctl gw client
   uci set batman-adv.bat0.gw_mode=client
-  uci set secn.mpgw.mode=CLIENT
+  uci set secn.mesh.mpgw=CLIENT
   fi
 
 # Save uci settings
@@ -47,5 +47,5 @@ uci commit batman-adv
 uci commit secn
 
 # Setup success message
-cp /usr/lib/asterisk/sounds/success.gsm /usr/lib/asterisk/sounds/result.gsm
+cp /usr/lib/asterisk/sounds/success.gsm /tmp/result.gsm
 exit
