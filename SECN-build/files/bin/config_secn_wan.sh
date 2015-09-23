@@ -21,6 +21,9 @@ WANPASS=`uci get secn.wan.wanpass`
 WANPASS=`echo "$WANPASS" | sed -f /bin/url-decode.sed`
 uci set secn.wan.wanpass=$WANPASS
 
+# Get mesh setting
+MESH_DISABLE=`uci get secn.mesh.mesh_disable
+
 # Set up WAN Port Forwarding for ssh and https
 	uci set firewall.https.dest="NULL"
 	uci set firewall.ssh.dest="NULL"
