@@ -1,0 +1,28 @@
+#!/bin/sh
+
+# Set up network for WR841 version
+
+WR841VER=`cat /proc/cpuinfo | grep machine | cut -d "v" -f 2`
+if [ $WR841VER -lt "9" ]; then 
+	LANETH="eth1"
+	WANETH="eth0"
+else
+	LANETH="eth0"
+	WANETH="eth1"
+fi
+
+# Set up Fallback IP
+sleep 10  # make sure bridge is up
+ifconfig br-lan:9 172.31.255.254 netmask 255.255.255.252
+
+# Set up WAN Port Secondary IP
+WANPORT=`uci get secn.wan.wanport`
+SECWANIP=`uci get secn.wan.secwanip`
+if [ $WANPORT = "Mesh" ]; then
+	ifconfig "br-wan:9" $SECWANIP netmask 255.255.255.0
+elif [ $WANPORT = "Ethernet" ]; then
+	ifconfig $WANETH":9" $SECWANIP netmask 255.255.255.0
+elif [ $WANPORT = "WiFi" ]; then
+	ifconfig "wlan0-2:9" $SECWANIP netmask 255.255.255.0  # Single port devices
+fi
+

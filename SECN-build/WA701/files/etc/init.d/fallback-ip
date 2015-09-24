@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# Set up Fallback IP
+sleep 10  # make sure bridge is up
+ifconfig br-lan:9 172.31.255.254 netmask 255.255.255.252
+
+# Set up WAN Port Secondary IP
+WANPORT=`uci get secn.wan.wanport`
+SECWANIP=`uci get secn.wan.secwanip`
+if [ $WANPORT = "Mesh" ]; then
+	ifconfig "br-wan:9" $SECWANIP netmask 255.255.255.0
+elif [ $WANPORT = "Ethernet" ]; then
+	ifconfig "eth1:9" $SECWANIP netmask 255.255.255.0
+fi
