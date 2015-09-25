@@ -12,27 +12,20 @@ rm /tmp/chan.txt
 # Check the pin, and if not matched, set result message to FAIL and exit
 PIN=`uci get secn.ivr.pin`
 if [ $PIN != $PINNUM ]; then
-  cp /usr/lib/asterisk/sounds/fail.gsm /usr/lib/asterisk/sounds/result.gsm
+  cp /usr/lib/asterisk/sounds/fail.gsm /tmp/result.gsm
   exit
   fi
 
 # Check for valid channel number set result message to fail and exit
 if [ $CHAN = "0" ] || [ $CHAN -gt "13" ] || [ `echo $CHAN | grep "*"` ]; then
-  cp /usr/lib/asterisk/sounds/fail.gsm /usr/lib/asterisk/sounds/result.gsm
+  cp /usr/lib/asterisk/sounds/fail.gsm /tmp/result.gsm
   exit
   fi
 
-# Check for invalid channel and regdomain combination
-USREG_DOMAIN=`uci get secn.accesspoint.usreg_domain`
-if [ $USREG_DOMAIN = "checked" ] && [ $CHAN -gt "11" ]; then
-  cp /usr/lib/asterisk/sounds/fail.gsm /usr/lib/asterisk/sounds/result.gsm
-  exit
-fi
-
 # Set WiFi Channel
-uci set wireless.wifi0.channel=$CHAN
+uci set wireless.radio0.channel=$CHAN
 uci commit wireless
 
 # Setup success message
-cp /usr/lib/asterisk/sounds/completed-restart.gsm /usr/lib/asterisk/sounds/result.gsm
+cp /usr/lib/asterisk/sounds/completed-restart.gsm /tmp/result.gsm
 exit

@@ -13,12 +13,12 @@ rm /tmp/restart.txt
 PIN=`uci get secn.ivr.pin`
 if [ $PIN != $PINNUM ] || [ $RESTART != "1" ] ; then
 echo "Fail and exit - PIN:"  $PINNUM   RESTART  $RESTART   >  /tmp/test.txt
-  cp /usr/lib/asterisk/sounds/fail.gsm /usr/lib/asterisk/sounds/result.gsm
+  cp /usr/lib/asterisk/sounds/fail.gsm /tmp/result.gsm
   exit
   fi
 
 # Setup success result message
-cp /usr/lib/asterisk/sounds/success.gsm /usr/lib/asterisk/sounds/result.gsm
+cp /usr/lib/asterisk/sounds/success.gsm /tmp/result.gsm
 
 # Restart Asterisk
 /etc/init.d/asterisk stop > /dev/null &

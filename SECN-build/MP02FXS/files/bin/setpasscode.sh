@@ -13,28 +13,28 @@ rm /tmp/setpasscode.txt
 # Check the pin, and if not matched, set result message to FAIL and exit
 PIN=`uci get secn.ivr.pin`
 if [ $PIN != $PINNUM ]; then
-  cp /usr/lib/asterisk/sounds/fail.gsm /usr/lib/asterisk/sounds/result.gsm
+  cp /usr/lib/asterisk/sounds/fail.gsm /tmp/result.gsm
   exit
   fi
 
 # Check if new Passcodes match, and if not set result message to FAIL and exit
 if [ $PASSCODE1 != $PASSCODE2 ]; then
-  cp /usr/lib/asterisk/sounds/fail.gsm /usr/lib/asterisk/sounds/result.gsm
+  cp /usr/lib/asterisk/sounds/fail.gsm /tmp/result.gsm
   exit
   fi
 
 # Check Passcode is at least eight digits
 LEN=`echo $PASSCODE1 | awk '{print length($0)}'`
 if [ $LEN -lt 8 ]; then
-  cp /usr/lib/asterisk/sounds/fail.gsm /usr/lib/asterisk/sounds/result.gsm
+  cp /usr/lib/asterisk/sounds/fail.gsm /tmp/result.gsm
   exit
   fi
 
 # Set the new passcode and save
-uci set secn.accesspoint.passphrase=$PASSCODE1
+uci set secn.ap_0.passphrase=$PASSCODE1
 uci commit secn 
 
 # Setup success message
-cp /usr/lib/asterisk/sounds/completed-restart.gsm /usr/lib/asterisk/sounds/result.gsm
+cp /usr/lib/asterisk/sounds/completed-restart.gsm /tmp/result.gsm
 
 exit

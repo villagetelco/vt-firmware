@@ -13,13 +13,13 @@ rm /tmp/pin.txt
 # Check the pin, and if not matched, set result message to FAIL and exit
 PIN=`uci get secn.ivr.pin`
 if [ $PIN != $PINNUM ]; then
-  cp /usr/lib/asterisk/sounds/fail.gsm /usr/lib/asterisk/sounds/result.gsm
+  cp /usr/lib/asterisk/sounds/fail.gsm /tmp/result.gsm
   exit
   fi
 
 # Check for newip file
 if [ ! -f /tmp/newip.txt ]; then
-  cp /usr/lib/asterisk/sounds/fail.gsm /usr/lib/asterisk/sounds/result.gsm
+  cp /usr/lib/asterisk/sounds/fail.gsm /tmp/result.gsm
   exit
   fi
 
@@ -43,7 +43,7 @@ IPADDR=$OCTET_A.$OCTET_B.$OCTET_C.$IPOCTET
 PING=`ping -c 1 $IPADDR | grep "bytes from" | cut -d " " -f2`
 
 if [ $PING = "bytes" ]; then
-  cp /usr/lib/asterisk/sounds/fail.gsm /usr/lib/asterisk/sounds/result.gsm
+  cp /usr/lib/asterisk/sounds/fail.gsm /tmp/result.gsm
   exit
   fi
 
@@ -52,6 +52,6 @@ uci set network.lan.ipaddr=$IPADDR
 uci commit network
 
 # Set up result message to success and reboot 
-cp /usr/lib/asterisk/sounds/completed-restart.gsm /usr/lib/asterisk/sounds/result.gsm
+cp /usr/lib/asterisk/sounds/completed-restart.gsm /tmp/result.gsm
 
   
