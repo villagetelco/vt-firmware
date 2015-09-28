@@ -104,5 +104,27 @@ else
 	batctl ap 0
 fi
 
+# Set up mesh encryption
+MESH_ENCR=`uci get secn.mesh.mesh_encr`
+MESHPASSPHRASE=`uci get secn.mesh.mesh_passphrase`
+
+# Set to OFF by default                                 
+MESH_ENCRYPT="off"
+
+if [ $MESH_ENCR = "WPA2-AES" ]; then
+MESH_ENCRYPT="psk2+aes"
+elif [ $MESH_ENCR = "WPA2" ]; then
+MESH_ENCRYPT="psk2"
+fi
+
+uci set wireless.ah_0.encryption=$MESH_ENCRYPT
+uci set wireless.ah_1.encryption=$MESH_ENCRYPT
+uci set wireless.ah_0.key=$MESHPASSPHRASE
+uci set wireless.ah_1.key=$MESHPASSPHRASE
+
 #----------------------------------------------
+
+# Save the changes 
+uci commit wireless
+uci commit secn
 

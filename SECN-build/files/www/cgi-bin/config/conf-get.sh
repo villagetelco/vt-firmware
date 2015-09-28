@@ -13,6 +13,7 @@ DATE=`date`
 UPTIME=`uptime`
 TZ=`cat /etc/TZ`
 PROC=`ps|wc -l`
+
 # Memory
 MEMFREE=`cat /proc/meminfo | grep MemFree |cut -d : -f2 | tr -d ' '|tr -d 'kB'`
 MEMTOT=`cat /proc/meminfo | grep MemTotal |cut -d : -f2 | tr -d ' '`
@@ -99,6 +100,10 @@ fi
 
 # Mesh gateway setting
 MPGW=`uci get secn.mesh.mpgw`
+
+# Mesh Encryption
+MESH_ENCR=`uci get secn.mesh.mesh_encr`
+MESHPASSPHRASE=`uci get secn.mesh.mesh_passphrase`
 
 # Get network settings from /etc/config/network and wireless
 

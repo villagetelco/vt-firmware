@@ -18,6 +18,8 @@ config secn 'accesspoint1'
 config secn 'mesh'
 	option mesh_disable '0'
 	option mpgw 'OFF'
+	option mesh_encr 'OFF'
+	option mesh_passphrase 'mesh-mesh'
 
 config secn 'mesh1'
 	option mesh_disable '0'
