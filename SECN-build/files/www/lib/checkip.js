@@ -173,7 +173,7 @@ $(document).ready( function() {
 			minlength: 8,
 			PassChecker: true
 			},
-			PASSPHRASE1: {
+			MESHPASSPHRASE: {
 			minlength: 8,
 			PassChecker: true
 			},

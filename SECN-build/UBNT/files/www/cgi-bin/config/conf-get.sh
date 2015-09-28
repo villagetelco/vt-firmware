@@ -95,6 +95,10 @@ fi
 # Mesh gateway setting
 MPGW=`uci get secn.mesh.mpgw`
 
+# Mesh Encryption
+MESH_ENCR=`uci get secn.mesh.mesh_encr`
+MESHPASSPHRASE=`uci get secn.mesh.mesh_passphrase`
+
 # Get network settings from /etc/config/network and wireless
 
 # br_lan configuration parameters

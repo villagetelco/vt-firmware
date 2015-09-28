@@ -435,11 +435,10 @@ cat > /tmp/config.html << EOF
 					<td class="label"><label for="MESH_ENCR">Encryption</label></td>
 					<td class="field">
 						<SELECT name="MESH_ENCR" id="MESH_ENCR" >
-						<option selected="off">OFF</option>
-<!--				<option selected="$MESH_ENCR">$MESH_ENCR</option>
-						<option value="off">OFF</option>
-						<option value="psk">WPA</option>
-						<option value="psk2">WPA2</option> -->
+						<option selected="$MESH_ENCR">$MESH_ENCR</option>
+						<option value="OFF">OFF</option>
+						<option value="WPA2">WPA2</option>
+						<option value="WPA2-AES">WPA2-AES</option>
 						</SELECT>
 					</td>
 				</tr>
@@ -448,6 +447,8 @@ cat > /tmp/config.html << EOF
 					<td class="field"><input type="text" name="ATH0_IPADDR" id="ath0_ipaddr" VALUE=$ATH0_IPADDR ></td>
 					<td class="label"><label for="ATH0_NETMASK">Netmask</label></td>
 					<td class="field"><input type="text" name="ATH0_NETMASK" id="ath0_netmask" VALUE=$ATH0_NETMASK ></td>
+					<td class="label"><label for="MESHPASSPHRASE">Mesh Passphrase</label></td>
+					<td class="field"><input type="text" name="MESHPASSPHRASE" id="meshpassphrase" VALUE=$MESHPASSPHRASE ></td>
 				</tr>
 				<tr>
 					<td class="label"><label for="ATH0_SSID"> SSID </label></td>
