@@ -10,6 +10,8 @@ config secn 'accesspoint'
 config secn 'mesh'
 	option mesh_disable '0'
 	option mpgw 'OFF'
+	option mesh_encr 'OFF'
+	option mesh_passphrase 'mesh-mesh'
 
 config secn 'dhcp'
 	option enable '0'
