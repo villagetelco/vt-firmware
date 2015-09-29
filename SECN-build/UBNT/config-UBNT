@@ -356,10 +356,11 @@ CONFIG_TARGET_INIT_SUPPRESS_STDERR=y
 CONFIG_PER_FEED_REPO=y
 CONFIG_PER_FEED_REPO_ADD_DISABLED=y
 CONFIG_PER_FEED_REPO_ADD_COMMENTED=y
+CONFIG_FEED_packages=y
 CONFIG_FEED_telephony=y
+CONFIG_FEED_fxs=y
 CONFIG_FEED_routing=y
 CONFIG_FEED_alfred=y
-CONFIG_FEED_fxs=y
 # CONFIG_SMIMEOPT is not set
 CONFIG_OPKGSMIME_PASSPHRASE=y
 
@@ -1317,8 +1318,6 @@ CONFIG_PACKAGE_wireless-tools=y
 # CONFIG_PACKAGE_zabbix-proxy is not set
 # CONFIG_PACKAGE_zabbix-sender is not set
 # CONFIG_PACKAGE_zabbix-server is not set
-# CONFIG_PACKAGE_asterisk11-gui is not set
-# CONFIG_PACKAGE_asterisk18-gui is not set
 # CONFIG_PACKAGE_debootstrap is not set
 # CONFIG_PACKAGE_htop is not set
 # CONFIG_PACKAGE_monit is not set
@@ -1880,22 +1879,6 @@ CONFIG_PACKAGE_MAC80211_MESH=y
 #
 
 #
-# Erlang
-#
-# CONFIG_PACKAGE_erlang is not set
-# CONFIG_PACKAGE_erlang-asn1 is not set
-# CONFIG_PACKAGE_erlang-compiler is not set
-# CONFIG_PACKAGE_erlang-crypto is not set
-# CONFIG_PACKAGE_erlang-hipe is not set
-# CONFIG_PACKAGE_erlang-inets is not set
-# CONFIG_PACKAGE_erlang-mnesia is not set
-# CONFIG_PACKAGE_erlang-runtime-tools is not set
-# CONFIG_PACKAGE_erlang-snmp is not set
-# CONFIG_PACKAGE_erlang-ssh is not set
-# CONFIG_PACKAGE_erlang-ssl is not set
-# CONFIG_PACKAGE_erlang-syntax-tools is not set
-
-#
 # Lua
 #
 # CONFIG_PACKAGE_libiwinfo-lua is not set
@@ -1911,46 +1894,13 @@ CONFIG_PACKAGE_MAC80211_MESH=y
 # CONFIG_PACKAGE_luasocket is not set
 
 #
-# PHP
-#
-# CONFIG_PACKAGE_php5 is not set
-
-#
 # Perl
 #
 # CONFIG_PACKAGE_perl is not set
 
 #
-# Python
-#
-# CONFIG_PACKAGE_python is not set
-# CONFIG_PACKAGE_python-base is not set
-# CONFIG_PACKAGE_python-codecs is not set
-# CONFIG_PACKAGE_python-compiler is not set
-# CONFIG_PACKAGE_python-ctypes is not set
-# CONFIG_PACKAGE_python-db is not set
-# CONFIG_PACKAGE_python-decimal is not set
-# CONFIG_PACKAGE_python-distutils is not set
-# CONFIG_PACKAGE_python-email is not set
-# CONFIG_PACKAGE_python-gdbm is not set
-# CONFIG_PACKAGE_python-light is not set
-# CONFIG_PACKAGE_python-logging is not set
-# CONFIG_PACKAGE_python-multiprocessing is not set
-# CONFIG_PACKAGE_python-ncurses is not set
-# CONFIG_PACKAGE_python-openssl is not set
-# CONFIG_PACKAGE_python-pydoc is not set
-# CONFIG_PACKAGE_python-sqlite3 is not set
-# CONFIG_PACKAGE_python-unittest is not set
-# CONFIG_PACKAGE_python-xml is not set
-
-#
 # Libraries
 #
-
-#
-# Compression
-#
-# CONFIG_PACKAGE_liblzma is not set
 
 #
 # Filesystem
@@ -1971,16 +1921,6 @@ CONFIG_PACKAGE_libip4tc=y
 CONFIG_PACKAGE_libip6tc=y
 # CONFIG_PACKAGE_libiptc is not set
 CONFIG_PACKAGE_libxtables=y
-
-#
-# Languages
-#
-# CONFIG_PACKAGE_libyaml is not set
-
-#
-# Networking
-#
-# CONFIG_PACKAGE_libsctp is not set
 
 #
 # SSL
@@ -2004,9 +1944,20 @@ CONFIG_PACKAGE_libpolarssl=y
 # CONFIG_PACKAGE_bcg729 is not set
 # CONFIG_PACKAGE_dahdi-tools-libtonezone is not set
 # CONFIG_PACKAGE_libiksemel is not set
+# CONFIG_PACKAGE_libortp is not set
 # CONFIG_PACKAGE_libosip2 is not set
+# CONFIG_PACKAGE_libpj is not set
+# CONFIG_PACKAGE_libpjlib-util is not set
+# CONFIG_PACKAGE_libpjmedia is not set
+# CONFIG_PACKAGE_libpjnath is not set
+# CONFIG_PACKAGE_libpjsip is not set
+# CONFIG_PACKAGE_libpjsip-simple is not set
+# CONFIG_PACKAGE_libpjsip-ua is not set
+# CONFIG_PACKAGE_libpjsua is not set
+# CONFIG_PACKAGE_libpjsua2 is not set
 # CONFIG_PACKAGE_libre is not set
 # CONFIG_PACKAGE_librem is not set
+# CONFIG_PACKAGE_libresample is not set
 # CONFIG_PACKAGE_libspandsp is not set
 # CONFIG_PACKAGE_libsrtp is not set
 
@@ -2022,7 +1973,6 @@ CONFIG_PACKAGE_libpolarssl=y
 # CONFIG_PACKAGE_ccid is not set
 # CONFIG_PACKAGE_engine_pkcs11 is not set
 # CONFIG_PACKAGE_fcgi is not set
-# CONFIG_PACKAGE_freeradius-client is not set
 # CONFIG_PACKAGE_glib2 is not set
 # CONFIG_PACKAGE_libaio is not set
 # CONFIG_PACKAGE_libapr is not set
@@ -2076,12 +2026,10 @@ CONFIG_PACKAGE_libiwinfo=y
 # CONFIG_PACKAGE_libjpeg is not set
 # CONFIG_PACKAGE_libjson is not set
 CONFIG_PACKAGE_libjson-c=y
-# CONFIG_PACKAGE_libldns is not set
 # CONFIG_PACKAGE_libltdl is not set
 # CONFIG_PACKAGE_liblua is not set
 # CONFIG_PACKAGE_liblzo is not set
 # CONFIG_PACKAGE_libmad is not set
-# CONFIG_PACKAGE_libmcrypt is not set
 # CONFIG_PACKAGE_libminiupnpc is not set
 # CONFIG_PACKAGE_libmms is not set
 # CONFIG_PACKAGE_libmnl is not set
@@ -2091,8 +2039,6 @@ CONFIG_PACKAGE_libjson-c=y
 # CONFIG_PACKAGE_libmount is not set
 # CONFIG_PACKAGE_libmpdclient is not set
 # CONFIG_PACKAGE_libmpeg2 is not set
-# CONFIG_PACKAGE_libmysqlclient is not set
-# CONFIG_PACKAGE_libmysqlclient-r is not set
 CONFIG_PACKAGE_libncurses=y
 # CONFIG_PACKAGE_libncursesw is not set
 # CONFIG_PACKAGE_libnetfilter-conntrack is not set
@@ -2103,7 +2049,6 @@ CONFIG_PACKAGE_libncurses=y
 CONFIG_PACKAGE_libnl-tiny=y
 # CONFIG_PACKAGE_libogg is not set
 # CONFIG_PACKAGE_liboil is not set
-# CONFIG_PACKAGE_libopenldap is not set
 # CONFIG_PACKAGE_libopensc is not set
 # CONFIG_PACKAGE_liboping is not set
 # CONFIG_PACKAGE_libowfat is not set
@@ -2127,7 +2072,6 @@ CONFIG_PACKAGE_libpopt=y
 # CONFIG_PACKAGE_librpc is not set
 # CONFIG_PACKAGE_librrd1 is not set
 # CONFIG_PACKAGE_librtlsdr is not set
-# CONFIG_PACKAGE_libsasl2 is not set
 # CONFIG_PACKAGE_libsensors is not set
 # CONFIG_PACKAGE_libsigcxx is not set
 # CONFIG_PACKAGE_libsndfile is not set
@@ -2169,9 +2113,6 @@ CONFIG_PACKAGE_libustream-openssl=y
 # CONFIG_PACKAGE_protobuf is not set
 CONFIG_PACKAGE_terminfo=y
 # CONFIG_PACKAGE_uclibcxx is not set
-# CONFIG_PACKAGE_xmlrpc-c is not set
-# CONFIG_PACKAGE_xmlrpc-c-client is not set
-# CONFIG_PACKAGE_xmlrpc-c-server is not set
 CONFIG_PACKAGE_zlib=y
 
 #
@@ -2328,7 +2269,6 @@ CONFIG_PACKAGE_iptables=y
 # CONFIG_PACKAGE_avahi-dnsconfd is not set
 # CONFIG_PACKAGE_avahi-utils is not set
 # CONFIG_PACKAGE_ddns-scripts is not set
-# CONFIG_PACKAGE_drill is not set
 # CONFIG_PACKAGE_knot is not set
 # CONFIG_PACKAGE_knot-libknot is not set
 # CONFIG_PACKAGE_knot-tests is not set
@@ -2381,6 +2321,14 @@ CONFIG_PACKAGE_iptables=y
 # CONFIG_PACKAGE_atm-ttcp_atm is not set
 # CONFIG_PACKAGE_atm-zeppelin is not set
 # CONFIG_PACKAGE_br2684ctl is not set
+
+#
+# OLSR.org network framework
+#
+# CONFIG_PACKAGE_oonf-dlep-proxy is not set
+# CONFIG_PACKAGE_oonf-dlep-radio is not set
+# CONFIG_PACKAGE_oonf-init-scripts is not set
+# CONFIG_PACKAGE_oonf-olsrd2 is not set
 
 #
 # Routing and Redirection
@@ -2481,6 +2429,7 @@ CONFIG_PACKAGE_openssh-sftp-server=y
 # Telephony
 #
 # CONFIG_PACKAGE_asterisk11 is not set
+# CONFIG_PACKAGE_asterisk13 is not set
 CONFIG_PACKAGE_asterisk18=y
 # CONFIG_PACKAGE_asterisk18-app-alarmreceiver is not set
 # CONFIG_PACKAGE_asterisk18-app-authenticate is not set
@@ -2532,15 +2481,20 @@ CONFIG_PACKAGE_asterisk18-app-read=y
 CONFIG_PACKAGE_asterisk18-func-cut=y
 # CONFIG_PACKAGE_asterisk18-func-db is not set
 # CONFIG_PACKAGE_asterisk18-func-devstate is not set
+# CONFIG_PACKAGE_asterisk18-func-enum is not set
+# CONFIG_PACKAGE_asterisk18-func-env is not set
 # CONFIG_PACKAGE_asterisk18-func-extstate is not set
 # CONFIG_PACKAGE_asterisk18-func-global is not set
 # CONFIG_PACKAGE_asterisk18-func-groupcount is not set
+# CONFIG_PACKAGE_asterisk18-func-math is not set
+# CONFIG_PACKAGE_asterisk18-func-module is not set
 # CONFIG_PACKAGE_asterisk18-func-shell is not set
 # CONFIG_PACKAGE_asterisk18-func-uri is not set
 # CONFIG_PACKAGE_asterisk18-func-vmcount is not set
 # CONFIG_PACKAGE_asterisk18-mysql is not set
 # CONFIG_PACKAGE_asterisk18-odbc is not set
 # CONFIG_PACKAGE_asterisk18-pbx-ael is not set
+# CONFIG_PACKAGE_asterisk18-pbx-dundi is not set
 # CONFIG_PACKAGE_asterisk18-pbx-lua is not set
 # CONFIG_PACKAGE_asterisk18-pbx-spool is not set
 # CONFIG_PACKAGE_asterisk18-pgsql is not set
@@ -2678,6 +2632,7 @@ CONFIG_PACKAGE_asterisk18-func-cut=y
 #
 # CONFIG_PACKAGE_apache is not set
 # CONFIG_PACKAGE_haproxy is not set
+# CONFIG_PACKAGE_haproxy-nossl is not set
 # CONFIG_PACKAGE_lighttpd is not set
 # CONFIG_PACKAGE_nginx is not set
 # CONFIG_PACKAGE_polipo is not set
@@ -2758,7 +2713,6 @@ CONFIG_PACKAGE_odhcp6c_ext_cer_id=0
 CONFIG_PACKAGE_odhcpd=y
 CONFIG_PACKAGE_odhcpd_ext_prefix_class=0
 CONFIG_PACKAGE_odhcpd_ext_cer_id=0
-# CONFIG_PACKAGE_openldap-server is not set
 # CONFIG_PACKAGE_oping is not set
 # CONFIG_PACKAGE_portmap is not set
 CONFIG_PACKAGE_ppp=y
@@ -2773,8 +2727,6 @@ CONFIG_PACKAGE_ppp-mod-pppoe=y
 # CONFIG_PACKAGE_rssileds is not set
 # CONFIG_PACKAGE_samba36-client is not set
 # CONFIG_PACKAGE_samba36-server is not set
-# CONFIG_PACKAGE_sctp is not set
-# CONFIG_PACKAGE_sctp-tools is not set
 # CONFIG_PACKAGE_snmp-utils is not set
 # CONFIG_PACKAGE_snmpd is not set
 # CONFIG_PACKAGE_snmpd-static is not set
@@ -2795,14 +2747,16 @@ CONFIG_PACKAGE_ppp-mod-pppoe=y
 # CONFIG_PACKAGE_wpa-cli is not set
 # CONFIG_PACKAGE_wpa-supplicant is not set
 # CONFIG_WPA_SUPPLICANT_NO_TIMESTAMP_CHECK is not set
+CONFIG_WPA_SUPPLICANT_INTERNAL=y
+# CONFIG_WPA_SUPPLICANT_OPENSSL is not set
 # CONFIG_WPA_RFKILL_SUPPORT is not set
 CONFIG_WPA_MSG_MIN_PRIORITY=3
 # CONFIG_DRIVER_WEXT_SUPPORT is not set
 CONFIG_DRIVER_11N_SUPPORT=y
 # CONFIG_PACKAGE_wpa-supplicant-mini is not set
 # CONFIG_PACKAGE_wpa-supplicant-p2p is not set
-# CONFIG_PACKAGE_wpad is not set
-CONFIG_PACKAGE_wpad-mini=y
+CONFIG_PACKAGE_wpad=y
+# CONFIG_PACKAGE_wpad-mini is not set
 # CONFIG_PACKAGE_wshaper is not set
 CONFIG_PACKAGE_xinetd=y
 
@@ -2827,7 +2781,6 @@ CONFIG_PACKAGE_xinetd=y
 #
 # CONFIG_PACKAGE_unrar is not set
 # CONFIG_PACKAGE_unzip is not set
-# CONFIG_PACKAGE_xz-utils is not set
 # CONFIG_PACKAGE_zip is not set
 
 #
@@ -2879,7 +2832,6 @@ CONFIG_PACKAGE_xinetd=y
 #
 # database
 #
-# CONFIG_PACKAGE_mysql-server is not set
 # CONFIG_PACKAGE_pgsql-cli is not set
 # CONFIG_PACKAGE_pgsql-server is not set
 # CONFIG_PACKAGE_sqlite3-cli is not set
@@ -2951,7 +2903,6 @@ CONFIG_PACKAGE_libjson-script=y
 # CONFIG_PACKAGE_mountd is not set
 # CONFIG_PACKAGE_namei is not set
 # CONFIG_PACKAGE_ocf-crypto-headers is not set
-# CONFIG_PACKAGE_openldap-utils is not set
 # CONFIG_PACKAGE_opensc-utils is not set
 # CONFIG_PACKAGE_openssl-util is not set
 # CONFIG_PACKAGE_owipcalc is not set
