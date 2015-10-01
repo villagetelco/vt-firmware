@@ -1,8 +1,13 @@
 #!/bin/sh
 
-# Set up Fallback IP
-sleep 10  # make sure bridge is up
-ifconfig br-lan:9 172.31.255.254 netmask 255.255.255.252
+# Set up Fallback IP on LAN bridge or on eth0 if LAN port is disabled.
+LANPORT_DISABLE=`uci get secn.wan.lanport_disable`
+if [ $LANPORT_DISABLE = "0" ]; then
+	sleep 5  # Make sure bridge is up
+	ifconfig br-lan:9 172.31.255.254 netmask 255.255.255.252
+else
+	ifconfig eth0 172.31.255.254 netmask 255.255.255.252
+fi
 
 # Set up WAN Port Secondary IP
 WANPORT=`uci get secn.wan.wanport`

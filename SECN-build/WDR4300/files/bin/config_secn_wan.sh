@@ -215,10 +215,8 @@ fi
 LANPORT_DISABLE=`uci get secn.wan.lanport_disable`
 LANIFNAME=`uci get network.lan.ifname`
 
-if [ $LANPORT_DISABLE != "0" ] && [ $LANIFNAME = 'eth0.1' ]; then
+if [ $LANPORT_DISABLE != "0" ]; then
         uci set network.lan.ifname='eth99'
-elif [ $LANPORT_DISABLE != "0" ] && [ $LANIFNAME = 'eth0.1 eth0.2' ]; then
-	uci set network.lan.ifname='eth0.2'
 fi
 
 # Make sure firewall is enabled
