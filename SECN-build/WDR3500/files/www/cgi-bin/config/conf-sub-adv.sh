@@ -289,6 +289,8 @@ uci set secn.mesh1.mesh_disable=\$MESH_DISABLE1
 uci set secn.mesh.mpgw=\$MPGW
 uci set secn.mesh.mesh_encr=\$MESH_ENCR
 uci set secn.mesh.mesh_passphrase=\$MESHPASSPHRASE
+uci set secn.mesh1.mesh_encr=\$MESH_ENCR1
+uci set secn.mesh1.mesh_passphrase=\$MESHPASSPHRASE1
 
 # Set up mesh gateway mode on the fly
 if [ \$MPGW = "OFF" ]; then

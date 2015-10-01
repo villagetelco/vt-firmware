@@ -107,18 +107,26 @@ fi
 # Set up mesh encryption
 MESH_ENCR=`uci get secn.mesh.mesh_encr`
 MESHPASSPHRASE=`uci get secn.mesh.mesh_passphrase`
+MESH_ENCR1=`uci get secn.mesh1.mesh_encr`
+MESHPASSPHRASE1=`uci get secn.mesh1.mesh_passphrase`
 
 # Set to OFF by default                                 
 MESH_ENCRYPT="off"
-
 if [ $MESH_ENCR = "WPA2-AES" ]; then
 MESH_ENCRYPT="psk2+aes"
 elif [ $MESH_ENCR = "WPA2" ]; then
 MESH_ENCRYPT="psk2"
 fi
 
+MESH_ENCRYPT1="off"
+if [ $MESH_ENCR1 = "WPA2-AES" ]; then
+MESH_ENCRYPT1="psk2+aes"
+elif [ $MESH_ENCR1 = "WPA2" ]; then
+MESH_ENCRYPT1="psk2"
+fi
+
 uci set wireless.ah_0.encryption=$MESH_ENCRYPT
-uci set wireless.ah_1.encryption=$MESH_ENCRYPT
+uci set wireless.ah_1.encryption=$MESH_ENCRYPT1
 uci set wireless.ah_0.key=$MESHPASSPHRASE
 uci set wireless.ah_1.key=$MESHPASSPHRASE
 
