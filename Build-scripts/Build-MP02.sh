@@ -6,16 +6,16 @@
 
 # Select the repo to use
 REPO="vt-firmware"
-BRANCH="secn_4.0"
+BRANCH="secn"
 
 echo "Set up version strings"
-DIRVER="Alpha3"
+DIRVER="G1-Alpha5"
 VER="SECN-4.0-MP02-"$DIRVER
 
 
 echo "************************************"
 echo ""
-echo "Build script for MP02 device"
+echo "Build script for MP02 and MP02FXS devices"
 
 echo "Git directory: "$GITREPO
 echo "Repo: "$REPO
@@ -173,8 +173,8 @@ rm $BINDIR/openwrt-*
 echo ""
 
 echo "Run make for "$1 $2
-make
-#make -j5
+#make
+make -j5
 #make -j1 V=s 2>&1 | tee ~/build.txt
 echo ""
 
@@ -223,7 +223,9 @@ echo " "
 echo '----------------------------'
 
 build_mp02 MP02
+build_mp02 MP02FXS
 #build_mp02 MP02 dundi
+#build_mp02 MP02FXS dundi
 #build_mp02 MP02FXS 729
 
 echo " "
