@@ -98,6 +98,7 @@ uci set network.lan.dns=\$BR_DNS
 # Write the Access Point wifi settings into /etc/config/secn
 uci set secn.accesspoint.ssid=\$SSID
 uci set secn.accesspoint.passphrase=\$PASSPHRASE
+uci set secn.accesspoint.encryption=\$ENCRYPTION
  
 # Write the wireless channel into /etc/config/wireless
 uci set wireless.radio0.channel=\$CHANNEL
