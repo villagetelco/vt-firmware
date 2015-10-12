@@ -175,3 +175,9 @@ fi
 
 #--------------------------------
 
+# Save the changes 
+uci commit network
+uci commit wireless
+uci commit secn
+uci commit firewall
+
