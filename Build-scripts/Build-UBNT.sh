@@ -135,8 +135,12 @@ echo "Set up files for "$1 $2
 echo "Remove files directory"
 rm -r ./files
 
-echo "Copy generic files"
-cp -r ./SECN-build/files     .  
+echo "Copy base files"
+cp -rf ./SECN-build/files             .  
+
+echo "Overlay additional files"
+cp -rf ./SECN-build/files-2/*         ./files  
+cp -rf ./SECN-build/files-aster/*     ./files  
 
 echo "Overlay device specific files"
 cp -r ./SECN-build/$1/files  .  
