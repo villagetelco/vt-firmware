@@ -261,7 +261,7 @@ $(document).ready( function() {
 	$('#MP-SPH').validate({
 		rules: {
 			SP_NAME: {
-			minlength: 4,
+			minlength: 1,
 			maxlength: 16,
 			PassChecker: true
 			},

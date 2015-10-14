@@ -38,6 +38,10 @@ if [ \$BUTTON = "Save" ]; then
   /bin/set-softph.sh \$SP_NUMBER P:\$SP_PW1 N:\$SP_NAME
 fi
 
+# Delete
+if [ \$BUTTON = "Delete" ]; then
+  /bin/delete-softph.sh \$SP_NUMBER
+fi
 
 EOF
 #-------------------------------------------------
@@ -51,7 +55,7 @@ chmod +x /tmp/conf-save-sph.sh   > /dev/null
 /www/cgi-bin/secn-tabs
 
 # Clean up temporary files
-#rm /tmp/conf-save-sph.sh  > /dev/null
+rm /tmp/conf-save-sph.sh  > /dev/null
 rm /tmp/config.html       > /dev/null
 
 
