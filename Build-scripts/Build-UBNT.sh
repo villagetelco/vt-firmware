@@ -9,8 +9,8 @@ REPO="vt-firmware"
 BRANCH="secn"
 
 echo "Set up version strings"
-DIRVER="G1-Alpha5"
-VER="SECN-4.0-UBNT-"$DIRVER
+DIRVER="G2-Alpha8"
+VER="SECN-3.0-UBNT-"$DIRVER
 
 
 echo "************************************"
@@ -135,12 +135,8 @@ echo "Set up files for "$1 $2
 echo "Remove files directory"
 rm -r ./files
 
-echo "Copy base files"
-cp -rf ./SECN-build/files             .  
-
-echo "Copy additional files"
-cp -rf ./SECN-build/files-2/*         ./files  
-cp -rf ./SECN-build/files-aster/*     ./files  
+echo "Copy generic files"
+cp -r ./SECN-build/files     .  
 
 echo "Overlay device specific files"
 cp -r ./SECN-build/$1/files  .  
@@ -172,7 +168,9 @@ rm $BINDIR/openwrt-*
 echo ""
 
 echo "Run make for "$1 $2
-make -j5
+make
+#make -j3
+#make -j5
 #make -j1 V=s 2>&1 | tee ~/build.txt
 echo ""
 

@@ -188,6 +188,7 @@ echo ""
 echo "Run make for "$1 $2
 make
 #make -j3
+#make -j5
 #make -j1 V=s 2>&1 | tee ~/build.txt
 echo ""
 
