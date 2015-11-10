@@ -593,6 +593,23 @@ if [ $LIMITIP = "checked" ] && [ $ENSSL = "checked" ]; then
 fi
 
 
+# ------------------------------------------
+# Set up Proxy configs
+
+OCTET123=`uci get network.lan.ipaddr | cut -d = -f 2 | cut -d . -f 1,2,3`
+
+uci delete tinyproxy.tinyproxy.Allow
+uci add_list tinyproxy.tinyproxy.Allow=$OCTET123".0/24"
+
+uci delete polipo.general.allowedClients
+uci add_list polipo.general.allowedClients=$OCTET123".0/24"
+
+uci commit polipo
+uci commit tinyproxy
+
+# ---------------------------------------------
+
+
 # Save the changes 
 uci commit uhttpd
 uci commit dhcp

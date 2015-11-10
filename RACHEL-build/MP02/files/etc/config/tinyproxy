@@ -1,0 +1,43 @@
+config tinyproxy tinyproxy
+	option enabled 1
+	option User nobody
+	option Group nogroup
+	option Port 8888
+	#option Listen 192.168.0.1
+	#option Bind 192.168.0.1
+	option Timeout 600
+
+	option DefaultErrorFile "/usr/share/tinyproxy/default.html"
+	option StatFile "/usr/share/tinyproxy/stats.html"
+	option LogFile "/var/log/tinyproxy.log"
+	option LogLevel Info
+
+	option MaxClients 100
+	option MinSpareServers 5
+	option MaxSpareServers 20
+	option StartServers 10
+	option MaxRequestsPerChild 0
+
+	list Allow 10.130.1.0/24
+
+	option ViaProxyName "tinyproxy"
+
+	#option Filter "/etc/tinyproxy/filter"
+	#option FilterDefaultDeny 0 # Set to 1 for whitelist, 0 for blacklist
+	#option FilterURLs 1
+	#option FilterExtended 1
+	#option FilterCaseSensitive 1
+
+	#list Anonymous "Host"
+	#list Anonymous "Authorization"
+
+	list ConnectPort 443
+	list ConnectPort 563
+
+
+# Turn on upstream proxy support.
+config upstream upstream
+	option type proxy
+	option via 127.0.0.1:8123 # Port for polipo
+
+
