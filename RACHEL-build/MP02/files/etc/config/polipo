@@ -11,7 +11,7 @@ config polipo 'general'
 	option logSyslog '0'
 	option logFile '/var/log/polipo'
 	option localDocumentRoot '/www/polipo'   # Required work around - tg
-  option dnsUseGethostbyname 'happily'     # Required for DNS issue - tg
+  option dnsUseGethostbyname 'true'        # Required for DNS issue - tg
 
 config polipo 'cache'
 	option diskCacheRoot '/mnt/sda1/cache'
