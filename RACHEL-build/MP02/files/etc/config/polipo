@@ -10,7 +10,8 @@ config polipo 'general'
 	option chunkHighMark '1048576'
 	option logSyslog '0'
 	option logFile '/var/log/polipo'
-	option localDocumentRoot '/www/polipo'   # Required work around
+	option localDocumentRoot '/www/polipo'   # Required work around - tg
+  option dnsUseGethostbyname 'happily'     # Required for DNS issue - tg
 
 config polipo 'cache'
 	option diskCacheRoot '/mnt/sda1/cache'
