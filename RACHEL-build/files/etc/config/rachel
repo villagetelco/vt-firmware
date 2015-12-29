@@ -8,6 +8,7 @@ config rachel 'setup'
 	option txpower '17'
 	option enusbmodem '0'
 	option wanport 'Ethernet'
+	option cache_enable `0`
 
 config rachel 'modem'
 	option service 'umts'

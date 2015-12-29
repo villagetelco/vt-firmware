@@ -73,7 +73,7 @@ uci set rachel.setup.ssidprefix=\$SSIDPREFIX
 uci set rachel.setup.ssid=\$SSID
 uci set rachel.setup.passphrase=\$PASSPHRASE
 uci set rachel.setup.wanport=\$WANPORT
-
+uci set rachel.setup.cache_enable=\$CACHE_ENABLE
 
 # Set MAXASSOC to zero if display value 'Disabled' is returned
 if [ \$MAXASSOC = "Disabled" ]; then

@@ -1,0 +1,23 @@
+# Set up transparent proxy settings
+
+CACHE_ENABLE=`uci get rachel.setup.cache_enable`
+OCTET123=`uci get network.lan.ipaddr | cut -d = -f 2 | cut -d . -f 1,2,3`
+
+if [ $CACHE_ENABLE = "checked" ]; then
+	uci set firewall.proxy.src="lan"
+	uci set firewall.proxy.src_dport="80"
+	uci set firewall.proxy.dest_port="8888"
+	uci set firewall.proxy.proto="tcp"
+	uci set firewall.proxy.src_dip="!"$OCTET123".254"
+	uci set firewall.proxy.dest_ip=$OCTET123".254"
+else
+	uci set firewall.proxy.src=" "
+	uci set firewall.proxy.src_dport=" "
+	uci set firewall.proxy.dest_port=" "
+	uci set firewall.proxy.proto=" "
+	uci set firewall.proxy.src_dip=" "
+	uci set firewall.proxy.dest_ip=" "
+fi
+
+uci commit firewall
+

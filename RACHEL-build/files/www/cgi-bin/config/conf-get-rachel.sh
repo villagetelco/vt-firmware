@@ -24,7 +24,7 @@ CHANNEL=`uci get wireless.radio0.channel`
 WIFINAME=`uci get wireless.ap_0.ssid`
 AP_CONNECTIONS=`iwinfo wlan0 assoclist | grep -c SNR`
 
-# Get CR parameters
+# Get RACHEL parameters
 CLASS=`uci get rachel.setup.class`
 MODE=`uci get rachel.setup.mode`
 ENUSBMODEM=`uci get rachel.setup.enusbmodem`
@@ -33,6 +33,7 @@ SSID=`uci get rachel.setup.ssid`
 PASSPHRASE=`uci get rachel.setup.passphrase`
 TXPOWER=`uci get rachel.setup.txpower`
 WANPORT=`uci get rachel.setup.wanport`
+CACHE_ENABLE=`uci get rachel.setup.cache_enable`
 MAXASSOC=`uci get secn.accesspoint.maxassoc`
 
 # Set AP Connections to show 'Disabled' if reqd.
