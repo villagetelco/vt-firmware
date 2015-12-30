@@ -13,6 +13,10 @@ DATE=`date`
 UPTIME=`uptime`
 TZ=`cat /etc/TZ`
 
+# Cache
+CACHE_COUNT=`du -h /mnt/sda1/cache | grep -c "cache/" `
+CACHE_SIZE=`du -h /mnt/sda1/cache | grep -v "cache/" | cut -f 1`
+
 # Get USB Modem status details
 USBMODEM=`/bin/usbmodem.sh`
 USBSERIAL=`ls /dev/ttyUSB*`
