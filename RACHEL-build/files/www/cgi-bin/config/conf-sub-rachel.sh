@@ -15,6 +15,7 @@ BUTTON="0"
 NETACCESS="0"
 ENUSBMODEM="0"
 MULTICLASS="0"
+CACHE_ENABLE="0"
 
 # Get Field-Value pairs from QUERY_STRING enironment variable
 # set by the form GET action

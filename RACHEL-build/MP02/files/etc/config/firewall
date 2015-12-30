@@ -120,6 +120,9 @@ config redirect			ssh
 	option proto			tcp
 	option 'target'		'DNAT'
 
+config redirect proxy
+	option proto 'tcp
+
 
 ### EXAMPLE CONFIG SECTIONS
 # do not allow a specific ip to access wan
