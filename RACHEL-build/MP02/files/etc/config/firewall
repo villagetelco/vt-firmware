@@ -121,7 +121,7 @@ config redirect			ssh
 	option 'target'		'DNAT'
 
 config redirect proxy
-	option proto 'tcp
+	option proto 'tcp'
 
 
 ### EXAMPLE CONFIG SECTIONS
