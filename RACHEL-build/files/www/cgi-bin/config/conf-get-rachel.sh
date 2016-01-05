@@ -14,7 +14,7 @@ UPTIME=`uptime`
 TZ=`cat /etc/TZ`
 
 # Cache
-CACHE_COUNT=`ls -lh /mnt/sda1/ | grep cache | cut -d " " -f 2`
+CACHE_COUNT=`ls -lh /mnt/sda1/ | grep cache | sed -r "s'[[:blank:]]+','g" | cut -d ',' -f 2`
 CACHE_SPACE=`df -h | grep sda1 | sed -r "s'[[:blank:]]+','g" | cut -d ',' -f 4`
 
 # Get USB Modem status details
