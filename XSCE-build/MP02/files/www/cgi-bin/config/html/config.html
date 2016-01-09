@@ -1,0 +1,853 @@
+cat > /tmp/config.html << EOF
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<head>
+	<title>SECN Configuration</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<style type="text/css">	@import url(/lib/configstyle.css); 	</style>
+	<script type="text/javascript" src="/lib/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="/lib/jquery.hashchange.min.js"></script>
+	<script type="text/javascript" src="/lib/jquery.easytabs.min.js"></script>
+	<script type="text/javascript" src="/lib/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="/lib/checkip.js"></script>
+</head>
+
+<body>
+<div class='banner'>
+	<img class="logo" src="/images/vtlogo.png" alt="Village Telco">
+	<div class="titletext">	
+		<h1 class="textbanner">SECN Configuration</h1> 
+		<p>Firmware: $VERSION</p>
+		<p>Date: $DATE</p>
+	</div>
+</div>
+
+<div id="outer-container" class="tab-container" >
+	<ul class='etabs'>
+	  <li class="tab"><a href="#tabs1-basic">Basic</a></li>
+	  <li class="tab"><a href="#tabs1-advanced">Advanced</a></li>
+	  <li class="tab"><a href="#tabs1-status">Status</a></li>
+	</ul>
+
+	<div class="panel-container">
+
+	<!-- Basic Configuration Form -->
+		<div id="tabs1-basic">
+			<form name="MP" id="MP" METHOD="GET" ACTION="/cgi-bin/config/conf-sub.sh">
+
+				<fieldset class="network">
+					<legend>Network</legend>
+					<table>
+						<tr>
+							<td class="label"><label for="BR_IPADDR">IP Address</label></td>
+							<td class="field"><input type="text" name="BR_IPADDR" id="br_ipaddr" VALUE=$BR_IPADDR></td>
+
+
+							<td class="label"><label for="BR_GATEWAY">LAN Gateway</label></td>
+							<td class="field"><input type="text" name="BR_GATEWAY" id="br_gateway" VALUE=$BR_GATEWAY></td>
+
+										<td class="label"><label for="BR_DNS">DNS</label></td>
+										<td class="field"><input type="text" name="BR_DNS" id="br_dns" VALUE=$BR_DNS ></td>
+
+
+							<td class="label"><label for="Test"> Internet Access </label></td>
+							<td class="field"> <INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Test" > </td>
+						</tr>
+				</table>
+				<table>
+					<tr>
+					<td class="ast_reg"> $GATEWAY_STATUS </td>
+					</tr>
+					</table>
+				</fieldset>
+
+				<fieldset class="wifi">
+					<legend>WiFi Access Point ($ENCRYPTION)</legend>
+					<table>
+						<tr>
+							<td class="label"><label for="ssid"> Station ID </label></td>
+							<td class="field"><input type="text" name="SSID" id="ssid" VALUE=$SSID></td>
+
+							<td class="label"><label for="passphrase"> Passphrase </label></td>
+							<td class="field"><input  type="text" name="PASSPHRASE" id="passphrase" VALUE=$PASSPHRASE></td>
+
+							<td class="label"><label for="CHANNEL"> Channel </label></td>
+							<td class="field">
+							<SELECT name="CHANNEL" id="CHANNEL" >
+							<option selected="$CHANNEL">$CHANNEL</option>
+							<option value="1">Channel 1</option>
+							<option value="2">Channel 2</option>
+							<option value="3">Channel 3</option>
+							<option value="4">Channel 4</option>
+							<option value="5">Channel 5</option>
+							<option value="6">Channel 6</option>
+							<option value="7">Channel 7</option>
+							<option value="8">Channel 8</option>
+							<option value="9">Channel 9</option>
+							<option value="10">Channel 10</option>
+							<option value="11">Channel 11</option>
+							<option value="auto">Auto</option>
+							</SELECT></td>
+
+					<td class="label"><label>Encryption</label></td>
+					<td class="field">
+						<SELECT name="ENCRYPTION" id="encryption">
+						<option selected="$ENCRYPTION">$ENCRYPTION</option>
+						<option value="WPA2">WPA2</option>
+						<option value="WPA">WPA</option>
+						<option value="WEP">WEP</option>
+						<option value="NONE">NONE</option>
+						</SELECT>
+					</td>
+
+
+						</tr>
+					</table>
+				</fieldset>
+
+				<fieldset class="asterisk">
+					<legend>VoIP / SIP Configuration</legend>
+					<table>
+						<tr>
+							<td class="label"><label for="user">User Name</label></td>
+							<td class="field"><input type="text" name="USER" id="user" VALUE=$USERNAME> </td>
+
+							<td class="label"><label>Password</label></td>
+							<td class="field"><input  type="text" name="SECRET" id="secret" VALUE=$SECRET></td>
+						</tr>
+						<tr>
+							<td class="label"><label for="host">SIP Host</label></td>
+							<td class="field"><input type="text" name="HOST" id="host" VALUE=$HOST></td>
+							<td class="label"><label>Dialout Code</label></td>
+							<td class="field">
+							  <SELECT name="DIALOUT" id="dialout">
+								<option selected="$DIALOUT">$DIALOUT</option>
+								<option value="#"> # </option>
+								<option value="9"> 9 </option>
+								<option value="0"> 0 </option>
+								<option value="Auto"> Auto </option>
+							  </SELECT></td>
+						</tr>
+						<tr>
+							<td class="label"><label>SIP Enable</label></td>
+							<td class="field"><input  type="checkbox" name="ENABLE" id="enable" VALUE="checked" $ENABLE ></td>
+
+							<td class="label"><label> SIP Status </label> </td>
+							<td class="ast_reg"> <label> $REG_STATUS </label> </td>
+						</tr>
+					</table>
+				</fieldset>
+
+				<fieldset class="password">
+					<legend>Password</legend>
+					<table>
+						<tr>
+							<td class="label"><label for="PASSWORD1">Enter Password</label></td>
+							<td class="field"><input name="PASSWORD1" id="PASSWORD1" type="password" autocomplete ="off" VALUE=$PASSWORD1></td>
+							<td class="status"></td>
+							<td class="label"><label for="PASSWORD2">Repeat Password</label></td>
+							<td class="field"><input name="PASSWORD2" id="PASSWORD2" type="password" autocomplete ="off" VALUE=$PASSWORD2></td>
+							<td class="status"></td>
+							<td class="field"> <INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Set Password" > </td>
+						</tr>
+					</table>
+					<table>
+						<tr>
+							<td class="ast_reg"> $PASSWORD_STATUS </td>
+						</tr>
+					</table>
+				</fieldset>
+
+				<fieldset class="password">
+				<legend>Web Server Security and Timezone</legend>
+					<table>
+						<tr>
+							<td class="label"><label>Limit IP Address</label></td>
+							<td class="field"><input  type="checkbox" name="LIMITIP" id="limitip" VALUE="checked" $LIMITIP ></td>
+
+							<td class="label"><label>Enable SSL</label></td>
+							<td class="field"><input  type="checkbox" name="ENSSL" id="enssl" VALUE="checked" $ENSSL ></td>
+						</tr>
+					</table>
+
+					<table>
+						<tr>
+						Timezone
+						<select name="TZ" id="tz">
+						      <option selected="$TZ">$TZ</option>
+						      <option value="WST11">(GMT -11:00) Samoa, Midway Island</option>
+						      <option value="HST10">(GMT -10:00) Hawaii</option>
+						      <option value="AKST9">(GMT -9:00) Alaska</option>
+						      <option value="PST8">(GMT -8:00) Pacific Time (US &amp; Canada)</option>
+						      <option value="MST7">(GMT -7:00) Mountain Time (US &amp; Canada)</option>
+						      <option value="CST6">(GMT -6:00) Central Time (US &amp; Canada), Mexico City</option>
+						      <option value="EST5">(GMT -5:00) Eastern Time (US &amp; Canada), Bogota, Lima</option>
+						      <option value="AST4">(GMT -4:00) Atlantic Time (Canada), Caracas, La Paz</option>
+						      <option value="NST3:30">(GMT -3:30) Newfoundland</option>
+						      <option value="ART3">(GMT -3:00) Argintina, Brazil</option>
+						      <option value="GST2">(GMT -2:00) Georgia</option>
+						      <option value="AZOT1">(GMT -1:00) Azores, Cape Verde Islands</option>
+						      <option value="GMT0">(GMT) Western Europe Time, London, Lisbon, Casablanca</option>
+						      <option value="CET-1">(GMT +1:00) Brussels, Copenhagen, Madrid, Paris</option>
+						      <option value="EET-2">(GMT +2:00) Kaliningrad, South Africa</option>
+						      <option value="AST-3">(GMT +3:00) Baghdad, Riyadh, Moscow, St. Petersburg</option>
+						      <option value="IRST-3:30">(GMT +3:30) Tehran</option>
+						      <option value="GST-4">(GMT +4:00) Abu Dhabi, Muscat, Baku, Tbilisi</option>
+						      <option value="AFT-4:30">(GMT +4:30) Kabul</option>
+						      <option value="PKT-5">(GMT +5:00) Ekaterinburg, Islamabad, Karachi, Tashkent</option>
+						      <option value="IST-5:30">(GMT +5:30) Bombay, Calcutta, Madras, New Delhi</option>
+						      <option value="NPT-5:45">(GMT +5:45) Kathmandu</option>
+						      <option value="BDT-6">(GMT +6:00) Almaty, Dhaka, Colombo</option>
+						      <option value="ICT-7">(GMT +7:00) Bangkok, Hanoi, Jakarta, Phnom Phen</option>
+						      <option value="CST-8">(GMT +8:00) Beijing, Perth, Singapore, Hong Kong</option>
+						      <option value="JST-9">(GMT +9:00) Tokyo, Seoul, Osaka, Sapporo, Yakutsk</option>
+						      <option value="ACST-9:30">(GMT +9:30) Adelaide, Darwin</option>
+						      <option value="AEST-10">(GMT +10:00) Eastern Australia, Guam, Vladivostok</option>
+						      <option value="NCT-11">(GMT +11:00) Noumea, New Caledonia</option>
+						      <option value="NZST-12">(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka</option>
+								</select>
+							</tr>
+					</table>
+				</fieldset>
+
+				<table class="submitform">
+					<tr>
+						<td>
+						<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Refresh" >
+						<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Save" >
+						<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Restart Asterisk" >
+						<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Reboot" >
+						</td>
+					</tr>
+				</table>
+
+			</form>
+		</div>	
+
+		<!-- Advanced Configuration Form -->
+		<div id="tabs1-advanced">
+			 <div class="tab-container" id="inner-container">
+				<ul class='etabs'>
+				<li class='tab'><a href="#tab-adv">Advanced</a></li>
+				<li class='tab'><a href="#tab-sph">SoftPhone</a></li>
+				<li class='tab'><a href="#tab-wan">WAN</a></li>
+				<li class='tab'><a href="#tab-fw">Firmware/Config</a></li>
+				</ul>
+
+				<div class="panel-container">
+					<div id="tab-adv">
+						<form name="MP-ADV" id="MP-ADV" METHOD=GET ACTION="/cgi-bin/config/conf-sub-adv.sh">
+							<pre> Time: $UPTIME  CPU Processes: $PROC  Free/Total Memory: $MEMSTR </pre>
+
+							<fieldset class="network-adv">
+								<legend>Network</legend>
+								<table>
+									<tr>
+										<td class="label"><label for="BR_IPADDR">IP Address</label></td>
+										<td class="field"><input type="text" name="BR_IPADDR" id="br_ipaddr" VALUE=$BR_IPADDR ></td>
+										<td></td>
+										<td class="label"><label for="BR_GATEWAY">LAN Gateway</label></td>
+										<td class="field"><input type="text" name="BR_GATEWAY" id="br_gateway" VALUE=$BR_GATEWAY ></td>
+										<td class="label"><label>Restrict LAN Port</label></td>
+										<td class="field"><input  type="checkbox" name="LANPORT_DISABLE" id="lanport_disable" VALUE="checked" $LANPORT_DISABLE ></td>
+									</tr>
+
+									<tr>
+										<td class="label"><label for="BR_DNS">DNS</label></td>
+										<td class="field"><input type="text" name="BR_DNS" id="br_dns" VALUE=$BR_DNS ></td>
+										<td></td>
+										<td class="label"><label for="BR_NETMASK">Netmask</label></td>
+										<td class="field"><input type="text" name="BR_NETMASK" id="br_netmask" VALUE=$BR_NETMASK ></td>
+									</tr>
+								</table>
+							</fieldset>
+
+		<fieldset class="wifi-adv">
+			<legend> Radio</legend>
+
+			<table>
+				<tr>
+					<td class="label"><label for="CHANNEL">Channel</label></td>
+					<td class="field">
+						<SELECT name="CHANNEL" id="CHANNEL" >
+						<option selected="$CHANNEL">$CHANNEL</option>
+						<option value="1">Channel 1</option>
+						<option value="2">Channel 2</option>
+						<option value="3">Channel 3</option>
+						<option value="4">Channel 4</option>
+						<option value="5">Channel 5</option>
+						<option value="6">Channel 6</option>
+						<option value="7">Channel 7</option>
+						<option value="8">Channel 8</option>
+						<option value="9">Channel 9</option>
+						<option value="10">Channel 10</option>
+						<option value="11">Channel 11</option>
+						<option value="auto">Auto</option>
+						</SELECT>
+					</td>
+
+					<td class="label"><label for="ATH0_TXPOWER"> Tx Power 0-27 dBm</label></td>
+					<td class="field"><input type="text" name="ATH0_TXPOWER" id="ath0_txpower" VALUE=$ATH0_TXPOWER ></td>
+
+					<td class="label"><label for="ATH0_TXPOWER_ACTUAL"> Reported Power: </label></td> <td>$ATH0_TXPOWER_ACTUAL </td>
+				</tr>
+			</table>
+
+			<table>
+				<tr>
+					<td class="label"><label for="RADIOMODE">HT Mode</label></td>
+					<td class="field">
+						<SELECT name="RADIOMODE" id="radiomode">
+						<option selected="$RADIOMODE">$RADIOMODE</option>
+						<option value="HT20">HT20</option>
+						<option value="NONE">NONE</option>
+						</SELECT>
+					</td>
+					<td class="label"><label for="COUNTRY"> Country Code</label></td>
+					<td class="field"><input type="text" name="COUNTRY" id="country" VALUE=$COUNTRY ></td>
+
+					<td class="label"><label for="CHANBW">Chan BW</label></td>
+					<td class="field">
+						<SELECT name="CHANBW" id="chanbw">
+						<option selected="$CHANBW">$CHANBW</option>
+						<option value="5">5MHz</option>
+						<option value="10">10MHz</option>
+						<option value="20">20MHz</option>
+						</SELECT>
+					</td>
+				</tr>
+			</table> 
+		</fieldset>
+
+		<fieldset class="wifi-adv">
+			<legend> WiFi Access Point ($ENCRYPTION)</legend>
+			<table>
+				<tr>
+					<td class="label"><label>Enable Access Point</label> </td>
+					<td class="field"><input  type="checkbox" name="AP_ENABLE" id="ap_enable" VALUE="checked" $AP_ENABLE > </td>
+
+					<td class="label"><label for="ssid">SSID</label></td>
+					<td class="field"><input type="text" name="SSID" id="ssid" VALUE=$SSID ></td>
+
+					<td class="label"><label>AP Isolation</label> </td>
+					<td class="field"><input  type="checkbox" name="AP_ISOL" id="ap_isol" VALUE="checked" $AP_ISOL > </td>
+
+				</tr>
+				<tr>	
+					<td class="label"><label for="MAXASSOC">AP Connections</label></td>
+					<td class="field">
+						<SELECT name="MAXASSOC" id="MAXASSOC" >
+						<option selected="$MAXASSOC">$MAXASSOC</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="5">5</option>
+						<option value="10">10</option>
+						<option value="15">15</option>
+						<option value="20">20</option>
+						<option value="25">25</option>
+						<option value="35">35</option>
+						<option value="50">50</option>
+						<option value="Max">Maximum</option>
+						</SELECT>
+					</td>
+
+					<td class="label"><label>Passphrase</label></td>
+					<td class="field"><input  type="text" name="PASSPHRASE" id="passphrase" VALUE=$PASSPHRASE ></td>
+
+					<td class="label"><label>Encryption</label></td>
+					<td class="field">
+						<SELECT name="ENCRYPTION" id="encryption">
+						<option selected="$ENCRYPTION">$ENCRYPTION</option>
+						<option value="WPA-WPA2-AES">WPA-WPA2-AES</option>
+						<option value="WPA-WPA2">WPA-WPA2</option>
+						<option value="WPA2">WPA2</option>
+						<option value="WPA">WPA</option>
+						<option value="WEP">WEP</option>
+						<option value="NONE">NONE</option>
+						</SELECT>
+					</td>
+				</tr>
+			</table>
+		</fieldset>
+
+
+		<fieldset class="meshwifi">
+			<legend> WiFi Mesh </legend>
+			<table>
+				<tr>
+					<td class="label"><label>Enable Mesh</label> </td>
+					<td class="field"><input  type="checkbox" name="MESH_ENABLE" id="mesh_enable" VALUE="checked" $MESH_ENABLE > </td>
+
+					<td class="label"><label>Mesh Gateway</label></td>
+					<td class="field">
+						<SELECT name="MPGW" id="mpgw"/>
+						<option selected="$MPGW">$MPGW</option>
+						<option value="OFF">OFF</option>
+						<option value="CLIENT">CLIENT</option>
+						<option value="SERVER">SERVER</option>
+						<option value="SERVER-1Mb">SERVER 1Mb</option>
+						<option value="SERVER-2Mb">SERVER 2Mb</option>
+						<option value="SERVER-5Mb">SERVER 5Mb</option>
+						<option value="SERVER-10Mb">SERVER 10Mb</option>
+						</SELECT>
+					</td>
+
+					<td class="label"><label for="MESH_ENCR">Encryption</label></td>
+					<td class="field">
+						<SELECT name="MESH_ENCR" id="MESH_ENCR" >
+						<option selected="$MESH_ENCR">$MESH_ENCR</option>
+						<option value="OFF">OFF</option>
+						<option value="WPA2">WPA2</option>
+						<option value="WPA2-AES">WPA2-AES</option>
+						</SELECT>
+					</td>
+				</tr>
+				<tr>
+					<td class="label"><label for="ATH0_IPADDR">IP Address</label></td>
+					<td class="field"><input type="text" name="ATH0_IPADDR" id="ath0_ipaddr" VALUE=$ATH0_IPADDR ></td>
+					<td class="label"><label for="ATH0_NETMASK">Netmask</label></td>
+					<td class="field"><input type="text" name="ATH0_NETMASK" id="ath0_netmask" VALUE=$ATH0_NETMASK ></td>
+					<td class="label"><label for="MESHPASSPHRASE">Mesh Passphrase</label></td>
+					<td class="field"><input type="text" name="MESHPASSPHRASE" id="meshpassphrase" VALUE=$MESHPASSPHRASE ></td>
+				</tr>
+				<tr>
+					<td class="label"><label for="ATH0_SSID"> SSID </label></td>
+					<td class="field"><input type="text" name="ATH0_SSID" id="ath0_ssid" VALUE=$ATH0_SSID ></td>
+					<td class="label"><label for="ATH0_BSSID"> BSSID </label></td>
+					<td class="field"><input type="text" name="ATH0_BSSID" id="ath0_bssid" VALUE=$ATH0_BSSID ></td>
+				</tr>
+			</table>
+		</fieldset>
+
+							<fieldset class="asterisk-adv">
+								<legend>Asterisk Configuration</legend>
+
+								<table>
+									<tr>
+										<td class="label"><label>Enable Asterisk</label></td>
+										<td class="field"><input  type="checkbox" name="ENABLE_AST" id="enable_ast" VALUE="checked" $ENABLE_AST > </td>
+										<td class="label"><label>Softphone Support</label></td>
+										<td class="field">
+												<SELECT name="SOFTPH" id="softph">
+												<option selected="$SOFTPH">$SOFTPH</option>
+												<option value="OFF"> OFF </option>
+												<option value="MASTER"> MASTER </option>
+												</SELECT>
+										</td>
+					 			 	</tr>
+									<tr>
+										<td class="label"><label>Codec1</label></td>
+										<td class="field">
+												<SELECT name="CODEC1" id="codec1">
+												<option selected="$CODEC1">$CODEC1</option>
+												<option value="gsm">gsm</option>
+												<option value="ulaw">ulaw</option>
+												<option value="alaw">alaw</option>
+												</SELECT>
+										<td class="label"><label>Codec2</label></td>
+										<td class="field">
+											<SELECT name="CODEC2" id="codec2">
+											<option selected="$CODEC2">$CODEC2</option>
+											<option value="gsm">gsm</option>
+											<option value="ulaw">ulaw</option>
+											<option value="alaw">alaw</option>
+											</SELECT>
+										</td>
+										<td class="label"><label>Codec3</label></td>
+										<td class="field">
+											<SELECT name="CODEC3" id="codec3">
+											<option selected="$CODEC3">$CODEC3</option>
+											<option value="gsm">gsm</option>
+											<option value="ulaw">ulaw</option>
+											<option value="alaw">alaw</option>
+											</SELECT>
+										</td>
+									</tr>
+								  	<tr>
+										<td class="label"><label>SIP Enable</label> </td>
+										<td class="field"><input  type="checkbox" name="ENABLE" id="enable" VALUE="checked" $ENABLE > </td>
+
+										<td class="label"><label>SIP Register</label></td>
+										<td class="field"><input  type="checkbox" name="REGISTER" id="register" VALUE="checked" $REGISTER > </td>
+
+										<td class="label"><label>Dialout Code</label></td>
+										<td class="field">
+											<SELECT name="DIALOUT" id="dialout">
+											<option selected="$DIALOUT">$DIALOUT</option>
+											<option value="#"> # </option>
+											<option value="9"> 9 </option>
+											<option value="0"> 0 </option>
+											<option value="Auto"> Auto </option>
+											</SELECT>
+					  				</td>
+							  	</tr>
+								</table>
+
+								<table>
+									<tr>	
+										<td class="label"><label> SIP Status </label> </td>
+										<td class="ast_reg"> $REG_STATUS $REG_ACCT </td>
+									</tr>
+								</table>
+
+								<table>
+									<tr>
+										<td class="label"><label for="REGHOST">SIP Registrar</label> </td>
+										<td class="field"><input type="text" name="REGHOST" id="reghost" VALUE=$REGHOST > </td>
+										<td class="label"><label for="USER">User Name</label></td>
+										<td class="field"><input type="text" name="USER" id="user" VALUE=$USERNAME > </td>
+									</tr>
+									<tr>
+										<td class="label"><label for="HOST">SIP Host</label></td>
+										<td class="field"><input type="text" name="HOST" id="host" VALUE=$HOST ></td>
+										<td class="label"><label for="SECRET">Password</label></td>
+										<td class="field"><input  type="text" name="SECRET" id="secret" VALUE=$SECRET ></td>
+									</tr>
+									<tr>
+										<td class="label"><label>Enable Asterisk NAT</label></td>
+										<td class="field"><input  type="checkbox" name="ENABLENAT" id="enablenat" VALUE="checked" $ENABLENAT > </td>
+										<td class="label"><label for="EXTERNIP">NAT External IP</label></td>
+										<td class="field"><input type="text" name="EXTERNIP" id="externip" VALUE=$EXTERNIP > </td>
+									</tr>
+								</table>
+							</fieldset>
+
+							<fieldset class="dhcp">
+								<legend>DHCP Server</legend>
+								<table>
+									<tr>
+										<td class="label"><label>Enable DHCP Server</label>
+										<td class="field"><input type="checkbox" name="DHCP_ENABLE" id="dhcp_enable" VALUE="checked" $DHCP_ENABLE ></td>
+
+										<td class="label"><label>Authoritative</label>
+										<td class="field"><input type="checkbox" name="DHCP_AUTH" id="dhcp_auth" VALUE="checked" $DHCP_AUTH ></td>
+									</tr>
+									<tr>
+										<td class="label"><label for="STARTIP">Starting IP</label></td>
+										<td class="field"><input type="text" name="STARTIP" id="startip" VALUE=$STARTIP ></td>
+									
+										<td class="label"><label for="ENDIP">Ending IP</label></td>
+										<td class="field"><input type="text" name="ENDIP" id="endip" VALUE=$ENDIP ></td>
+									</tr>
+									<tr>
+										<td class="label"><label for="OPTION_SUBNET"> Subnet Mask </label></td>
+										<td class="field"><input type="text" name="OPTION_SUBNET" id="option_subnet" VALUE=$OPTION_SUBNET ></td>
+
+										<td class="label"><label for="OPTION_ROUTER"> Gateway Router </label></td>
+										<td class="field"><input type="text" name="OPTION_ROUTER" id="option_router" VALUE=$OPTION_ROUTER ></td>
+
+										<td class="label"><label>Use device IP</label>
+										<td class="field"><input type="checkbox" name="DEVICE_IP" id="device_ip" VALUE="checked" $DEVICE_IP ></td>
+									</tr>
+									<tr>
+										<td class="label"><label for="LEASETERM"> Lease Term (secs)</label></td>
+										<td class="field"><input type="text" name="LEASETERM" id="leaseterm" VALUE=$LEASETERM ></td>
+										
+										<td class="label"><label for="MAXLEASES"> Max Leases </label></td>
+										<td class="field"><input type="text" name="MAXLEASES" id="maxleases" VALUE=$MAXLEASES ></td>
+									</tr>
+									<tr>
+										<td class="label"><label for="DOMAIN"> Domain </label></td>
+										<td class="field"><input type="text" name="DOMAIN" id="domain" VALUE=$DOMAIN ></td>
+
+										<td class="label"><label for="OPTION_DNS"> DNS Server1 </label></td>
+										<td class="field"><input type="text" name="OPTION_DNS" id="option_dns" VALUE=$OPTION_DNS ></td>
+										<td class="label"><label for="OPTION_DNS2"> DNS Server2 </label></td>
+										<td class="field"><input type="text" name="OPTION_DNS2" id="option_dns2" VALUE=$OPTION_DNS2 ></td>
+
+									</tr>
+								</table>
+							</fieldset>
+
+							<table class="submitform">
+								<tr>
+									<td>
+										<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Refresh">
+										<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Save">
+										<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Restart Asterisk">
+										<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Restore Defaults" >
+										<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Reboot" >
+									</td>
+								</tr>
+							</table>
+						</form>
+					</div>
+
+	<!-- SoftPhone Directory Form -->
+		<div id="tab-sph">
+			<form name="MP-SPH" id="MP-SPH" METHOD="GET" ACTION="/cgi-bin/config/conf-sub-sph.sh">
+
+				<fieldset class="wifi-adv">
+					<legend> SoftPhone</legend>
+
+					<table>
+						<tr>
+							<td class="label"><label for="SP_NUMBER"> SoftPhone Number </label></td>
+							<td class="field"><input type="text" name="SP_NUMBER" id="sp_number" VALUE=$SP_NUMBER ></td>
+							<td class="label"><label> Range: 300 -> 399 </label> </td>
+						</tr>
+					</table>
+
+					<table>
+						<tr>
+							<td class="label"><label for="SP_NAME"> SoftPhone Name </label></td> <td>$SP_NAME </td>
+							<td class="field"><input type="text" name="SP_NAME" id="sp_name" VALUE=$SP_NAME ></td>
+							<td class="label"><label for="SP_PW1"> Enter Password</label></td>
+							<td class="field"><input name="SP_PW1" id="SP_PW1" type="password" autocomplete ="off" VALUE=$SP_PW1></td>
+							<td class="status"></td>
+							<td class="label"><label for="SP_PW2"> Repeat Password</label></td>
+							<td class="field"><input name="SP_PW2" id="SP_PW2" type="password" autocomplete ="off" VALUE=$SP_PW2></td>
+							<td class="status"></td>
+							<td class="field"> <INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Save" > </td>
+							<td class="field"> <INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Delete" > </td>
+						</tr>
+					</table>
+				</fieldset>
+
+				<p> </p>
+				<h3> SoftPhone Directory </h3>     
+				<iframe id="FrameID1" src="/softph.txt"  width="100%" height="200" ></iframe>
+
+				<table class="submitform">
+					<tr>
+						<td>
+						<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Refresh" >
+						</td>
+					</tr>
+				</table>
+
+			</form>
+		</div>
+
+
+		<!-- WAN Configuration Form -->
+					<div id="tab-wan">
+						<form name="MP-WAN" id="MP-WAN" METHOD="GET" ACTION="/cgi-bin/config/conf-sub-wan.sh">
+							<fieldset class="dhcp">
+								<legend>WAN Configuration</legend>
+								<table>
+									<tr>
+										<td class="label"><label> WAN Port</label></td>
+										<td class="field">
+										<SELECT name="WANPORT" id="wanport">
+											<option selected="$WANPORT">$WANPORT</option>
+											<option value="Disable"> Disable </option>
+											<option value="Ethernet"> Ethernet </option>
+											<option value="USB-Modem"> USB-Modem </option>
+											<option value="USB-Eth-Modem"> USB-Eth-Modem </option>
+											<option value="WiFi"> WiFi </option>
+											<option value="WiFi-Relay"> WiFi-Relay </option>
+											<option value="Mesh"> Mesh </option>
+											</SELECT>
+										</td>
+										<td class="label"><label> If a WiFi WAN port is selected, the Mesh interface is disabled on that port. </label> </td>
+									</tr>
+								</table>
+
+								<table>
+									<tr>
+										<td class="label"><label>WAN IP Mode</label></td>
+										<td class="field">
+										<SELECT name="ETHWANMODE" id="ethwanmode">
+											<option selected="$ETHWANMODE">$ETHWANMODE</option>
+											<option value="DHCP"> DHCP </option>
+											<option value="Static"> Static </option>
+										</SELECT>
+										</td>
+										<td class="label"><label>Change WAN socket to LAN</label> </td>
+										<td class="field"><input  type="checkbox" name="WANLAN_ENABLE" id="wanlan_enable" VALUE="checked" $WANLAN_ENABLE > </td>
+										<td class="label"><label>Enable Port Forward SSH, HTTPS</label> </td>
+										<td class="field"><input  type="checkbox" name="PORT_FORWARD" id="port_forward" VALUE="checked" $PORT_FORWARD > </td>
+									</tr>
+
+										<td class="label"><label>Assigned WAN IP</label> </td>
+										<td class="ast_reg"> $WANIPASSIGNED </td>
+
+									<tr>	
+										<td class="label"><label> <H4>Static Network Settings</H4> </label> </td>
+									</tr>
+
+									<tr>
+										<td class="label"><label for="WANIP">Primary IP</label></td>
+										<td class="field"><input type="text" name="WANIP" id="wanip" VALUE=$WANIP ></td>
+										
+										<td class="label"><label for="WANGATEWAY">Gateway</label></td>
+										<td class="field"><input type="text" name="WANGATEWAY" id="wangateway" VALUE=$WANGATEWAY ></td>
+
+										<td class="label"><label for="SECWANIP">Secondary IP</label></td>
+										<td class="field"><input type="text" name="SECWANIP" id="secwanip" VALUE=$SECWANIP ></td>
+									</tr>
+
+									<tr>
+										<td class="label"><label for="WANMASK">Netmask</label></td>
+										<td class="field"><input type="text" name="WANMASK" id="wanmask" VALUE=$WANMASK ></td>
+										
+										<td class="label"><label for="WANDNS">DNS</label></td>
+										<td class="field"><input type="text" name="WANDNS" id="wandns" VALUE=$WANDNS ></td>
+									</tr>
+
+
+									<tr>	
+										<td class="label"><label> <H4>WiFi WAN Host Settings</H4> </label> </td>
+									</tr>
+
+									<tr>
+										<td class="label"><label for="wanssid">SSID</label></td>
+										<td class="field"><input type="text" name="WANSSID" id="wanssid" VALUE=$WANSSID ></td>
+										<td></td>
+									</tr>
+
+									<tr>	
+										<td class="label"><label>Passphrase</label></td>
+										<td class="field"><input  type="text" name="WANPASS" id="wanpass" VALUE=$WANPASS ></td>
+
+										<td class="label"><label>Encryption</label></td>
+										<td class="field">
+											<SELECT name="WANENCR" id="wanencr">
+											<option selected="$WANENCR">$WANENCR</option>
+											<option value="WPA-WPA2-AES">WPA-WPA2-AES</option>
+											<option value="WPA-WPA2">WPA-WPA2</option>
+											<option value="WPA2">WPA2</option>
+											<option value="WPA">WPA</option>
+											<option value="WEP">WEP</option>
+											<option value="NONE">NONE</option>
+											</SELECT>
+										</td>
+									</tr>
+
+									<tr>	
+										<td class="label"><label> <H4>USB Modem Settings</H4> </label> </td>
+									</tr>
+
+									<tr>
+										<td class="label"><label>USB Modem Service</label></td>
+										<td class="field">
+										<SELECT name="MODEMSERVICE" id="modemservice">
+											<option selected="$MODEMSERVICE">$MODEMSERVICE</option>
+											<option value="umts"> UMTS </option>
+											<option value="gprs"> GPRS </option>
+											<option value="cdma"> CDMA </option>
+											<option value="evdo"> EV-DO </option>
+										</SELECT>
+									</td>
+									</tr>
+
+									<tr>
+										<td class="label"><label for="VENDOR">Vendor ID</label></td>
+										<td class="field"><input type="text" name="VENDOR" id="vendor" VALUE=$VENDOR ></td>
+										
+										<td class="label"><label for="PRODUCT">Product ID</label></td>
+										<td class="field"><input type="text" name="PRODUCT" id="product" VALUE=$PRODUCT ></td>
+									</tr>
+
+									<tr>
+										<td class="label"><label for="APN">Service APN</label></td>
+										<td class="field"><input type="text" name="APN" id="apn" VALUE=$APN ></td>
+										
+										<td class="label"><label for="DIALSTR">Dial String</label></td>
+										<td class="field"><input type="text" name="DIALSTR" id="dialstr" VALUE=$DIALSTR ></td>
+									</tr>
+
+									<tr>
+										<td class="label"><label for="APNUSER">Username</label></td>
+										<td class="field"><input type="text" name="APNUSER" id="apnuser" VALUE=$APNUSER ></td>
+										
+										<td class="label"><label for="APNPW">Password</label></td>
+										<td class="field"><input type="text" name="APNPW" id="apnpw" VALUE=$APNPW ></td>
+									</tr>
+
+									<tr>
+										<td class="label"><label for="MODEMPIN">PIN</label></td>
+										<td class="field"><input type="text" name="MODEMPIN" id="modempin" VALUE=$MODEMPIN ></td>
+
+										<td class="label"><label>USB Serial Port</label></td>
+										<td class="field">
+										<SELECT name="MODEMPORT" id="modemport">
+											<option selected="$MODEMPORT">$MODEMPORT</option>
+											<option value="0"> 0 </option>
+											<option value="1"> 1 </option>
+											<option value="2"> 2 </option>
+											<option value="3"> 3 </option>
+											<option value="4"> 4 </option>
+											<option value="5"> 5 </option>
+											<option value="6"> 6 </option>
+											<option value="7"> 7 </option>
+										</SELECT>
+					  			</td></tr>
+								</table>
+
+								<tr><td class="label"><label> <h4>Modem Status</h4> </label> </td></tr>
+
+								<table><tr>
+									<td class="label"><label> USB Device Detected:</label> </td>
+									<td class="ast_reg"> $USBMODEM </td>
+								</tr></table>
+
+								<table><tr>	
+										<td class="label"><label> USB Serial Ports Detected:</label> </td>
+										<td class="ast_reg"> $USBSERIAL </td>
+								</tr></table>
+
+								<table><tr>	
+										<td class="label"><label>Connection Status:</label> </td>
+										<td class="ast_reg"> $USBSTATUS </td>
+								</tr></table>
+
+								<h4> USB Ethernet Modem Interface</h4>
+                <td class="label"><label for="MODEMURL">Modem URL</label></td>
+                <td class="field"><input type="text" name="MODEMURL" id="modemurl" VALUE=$MODEMURL ></td>
+								<br></br>
+								<iframe id="FrameID5" src=$MODEMURL width="100%" height="150" ></iframe>
+
+							</fieldset>
+
+							<table class="submitform">
+								<tr>
+									<td>
+									<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Refresh" >
+									<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Save" >
+									<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Reboot" >
+									</td>
+								</tr>
+							</table>
+						</form>
+					</div>
+
+		<!-- Firmware Upgrade Page Tab 4-->
+					<div id="tab-fw">
+						<h2><a href="/cgi-bin/upgrade">Upgrade Firmware</a></h2>
+						<h2><a href="/cgi-bin/save-config">Save Configuration File</a></h2>
+						<h2><a href="/cgi-bin/load-config">Load Configuration / Patch File</a></h2>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Status Page -->
+		<div id="tabs1-status">
+			<pre> Time: $UPTIME  CPU Processes: $PROC  Free/Total Memory: $MEMSTR </pre>
+			<h3> Mesh Nodes </h3>  
+ 			<div class="slideContainer">
+  			<span class="slide"><iframe id="FrameID1" src="/bat1.txt"  height="150" ></iframe></span> 
+			</div>
+			
+			<h3> Mesh Gateways  (Mode: $MPGW)</h3>
+			<div class="slideContainer">
+				<span class="slide"><iframe id="FrameID2" src="/bat2.txt"  height="120" ></iframe></span>
+			</div>
+
+			<h3> Node Signal Strength</h3>
+			<iframe id="FrameID3" src="/mesh.txt"  width="100%" height="150" ></iframe>
+
+			<h3> WiFi Access Point Connections</h3>
+			<iframe id="FrameID4" src="/wifi.txt"  width="100%" height="150" ></iframe>
+
+		</div>
+
+	</div>
+ </div>
+</body>
+</html>
+
+EOF
+

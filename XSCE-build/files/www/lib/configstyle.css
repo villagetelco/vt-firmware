@@ -1,0 +1,271 @@
+body, input, select, textarea {
+    font-family: verdana,arial,helvetica,sans-serif;
+    font-size: 11px;
+}
+p, h1, form, button{border:0; margin:0; padding:0;}
+.spacer{clear:both; height:1px;}
+
+
+.banner {
+    width:930px;
+    margin:0 auto;
+    height: 60px;
+}
+.logo {
+	vertical-align: top;
+}
+.titletext       {
+    float: right;
+    text-align: right;
+}
+.textbanner {
+	vertical-align: text-bottom;
+}
+/* ----------- CSS for File Upload ---------*/
+.section {
+    margin: 0 0 30px;
+    margin:0 auto;
+    width:800px;
+    padding:14px;
+        -moz-border-radius: 20px;
+        -webkit-border-radius: 20px;
+        -khtml-border-radius: 20px;
+    border-radius: 20px;
+    border:solid 2px #b7ddf2;
+    background: #FDE2BB;
+}
+
+form.upload { display: block; margin: 20px auto; background: #eee; border-radius: 10px; padding: 15px }
+.progress { position:relative; width:400px; border: 1px solid #ddd; padding: 1px; border-radius: 3px; }
+.bar { background-color: #B4F5B4; width:0%; height:20px; border-radius: 3px; }
+.percent { position:absolute; display:inline-block; top:3px; left:48%; }
+
+div.block{
+  overflow:hidden;
+}
+div.block label{
+  width:160px;
+  display:block;
+  float:left;
+  text-align:left;
+}
+div.block .input{
+  margin-left:4px;
+  float:left;
+}
+
+/* ----------- CSS for status page ----------- */
+.slideContainer{
+	overflow-x: auto;
+ 	white-space: nowrap;
+ }
+.slide{ 
+	display: inline-block;
+	width: 2000px;
+	white-space: normal;
+	}
+
+/* ----------- CSS for easytabs ----------- */
+#outer-container {
+    width: 1000px; 
+    margin: 0 auto;
+}
+#outer-container .panel-container {
+    border: solid 1px #999;
+}
+#outer-container .tab {
+    border: solid 1px #999;
+    border-bottom: none;
+}
+#inner-container .panel-container {
+    border: solid 1px #aaa;
+}
+#inner-container .tab {
+    border: solid 1px #aaa;
+    border-bottom: none;
+}
+.etabs { 
+    margin:0 auto;
+	padding: 0;
+}
+.tab { 
+	display: inline-block;
+	zoom:1;
+	*display:inline;
+	background: #eee;
+    border-radius: 4px 4px 0 0;
+	border-bottom: none;
+		-moz-border-radius: 4px 4px 0 0;
+		-webkit-border-radius: 4px 4px 0 0;
+}
+.tab a { font-size: 14px; line-height: 2em; display: block; padding: 0 10px; outline: none;  }
+.tab a:hover { text-decoration: underline; }
+.tab.active { background: #fff; padding-top: 6px; position: relative; top: 1px; border-color: #666; background: #FDE2BB;}
+.tab a.active { font-weight: bold; }
+
+
+.tab-container .panel-container { 
+    margin:0 auto;
+    border-radius: 0 10px 10px 10px; 
+    padding: 10px;
+        -moz-border-radius: 0 10px 10px 10px; 
+        -webkit-border-radius: 0 10px 10px 10px;
+    background: #FDE2BB;
+}
+.panel-container { margin-bottom: 10px; }
+
+
+
+iframe {
+    width:100%;
+    overflow-y:auto;
+    overflow-x:auto;
+}
+#FrameID5 {
+    width:90%;
+    overflow-y:auto;
+    overflow-x:auto;
+}
+.topbar {
+    width:850px;
+    height:100px;
+    display: inline;
+}
+.titletext       {
+    float: right;
+    text-align: right;
+}
+
+
+
+/* ----------- stylized ----------- */
+
+h1 {
+    font-size:18px;
+    font-weight:bold;
+    margin-bottom:8px;
+    vertical-align: bottom;
+}
+
+legend {
+	font-size:12px;
+    font-weight:bold;
+}
+
+fieldset {
+    margin: 14px 0px 14px 0px;
+    padding: 14px;
+       -moz-border-radius: 10px;
+       -webkit-border-radius: 10px;
+       -khtml-border-radius: 10px;
+}
+
+p{
+	font-size:11px;
+	color:#666666;
+	margin-bottom:0px;
+	padding-bottom:10px;
+}
+
+table {
+    border-collapse: collapse;
+    empty-cells: show;
+}
+.label {
+    padding-right: 8px;
+    padding-top: 7px;
+    padding-bottom: 10px;
+    text-align: right;
+    vertical-align: top;
+    white-space: nowrap;
+    width: 125px;
+}
+.field {
+    vertical-align: top;
+    white-space: nowrap;
+}
+#stylized .field4 {
+    vertical-align: top;
+    white-space: nowrap;
+    width: 20px;
+}
+.ast_reg {
+    padding-right: 8px;
+    padding-top: 7px;
+    text-align: left;
+    color: #009900;
+    font-weight: bold;
+    vertical-align: top;
+    white-space: nowrap;
+    width: 125px;
+}
+table.submitform {
+    margin-top: 5px;
+    margin-left:auto;
+    margin-right:6px;
+    text-align: right;
+    vertical-align: top;
+    white-space: nowrap;
+    width: 100px;
+}
+table.buttons {
+    padding-right: 8px;
+    padding-top: 7px;
+    text-align: right;
+    vertical-align: top;
+    white-space: nowrap;
+    width: 275px;
+}
+table.buttons-adv {
+    padding-right: 8px;
+    padding-top: 7px;
+    text-align: right;
+    vertical-align: top;
+    white-space: nowrap;
+    width: 100px;
+}
+
+
+.textfield {
+    width: 150px;
+}
+label.error {
+    background: url("images/unchecked.gif") no-repeat scroll 0 0 transparent;
+    display: block;
+    color: #EA5200;
+    font-weight: bold;
+    padding-bottom: 1px;
+    padding-left: 16px;
+    margin-left: 5px;
+}
+label.checked {
+    background: url("") no-repeat scroll 0 0 transparent;
+    display: block;
+    color: #EA5200;
+    font-weight: bold;
+    padding-bottom: 1px;
+    padding-top: 12px;
+    padding-left: 16px;
+    margin-left: 5px;
+}
+.success_msg {
+    color: #0060BF;
+    font-weight: bold;
+    margin-left: 19px;
+}
+
+.go { 
+	padding-top: 16px;
+	height: 50px;
+	width: 900px;
+	float: left;
+}
+
+em { 
+	font-weight: bold; 
+	padding-right: 1em; 
+	vertical-align: top; 
+}
+
+
+

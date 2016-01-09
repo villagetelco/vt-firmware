@@ -1,0 +1,14 @@
+#!/bin/sh -x
+
+# /etc/init.d/config_secn  
+
+
+/bin/config_secn_wifi.sh
+
+/bin/config_secn_dhcp.sh
+
+/bin/config_secn_wan.sh 
+
+/bin/config_secn_http.sh
+
+
