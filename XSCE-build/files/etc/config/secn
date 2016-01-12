@@ -1,7 +1,7 @@
 
 config secn 'accesspoint'
-	option ssid 'Internet_in_a_Box'
-	option passphrase 'No_Wifi_Passphrase'
+	option ssid 'lekti'
+	option passphrase '--------'
 	option ap_disable '0'
 	option maxassoc '35'
 	option ap_isol '0'

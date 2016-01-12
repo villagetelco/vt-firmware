@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Set the host name prefix
-HOST="TP"
+HOST="TP-XSCE"
 
 # Build the hostname ($HOST-nnn) from the device IP address last octet
 OCTET_D=`uci get network.lan.ipaddr | cut -d = -f2 | cut -d . -f4`
