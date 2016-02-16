@@ -1,6 +1,6 @@
 
 config secn 'accesspoint'
-	option ssid 'lekti'
+	option ssid 'Internet_in_a_Box'
 	option passphrase '--------'
 	option ap_disable '0'
 	option maxassoc '35'
@@ -25,7 +25,7 @@ config secn 'dhcp'
 	option dhcp_auth '0'
 	option dns '8.8.8.8'
 	option dns2 '8.8.4.4'
-	option device_ip 'checked'
+	option device_ip '0'
 
 config secn 'http'
 	option limitip '0'
