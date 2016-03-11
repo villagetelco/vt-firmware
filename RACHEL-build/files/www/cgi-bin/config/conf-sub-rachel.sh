@@ -36,6 +36,11 @@ CACHE_ENABLE="0"
 `echo $QUERY_STRING | cut -d \& -f 13`
 `echo $QUERY_STRING | cut -d \& -f 14`
 `echo $QUERY_STRING | cut -d \& -f 15`
+`echo $QUERY_STRING | cut -d \& -f 16`
+`echo $QUERY_STRING | cut -d \& -f 17`
+`echo $QUERY_STRING | cut -d \& -f 18`
+`echo $QUERY_STRING | cut -d \& -f 19`
+`echo $QUERY_STRING | cut -d \& -f 20`
 
 
 # Refresh screen without saving 
@@ -70,9 +75,21 @@ uci set rachel.setup.class=\$CLASS
 uci set rachel.setup.mode=\$MODE
 uci set rachel.setup.netaccess=\$NETACCESS
 uci set rachel.setup.enusbmodem=\$ENUSBMODEM
+
 uci set rachel.setup.ssidprefix=\$SSIDPREFIX
 uci set rachel.setup.ssid=\$SSID
 uci set rachel.setup.passphrase=\$PASSPHRASE
+uci set rachel.setup.encryption=\$ENCRYPTION
+uci set rachel.setup.maxassoc=\$MAXASSOC
+uci set rachel.setup.ap_enable=\$AP_ENABLE
+
+uci set rachel.setup.ssidprefix2=\$SSIDPREFIX2
+uci set rachel.setup.ssid2=\$SSID2
+uci set rachel.setup.passphrase2=\$PASSPHRASE2
+uci set rachel.setup.encryption2=\$ENCRYPTION2
+uci set rachel.setup.ap_enable2=\$AP_ENABLE2
+
+uci set rachel.setup.totalassoc=\$TOTALASSOC
 uci set rachel.setup.wanport=\$WANPORT
 uci set rachel.setup.cache_enable=\$CACHE_ENABLE
 
@@ -80,8 +97,9 @@ uci set rachel.setup.cache_enable=\$CACHE_ENABLE
 if [ \$MAXASSOC = "Disabled" ]; then
   MAXASSOC="0"
 fi
-uci set secn.accesspoint.maxassoc=\$MAXASSOC
-uci set rachel.setup.maxassoc=\$MAXASSOC
+if [ \$MAXASSOC = "Disabled" ]; then
+  MAXASSOC="0"
+fi
 
 # Set Tx Power
 uci set rachel.setup.txpower=\$TXPOWER

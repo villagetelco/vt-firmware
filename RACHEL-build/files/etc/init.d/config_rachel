@@ -38,13 +38,23 @@ uci set secn.modem.username=$USERNAME
 uci set secn.modem.password=$PASSWORD
 
 # Get RACHEL initial settings
+TOTALASSOC=`uci get rachel.setup.totalassoc`  # Total wifi connections
+
 CLASS=`uci get rachel.setup.class`
 MODE=`uci get rachel.setup.mode`
+TXPOWER=`uci get rachel.setup.txpower`
+
 SSIDPREFIX=`uci get rachel.setup.ssidprefix`
 SSID=`uci get rachel.setup.ssid`
 PASSPHRASE=`uci get rachel.setup.passphrase`
 MAXASSOC=`uci get rachel.setup.maxassoc`
-TXPOWER=`uci get rachel.setup.txpower`
+ENCRYPTION=`uci get rachel.setup.encryption`
+
+SSIDPREFIX2=`uci get rachel.setup.ssidprefix2`
+SSID2=`uci get rachel.setup.ssid2`
+PASSPHRASE2=`uci get rachel.setup.passphrase2`
+MAXASSOC2=`uci get rachel.setup.maxassoc2`
+ENCRYPTION2=`uci get rachel.setup.encryption2`
 
 # Limit CLASS value 1-99
 if [ $CLASS -gt 99 ] || [ $CLASS -lt 1 ]; then
@@ -94,12 +104,45 @@ uci set wireless.radio0.channel=$CHAN
 # Set up wifi SSID
 SSID=$SSIDPREFIX-$CLASS$SSID
 uci set secn.accesspoint.ssid=$SSID
+SSID2=$SSIDPREFIX2-$CLASS$SSID2
+uci set secn.accesspoint2.ssid=$SSID2
 
 # Save wifi password
 uci set secn.accesspoint.passphrase=$PASSPHRASE
+uci set secn.accesspoint2.passphrase=$PASSPHRASE2
 
-# Save the wifi maxassoc
+# Save the wifi max connections
+if [ "$MAXASSOC" -le "$TOTALASSOC" ]; then
+	MAXASSOC2=$((TOTALASSOC-MAXASSOC)) # Calculate the balance of connections
+else
+	MAXASSOC=$((TOTALASSOC-5))
+	MAXASSOC2=5
+fi
 uci set secn.accesspoint.maxassoc=$MAXASSOC
+uci set secn.accesspoint2.maxassoc=$MAXASSOC2
+uci set rachel.setup.maxassoc=$MAXASSOC
+uci set rachel.setup.maxassoc2=$MAXASSOC2
+
+# Set up AP Enable
+AP_ENABLE=`uci get rachel.setup.ap_enable`
+if [ $AP_ENABLE = "checked" ]; then
+	AP_DISABLE="0"
+else
+	AP_DISABLE="2"
+fi
+uci set secn.accesspoint.ap_disable=$AP_DISABLE
+
+AP_ENABLE2=`uci get rachel.setup.ap_enable2`
+if [ $AP_ENABLE2 = "checked" ]; then
+	AP_DISABLE2="0"
+else
+	AP_DISABLE2="3"
+fi
+uci set secn.accesspoint2.ap_disable=$AP_DISABLE2
+
+# Set up encryption
+uci set secn.accesspoint.encryption=$ENCRYPTION
+uci set secn.accesspoint2.encryption=$ENCRYPTION2
 
 # Set wifi tx power
 uci set wireless.radio0.txpower=$TXPOWER
