@@ -23,7 +23,7 @@ UPDATEMD5=`echo ${UPDATEMD5:0:10}`
 if [ "$MD5" = "$UPDATEMD5" ]; then
 	# Run update script
 	/tmp/$UPDATESCRIPT
-	#echo "Update script run" > /tmp/passwordstatus.txt
+	#echo "Update script run" > /tmp/updatestatus.txt
 else 
 	# md5sum check failed
 	exit
