@@ -7,7 +7,7 @@ config interface 'loopback'
 
 config interface 'lan'
 	option type 'bridge'
-	option ifname 'eth0 '  # Default version: eth0. Also wlan0 and bat0 added on startup
+	option ifname 'eth0 '  # Default version: eth0. Also wlan0 added on startup
 #	option force_link '1'
 #	option ip6assign '60'
 	option proto 'static'
