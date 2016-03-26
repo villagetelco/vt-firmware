@@ -202,13 +202,6 @@ cat > /tmp/config.html << EOF
 
 					<table>
 						<tr>
-							<td class="label"><label>Enable Cache</label> </td>
-							<td class="field"><input  type="checkbox" name="CACHE_ENABLE" id="cache_enable" VALUE="checked" $CACHE_ENABLE > </td>
-						</tr>
-					</table>
-
-					<table>
-						<tr>
 						Timezone  
 							<select name="TZ" id="tz">
 									<option selected="$TZ">$TZ</option>
@@ -258,8 +251,6 @@ cat > /tmp/config.html << EOF
 				<br></br>
 				<strong>Time:</strong> $UPTIME ,  
 				<br></br>
-				<strong>Cache Count:</strong> $CACHE_COUNT, <strong>Free space:</strong> $CACHE_SPACE
-
 				<table class="submitform">
 					<tr>
 						<td>

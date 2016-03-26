@@ -13,6 +13,10 @@ DATE=`date`
 UPTIME=`uptime`
 TZ=`cat /etc/TZ`
 
+# Cache
+CACHE_COUNT=`ls -lh /mnt/sda1/ | grep cache | sed -r "s'[[:blank:]]+','g" | cut -d ',' -f 2`
+CACHE_SPACE=`df -h | grep sda1 | sed -r "s'[[:blank:]]+','g" | cut -d ',' -f 4`
+
 # Get USB Modem status details
 USBMODEM=`/bin/usbmodem.sh`
 USBSERIAL=`ls /dev/ttyUSB*`
@@ -23,17 +27,32 @@ IP=`uci get network.lan.ipaddr`
 CHANNEL=`uci get wireless.radio0.channel`
 WIFINAME=`uci get wireless.ap_0.ssid`
 AP_CONNECTIONS=`iwinfo wlan0 assoclist | grep -c SNR`
+WIFINAME2=`uci get wireless.ap_1.ssid`
+AP_CONNECTIONS2=`iwinfo wlan0-3 assoclist | grep -c SNR`
 
-# Get CR parameters
+# Get RACHEL parameters
 CLASS=`uci get rachel.setup.class`
 MODE=`uci get rachel.setup.mode`
 ENUSBMODEM=`uci get rachel.setup.enusbmodem`
+
 SSIDPREFIX=`uci get rachel.setup.ssidprefix`
 SSID=`uci get rachel.setup.ssid`
 PASSPHRASE=`uci get rachel.setup.passphrase`
+MAXASSOC=`uci get rachel.setup.maxassoc`
+ENCRYPTION=`uci get rachel.setup.encryption`
+AP_ENABLE=`uci get rachel.setup.ap_enable`
+
+SSIDPREFIX2=`uci get rachel.setup.ssidprefix2`
+SSID2=`uci get rachel.setup.ssid2`
+PASSPHRASE2=`uci get rachel.setup.passphrase2`
+MAXASSOC2=`uci get rachel.setup.maxassoc2`
+ENCRYPTION2=`uci get rachel.setup.encryption2`
+AP_ENABLE2=`uci get rachel.setup.ap_enable2`
+
+TOTALASSOC=`uci get rachel.setup.totalassoc`
 TXPOWER=`uci get rachel.setup.txpower`
 WANPORT=`uci get rachel.setup.wanport`
-MAXASSOC=`uci get secn.accesspoint.maxassoc`
+CACHE_ENABLE=`uci get rachel.setup.cache_enable`
 
 # Set AP Connections to show 'Disabled' if reqd.
 if [ $MAXASSOC = "0" ]; then

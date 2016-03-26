@@ -71,12 +71,4 @@ sed -i 's/.* rachelpi/'"$RPI"' rachelpi/'  /etc/hosts
 # Restart DNS
 /etc/init.d/dnsmasq restart
 
-# --------------------------------
-# Set up caching
-#mkdir /mnt/sda1/cache
-
-# Set up Polipo docroot workaround
-#mkdir /www/polipo
-#chmod 777 /www/polipo
-
 
