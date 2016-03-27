@@ -15,7 +15,7 @@ elif [ $MODE = "Slave-3" ];then
 fi
 
 # Add Slaves to /etc/hosts
-OCTET123=`uci show network.lan.ipaddr | cut -d = -f 2 | cut -d . -f 1,2,3`
+OCTET123=`uci get network.lan.ipaddr | cut -d = -f 2 | cut -d . -f 1,2,3`
 echo "127.0.0.1 localhost"                    >  /etc/hosts
 echo $OCTET123".254"" CR"$CLASS      >> /etc/hosts
 echo $OCTET123".241"" CR"$CLASS"SL1" >> /etc/hosts
