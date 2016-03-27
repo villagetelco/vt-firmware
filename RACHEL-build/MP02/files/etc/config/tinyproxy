@@ -19,6 +19,7 @@ config tinyproxy tinyproxy
 	option MaxRequestsPerChild 0
 
 	list Allow 10.130.1.0/24
+	list Allow 172.31.255.253
 
 	option ViaProxyName "tinyproxy"
 

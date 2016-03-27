@@ -35,9 +35,9 @@ if [ $PING = "bytes" ]; then
 uci set network.lan.ipaddr=$IPADDR
 
 # Set the Gateway to .001 and Broadcast to .255 in the same subnet.
-OCTET_A=`uci show network.lan.ipaddr | cut -d = -f2 | cut -d . -f1`
-OCTET_B=`uci show network.lan.ipaddr | cut -d = -f2 | cut -d . -f2`
-OCTET_C=`uci show network.lan.ipaddr | cut -d = -f2 | cut -d . -f3`
+OCTET_A=`uci get network.lan.ipaddr | cut -d = -f2 | cut -d . -f1`
+OCTET_B=`uci get network.lan.ipaddr | cut -d = -f2 | cut -d . -f2`
+OCTET_C=`uci get network.lan.ipaddr | cut -d = -f2 | cut -d . -f3`
 uci set network.lan.gateway=$OCTET_A.$OCTET_B.$OCTET_C".001"
 uci set network.lan.broadcast=$OCTET_A.$OCTET_B.$OCTET_C".255"
 

@@ -643,9 +643,11 @@ CACHE_ENABLE=`uci get rachel.setup.cache_enable`
 # Adjust IP settings
 uci delete tinyproxy.tinyproxy.Allow
 uci add_list tinyproxy.tinyproxy.Allow=$OCTET123".0/24"
+uci add_list tinyproxy.tinyproxy.Allow=172.31.255.253  #Fallback client IP
 
 uci delete polipo.general.allowedClients
 uci add_list polipo.general.allowedClients=$OCTET123".0/24"
+uci add_list polipo.general.allowedClients=172.31.255.253  #Fallback client IP
 
 # Enable cache
 if [ $CACHE_ENABLE = "checked" ]; then
