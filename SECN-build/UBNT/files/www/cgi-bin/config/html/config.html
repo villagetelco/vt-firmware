@@ -604,7 +604,7 @@ cat > /tmp/config.html << EOF
 						</form>
 					</div>
 
-		<!-- Advanced Configuration Form Tab 2-->
+		<!-- Advanced Configuration WAN Tab -->
 					<div id="tab-wan">
 						<form name="MP-WAN" id="MP-WAN" METHOD="GET" ACTION="/cgi-bin/config/conf-sub-wan.sh">
 							<fieldset class="dhcp">
@@ -656,8 +656,6 @@ cat > /tmp/config.html << EOF
 										<td class="label"><label for="WANGATEWAY">Gateway</label></td>
 										<td class="field"><input type="text" name="WANGATEWAY" id="wangateway" VALUE=$WANGATEWAY ></td>
 
-										<td class="label"><label for="SECWANIP">Secondary IP</label></td>
-										<td class="field"><input type="text" name="SECWANIP" id="secwanip" VALUE=$SECWANIP ></td>
 									</tr>
 
 									<tr>
@@ -668,6 +666,10 @@ cat > /tmp/config.html << EOF
 										<td class="field"><input type="text" name="WANDNS" id="wandns" VALUE=$WANDNS ></td>
 									</tr>
 
+									<tr>
+										<td class="label"><label for="SECWANIP">Secondary IP</label></td>
+										<td class="field"><input type="text" name="SECWANIP" id="secwanip" VALUE=$SECWANIP ></td>
+									</tr>
 
 									<tr>	
 										<td class="label"><label> <H4>WiFi WAN Host Settings</H4> </label> </td>
