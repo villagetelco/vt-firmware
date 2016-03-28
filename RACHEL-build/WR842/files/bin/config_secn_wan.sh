@@ -89,7 +89,7 @@ uci set wireless.sta_0.disabled='1' # Make sure wifi WAN is off by default
 uci set network.stabridge.network='wwan' # Disable wifi relay bridge
 /etc/init.d/relayd disable # Disable relayd
 
-# Set default LAN port to eth0 and eth1 if 'WAN' port changed to LAN
+# Set default LAN port to LANETH and WANETH if 'WAN' port changed to LAN
 if [ $WANLAN_ENABLE = "checked" ]; then
 	uci set network.lan.ifname="$LANETH $WANETH"
 else

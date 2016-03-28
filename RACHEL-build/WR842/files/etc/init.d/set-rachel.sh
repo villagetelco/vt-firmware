@@ -3,7 +3,7 @@
 RPIMAC="b8:27"  # This is the first part of the MAC address for RPi devices 
 
 # Wait for memory and RPi devices to be available
-sleep 20
+sleep 10
 
 # ------------------------------
 
@@ -12,8 +12,8 @@ sleep 20
 mkdir /mnt/sda1
 mkdir /mnt/sda2
 
-mount -r /dev/sda1  /mnt/sda1
-mount -r /dev/sda2  /mnt/sda2
+mount -rw /dev/sda1  /mnt/sda1
+mount -rw /dev/sda2  /mnt/sda2
 
 # Remove old links
 rm /www/rachel/modules
@@ -70,5 +70,13 @@ sed -i 's/.* rachelpi/'"$RPI"' rachelpi/'  /etc/hosts
 
 # Restart DNS
 /etc/init.d/dnsmasq restart
+
+# --------------------------------
+# Set up caching
+#mkdir /mnt/sda1/cache
+
+# Set up Polipo docroot workaround
+#mkdir /www/polipo
+#chmod 777 /www/polipo
 
 

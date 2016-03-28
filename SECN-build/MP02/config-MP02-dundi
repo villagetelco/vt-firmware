@@ -3285,7 +3285,7 @@ CONFIG_DRIVER_11N_SUPPORT=y
 # CONFIG_PACKAGE_wpad-mesh is not set
 CONFIG_PACKAGE_wpad-mini=y
 # CONFIG_PACKAGE_wpan-tools is not set
-CONFIG_PACKAGE_wshaper=y
+#CONFIG_PACKAGE_wshaper is not set
 # CONFIG_PACKAGE_wwan is not set
 CONFIG_PACKAGE_xinetd=y
 
