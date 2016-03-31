@@ -1,0 +1,695 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>RACHEL - HOME</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="common.css">
+<link rel="stylesheet" type="text/css" href="style.css">
+<!--[if IE]><script type="text/javascript" src="css3-multi-column.min.js"></script><![endif]-->
+
+    <!-- live search suggestions -->
+    <script type="text/javascript" src="rsphider/include/jQuery/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="rsphider/include/jQuery/jquery-ui-1.10.2.custom.js"></script>
+    <link rel="stylesheet" href="rsphider/templates/Sphider-plus/jquery-ui-1.10.2.custom.css" type="text/css">
+    <script type="text/javascript">
+    $(function() {
+        $( "#main-search" ).autocomplete({
+            source: "rsphider/include/suggest.php?media_only=0&type=and&catid=0&category=0&db=0&prefix=0",
+            minLength: 1        });
+    });
+    $(function() {
+        $( "#wiki-search" ).autocomplete({
+            source: "rsphider/include/suggest.php?media_only=0&type=and&catid=3&category=3&db=0&prefix=0",
+            minLength: 1        });
+    });
+    $(function() {
+        $( "#hesp-search" ).autocomplete({
+            source: "rsphider/include/suggest.php?media_only=0&type=and&catid=1&category=1&db=0&prefix=0",
+            minLength: 1        });
+    });
+    $(function() {
+        $( "#medl-search" ).autocomplete({
+            source: "rsphider/include/suggest.php?media_only=0&type=and&catid=2&category=2&db=0&prefix=0",
+            minLength: 1        });
+    });
+    </script>
+    <!--/live search suggestions -->
+
+</head>
+
+<body onload="$('#main-search').focus();">
+<div id="rachel">
+Rachel
+<div id="ip">http://127.0.1.1/</div>
+</div>
+
+<div class="haut cf">
+    <ul>
+    <li><a href="index.php">HOME</a></li>
+    <li><a href="about.html">ABOUT</a></li>
+    <li><a href="local/">LOCAL CONTENT</a></li>
+    <li><a href="uploads/">UPLOAD CONTENT</a></li>
+    <li><a href="http://rachelpi/">RACHEL Pi</a></li>
+    </ul>
+    <form action="rsphider/search.php">
+      <div>
+      <input id="main-search" name="query_t" value="" size="50" autocomplete="off">
+      <input type="submit" value="Search RACHEL">
+      <input type="hidden" name="search" value="1">
+      </div>
+    </form>
+</div>
+
+<div id="content">
+
+<!-- position:10 -->
+<div class="indexmodule">
+
+    <form action="rsphider/search.php">
+      <div>
+        <input type="text" id="wiki-search" name="query_t" value="" autocomplete="off">
+        <input type="submit" name="search" value="Search Wikipedia">
+        <input type="hidden" name="category" value="3">
+      </div>
+    </form>
+
+    <a href="modules/wikipedia_for_schools/index.htm" target="content"><img src="modules/wikipedia_for_schools/wikipedia120.png" alt="Wikipedia"></a>
+
+    <h2><a href="modules/wikipedia_for_schools/index.htm" target="content">Wikipedia for Schools</a></h2>
+
+    <p>This curated selection of articles from Wikipedia can be used offline by
+    school children around the world. 6000 articles, 26 million words and 50,000
+    images make Wikipedia for Schools bigger than Harry Potter, the Lord of the
+    Rings and the Chronicles of Narnia put together!</p>
+
+    <ul class="triple">
+	<li><a href="wikipedia_for_schools/wp/index/subject.Art.htm" target="content">Art</a></li>
+	<li><a href="modules/wikipedia_for_schools/wp/index/subject.Art.htm" target="content">Art</a></li>
+	<li><a href="modules/wikipedia_for_schools/wp/index/subject.Business_Studies.htm" target="content">Business Studies</a></li>
+	<li><a href="modules/wikipedia_for_schools/wp/index/subject.Citizenship.htm" target="content">Citizenship</a></li>
+	<li><a href="modules/wikipedia_for_schools/wp/index/subject.Countries.htm" target="content">Countries</a></li>
+	<li><a href="modules/wikipedia_for_schools/wp/index/subject.Everyday_life.htm" target="content">Everyday life</a></li>
+	<li><a href="modules/wikipedia_for_schools/wp/index/subject.Design_and_Technology.htm" target="content">Design and Technology</a></li>
+	<li><a href="modules/wikipedia_for_schools/wp/index/subject.Geography.htm" target="content">Geography</a></li>
+	<li><a href="modules/wikipedia_for_schools/wp/index/subject.History.htm" target="content">History</a></li>
+	<li><a href="modules/wikipedia_for_schools/wp/index/subject.IT.htm" target="content">IT</a></li>
+	<li><a href="modules/wikipedia_for_schools/wp/index/subject.Language_and_literature.htm" target="content">Language and Literature</a></li>
+	<li><a href="modules/wikipedia_for_schools/wp/index/subject.Mathematics.htm" target="content">Mathematics</a></li>
+	<li><a href="modules/wikipedia_for_schools/wp/index/subject.Music.htm" target="content">Music</a></li>
+	<li><a href="modules/wikipedia_for_schools/wp/index/subject.People.htm" target="content">People</a></li>
+	<li><a href="modules/wikipedia_for_schools/wp/index/subject.Portals.htm" target="content">Portals</a></li>
+	<li><a href="modules/wikipedia_for_schools/wp/index/subject.Religion.htm" target="content">Religion</a></li>
+	<li><a href="modules/wikipedia_for_schools/wp/index/subject.Science.htm" target="content">Science</a></li>
+    </ul>
+
+</div>
+
+<!-- position:15 -->
+<div class="indexmodule">
+
+    <a href="modules/motoli/index.htm" target="content"><img src="modules/common/motolilogo.png" alt="MoToLi"></a>
+
+    <h2><a href="modules/motoli/index.htm" target="content">MoToLi</a></h2>
+
+    <p>MoToLi - Mother Tongue Literacy</p>
+
+    <ul class="triple">
+		<li><a href="modules/motoli/english-us/index.html" target="content">English US</a></li>
+		<li><a href="modules/motoli/french/index.html" target="content">Francais - French</a></li>
+		<li><a href="modules/motoli/spanish/index.html" target="content">Espanol - Spanish</a></li>
+		<li><a href="modules/motoli/khmer/index.html" target="content">Khmer</a></li>
+    </ul>
+
+</div>
+
+
+<!-- position:20 -->
+<div class="indexmodule">
+
+    <a href="modules/khan_academy/index.html"><img src="modules/khan_academy/kalogo.png" alt="Khan Academy"></a>
+
+    <h2><a href="modules/khan_academy/index.html">Khan Academy</a></h2>
+
+    <p>Over 2000 videos on math and science, from the basic to the
+       advanced. All Khan Academy content is available for free at
+       <a href="http://www.khanacademy.org/">www.khanacademy.org</a>.
+    </p>
+
+    <ul class="double">
+        <li class="listhead">Math
+        <li><a href="modules/khan_academy/math/arithmetic/index.html">Arithmetic and pre-algebra</a></li>
+        <li><a href="modules/khan_academy/math/algebra/index.html">Algebra</a></li>
+        <li><a href="modules/khan_academy/math/geometry/index.html">Geometry</a></li>
+        <li><a href="modules/khan_academy/math/trigonometry/index.html">Trigonometry and Precalculus</a></li>
+        <li><a href="modules/khan_academy/math/calculus/index.html">Calculus</a></li>
+        <li><a href="modules/khan_academy/math/differential-equations/index.html">Differential Equations</a></li>
+        <li><a href="modules/khan_academy/math/probability/index.html">Probability and Statistics</a></li>
+        <li class="listhead">Science
+        <li><a href="modules/khan_academy/science/biology/index.html">Biology</a></li>
+        <li><a href="modules/khan_academy/science/chemistry/index.html">Chemistry</a></li>
+        <li><a href="modules/khan_academy/science/cosmology-and-astronomy/index.html">Cosmology and Astronomy</a></li>
+        <li><a href="modules/khan_academy/science/healthcare-and-medicine/index.html">Healthcare and Medicine</a></li>
+        <li><a href="modules/khan_academy/science/organic-chemistry/index.html">Organic Chemistry</a></li>
+        <li><a href="modules/khan_academy/science/physics/index.html">Physics</a></li>
+    </ul>
+
+</div>
+
+<!-- position:30 -->
+<div class="indexmodule">
+
+    <a href="modules/medline_plus/index.html"><img src="modules/medline_plus/medlinepluslogo.png" alt="MedlinePlus"></a>
+
+    <h2><a href="modules/medline_plus/index.html">MedlinePlus Medical Encyclopedia</a></h2>
+
+    <p>
+        More than 4,000 cross-referenced medical articles from the U.S.
+        National Library of Medicine and the National Institutes of Health.
+        Includes comprehensive illustrations and photographs.
+    </p>
+
+    <table>
+    <tr>
+    <td><a href="modules/medline_plus/ency/encyclopedia_A-Ag.htm" target="content">A-Ag</a></td>
+    <td><a href="modules/medline_plus/ency/encyclopedia_Ah-Ap.htm" target="content">Ah-Ap</a></td>
+    <td><a href="modules/medline_plus/ency/encyclopedia_Aq-Az.htm" target="content">Aq-Az</a></td>
+    <td><a href="modules/medline_plus/ency/encyclopedia_B-Bk.htm" target="content">B-Bk</a></td>
+    <td><a href="modules/medline_plus/ency/encyclopedia_Bl-Bz.htm" target="content">Bl-Bz</a></td>
+    <td><a href="modules/medline_plus/ency/encyclopedia_C-Cg.htm" target="content">C-Cg</a></td>
+    <td><a href="modules/medline_plus/ency/encyclopedia_Ch-Co.htm" target="content">Ch-Co</a></td>
+    </tr>
+    <tr>
+    <td><a href="modules/medline_plus/ency/encyclopedia_Cp-Cz.htm" target="content">Cp-Cz</a></td>
+    <td><a href="modules/medline_plus/ency/encyclopedia_D-Di.htm" target="content">D-Di</a></td>
+    <td><a href="modules/medline_plus/ency/encyclopedia_Dj-Dz.htm" target="content">Dj-Dz</a></td>
+    <td><a href="modules/medline_plus/ency/encyclopedia_E-Ep.htm" target="content">E-Ep</a></td>
+    <td><a href="modules/medline_plus/ency/encyclopedia_Eq-Ez.htm" target="content">Eq-Ez</a></td>
+    <td><a href="modules/medline_plus/ency/encyclopedia_F.htm">F</a></td>
+    <td><a href="modules/medline_plus/ency/encyclopedia_G.htm" target="content">G</a></td>
+    </tr>
+    <tr>
+    <td><a href="modules/medline_plus/ency/encyclopedia_H-Hf.htm" target="content">H-Hf</a></td>
+    <td><a href="modules/medline_plus/ency/encyclopedia_Hg-Hz.htm" target="content">Hg-Hz</a></td>
+    <td><a href="modules/medline_plus/ency/encyclopedia_I-In.htm" target="content">I-In</a></td>
+    <td><a href="modules/medline_plus/ency/encyclopedia_Io-Iz.htm" target="content">Io-Iz</a></td>
+    <td><a href="modules/medline_plus/ency/encyclopedia_J.htm" target="content">J</a></td>
+    <td><a href="modules/medline_plus/ency/encyclopedia_K.htm" target="content">K</a></td>
+    <td><a href="modules/medline_plus/ency/encyclopedia_L-Ln.htm" target="content">L-Ln</a></td>
+    </tr>
+    <tr>
+    <td><a href="modules/medline_plus/ency/encyclopedia_Lo-Lz.htm" target="content">Lo-Lz</a></td>
+    <td><a href="modules/medline_plus/ency/encyclopedia_M-Mf.htm" target="content">M-Mf</a></td>
+    <td><a href="modules/medline_plus/ency/encyclopedia_Mg-Mz.htm" target="content">Mg-Mz</a></td>
+    <td><a href="modules/medline_plus/ency/encyclopedia_N.htm" target="content">N</a></td>
+    <td><a href="modules/medline_plus/ency/encyclopedia_O.htm" target="content">O</a></td>
+    <td><a href="modules/medline_plus/ency/encyclopedia_P-Pl.htm" target="content">P-Pl</a></td>
+    <td><a href="modules/medline_plus/ency/encyclopedia_Pm-Pz.htm" target="content">Pm-Pz</a></td>
+    </tr>
+    <tr>
+    <td><a href="modules/medline_plus/ency/encyclopedia_Q.htm" target="content">Q</a></td>
+    <td><a href="modules/medline_plus/ency/encyclopedia_R.htm" target="content">R</a></td>
+    <td><a href="modules/medline_plus/ency/encyclopedia_S-Sh.htm" target="content">S-Sh</a></td>
+    <td><a href="modules/medline_plus/ency/encyclopedia_Si-Sp.htm" target="content">Si-Sp</a></td>
+    <td><a href="modules/medline_plus/ency/encyclopedia_Sq-Sz.htm" target="content">Sq-Sz</a></td>
+    <td><a href="modules/medline_plus/ency/encyclopedia_T-Tn.htm" target="content">T-Tn</a></td>
+    <td><a href="modules/medline_plus/ency/encyclopedia_To-Tz.htm" target="content">To-Tz</a></td>
+    </tr>
+    <tr>
+    <td><a href="modules/medline_plus/ency/encyclopedia_U.htm" target="content">U</a></td>
+    <td><a href="modules/medline_plus/ency/encyclopedia_V.htm" target="content">V</a></td>
+    <td><a href="modules/medline_plus/ency/encyclopedia_W.htm" target="content">W</a></td>
+    <td><a href="modules/medline_plus/ency/encyclopedia_X.htm" target="content">X</a></td>
+    <td><a href="modules/medline_plus/ency/encyclopedia_Y.htm" target="content">Y</a></td>
+    <td><a href="modules/medline_plus/ency/encyclopedia_Z.htm" target="content">Z</a></td>
+    <td><a href="modules/medline_plus/ency/encyclopedia_0-9.htm" target="content">0-9</a></td>
+    </tr>
+    </table>
+
+    <p class="smallblurb">
+        These materials do not provide medical advice and are for informational purposes only.
+        This content is not intended to be a substitute for professional medical advice, diagnosis or
+        treatment. Always seek the advice of a qualified health provider with any questions you may
+        have regarding a medical condition. Never disregard professional medical advice or delay in
+        seeking it because of something you have read here.
+    </p>
+
+</div>
+
+<!-- position:40 -->
+<div class="indexmodule">
+
+    <img src="modules/hesperian_health/hesperianlogo.png" alt="Hesperian">
+
+    <h2>Hesperian Health Guides</h2>
+
+    <p>Easy to understand, practical, accurate, and heavily illustrated guides
+    on health topics that for remote areas where access to medical personnel
+    and facilities is limited.</p>
+
+    <ul>
+
+    <li><a href="modules/hesperian_health/en_wtnd_2011_full/page1.html">
+        Where There Is No Doctor. A village health care handbook.</a>
+        (<a href="modules/hesperian_health/en_wtnd_2011_full.pdf">Printable PDF</a>)
+
+    <li><a href="modules/hesperian_health/en_dent_2012_full/page1.html">
+        Where There Is No Dentist</a>
+        (<a href="modules/hesperian_health/en_dent_2012_full.pdf">Printable PDF</a>)
+
+    <li><a href="modules/hesperian_health/en_wwhnd_2012_full/page1.html">
+        Where Women Have No Doctor</a>
+        (<a href="modules/hesperian_health/en_wwhnd_2012_full.pdf">Printable PDF</a>)
+
+    <li><a href="modules/hesperian_health/DVC_2009/page1.html">
+        Disabled Village Children</a>
+        (<a href="modules/hesperian_health/DVC_2009.pdf">Printable PDF</a>)
+
+    <li><a href="modules/hesperian_health/en_WWD_2008_full_book/page1.html">
+        Women with Disabilities - A Health Handbook</a>
+        (<a href="modules/hesperian_health/en_WWD_2008_full_book.pdf">Printable PDF</a>)
+
+    <li><a href="modules/hesperian_health/en_midw_2011_Full_Book/page1.html">
+        A Book for Midwives: Care for pregnancy and birth</a>
+        (<a href="modules/hesperian_health/en_midw_2011_Full_Book.pdf">Printable PDF</a>)
+
+    <li><a href="modules/hesperian_health/en_hcwd_2004_Full_Book/page1.html">
+        Helping Children Who Are Deaf</a>
+        (<a href="modules/hesperian_health/en_hcwd_2004_Full_Book.pdf">Printable PDF</a>)
+
+    <li><a href="modules/hesperian_health/en_hcwb_2000_whole_book/page1.html">
+        Helping Children Who Are Blind</a>
+        (<a href="modules/hesperian_health/en_hcwb_2000_whole_book.pdf">Printable PDF</a>)
+
+    <li><a href="modules/hesperian_health/Cholera_EN/page1.html">
+        Cholera Prevention Fact Sheet</a>
+        (<a href="modules/hesperian_health/Cholera_EN.pdf">Printable PDF</a>)
+
+    <li><a href="modules/hesperian_health/EHB_Sanitation_EN_watermark/page1.html">
+        Sanitation and Cleanliness for a Healthy Environment</a>
+        (<a href="modules/hesperian_health/EHB_Sanitation_EN_watermark.pdf">Printable PDF</a>)
+
+    <li><a href="modules/hesperian_health/ehb_water_EN_watermark/page1.html">
+        Water for Life - Community water security</a>
+        (<a href="modules/hesperian_health/ehb_water_EN_watermar.pdf">Printable PDF</a>)
+
+    <li><a href="modules/hesperian_health/en_cgeh_2012_full/page1.html">
+        A Community Guide to Environmental Health</a>
+        (<a href="modules/hesperian_health/en_cgeh_2012_full.pdf">Printable PDF</a>)
+
+    <li><a href="modules/hesperian_health/en_hhwl_2012_full/page1.html">
+        Helping Health Workers Learn</a>
+        (<a href="modules/hesperian_health/en_hhwl_2012_full.pdf">Printable PDF</a>)
+
+    </ul>
+
+    <p class="smallblurb">
+        These materials do not provide medical advice and are for informational purposes only.
+        This content is not intended to be a substitute for professional medical advice, diagnosis or
+        treatment. Always seek the advice of a qualified health provider with any questions you may
+        have regarding a medical condition. Never disregard professional medical advice or delay in
+        seeking it because of something you have read here.
+    </p>
+
+
+</div>
+<!-- position:50 -->
+<div class="indexmodule">
+
+    <a href="modules/khan_academy/science/healthcare-and-medicine/index.html"><img src="modules/khan_health/khanhealthlogo.png" alt="Khan Academy Health"></a>
+
+    <h2><a href="modules/khan_academy/science/healthcare-and-medicine/index.html">Khan Academy Health &amp; Medicine</a></h2>
+
+    <p>Nearly 200 videos on health topics, covering the workings of major body
+       systems and the diseases that affect them. All Khan Academy content is
+       available for free at <a href="http://www.khanacademy.org/">www.khanacademy.org</a>.
+    </p>
+
+    <ul class="double">
+    <li><a href="modules/khan_academy/science/healthcare-and-medicine/the-heart/index.html"> The Heart</a></li>
+    <li><a href="modules/khan_academy/science/healthcare-and-medicine/the-lungs/index.html"> The Lungs</a></li>
+    <li><a href="modules/khan_academy/science/healthcare-and-medicine/influenza/index.html"> Influenza</a></li>
+    <li><a href="modules/khan_academy/science/healthcare-and-medicine/blood/index.html"> Blood</a></li>
+    <li><a href="modules/khan_academy/science/healthcare-and-medicine/blood-vessel-diseases/index.html"> Blood Vessel Diseases</a></li>
+    <li><a href="modules/khan_academy/science/healthcare-and-medicine/fetal-circulation/index.html"> Fetal Circulation</a></li>
+    <li><a href="modules/khan_academy/science/healthcare-and-medicine/arterial-stiffness/index.html"> Arterial Stiffness</a></li>
+    <li><a href="modules/khan_academy/science/healthcare-and-medicine/healthy-lifestyle/index.html"> Healthy Lifestyle</a></li>
+    <li><a href="modules/khan_academy/science/healthcare-and-medicine/endocrinology-and-diabetes/index.html"> Endocrinology and Diabetes</a></li>
+    <li><a href="modules/khan_academy/science/healthcare-and-medicine/health-care-system/index.html"> Health Care System</a></li>
+    <li><a href="modules/khan_academy/science/healthcare-and-medicine/colon-disease/index.html"> Colon Disease</a></li>
+    <li><a href="modules/khan_academy/science/healthcare-and-medicine/cervical-spine/index.html"> Cervical Spine</a></li>
+    <li><a href="modules/khan_academy/science/healthcare-and-medicine/hypertension/index.html"> Hypertension</a></li>
+    <li><a href="modules/khan_academy/science/healthcare-and-medicine/lab-values/index.html"> Lab Values and Concentrations</a></li>
+    <li><a href="modules/khan_academy/science/healthcare-and-medicine/heart-disease-and-stroke/index.html"> Heart Disease and Stroke</a></li>
+    <li><a href="modules/khan_academy/science/healthcare-and-medicine/heart-muscle-contraction/index.html"> Heart Muscle Contraction</a></li>
+    <li><a href="modules/khan_academy/science/healthcare-and-medicine/heart-depolarization/index.html"> Heart Depolarization</a></li>
+    <li><a href="modules/khan_academy/science/healthcare-and-medicine/nerve-regulation-of-the-heart/index.html"> Nerve Regulation of the Heart</a></li>
+    <li><a href="modules/khan_academy/science/healthcare-and-medicine/pressure-volume-loops/index.html"> Pressure Volume Loops</a></li>
+    <li><a href="modules/khan_academy/science/healthcare-and-medicine/changing-the-PV-loop/index.html"> Changing the PV Loop</a></li>
+    <li><a href="modules/khan_academy/science/healthcare-and-medicine/preload-and-afterload/index.html"> Preload and Afterload</a></li>
+    <li><a href="modules/khan_academy/science/healthcare-and-medicine/healthcare-misc/index.html"> Miscellaneous</a></li>
+    </ul>
+
+    <p class="smallblurb">
+        These materials do not provide medical advice and are for informational purposes only.
+        This content is not intended to be a substitute for professional medical advice, diagnosis or
+        treatment. Always seek the advice of a qualified health provider with any questions you may
+        have regarding a medical condition. Never disregard professional medical advice or delay in
+        seeking it because of something you have read here.
+    </p>
+
+</div>
+
+<!-- position:55 -->
+<div class="indexmodule">
+
+    <a href="modules/infonet/starthere.html" target="content"><img src="modules/infonet/infonet.png" alt="infonet-biovision"></a>
+
+    <h2><a href="modules/infonet/starthere.html" target="content">Infonet-Biovision</a></h2>
+
+    <p>Well organized and illustrated information on a wide range of agricultural,
+    environmental, and health topics.</p>
+
+    <ul class="double">
+        <li class="listhead"><a href="modules/infonet/export/default$text$-1$plantHealth.html" target="content">Plant</a></li>
+	  <li><a href="modules/infonet/export/default$ovvImg$-1$crops.html" target="content">Crops, fruits, vegetables and grains</a></li>
+	  <li><a href="modules/infonet/export/default$ovvImg$-1$pests.html" target="content">Pests and diseases</a></li>
+	  <li><a href="modules/infonet/export/default$ovvImg$-1$medicinalPlants.html" target="content">Medicinal plants</a></li>
+	  <li><a href="modules/infonet/export/default$ovvImg$-1$farmPlanningAndMarketing.html" target="content">Fruit and vegetable processing</a></li>
+	  <li><a href="modules/infonet/export/default$ovvImg$-1$recipesForOrganicPesticides.html" target="content">Natural pest control</a></li>
+	  <li><a href="modules/infonet/export/default$ovvImg$-1$soilFertilityManagement.html" target="content">Cultural control practices</a></li>
+        <li class="listhead"><a href="modules/infonet/export/default$text$-1$humanHealth.html" target="content">Human</a></li>
+	  <li><a href="modules/infonet/export/default$ovvImg$-1$healthyFood.html" target="content">Healthy food</a></li>
+	  <li><a href="modules/infonet/export/default$ovvImg$-1$nutrition.html" target="content">Nutrition related diseases</a></li>
+	  <li><a href="modules/infonet/export/default$ovvImg$-1$humanDiseases.html" target="content">Insect transmitted diseases</a></li>
+	  <li><a href="modules/infonet/export/default$ovvImg$-1$zoonoticDiseases.html" target="content">Zoonotic diseases</a></li>
+	  <li><a href="modules/infonet/export/default$ovvImg$-1$hygiene.html" target="content">Hygiene and sanitation</a></li>
+        <li class="listhead"><a href="modules/infonet/export/default$text$-1$animalHealth.html" target="content">Animals</a></li>
+	  <li><a href="modules/infonet/export/default$ovvImg$-1$animalKeeping.html" target="content">Animal husbandry and welfare</a></li>
+	  <li><a href="modules/infonet/export/default$ovvImg$-1$livestockSpecies.html" target="content">Livestock species and commercial insects</a></li>
+	  <li><a href="modules/infonet/export/default$ovvImg$-1$animalDiseases.html" target="content">Livestock health and diseases</a></li>
+	  <li><a href="modules/infonet/export/default$ovvImg$-1$fodder.html" target="content">Fodder production</a></li>
+	  <li><a href="modules/infonet/export/default$ovvImg$-1$products.html" target="content">Products</a></li>
+        <li class="listhead"><a href="modules/infonet/export/default$text$-1$environmentalHealth.html" target="content">Environment</a></li>
+	  <li><a href="modules/infonet/export/default$ovvImg$-1$agrozones.html" target="content">Agro-ecological zones</a></li>
+	  <li><a href="modules/infonet/export/default$ovvImg$-1$soilConservation.html" target="content">Water management</a></li>
+	  <li><a href="modules/infonet/export/default$ovvImg$-1$soilManagement.html" target="content">Soil management</a></li>
+	  <li><a href="modules/infonet/export/default$ovvImg$-1$sustainableLandManagement.html" target="content">Sustainable and organic agriculture</a></li>
+	  <li><a href="modules/infonet/export/default$ovvImg$-1$biodiversity.html" target="content">Conservation agriculture</a></li>
+	  <li><a href="modules/infonet/export/default$ovvImg$-1$agroforestry.html" target="content">Trees</a></li>
+	  <li><a href="modules/infonet/export/default$ovvImg$-1$incomeGeneration.html" target="content">Processing and value addition</a></li>
+    </ul>
+
+    <div style="margin-left: 130px;">
+
+        <b><a href="modules/infonet/export/default$text$-1$orgFarmerGroup.html" target="content">The Organic Farmer - Magazine</a></b>
+
+        <p>Over 80 printable magazines on farming from Kenya. Used by over 60,000 farmers for guidance and practical
+        tips on securing and increasing their harvests through simple, environmentally friendly means.</p>
+
+    </div>
+
+</div>
+
+<!-- position:57 -->
+<div class="indexmodule">
+
+    <a href="modules/practical_action/index.html" target="content"><img src="modules/practical_action/practical_action.png" alt="Practical Action"></a>
+
+    <h2><a href="modules/practical_action/index.html" target="content">Practical Action</a></h2>
+
+    <p>Practical Action has been using appropriate technology to help people in the developing world for more than four decades.
+    The focus is on helping local people do what they already do even better. Here you will find broad knowledge bank of
+    technologies that you can replicate.</p>
+
+    <ul class="double">
+        <li><a href="modules/practical_action/index.html#Agriculture" target="content">Agriculture</a></li>
+        <li><a href="modules/practical_action/index.html#Construction" target="content">Construction</a></li>
+        <li><a href="modules/practical_action/index.html#Crop processing" target="content">Crop processing</a></li>
+        <li><a href="modules/practical_action/index.html#Disaster response, mitigation and rebuilding" target="content">Disaster response, mitigation and rebuilding</a></li>
+        <li><a href="modules/practical_action/index.html#Energy" target="content">Energy</a></li>
+        <li><a href="modules/practical_action/index.html#Environment and adaptation to climate change" target="content">Environment and adaptation to climate change</a></li>
+        <li><a href="modules/practical_action/index.html#Fisheries" target="content">Fisheries</a></li>
+        <li><a href="modules/practical_action/index.html#Food processing" target="content">Food processing</a></li>
+        <li><a href="modules/practical_action/index.html#Information, communication, learning" target="content">Information, communication, learning</a></li>
+        <li><a href="modules/practical_action/index.html#Livestock" target="content">Livestock</a></li>
+        <li><a href="modules/practical_action/index.html#Manufacturing, handicraft, process industries" target="content">Manufacturing, handicraft, process industries</a></li>
+        <li><a href="modules/practical_action/index.html#Natural resources management" target="content">Natural resources management</a></li>
+        <li><a href="modules/practical_action/index.html#Social and economic development" target="content">Social and economic development</a></li>
+        <li><a href="modules/practical_action/index.html#Transport and infrastructure" target="content">Transport and infrastructure</a></li>
+        <li><a href="modules/practical_action/index.html#Waste management" target="content">Waste management</a></li>
+        <li><a href="modules/practical_action/index.html#Water and sanitation" target="content">Water and sanitation</a></li>
+    </ul>
+
+</div>
+
+<!-- position:60 -->
+<div class="indexmodule">
+
+    <a href="modules/ebooks/index.html"><img src="modules/ebooks/coolbooksmall.jpg" alt="Great Books of the World"></a>
+
+    <h2><a href="modules/ebooks/index.html">Great Books of the World</a></h2>
+
+    <p>A searchable, categorized selection of over 400 of the most beloved and
+       respected books from around the world, collected from
+       <a href="http://www.gutenberg.org/">Project Gutenberg</a>.
+    </p>
+
+    <ul class="double">
+    <li><a href="modules/ebooks/top100favorites.html">Top 100 Favorites</a>
+    <li><a href="modules/ebooks/top100nonfiction.html">Top 100 Non-Fiction</a>
+    <li><a href="modules/ebooks/adventure.html">Adventure</a> <small>(24 titles)</small>
+    <li><a href="modules/ebooks/biographies.html">Biographies</a> <small>(24 titles)</small>
+    <li><a href="modules/ebooks/childrensstories.html">Children's Stories</a> <small>(23 titles)</small>
+    <li><a href="modules/ebooks/comedyhumor.html">Comedy & Humor</a> <small>(38 titles)</small>
+    <li><a href="modules/ebooks/drama.html">Drama</a> <small>(35 titles)</small>
+    <li><a href="modules/ebooks/fantasy.html">Fantasy</a> <small>(20 titles)</small>
+    <li><a href="modules/ebooks/folklore.html">Folklore</a> <small>(7 titles)</small>
+    <li><a href="modules/ebooks/historicalfiction.html">Historical Fiction</a> <small>(38 titles)</small>
+    <li><a href="modules/ebooks/historicalnonfiction.html">Historical Non-Fiction</a> <small>(30 titles)</small>
+    <li><a href="modules/ebooks/horror.html">Horror</a> <small>(18 titles)</small>
+    <li><a href="modules/ebooks/mystery.html">Mystery</a> <small>(17 titles)</small>
+    <li><a href="modules/ebooks/philosophyreligion.html">Philosophy & Religion</a> <small>(30 titles)</small>
+    <li><a href="modules/ebooks/poetry.html">Poetry</a> <small>(41 titles)</small>
+    <li><a href="modules/ebooks/romance.html">Romance</a> <small>(35 titles)</small>
+    <li><a href="modules/ebooks/sciencefiction.html">Science Fiction</a> <small>(27 titles)</small>
+    <li><a href="modules/ebooks/shortstories.html">Short Stories</a> <small>(25 titles)</small>
+    </ul>
+
+</div>
+
+<!-- position:70 -->
+<div class="indexmodule">
+
+    <img src="modules/ck12/ck12logo.jpg" alt="CK-12 Textbooks">
+
+    <h2>CK-12 Textbooks</h2>
+
+    <p>High quality textbooks on STEM (Science, Technology, Engineering and Math) from ck12.org.</p>
+
+    <ul class="double">
+    <li><a href="modules/ck12/algebra_explorations.pdf" target="content">Algebra Explorations, Pre-K through Grade 7</a>
+    <li><a href="modules/ck12/ck12_basic_algebra.pdf" target="content">Basic Algebra</a>
+    <li><a href="modules/ck12/ck12_basic_algebra_concepts.pdf" target="content">Basic Algebra Concepts</a>
+    <li><a href="modules/ck12/ck12_algebra1.pdf" target="content">Algebra 1</a>
+    <li><a href="modules/ck12/algebra1_teacher_edition.pdf" target="content">Algebra I Teacher's Edition</a>
+    <li><a href="modules/ck12/ck12_algebra2.pdf" target="content">Algebra 2</a>
+    <li><a href="modules/ck12/ck12_basic_geometry.pdf" target="content">Basic Geometry</a>
+    <li><a href="modules/ck12/ck12_basic_geometry_teacher_edition.pdf" target="content">Basic Geometry, Teacher's Edition</a>
+    <li><a href="modules/ck12/ck12_basic_geometry_concepts.pdf" target="content">Basic Geometry Concepts</a>
+    <li><a href="modules/ck12/ck12_geometry.pdf" target="content">Geometry</a>
+    <li><a href="modules/ck12/ck12_geometry_teacher_edition.pdf" target="content">Geometry, Teacher's Edition</a>
+    <li><a href="modules/ck12/ck12_trigonometry_concepts.pdf" target="content">CK-12 Trigonometry Concepts</a>
+    <li><a href="modules/ck12/ck12_trigonometry.pdf" target="content">Trigonometry</a>
+    <li><a href="modules/ck12/ck12_trigonometry_teacher_edition.pdf" target="content">Trigonometry, Teacher's Edition</a>
+    <li><a href="modules/ck12/ck12_basic_prob_stats_short.pdf" target="content">Basic Probability and Statistics - A Short Course</a>
+    <li><a href="modules/ck12/ck12_basic_prob_stats_full.pdf" target="content">Basic Probability and Statistics - A Full Course</a>
+    <li><a href="modules/ck12/ck12_basic_prob_stats_concepts.pdf" target="content">CK-12 Basic Probability and Statistics Concepts - A Full Course</a>
+    <li><a href="modules/ck12/ck12_adv_prob_stats_concepts.pdf" target="content">CK-12 Advanced Probability and Statistics Concepts</a>
+    <li><a href="modules/ck12/ck12_prob_stats_adv_placement.pdf" target="content">Probability and Statistics (Advanced Placement)</a>
+    <li><a href="modules/ck12/ck12_adv_prob_stats_teacher_edition.pdf" target="content">Advanced Probability and Statistics Teacher's Edition</a>
+    <li><a href="modules/ck12/ck12_calculus.pdf" target="content">Calculus</a>
+    <li><a href="modules/ck12/ck12_calculus_teacher_edition.pdf" target="content">Calculus, Teacher's Edition</a>
+    <li><a href="modules/ck12/ck12_basic_physics.pdf" target="content">Basic Physics</a>
+    <li><a href="modules/ck12/ck12_people_physics_concepts.pdf" target="content">CK-12 People's Physics Concepts</a>
+    <li><a href="modules/ck12/ck12_physics_star.pdf" target="content">Physics - From Stargazers to Starships</a>
+    <li><a href="modules/ck12/ck12_physics_21st_century.pdf" target="content">21st Century Physics</a>
+    <li><a href="modules/ck12/ck12_chemistry.pdf" target="content">Chemistry</a>
+    <li><a href="modules/ck12/ck12_chemistry_teacher_edition.pdf" target="content">Chemistry, Teacher's Edition</a>
+    <li><a href="modules/ck12/ck12_chemistry_labs_demos.pdf" target="content">Chemistry - Labs & Demos</a>
+    <li><a href="modules/ck12/ck12_biology.pdf" target="content">Biology</a>
+    <li><a href="modules/ck12/ck12_biology_workbook.pdf" target="content">Biology Workbook</a>
+    <li><a href="modules/ck12/ck12_biology_teacher_edition.pdf" target="content">Biology, Teacher's Edition</a>
+    <li><a href="modules/ck12/ck12_life_science_ms.pdf" target="content">Life Science for Middle School</a>
+    <li><a href="modules/ck12/ck12_earth_science_concepts.pdf" target="content">Earth Science Concepts</a>
+    <li><a href="modules/ck12/ck12_earth_science_ms.pdf" target="content">Earth Science for Middle Schools</a>
+    <li><a href="modules/ck12/ck12_earth_science_hs.pdf" target="content">Earth Science for High Schools</a>
+    <li><a href="modules/ck12/ck12_engineering_hs.pdf" target="content">Engineering - An Introduction for High School</a>
+    </ul>
+
+</div>
+
+<!-- position:90 -->
+<div class="indexmodule">
+
+    <img src="modules/olpc/olpclogo.jpg" alt="OLPC Educational Packages">
+
+    <h2>OLPC Educational Packages</h2>
+
+    <p>A collection of educational materials consolidated by the OLPC project.</p>
+
+    <ul class="double">
+    <li><a href="modules/olpc/icdl/index.en.html" target="content">Storybooks</a>
+    <li><a href="modules/olpc/web_design/index.html" target="content">Web Design</a>
+    <li><a href="modules/olpc/wikibooks/index.en.html" target="content">Wikibooks</a>
+    <li><a href="modules/olpc/wikislice-en/index.html" target="content">Wikislice General</a>
+    <li><a href="modules/olpc/wikislice-animals-en/index.html" target="content">Wikislice Animals</a>
+    <li><a href="modules/olpc/wikihow/index.html" target="content">WikiHow</a>
+    <li><a href="modules/olpc/biology/index.en.html" target="content">Biology</a>
+    <li><a href="modules/olpc/wikislice-chemistry-en/index.html" target="content">Wikislice Chemistry</a>
+    <li><a href="modules/olpc/wikislice-physics-en/index.html" target="content">Wikislice Physics</a>
+    <li><a href="modules/olpc/wp-world-images/index.en.html" target="content">Nature Photographs</a>
+    <li><a href="modules/olpc/wdl/index.en.html" target="content">World Culture</a>
+    <li><a href="modules/olpc/musical_look_at_waste/index.html" target="content">How to Build Musical Instruments</a>
+    <li><a href="modules/olpc/Yay-Bee-See/index.html" target="content">y-Bee-See -  An interactive ABC picturebook</a>
+    <li><a href="modules/olpc/dictionary-m1/index.en.html" target="content">A compact multilingual translation dictionary</a>
+    </ul>
+
+</div>
+
+<!-- position:100 -->
+<div class="indexmodule">
+
+    <img src="modules/iicba/iicbalogo.jpg" alt="UNESCO's IICBA Electronic Library">
+
+    <h2>UNESCO's IICBA Electronic Library</h2>
+
+    <p>Teachers' resources from the UNESCO International Institute for Capacity Building in Africa.</p>
+
+    <ul>
+    <li><a href="modules/iicba/PRIMARY_MATHS_SERIES/MATH_PAGES/index_pages/math_home.htm" target="content">Primary Mathematics in English</a>
+    <li><a href="modules/iicba/PRIMARY_SCIENCE_SERIES/SCIENCE_PAGES/index_pages/science_home.htm" target="content">Primary Science in English</a>
+    <li><a href="modules/iicba/SECONDARY_SCIENCE_SERIES/index_pages/science_home.htm" target="content">Secondary Science in English</a>
+    <li><a href="modules/iicba/Better_Schools/index.html" target="content">School Management in English</a>
+    <li><a href="modules/iicba/HIV_AIDS/cdrom%20materials/navigation%20pages/series%20home%20page.htm" target="content">HIV/AIDS Electronic Library - resource for teachers</a>
+    </ul>
+
+</div>
+
+<!-- position:110 -->
+<div class="indexmodule">
+
+    <a href="modules/math_expression/index.html"><img src="modules/math_expression/mathexpressionlogo.jpg" alt="Math Expression"></a>
+
+    <h2><a href="modules/math_expression/index.html">Math Expression</a></h2>
+
+    <p>Math tutoring materials that include Math videos, Study Tips, Practice Questions and Step-by-Step solutions.</p>
+
+    <p>For each lesson, read the study tips carefully and take note of the important concepts/ideas before watching
+       the video. These tips will guide you in your math thinking strategies.
+    </p>
+
+</div>
+
+<!-- position:120 -->
+<div class="indexmodule">
+
+    <a href="modules/powertyping/index.html"><img src="modules/powertyping/powertypinglogo.jpg" alt="Powertyping"></a>
+
+    <h2><a href="modules/powertyping/index.html">Powertyping</a></h2>
+
+    <p>Full lessons and exercises to learn touch typing or improve your typing skills.
+       Include many entertaining typing games, tests an practice drills.</p>
+
+</div>
+
+<!-- position:130 -->
+<div class="indexmodule">
+
+    <a href="modules/scratch/index.html"><img src="modules/scratch/scratchlogo.jpg" alt="MIT Scratch"></a>
+
+    <h2><a href="modules/scratch/index.html">MIT Scratch</a></h2>
+
+    <p>Scratch is a programming language that makes it easy to create your own
+       interactive stories, animations, games, music, and art.</p>
+
+    <p>As young people create and share Scratch projects, they learn important
+       mathematical and computational ideas, while also learning to think creatively,
+       reason systematically, and work collaboratively. Scratch is designed especially
+       for ages 8 to 16, but is used by people of all ages.</p>
+
+</div>
+
+<!-- position:130 -->
+<div class="indexmodule">
+
+    <a href="modules/musictheory/index.html"><img src="modules/musictheory/musictheorylogo.jpg" alt="Music Theory"></a>
+
+    <h2><a href="modules/musictheory/index.html">Music Theory</a></h2>
+
+    <p>Comprehensive music theory lessons and exercises to begin your journey into the realm of music.</p>
+
+</div>
+
+<!-- position:140 -->
+<div class="indexmodule">
+
+    <a href="modules/understanding_algebra/default.htm"><img src="modules/understanding_algebra/understandingalgebralogo.png" alt="Understanding Algebra"></a>
+
+    <h2><a href="modules/understanding_algebra/default.htm">Understanding Algebra</a></h2>
+
+    <p>A complere, concise, and illustrated textbook introducing algebra
+       that can be viewed here or printed out.</p>
+
+</div>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- position:190 -->
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html;
+      charset=windows-1252">
+    <title>Windows Applications</title>
+  </head>
+  <body>
+    <div class="indexmodule"> <img
+        src="modules/windows_apps/rachel-logo-wiki.png"
+        alt="Applications to Download to Windows-based PC">
+      <h2><a href="modules/windows_apps/index.html"
+          target="content">Windows Applications<br>
+        </a></h2>
+      <p>You can download these applications to a Windows-based PC by
+        right clicking on the application name below:<br>
+      </p>
+     <p><a
+     href="modules/windows_apps/FirefoxPortable_34.0.5_English.paf.exe" download> Mozilla
+         Firefox download</a><br>
+      </p>
+      <p><a
+     href="modules/windows_apps/OpenOfficePortable_3.2.0_English.paf.exe" download> OpenOffice
+             Suite</a><br>
+      </p>
+      <p><a
+          href="modules/windows_apps/VLCPortable_2.1.5.paf.exe" download> VLC
+          Video Player</a><br>
+      </p>
+    </div>
+  </body>
+</html>
+
+</div>
+
+<div class="haut cf" style="margin-bottom: 80px;">
+    <ul>
+    <li><a href="index.php">HOME</a></li>
+    <li><a href="about.html">ABOUT</a></li>
+    <li><a href="local/">LOCAL CONTENT</a></li>
+    <li><a href="uploads/">UPLOAD CONTENT</a></li>
+    <li><a href+"mailto:info@worldpossible.org">email: info@worldpossible.org</a></li>
+    </ul>
+    <div id="footer_right">RACHEL - 32GB 3.1.0 version</div>
+</div>
+
+</body>
+</html>
+

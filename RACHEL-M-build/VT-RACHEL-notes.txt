@@ -1,0 +1,153 @@
+Notes on VT-RACHEL
+------------------
+
+VT-RACHEL is a version of the VT SECN firmware designed to provide RACHEL content via the MP2 and similar devices.
+
+the RACHEL Project has assembled a large body of Internet content which can be freely used on local web servers. 
+The RACHEL Project website is here:  http://www.worldpossible.org/rachel/
+
+There are several ways to deploy the RACHEL system, and the VT-RACHEL firmware does this using the MP2 and similar devices.
+
+The basic idea is that you can plug a USB memory device containing the RACHEL content into the MP2, and the MP2 will 
+serve the content to laptops and other devices connected to the MP2 by WiFi. 
+
+This will provide a stand alone facility that gives access to a wide range of material that the RACHEL project have
+assembled, including Wikipedia for Schools, Khan Academy, Medline and Hesperian health databases, Gutenberg book collection, 
+CK-12 Textbooks, UNESCO IICBA teaching resource etc.
+
+You can use a 32GB USB / SD card provided by the RACHEL Project, or you can assemble your own. 
+For example a USB with just the Wikipedia for Schools content needs to be only 8GB in size.
+
+If you have an Internet connection, you can connect it to the MP2 with Ethernet and the MP2 will share the connection to 
+connected devices.
+
+You can also use the MP2 in conjunction with the RACHEL-Pi device. The RACHEL-Pi will provide a search engine and usage 
+information, and the MP2 will provide a robust wifi access point as well as power for the RACHEL-Pi.
+
+
+Quick Start
+-----------
+
+1. Flash the MP2 or other device with the VT-RACHEL firmware in the normal way.
+
+2. Install a suitable memory device (eg SD card) with the RACHEL content.
+
+3. After restarting, the MP2 will appear as a WiFi Access Point called 'VT-RACHEL-1' with a password of 'password'
+
+4. Connect your laptop or other device to the Access Point via wifi.
+
+5. Point your web browser to 'http://vtrachel' and you should see the RACHEL table of contents.
+
+
+Setting up the RACHEL Content
+-----------------------------
+
+There are several options for setting up the content on a suitable memory device.
+Note that Class 10 SD cards are recommended, although USB memory sticks may work in some devices. 
+Note also that the content amounts to some 32GB of data which represents large downloads and copying times.
+It is recommended to obtain a pre-loaded memory device, or to download the various modules separately.
+
+Option 1. Get a VillageTelco Project memory device
+--------
+Obtain a pre-loaded micro SD card and USB adapter from  the Village Telco on-line store.
+The card will be preloaded with the content. Note that there may be several options for card content to choose from.
+
+
+Option 2. Get a RACHEL Project memory device
+--------
+The World Possible RACHEL Project can provide 32GB USB and SD card memory devices pre-loaded with the content.
+These devices (as at the time of writing) will be detected by the VT-RACHEL firmware and operate correctly.
+However the data layout of these devices may change over time and so not be correctly detected.
+In any case, they should contain the content and you may have to copy it to a device that you create as below.
+
+
+Option 3. Create a USB Drive to contain the RACHEL content
+--------
+In the download directory with the firmware is a file called 'VT-RACHEL-USB.zip'
+Download this file, unzip it and copy all the files and directories on to a suitable USB drive or micro SD/TF card formatted as FAT32.
+This will give you the home page including the table of contents.
+
+To add content, download or copy the required content directories and place them into the 'modules' directory on the USB drive.
+From the home page you will now be able to access the content in the modules.
+
+You can also add additional content by loading the appropriate files into the 'local' directory.
+You can load a range of files that can be handled by your web browser, including HTML, PDF, TXT, JPG, OGG, MP3, MP4, MOV etc.
+
+Download sites:
+A. http://dev.worldpossible.org/mods/  RACHEL Project content via rsync.
+B. http://jonathanfield.com/web/kaos/  Khan Academy On a Stick content via rsync.
+C. http://1drv.ms/1e268m2              MoToLi content via http.
+D. http://1drv.ms/1IwPsLu              Wikipedia for Schools translations - Spanish, French, Portuguese
+
+
+Accessing the Internet
+----------------------
+
+If you have an Internet service, you can use the MP2 to share it with connected devices, as well as serving the RACHEL content.
+In this way you can reduce the amount of data that has to be downloaded from the Internet connection as the RACHEL content is served locally.
+
+To share an Internet connection, just connect to the WAN port on the MP2 with an Ethernet cable.
+The MP2 will obtain an IP address etc using DHCP from the upstream device.
+
+Client devices connected to the MP2 will then be able to access the Internet via the upstream device.
+
+
+Using a RACHEL-Pi with MP2
+--------------------------
+
+The VT-RACHEL firmware running on the MP2 will also act as a robust WiFi Access Point for a RACHEL-Pi device, and will also 
+provide power for the RPi.
+
+To use the RPi, connect it to the USB port on the MP2 with a USB cable for power, and to the LAN port with an Ethernet cable for data.
+
+Switch the power on to the MP2 and wait a couple of minutes for the devices to fully start up.
+The MP2 will detect the RPi and assign a host name for it in the DHCP hosts.
+
+Connect to the MP2 wifi and point your browser to 'http://rachelpi' 
+You will see the RACHEL home page and be able to browse and search the content.
+
+
+Administration
+--------------
+
+There is a simplified administration web page available on the MP2. 
+
+You will not normally have to change any configuration unless you are operating in a complex environment with multiple devices in use.
+
+To access the Admin page, point your browser to 'http://vtrachel/admin.html' and you will be prompted for a Username (admin) and password (rachel).
+
+VT RACHEL Settings
+------------------
+This section allows you to set up an individual identity for the MP2 in case you are using multiple devices at the same site.
+Simply set the VT RACHEL Number to a value between 1 and 99.
+This number is automatically included in the SSID for the wifi access point so that clients can connect to individual MP2 devices. 
+It also changes the IP address range and the wifi channel used so as to provide some wifi separation between units.
+
+You can also change the main part of the wifi SSID name and the wifi password.
+
+When you have made the changes, click on the Save button at the bottom of the page.
+When the screen refreshes, check that the settings are correct and click on the Reboot button, or power cycle the device and it will 
+restart with the new settings.
+
+System Settings
+---------------
+In this section you can change the 'admin' account password by entering the new password twice and clicking on the Save Password button.
+
+You can set the maxium number of Access Point connections that the MP2 will accept. This is used to prevent overloading on the system.
+The default setting is 35 which should allow the MP2 to wrk well in a classroom.
+
+The WAN Port setting is Ethernet by default, which sets up the WAN port on the MP2 ready to connect to an upstream network 
+eg for Internet access.
+Changing the setting to 'SECN' allows for manually setting up the router functions in the SECN configuration interface if required 
+for advanced network arrangements.  
+
+The MP2 will automatically set its internal clock from an upstream network with Internet access, and you set the local Timezone here.
+
+There are links to the Firmware Upgrade page and to the SECN Configuration page which may be used if required.
+To use settings from the SECN Configuration pages, you must set the WAN Port setting to "SECN Adv" and save beforehand.
+Otherwise the default VT-RACHEL settings will be used on restart.
+
+
+
+
+ 

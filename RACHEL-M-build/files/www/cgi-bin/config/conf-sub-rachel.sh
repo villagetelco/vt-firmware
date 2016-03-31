@@ -14,7 +14,6 @@ cat > /tmp/conf-save.sh << EOF
 BUTTON="0"
 AP_ENABLE="0"
 AP_ENABLE2="0"
-CACHE_ENABLE="0"
 
 # Get Field-Value pairs from QUERY_STRING enironment variable
 # set by the form GET action
@@ -40,6 +39,11 @@ CACHE_ENABLE="0"
 `echo $QUERY_STRING | cut -d \& -f 18`
 `echo $QUERY_STRING | cut -d \& -f 19`
 `echo $QUERY_STRING | cut -d \& -f 20`
+`echo $QUERY_STRING | cut -d \& -f 21`                       
+`echo $QUERY_STRING | cut -d \& -f 22`    
+`echo $QUERY_STRING | cut -d \& -f 23`    
+`echo $QUERY_STRING | cut -d \& -f 24`  
+`echo $QUERY_STRING | cut -d \& -f 25` 
 
 
 # Refresh screen without saving 
@@ -72,8 +76,6 @@ uci commit system
 # Save settings
 uci set rachel.setup.class=\$CLASS
 uci set rachel.setup.mode=\$MODE
-uci set rachel.setup.netaccess=\$NETACCESS
-uci set rachel.setup.enusbmodem=\$ENUSBMODEM
 
 uci set rachel.setup.ssidprefix=\$SSIDPREFIX
 uci set rachel.setup.ssid=\$SSID
@@ -90,7 +92,7 @@ uci set rachel.setup.ap_enable2=\$AP_ENABLE2
 
 uci set rachel.setup.totalassoc=\$TOTALASSOC
 uci set rachel.setup.wanport=\$WANPORT
-uci set rachel.setup.cache_enable=\$CACHE_ENABLE
+
 
 # Set MAXASSOC to zero if display value 'Disabled' is returned
 if [ \$MAXASSOC = "Disabled" ]; then

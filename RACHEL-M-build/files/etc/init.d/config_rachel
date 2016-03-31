@@ -1,12 +1,11 @@
-#!/bin/sh
+#! /bin/sh
 # /etc/init.d/config_rachel
 
 # Get the wanport mode
 WANPORT=`uci get rachel.setup.wanport`
 # Do nothing if in SECN Advanced mode
 if [ $WANPORT = "SECN-Adv" ]; then
-	# Re-enable LAN port
-	uci set secn.wan.lanport_disable=0
+	#uci set secn.wan.lanport_disable=0  # Re-enable LAN port
 	exit
 fi
 

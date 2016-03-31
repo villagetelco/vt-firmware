@@ -1,0 +1,28 @@
+config global automount
+	option from_fstab '1'
+	option anon_mount '1'
+	
+config global autoswap
+	option from_fstab '1'
+	option anon_swap '0'
+	
+config 'mount'
+	option 'device'		'/dev/sda'
+	option 'target'		'/mnt/sda'
+	option 'options'  'rw'
+	option 'fstype'		'auto'
+
+config 'mount'
+	option 'device'		'/dev/sdb'
+	option 'target'		'/mnt/sdb'
+	option 'fstype'		'auto'
+
+config 'mount'
+	option 'device'		'/dev/sdc'
+	option 'target'		'/mnt/sdc'
+	option 'fstype'		'auto'
+
+#config swap
+#	option device	'/dev/sda2'
+#	option enabled	'0'
+

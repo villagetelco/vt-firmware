@@ -128,7 +128,7 @@ AP_ENABLE=`uci get rachel.setup.ap_enable`
 if [ $AP_ENABLE = "checked" ]; then
 	AP_DISABLE="0"
 else
-	AP_DISABLE="2"
+	AP_DISABLE="1"
 fi
 uci set secn.accesspoint.ap_disable=$AP_DISABLE
 
@@ -136,7 +136,7 @@ AP_ENABLE2=`uci get rachel.setup.ap_enable2`
 if [ $AP_ENABLE2 = "checked" ]; then
 	AP_DISABLE2="0"
 else
-	AP_DISABLE2="3"
+	AP_DISABLE2="1"
 fi
 uci set secn.accesspoint2.ap_disable=$AP_DISABLE2
 

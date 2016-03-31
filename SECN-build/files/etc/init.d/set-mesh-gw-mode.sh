@@ -9,7 +9,7 @@
 
 # Enable Bridge Loop Avoidance mode
 /usr/sbin/batctl bl 1
-sleep 5
+sleep 10
 
 # Get the MPGW setting from /etc/config/secn
 MPGW=`uci get secn.mesh.mpgw`

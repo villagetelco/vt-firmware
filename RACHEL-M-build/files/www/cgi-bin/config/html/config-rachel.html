@@ -1,0 +1,272 @@
+cat > /tmp/config.html << EOF
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<head>
+	<title> SECN RACHEL Configuration </title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<style type="text/css">	@import url(/lib/configstyle.css); 	</style>
+	<script type="text/javascript" src="/lib/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="/lib/jquery.hashchange.min.js"></script>
+	<script type="text/javascript" src="/lib/jquery.easytabs.min.js"></script>
+	<script type="text/javascript" src="/lib/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="/lib/jquery.form.min.js"></script>
+	<script type="text/javascript" src="/lib/checkip.js"></script>
+</head>
+
+<body>
+<div class='banner'>
+	<img class="logo" src="/images/vtlogo.png" alt="Village Telco">
+	<div class="titletext">	
+		<h1 class="textbanner"> VT SECN RACHEL Configuration </h1> 
+		<p>Firmware: $VERSION</p>
+		<p>Date: $DATE</p>
+	</div>
+</div>
+
+<div id="outer-container" class="tab-container">
+	<ul class='etabs'>
+	  <li class="tab"><a href="#tabs1-secn-cr">VT SECN RACHEL</a></li>
+	</ul>
+
+	<div class="panel-container">
+
+
+		<!-- VT SECN RACHEL Configuration Form -->
+		<div id="tabs1-secn-cr">
+			<form name="MP" id="MP" METHOD="GET" ACTION="/cgi-bin/config/conf-sub-rachel.sh">
+				<fieldset class="network">
+					<legend>VT RACHEL Settings</legend>
+					<table>
+						<tr>
+							<td class="label"><label for="tz"><strong>Device No.</strong> (1-99)</label></td>
+							<td class="field"><input type="text" name="CLASS" id="class" VALUE=$CLASS> </td>
+
+							<td> <strong> &nbsp </strong></td>
+
+							<td class="label"><label for="TOTALASSOC">Max WiFi Connections</label></td>
+							<td class="field">
+							<SELECT name="TOTALASSOC" id="TOTALASSOC" >
+								<option selected="$TOTALASSOC">$TOTALASSOC</option>
+								<option value="10">10</option>
+								<option value="20">20</option>
+								<option value="30">30</option>
+								<option value="40">40</option>
+								<option value="50">50</option>
+								<option value="60">60</option>
+								</SELECT>
+							</td>
+
+
+						</tr>
+					</table>
+
+					<p></p><p></p>
+
+					<table>
+						<tr>
+							<td class="label"><label for="tz"><strong>WiFi </strong></label></td>
+							<td class="field"><input type="text" name="SSIDPREFIX" id="ssidprefix" VALUE=$SSIDPREFIX> </td>
+							<td> <strong> -$CLASS </strong></td>
+
+							<td class="label"><label for="MAXASSOC">AP Connections</label></td>
+							<td class="field">
+							<SELECT name="MAXASSOC" id="MAXASSOC" >
+								<option selected="$MAXASSOC">$MAXASSOC</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="5">5</option>
+								<option value="10">10</option>
+								<option value="12">12</option>
+								<option value="15">15</option>
+								<option value="20">20</option>
+								<option value="25">25</option>
+								<option value="35">35</option>
+								<option value="45">45</option>
+								<option value="55">55</option>
+								</SELECT>
+							</td>
+
+							<td class="label"><label>Enable AP</label> </td>
+							<td class="field"><input  type="checkbox" name="AP_ENABLE" id="ap_enable" VALUE="checked" $AP_ENABLE > </td>
+
+							<td class="label"><label for="ENCRYPTION">Encryption</label></td>
+							<td class="field">
+							<SELECT name="ENCRYPTION" id="ENCRYPTION2" >
+								<option selected="$ENCRYPTION">$ENCRYPTION</option>
+								<option value="WPA">WPA</option>
+								<option value="WPA2">WPA2</option>
+								<option value="WEP">WEP</option>
+								<option value="NONE">NONE</option>
+								</SELECT>
+							</td>
+						</tr>
+
+						<tr>
+							<td class="label"><label for="tz"><strong>Passsword</strong></label></td>
+							<td class="field"><input type="text" name="PASSPHRASE" id="passphrase" VALUE=$PASSPHRASE> </td>
+						</tr>
+
+					</table>
+
+					<p></p><p></p>
+
+					<table>
+						<tr>
+							<td class="label"><label for="tz"><strong>Restricted WiFi</strong></label></td>
+							<td class="field"><input type="text" name="SSIDPREFIX2" id="ssidprefix2" VALUE=$SSIDPREFIX2> </td>
+							<td> <strong> -$CLASS </strong></td>
+
+							<td class="label"><label for="MAXASSOC2">AP Connections</label></td>
+							<td class="field">
+							<SELECT name="MAXASSOC2" id="MAXASSOC2" >
+								<option selected="$MAXASSOC2">$MAXASSOC2</option>
+								</SELECT>
+							</td>
+
+							<td class="label"><label>Enable AP</label> </td>
+							<td class="field"><input  type="checkbox" name="AP_ENABLE2" id="ap_enable2" VALUE="checked" $AP_ENABLE2 > </td>
+
+							<td class="label"><label for="ENCRYPTION2">Encryption</label></td>
+							<td class="field">
+							<SELECT name="ENCRYPTION2" id="ENCRYPTION2" >
+								<option selected="$ENCRYPTION2">$ENCRYPTION2</option>
+								<option value="WPA">WPA</option>
+								<option value="WPA2">WPA2</option>
+								<option value="WEP">WEP</option>
+								<option value="NONE">NONE</option>
+								</SELECT>
+							</td>
+						</tr>
+
+						<tr>
+							<td class="label"><label for="tz"><strong>Passsword</strong></label></td>
+							<td class="field"><input type="text" name="PASSPHRASE2" id="passphrase2" VALUE=$PASSPHRASE2> </td>
+						</tr>
+					</table>
+
+					<table>
+						<tr>
+							* WiFi Name fields can use only letters, numbers and the dash or underscore symbols.
+						</tr><br>
+						<tr>
+							* WiFi Password must be at least eight characters in length, using only letters, numbers and the dash symbol.
+						</tr><br>
+						<tr>
+							* For Network/Internet access, connect the <strong>WAN</strong> Ethernet port of the unit to the Local Area Network using an Ethernet cable. 
+						</tr>
+					</table>
+				</fieldset>
+
+				<fieldset class="password">
+					<legend>System Settings</legend>
+					<table>
+						<tr>
+							<td class="label"><label for="PASSWORD1">Enter Password</label></td>
+							<td class="field"><input name="PASSWORD1" id="PASSWORD1" type="password" VALUE=$PASSWORD1></td>
+							<td class="status"></td>
+							<td class="label"><label for="PASSWORD2">Repeat Password</label></td>
+							<td class="field"><input name="PASSWORD2" id="PASSWORD2" type="password" VALUE=$PASSWORD2></td>
+							<td class="status"></td>
+							<td class="field"> <INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Set Password" > </td>
+						</tr>
+					</table>
+					<table>
+						<tr>
+							<td class="ast_reg"> $PASSWORD_STATUS </td>
+						</tr>
+					</table>
+					<table>
+						<tr>
+							<td class="label"><label for="txpower">TX Power dBm</label></td>
+							<td class="field">
+							<SELECT name="TXPOWER" id="txpower" >
+								<option selected="$TXPOWER">$TXPOWER</option>
+								<option value="6">6</option>
+								<option value="12">12</option>
+								<option value="18">18</option>
+								<option value="20">20</option>
+								</SELECT>
+							</td>
+						</tr>
+						<tr>
+							<td class="label"><label> WAN Port</label></td>
+							<td class="field">
+							<SELECT name="WANPORT" id="wanport">
+							<option selected="$WANPORT">$WANPORT</option>
+							<option value="Ethernet"> Ethernet </option>
+							<option value="Mesh"> Mesh </option>
+							<option value="SECN-Adv"> SECN Advanced </option>
+							</SELECT>
+						</td>
+						</tr>
+					</table>
+
+					<table>
+						<tr>
+						Timezone  
+							<select name="TZ" id="tz">
+									<option selected="$TZ">$TZ</option>
+						      <option value="WST11">(GMT -11:00) Samoa, Midway Island</option>
+						      <option value="HST10">(GMT -10:00) Hawaii</option>
+						      <option value="AKST9">(GMT -9:00) Alaska</option>
+						      <option value="PST8">(GMT -8:00) Pacific Time (US &amp; Canada)</option>
+						      <option value="MST7">(GMT -7:00) Mountain Time (US &amp; Canada)</option>
+						      <option value="CST6">(GMT -6:00) Central Time (US &amp; Canada), Mexico City</option>
+						      <option value="EST5">(GMT -5:00) Eastern Time (US &amp; Canada), Bogota, Lima</option>
+						      <option value="AST4">(GMT -4:00) Atlantic Time (Canada), Caracas, La Paz</option>
+						      <option value="NST3:30">(GMT -3:30) Newfoundland</option>
+						      <option value="ART3">(GMT -3:00) Argintina, Brazil</option>
+						      <option value="GST2">(GMT -2:00) Georgia</option>
+						      <option value="AZOT1">(GMT -1:00) Azores, Cape Verde Islands</option>
+						      <option value="GMT0">(GMT) Western Europe Time, London, Lisbon, Casablanca</option>
+						      <option value="CET-1">(GMT +1:00) Brussels, Copenhagen, Madrid, Paris</option>
+						      <option value="EET-2">(GMT +2:00) Kaliningrad, South Africa</option>
+						      <option value="AST-3">(GMT +3:00) Baghdad, Riyadh, Moscow, St. Petersburg</option>
+						      <option value="IRST-3:30">(GMT +3:30) Tehran</option>
+						      <option value="GST-4">(GMT +4:00) Abu Dhabi, Muscat, Baku, Tbilisi</option>
+						      <option value="AFT-4:30">(GMT +4:30) Kabul</option>
+						      <option value="PKT-5">(GMT +5:00) Ekaterinburg, Islamabad, Karachi, Tashkent</option>
+						      <option value="IST-5:30">(GMT +5:30) Bombay, Calcutta, Madras, New Delhi</option>
+						      <option value="NPT-5:45">(GMT +5:45) Kathmandu</option>
+						      <option value="BDT-6">(GMT +6:00) Almaty, Dhaka, Colombo</option>
+						      <option value="ICT-7">(GMT +7:00) Bangkok, Hanoi, Jakarta, Phnom Phen</option>
+						      <option value="CST-8">(GMT +8:00) Beijing, Perth, Singapore, Hong Kong</option>
+						      <option value="JST-9">(GMT +9:00) Tokyo, Seoul, Osaka, Sapporo, Yakutsk</option>
+						      <option value="ACST-9:30">(GMT +9:30) Adelaide, Darwin</option>
+						      <option value="AEST-10">(GMT +10:00) Eastern Australia, Guam, Vladivostok</option>
+						      <option value="NCT-11">(GMT +11:00) Noumea, New Caledonia</option>
+						      <option value="NZST-12">(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka</option>
+								</select>
+							</tr>
+					</table>
+
+					<table>
+						<tr> <br></br>
+							<a href="/cgi-bin/upgrade">Firmware Upgrade.</a> . <a href="/secn.html">SECN Admin Interface.</a>
+						</tr>
+					</table>
+				</fieldset>
+
+				<h3>Status</h3>	<strong>IP:</strong> $IP , <strong>WiFi Channel:</strong> $CHANNEL , 
+				<strong>WiFi Name:</strong> $WIFINAME , $WIFINAME2 <strong>AP Connections:</strong> $AP_CONNECTIONS , $AP_CONNECTIONS2
+				<br></br>
+				<strong>Time:</strong> $UPTIME ,  
+				<br></br>
+				<table class="submitform">
+					<tr>
+						<td>
+						<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Refresh" >
+						<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Save" >
+						<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Reboot" >
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>	
+	</div>
+</div>
+</body>
+</html>
+
+EOF
+
