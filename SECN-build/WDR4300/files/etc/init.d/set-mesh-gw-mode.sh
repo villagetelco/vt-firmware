@@ -4,12 +4,15 @@
 # This script configures batman-adv correctly on startup
 # It sets up bridge loop avoidance mode and mesh gateway mode on startup
 
-# Add the adhoc interface
+# Ensure that wifi interfaces are up
+sleep 5  
+
+# Add the adhoc interfaces
 /usr/sbin/batctl if add wlan0-1 wlan1-1
+sleep 1
 
 # Enable Bridge Loop Avoidance mode
 /usr/sbin/batctl bl 1
-sleep 5
 
 # Get the MPGW setting from /etc/config/secn
 MPGW=`uci get secn.mesh.mpgw`
@@ -51,6 +54,7 @@ if [ $MPGW = "CLIENT" ]; then
   fi
 
 uci commit batman-adv
+sleep 1
 
 # Add bat0 to bridge now that it is configured and bl is enabled
 WANPORT=`uci get secn.wan.wanport`
