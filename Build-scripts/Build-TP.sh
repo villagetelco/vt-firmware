@@ -9,7 +9,7 @@ REPO="vt-firmware"
 BRANCH="secn"
 
 echo "Set up version strings"
-DIRVER="G1-Alpha8"
+DIRVER="RC1"
 VER="SECN-4.0-TP-"$DIRVER
 
 
@@ -175,8 +175,8 @@ rm $BINDIR/openwrt-*
 echo ""
 
 echo "Run make for "$1 $2
-make
-#make -j5
+#make
+make -j3
 #make -j1 V=s 2>&1 | tee ~/build.txt
 echo ""
 
