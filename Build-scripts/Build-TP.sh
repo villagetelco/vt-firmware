@@ -9,8 +9,8 @@ REPO="vt-firmware"
 BRANCH="secn"
 
 echo "Set up version strings"
-DIRVER="G2-RC1"
-VER="SECN-3-TP-"$DIRVER
+DIRVER="G1-Alpha8"
+VER="SECN-4.0-TP-"$DIRVER
 
 
 echo "************************************"
@@ -138,21 +138,10 @@ rm -r ./files
 echo "Copy base files"
 cp -r ./SECN-build/files     .  
 
-# Multi-port
-if [ $1 = "MR3420" ] || [ $1 = "WR741" ] || [ $1 = "WR841" ] || [ $1 = "WR842" ]; then
-	echo "Overlay files for multi port devices"
-  cp -rf ./SECN-build/files-2/*         ./files  
-fi
-
-# Asterisk
+# Add files for WR842 if required
 if [ $1 = "WR842" ]; then
-	echo "Overlay files for Asterisk"
+  cp -rf ./SECN-build/files-2/*         ./files  
   cp -rf ./SECN-build/files-aster/*     ./files  
-fi
-
-# USB
-if [ $1 = "MR11U" ] || [ $1 = "MR3020" ] || [ $1 = "MR3040" ] || [ $1 = "MR3420" ] || [ $1 = "WR703" ] || [ $1 = "WR842" ]; then
-	echo "Overlay files for USB port devices"
   cp -rf ./SECN-build/files-usbmodem/*  ./files  
 fi
 
@@ -187,7 +176,6 @@ echo ""
 
 echo "Run make for "$1 $2
 make
-#make -j3
 #make -j5
 #make -j1 V=s 2>&1 | tee ~/build.txt
 echo ""
@@ -233,17 +221,7 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-
-build_tp MR11U
-build_tp MR3020
-build_tp MR3040
-build_tp MR3420
-build_tp WR703
-build_tp WR741
-build_tp WR841
 build_tp WR842
-build_tp WA701
-build_tp WA901
 
 echo " "
 echo "Build script TP complete"

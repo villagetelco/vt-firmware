@@ -9,8 +9,8 @@ REPO="vt-firmware"
 BRANCH="secn"
 
 echo "Set up version strings"
-DIRVER="S4-G1-Alpha3"
-VER="TP-RACHEL-"$DIRVER
+DIRVER="M-Alpha2"
+VER="SECN-4.0-TP-RACHEL-"$DIRVER
 
 
 echo "************************************"
@@ -80,8 +80,8 @@ cp -rp $GITREPO/$REPO/SECN-build/ .
 cp -fp $GITREPO/$REPO/Build-scripts/FactoryRestore.sh  .
 cp -fp $GITREPO/$REPO/Build-scripts/GetGitVersions.sh  .
 
-echo "Overlay RACHEL files"
-cp -rp $GITREPO/$REPO/RACHEL-build/* ./SECN-build
+echo "Overlay RACHEL-M files"
+cp -rfp $GITREPO/$REPO/RACHEL-M-build/* ./SECN-build
 
 ###########################
 
@@ -235,11 +235,11 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-build_tp WR842
-#build_tp MR3020
-#build_tp MR3040
-#build_tp MR3420
+build_tp WR841 RACHEL-M
+build_tp MR3020 RACHEL-M
+build_tp MR3040 RACHEL-M
 #build_tp WR703
+#build_tp MR3420
 
 echo " "
 echo "Build script TP complete"

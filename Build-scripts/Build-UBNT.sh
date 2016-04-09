@@ -9,8 +9,8 @@ REPO="vt-firmware"
 BRANCH="secn"
 
 echo "Set up version strings"
-DIRVER="G2-RC1"
-VER="SECN-3-UBNT-"$DIRVER
+DIRVER="G1-Alpha8"
+VER="SECN-4.0-UBNT-"$DIRVER
 
 
 echo "************************************"
@@ -138,7 +138,7 @@ rm -r ./files
 echo "Copy base files"
 cp -rf ./SECN-build/files             .  
 
-echo "Overlay additional files"
+echo "Copy additional files"
 cp -rf ./SECN-build/files-2/*         ./files  
 cp -rf ./SECN-build/files-aster/*     ./files  
 
@@ -172,9 +172,8 @@ rm $BINDIR/openwrt-*
 echo ""
 
 echo "Run make for "$1 $2
-make
-#make -j3
-#make -j5
+#make
+make -j3
 #make -j1 V=s 2>&1 | tee ~/build.txt
 echo ""
 

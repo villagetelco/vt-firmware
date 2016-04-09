@@ -9,13 +9,13 @@ REPO="vt-firmware"
 BRANCH="secn"
 
 echo "Set up version strings"
-DIRVER="G2-RC1"
-VER="SECN-3-MP02-"$DIRVER
+DIRVER="G1-Alpha9"
+VER="SECN-4.0-MP02-"$DIRVER
 
 
 echo "************************************"
 echo ""
-echo "Build script for MP02 and MP02-FXS devices"
+echo "Build script for MP02 and MP02FXS devices"
 
 echo "Git directory: "$GITREPO
 echo "Repo: "$REPO
@@ -126,6 +126,8 @@ make defconfig > /dev/null
 
 # Set target string
 TARGET=$1
+
+echo "Check .config version"
 echo "Target:  " $TARGET
 echo ""
 
@@ -136,14 +138,9 @@ rm -r ./files
 echo "Copy base files"
 cp -rf ./SECN-build/files             .  
 
-echo "Overlay additional files"
+echo "Copy additional files"
 cp -rf ./SECN-build/files-2/*         ./files  
 cp -rf ./SECN-build/files-aster/*     ./files  
-
-if [ $1 = "MP02FXS" ]; then
-cp -rf ./SECN-build/files-ivr/*       ./files  
-fi
-
 cp -rf ./SECN-build/files-usbmodem/*  ./files  
 
 echo "Overlay device specific files"
@@ -177,7 +174,6 @@ echo ""
 
 echo "Run make for "$1 $2
 make
-#make -j3
 #make -j5
 #make -j1 V=s 2>&1 | tee ~/build.txt
 echo ""
@@ -227,10 +223,13 @@ echo " "
 echo '----------------------------'
 
 build_mp02 MP02
-build_mp02 MP02FXS
+#build_mp02 MP02FXS
+#build_mp02 MP02 dundi
+#build_mp02 MP02FXS dundi
+#build_mp02 MP02FXS 729
 
 echo " "
-echo " Build script MP02FXS complete"
+echo " Build script MP02 complete"
 echo " "
 echo '----------------------------'
 

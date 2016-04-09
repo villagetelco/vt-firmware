@@ -6,11 +6,11 @@
 
 # Select the repo to use
 REPO="vt-firmware"
-BRANCH="secn_4.0"
+BRANCH="secn"
 
 echo "Set up version strings"
-DIRVER="Alpha3"
-VER="SECN-4.0-MP02-RACHEL-"$DIRVER
+DIRVER="S4-G1-Alpha3"
+VER="MP02-RACHEL-"$DIRVER
 
 
 echo "************************************"
@@ -76,12 +76,14 @@ BUILDDIR="./Builds/ar71xx"
 ###########################
 echo "Copy files from Git repo into build folder"
 rm -rf ./SECN-build/
+
 cp -rp $GITREPO/$REPO/SECN-build/ .
+
 cp -fp $GITREPO/$REPO/Build-scripts/FactoryRestore.sh  .
 cp -fp $GITREPO/$REPO/Build-scripts/GetGitVersions.sh  .
 
 echo "Overlay RACHEL files"
-cp -rp $GITREPO/$REPO/RACHEL-build/* ./SECN-build/
+cp -rfp $GITREPO/$REPO/RACHEL-build/* ./SECN-build/
 
 ###########################
 
@@ -138,13 +140,13 @@ echo "Remove files directory"
 rm -r ./files
 
 echo "Copy base files"
-cp -rf ./SECN-build/files             .  
+cp -rf ./SECN-build/files     .  
 
 echo "Copy additional files"
-cp -rf ./SECN-build/files-2/*         ./files  
+cp -rf ./SECN-build/files-2/* ./files  
 
 echo "Overlay device specific files"
-cp -r ./SECN-build/$1/files  .  
+cp -rf ./SECN-build/$1/files  .  
 echo ""
 
 echo "Build Factory Restore tar file"
@@ -173,8 +175,9 @@ rm $BINDIR/openwrt-*
 echo ""
 
 echo "Run make for "$1 $2
-#make -j5
-make -j1 V=s 2>&1 | tee ~/build.txt
+make
+#make -j3
+#make -j1 V=s 2>&1 | tee ~/build.txt
 echo ""
 
 echo "Update original md5sums file"

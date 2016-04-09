@@ -6,11 +6,11 @@
 
 # Select the repo to use
 REPO="vt-firmware"
-BRANCH="secn"
+BRANCH="xsce"
 
 echo "Set up version strings"
-DIRVER="S4-G1-Alpha3"
-VER="TP-RACHEL-"$DIRVER
+DIRVER="XSCE-RC4"
+VER="SECN-4.0-TP-"$DIRVER
 
 
 echo "************************************"
@@ -75,13 +75,11 @@ BUILDDIR="./Builds/ar71xx"
 
 ###########################
 echo "Copy files from Git repo into build folder"
-rm -rf ./SECN-build/
-cp -rp $GITREPO/$REPO/SECN-build/ .
+rm -rf ./XSCE-build/
+cp -rp $GITREPO/$REPO/XSCE-build/ .
 cp -fp $GITREPO/$REPO/Build-scripts/FactoryRestore.sh  .
 cp -fp $GITREPO/$REPO/Build-scripts/GetGitVersions.sh  .
 
-echo "Overlay RACHEL files"
-cp -rp $GITREPO/$REPO/RACHEL-build/* ./SECN-build
 
 ###########################
 
@@ -95,7 +93,7 @@ echo "Source repo details: "$REPO $REPOID
 
 # Set up new directory name with date and version
 DATE=`date +%Y-%m-%d-%H:%M`
-DIR=$DATE"-TP-RACHEL-"$DIRVER
+DIR=$DATE"-TP-"$DIRVER
 
 ###########################
 # Set up build directory
@@ -117,10 +115,10 @@ rm ./.config
 
 if [ $2 ]; then
 	echo "Config file: config-"$1-$2
-	cp ./SECN-build/$1/config-$1-$2  ./.config
+	cp ./XSCE-build/$1/config-$1-$2  ./.config
 else
 	echo "Config file: config-"$1
-	cp ./SECN-build/$1/config-$1  ./.config
+	cp ./XSCE-build/$1/config-$1  ./.config
 fi
 
 echo "Run defconfig"
@@ -137,29 +135,18 @@ echo "Set up files for "$1 $2
 echo "Remove files directory"
 rm -r ./files
 
-echo "Copy generic files"
-cp -r ./SECN-build/files     .  
+echo "Copy base files"
+cp -r ./XSCE-build/files     .  
 
-# Multi-port
-if [ $1 = "MR3420" ] || [ $1 = "WR842" ]; then
-	echo "Overlay files for multi port devices"
-  cp -rf ./SECN-build/files-2/*         ./files  
-fi
-
-# Asterisk - not required for RACHEL build.
-#if [ $1 = "WR842" ]; then
-#	echo "Overlay files for Asterisk"
-#  cp -rf ./SECN-build/files-aster/*     ./files  
-#fi
-
-# USB
-if [ $1 = "MR3020" ] || [ $1 = "MR3040" ] || [ $1 = "MR3420" ] || [ $1 = "WR703" ] || [ $1 = "WR842" ]; then
-	echo "Overlay files for USB port devices"
-  cp -rf ./SECN-build/files-usbmodem/*  ./files  
+# Add files for WR842 if required
+if [ $1 = "WR842" ]; then
+  cp -rf ./XSCE-build/files-2/*         ./files  
+  cp -rf ./XSCE-build/files-aster/*     ./files  
+  cp -rf ./XSCE-build/files-usbmodem/*  ./files  
 fi
 
 echo "Overlay device specific files"
-cp -r ./SECN-build/$1/files  .  
+cp -r ./XSCE-build/$1/files  .  
 echo ""
 
 echo "Build Factory Restore tar file"
@@ -201,19 +188,19 @@ echo ""
 echo  "Rename files to add version info"
 echo ""
 if [ $2 ]; then
-	for n in `ls $BINDIR/openwrt*.bin`; do mv  $n   $BINDIR/openwrt-$VER-$2-`echo $n|cut -d '-' -f 5-10`; done
+	for n in `ls $BINDIR/openwrt*.bin`; do mv  $n   $BINDIR/$VER-$2-`echo $n|cut -d '-' -f 5-10`; done
 else
-	for n in `ls $BINDIR/openwrt*.bin`; do mv  $n   $BINDIR/openwrt-$VER-`echo $n|cut -d '-' -f 5-10`; done
+	for n in `ls $BINDIR/openwrt*.bin`; do mv  $n   $BINDIR/$VER-`echo $n|cut -d '-' -f 5-10`; done
 fi
 
 echo "Update new md5sums file"
 md5sum $BINDIR/*-squash*sysupgrade.bin >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
-#md5sum $BINDIR/*-squash*factory.bin    >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
+md5sum $BINDIR/*-squash*factory.bin    >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 echo ""
 
 echo  "Move files to build folder"
-mv $BINDIR/openwrt*-squash*sysupgrade.bin $BUILDDIR/builds/build-$DIR
-#mv $BINDIR/*-squash*factory.bin    $BUILDDIR/builds/build-$DIR
+mv $BINDIR/*-squash*sysupgrade.bin $BUILDDIR/builds/build-$DIR
+mv $BINDIR/*-squash*factory.bin    $BUILDDIR/builds/build-$DIR
 echo ""
 
 echo "Clean up unused files"
@@ -235,11 +222,9 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-build_tp WR842
-#build_tp MR3020
-#build_tp MR3040
-#build_tp MR3420
-#build_tp WR703
+build_tp MR3020 XSCE
+build_tp WR841 XSCE
+build_tp WR842 XSCE
 
 echo " "
 echo "Build script TP complete"
