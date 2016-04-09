@@ -39,6 +39,10 @@ uci set secn.wan.wanpass=$WANPASS
 # Get Mesh setting
 MESH_DISABLE=`uci get secn.mesh.mesh_disable`
 
+# Set up connection tracking max
+CONNTRACK_MAX=`uci get secn.wan.conntrack_max`
+sysctl -w net.netfilter.nf_conntrack_max=$CONNTRACK_MAX
+
 # Set up WAN Port Forwarding for ssh and https
 	uci set firewall.https.dest="NULL"
 	uci set firewall.ssh.dest="NULL"
