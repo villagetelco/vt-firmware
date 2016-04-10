@@ -82,7 +82,7 @@ uci set rachel.setup.ssid=\$SSID
 uci set rachel.setup.passphrase=\$PASSPHRASE
 uci set rachel.setup.encryption=\$ENCRYPTION
 uci set rachel.setup.maxassoc=\$MAXASSOC
-uci set rachel.setup.ap_enable=\$AP_ENABLE
+#uci set rachel.setup.ap_enable=\$AP_ENABLE
 
 uci set rachel.setup.ssidprefix2=\$SSIDPREFIX2
 uci set rachel.setup.ssid2=\$SSID2

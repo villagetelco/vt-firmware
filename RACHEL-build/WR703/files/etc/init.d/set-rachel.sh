@@ -1,7 +1,7 @@
 #! /bin/sh
 
 # Wait for memory devices to be available
-sleep 20
+sleep 10
 
 # ------------------------------
 
