@@ -73,5 +73,5 @@ config secn 'wan'
 	option wanport 'Disable'
 	option wanlan_enable '0'
 	option port_forward '0'
-
+	option conntrack_max '8192'
 

@@ -83,4 +83,5 @@ config secn 'wan'
 	option port_forward '0'
 	option lanport_disable 'checked'
 	option wanport 'Ethernet'
+	option conntrack_max '8192'
 

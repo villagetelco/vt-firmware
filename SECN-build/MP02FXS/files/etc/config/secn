@@ -47,6 +47,7 @@ config secn 'wan'
 	option wanlan_enable '0'
 	option port_forward '0'
 	option lanport_disable '0'
+	option conntrack_max '8192'
 
 config secn 'asterisk'
 	option codec1 'gsm'
