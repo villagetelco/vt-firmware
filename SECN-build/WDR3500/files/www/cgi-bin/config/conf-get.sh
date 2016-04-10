@@ -211,6 +211,9 @@ WANSSID=`uci get secn.wan.wanssid`
 WANENCR=`uci get secn.wan.wanencr`
 WANPASS=`uci get secn.wan.wanpass`
 
+CONNTRACKCOUNT=`cat /proc/sys/net/netfilter/nf_conntrack_count`
+CONNTRACKMAX=`cat /proc/sys/net/nf_conntrack_max`
+
 # Get 3G USB Modem
 MODEM_ENABLE=`uci get secn.modem.enabled`
 MODEMSERVICE=`uci get secn.modem.service`

@@ -160,6 +160,9 @@ WANSSID=`uci get secn.wan.wanssid`
 WANENCR=`uci get secn.wan.wanencr`
 WANPASS=`uci get secn.wan.wanpass`
 
+CONNTRACKCOUNT=`cat /proc/sys/net/netfilter/nf_conntrack_count`
+CONNTRACKMAX=`cat /proc/sys/net/nf_conntrack_max`
+
 # LAN Port disable setting
 LANPORT_DISABLE=`uci get secn.wan.lanport_disable`
 

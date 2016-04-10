@@ -153,6 +153,9 @@ WANSSID=`uci get secn.wan.wanssid`
 WANENCR=`uci get secn.wan.wanencr`
 WANPASS=`uci get secn.wan.wanpass`
 
+CONNTRACKCOUNT=`cat /proc/sys/net/netfilter/nf_conntrack_count`
+CONNTRACKMAX=`cat /proc/sys/net/nf_conntrack_max`
+
 # GatewayTest Status message
 GATEWAY_STATUS=`cat /tmp/gatewaystatus.txt`
 
