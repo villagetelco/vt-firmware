@@ -1,0 +1,126 @@
+#!/bin/sh
+# /etc/init.d/config_rachel
+
+# Get the wanport mode
+WANPORT=`uci get rachel.setup.wanport`
+# Do nothing if in SECN Advanced mode
+if [ $WANPORT = "SECN-Adv" ]; then
+	exit
+fi
+
+# Get RACHEL USB modem settings
+MODEMPORT=`uci get rachel.modem.modemport`
+SERVICE=`uci get rachel.modem.service`
+APN=`uci get rachel.modem.apn`
+DIALSTR=`uci get rachel.modem.dialstr`
+VENDOR=`uci get rachel.modem.vendor`
+PRODUCT=`uci get rachel.modem.product`
+PIN=`uci get rachel.modem.pin`
+USERNAME=`uci get rachel.modem.username`
+PASSWORD=`uci get rachel.modem.password`
+
+# Make any RACHEL changes to modem settings here, then...
+
+# Write USB modem settings to SECN
+uci set secn.modem.modemport=$MODEMPORT
+uci set secn.modem.service=$SERVICE
+uci set secn.modem.apn=$APN
+uci set secn.modem.dialstr=$DIALSTR
+uci set secn.modem.vendor=$VENDOR
+uci set secn.modem.product=$PRODUCT
+uci set secn.modem.pin=$PIN
+uci set secn.modem.username=$USERNAME
+uci set secn.modem.password=$PASSWORD
+
+# Get RACHEL initial settings
+CLASS=`uci get rachel.setup.class`
+MODE=`uci get rachel.setup.mode`
+SSIDPREFIX=`uci get rachel.setup.ssidprefix`
+SSID=`uci get rachel.setup.ssid`
+PASSPHRASE=`uci get rachel.setup.passphrase`
+MAXASSOC=`uci get rachel.setup.maxassoc`
+TXPOWER=`uci get rachel.setup.txpower`
+
+# Limit CLASS value 1-99
+if [ $CLASS -gt 99 ] || [ $CLASS -lt 1 ]; then
+	CLASS="1"
+	uci set rachel.setup.class=$CLASS
+	uci commit rachel
+fi
+
+
+# Build IP address with CLASS as octet 3 and octet 4 as per MODE                          
+OCTET4="254"                                                                      
+OCTET12=`uci get network.lan.ipaddr | cut -d = -f 2 | cut -d . -f 1,2`                   
+IP=$OCTET12"."$CLASS"."$OCTET4                                                            
+
+# Build Master IP                                                                         
+MASTER_IP=$OCTET12"."$CLASS".254"                                                         
+uci set network.lan.ipaddr=$IP                                                            
+
+# Setup WAN access
+WANPORT=`uci get rachel.setup.wanport`
+uci set secn.wan.wanport=$WANPORT   # Set only if Ethernet mode
+
+# Get the last digits of the class number
+CLASSDIGIT=`echo -n $CLASS | tail -c -1`
+CLASSDIGIT2=`echo -n $CLASS | tail -c -2`
+
+# Make sure CLASSDIGIT2 two char string for BSSID
+if [ $CLASSDIGIT2 -lt 10 ]; then
+	CLASSDIGIT2="0"$CLASSDIGIT2
+fi
+
+# Set WiFi channel based on last digit of CLASS
+if [ $CLASSDIGIT = '1' ] || [ $CLASSDIGIT = '6' ]; then
+	CHAN=1
+elif [ $CLASSDIGIT = '2' ] || [ $CLASSDIGIT = '7' ]; then
+	CHAN=3
+elif [ $CLASSDIGIT = '3' ] || [ $CLASSDIGIT = '8' ]; then
+	CHAN=6
+elif [ $CLASSDIGIT = '4' ] || [ $CLASSDIGIT = '9' ]; then
+	CHAN=9
+elif [ $CLASSDIGIT = '5' ] || [ $CLASSDIGIT = '0' ]; then
+	CHAN=11
+fi
+
+uci set wireless.radio0.channel=$CHAN
+
+# Set up wifi SSID
+SSID=$SSIDPREFIX-$CLASS$SSID
+uci set secn.accesspoint.ssid=$SSID
+
+# Save wifi password
+uci set secn.accesspoint.passphrase=$PASSPHRASE
+
+# Save the wifi maxassoc
+uci set secn.accesspoint.maxassoc=$MAXASSOC
+
+# Set wifi tx power
+uci set wireless.radio0.txpower=$TXPOWER
+
+# Enabe DHCP
+uci set secn.dhcp.enable="checked"
+/bin/setdhcpsubnet.sh
+uci set secn.dhcp.leaseterm="14400"
+uci set secn.dhcp.startip=$OCTET12"."$CLASS".100"
+uci set secn.dhcp.endip=$OCTET12"."$CLASS".200"
+uci set secn.dhcp.maxleases="100"
+uci set secn.dhcp.dhcp_auth="checked"
+
+# Set the Master address as the gateway for DHCP
+uci set secn.dhcp.router=$MASTER_IP
+uci set secn.dhcp.dns=$MASTER_IP
+uci set secn.dhcp.dns2=$MASTER_IP
+
+# Disable mesh
+uci set secn.mesh.mesh_disable='1'
+
+# Commit changes
+uci commit wireless
+uci commit network
+uci commit secn
+uci commit rachel
+
+sleep 1
+

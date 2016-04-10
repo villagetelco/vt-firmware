@@ -9,6 +9,7 @@ config global autoswap
 config 'mount'
 	option 'device'		'/dev/sda'
 	option 'target'		'/mnt/sda'
+	option 'options'  'rw'
 	option 'fstype'		'auto'
 
 config 'mount'

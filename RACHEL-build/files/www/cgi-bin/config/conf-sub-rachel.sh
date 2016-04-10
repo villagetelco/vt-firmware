@@ -40,6 +40,11 @@ CACHE_ENABLE="0"
 `echo $QUERY_STRING | cut -d \& -f 18`
 `echo $QUERY_STRING | cut -d \& -f 19`
 `echo $QUERY_STRING | cut -d \& -f 20`
+`echo $QUERY_STRING | cut -d \& -f 21`                       
+`echo $QUERY_STRING | cut -d \& -f 22`    
+`echo $QUERY_STRING | cut -d \& -f 23`    
+`echo $QUERY_STRING | cut -d \& -f 24`  
+`echo $QUERY_STRING | cut -d \& -f 25` 
 
 
 # Refresh screen without saving 
@@ -72,8 +77,6 @@ uci commit system
 # Save settings
 uci set rachel.setup.class=\$CLASS
 uci set rachel.setup.mode=\$MODE
-uci set rachel.setup.netaccess=\$NETACCESS
-uci set rachel.setup.enusbmodem=\$ENUSBMODEM
 
 uci set rachel.setup.ssidprefix=\$SSIDPREFIX
 uci set rachel.setup.ssid=\$SSID

@@ -12,9 +12,8 @@ cat > /tmp/conf-save.sh << EOF
 # Set default values for checkboxes and buttons
 
 BUTTON="0"
-NETACCESS="0"
-ENUSBMODEM="0"
-MULTICLASS="0"
+AP_ENABLE="0"
+AP_ENABLE2="0"
 
 # Get Field-Value pairs from QUERY_STRING enironment variable
 # set by the form GET action
@@ -35,6 +34,16 @@ MULTICLASS="0"
 `echo $QUERY_STRING | cut -d \& -f 13`
 `echo $QUERY_STRING | cut -d \& -f 14`
 `echo $QUERY_STRING | cut -d \& -f 15`
+`echo $QUERY_STRING | cut -d \& -f 16`
+`echo $QUERY_STRING | cut -d \& -f 17`
+`echo $QUERY_STRING | cut -d \& -f 18`
+`echo $QUERY_STRING | cut -d \& -f 19`
+`echo $QUERY_STRING | cut -d \& -f 20`
+`echo $QUERY_STRING | cut -d \& -f 21`                       
+`echo $QUERY_STRING | cut -d \& -f 22`    
+`echo $QUERY_STRING | cut -d \& -f 23`    
+`echo $QUERY_STRING | cut -d \& -f 24`  
+`echo $QUERY_STRING | cut -d \& -f 25` 
 
 
 # Refresh screen without saving 
@@ -67,11 +76,21 @@ uci commit system
 # Save settings
 uci set rachel.setup.class=\$CLASS
 uci set rachel.setup.mode=\$MODE
-uci set rachel.setup.netaccess=\$NETACCESS
-uci set rachel.setup.enusbmodem=\$ENUSBMODEM
+
 uci set rachel.setup.ssidprefix=\$SSIDPREFIX
 uci set rachel.setup.ssid=\$SSID
 uci set rachel.setup.passphrase=\$PASSPHRASE
+uci set rachel.setup.encryption=\$ENCRYPTION
+uci set rachel.setup.maxassoc=\$MAXASSOC
+uci set rachel.setup.ap_enable=\$AP_ENABLE
+
+uci set rachel.setup.ssidprefix2=\$SSIDPREFIX2
+uci set rachel.setup.ssid2=\$SSID2
+uci set rachel.setup.passphrase2=\$PASSPHRASE2
+uci set rachel.setup.encryption2=\$ENCRYPTION2
+uci set rachel.setup.ap_enable2=\$AP_ENABLE2
+
+uci set rachel.setup.totalassoc=\$TOTALASSOC
 uci set rachel.setup.wanport=\$WANPORT
 
 
@@ -79,8 +98,9 @@ uci set rachel.setup.wanport=\$WANPORT
 if [ \$MAXASSOC = "Disabled" ]; then
   MAXASSOC="0"
 fi
-uci set secn.accesspoint.maxassoc=\$MAXASSOC
-uci set rachel.setup.maxassoc=\$MAXASSOC
+if [ \$MAXASSOC = "Disabled" ]; then
+  MAXASSOC="0"
+fi
 
 # Set Tx Power
 uci set rachel.setup.txpower=\$TXPOWER
