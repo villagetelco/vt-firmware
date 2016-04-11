@@ -33,7 +33,7 @@ config wifi-iface ah_0
 	option ssid 'vt-mesh'
 	option encryption 'none'
 	option key 'mesh-mesh'
-	option disabled '0'
+	option disabled '1'
 	option hidden '0'
 
 config wifi-iface sta_0
