@@ -54,16 +54,37 @@ $(document).ready( function() {
 			IP4Checker: true
 			},
 			SSID: {
+			maxlength: 32,
+			minlength: 1,
 			PassChecker: true
 			},
 			SSID1: {
+			maxlength: 32,
+			minlength: 1,
+			PassChecker: true
+			},
+			SSIDPREFIX: {
+			maxlength: 32,
+			minlength: 1,
+			PassChecker: true
+			},
+			SSIDPREFIX2: {
+			maxlength: 32,
+			minlength: 1,
 			PassChecker: true
 			},
 			PASSPHRASE: {
+			maxlength: 32,
 			minlength: 8,
 			PassChecker: true
 			},
 			PASSPHRASE1: {
+			maxlength: 32,
+			minlength: 8,
+			PassChecker: true
+			},
+			PASSPHRASE2: {
+			maxlength: 32,
 			minlength: 8,
 			PassChecker: true
 			},
@@ -74,13 +95,17 @@ $(document).ready( function() {
 			PassChecker2: true
 			},
 			SECRET: {
+			maxlength: 32,
+			minlength: 8,
 			PassChecker: true
 			},
 			PASSWORD1: {
+			maxlength: 32,
 			minlength: 3,
 			PassChecker: true
 			},
 			PASSWORD2: {
+			maxlength: 32,
 			minlength: 3,
 			equalTo: "#PASSWORD1"
 			}
@@ -158,22 +183,32 @@ $(document).ready( function() {
 			HexChecker: true
 			},
 			ATH0_SSID: {
+			maxlength: 32,
+			minlength: 1,
 			PassChecker2: true
 			},
 			ATH0_SSID1: {
+			maxlength: 32,
+			minlength: 1,
 			PassChecker2: true
 			},
 			SSID: {
+			maxlength: 32,
+			minlength: 1,
 			PassChecker: true
 			},
 			SSID1: {
+			maxlength: 32,
+			minlength: 1,
 			PassChecker: true
 			},
 			PASSPHRASE: {
+			maxlength: 32,
 			minlength: 8,
 			PassChecker: true
 			},
 			MESHPASSPHRASE: {
+			maxlength: 32,
 			minlength: 8,
 			PassChecker: true
 			},
@@ -222,10 +257,13 @@ $(document).ready( function() {
 			IP4Checker: true
 			},
 			WANSSID: {
+			maxlength: 32,
+			minlength: 1,
 			PassChecker: true
 			},
 			WANPASS: {
-			minlength: 8,
+			maxlength: 32,
+			minlength: 1,
 			PassChecker: true
 			},
 			APN: {
