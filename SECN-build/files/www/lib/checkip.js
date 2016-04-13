@@ -96,7 +96,7 @@ $(document).ready( function() {
 			},
 			SECRET: {
 			maxlength: 32,
-			minlength: 8,
+			minlength: 4,
 			PassChecker: true
 			},
 			PASSWORD1: {
@@ -222,9 +222,13 @@ $(document).ready( function() {
 			PassChecker2: true
 			},
 			USER: {
+			maxlength: 32,
+			minlength: 4,
 			PassChecker2: true
 			},
 			SECRET: {
+			maxlength: 32,
+			minlength: 4,
 			PassChecker: true
 			},
 			OPTION_DNS: {
