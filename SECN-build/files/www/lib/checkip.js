@@ -65,12 +65,12 @@ $(document).ready( function() {
 			},
 			SSIDPREFIX: {
 			maxlength: 32,
-			minlength: 1,
+			minlength: 2,
 			PassChecker: true
 			},
 			SSIDPREFIX2: {
 			maxlength: 32,
-			minlength: 1,
+			minlength: 2,
 			PassChecker: true
 			},
 			PASSPHRASE: {
@@ -299,7 +299,7 @@ $(document).ready( function() {
 	$('#MP-SPH').validate({
 		rules: {
 			SP_NAME: {
-			minlength: 1,
+			minlength: 2,
 			maxlength: 16,
 			PassChecker: true
 			},
