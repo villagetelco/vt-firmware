@@ -7,7 +7,7 @@
 # Ensure that wifi interfaces are up
 sleep 5  
 
-# Add the adhoc interface
+# Add the adhoc interfaces
 /usr/sbin/batctl if add wlan0-1 wlan1-1
 sleep 1
 

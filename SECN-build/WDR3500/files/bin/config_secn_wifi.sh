@@ -37,14 +37,14 @@ elif [ $ENCRYPTION = "NONE" ]; then
 ENCRYPT="none"                                                      
 fi
 
-uci set wireless.vt_ap_0.key=$PASSPHRASE
-uci set wireless.vt_ap_0.ssid=$SSID
-uci set wireless.vt_ap_0.mode="ap"
-uci set wireless.vt_ap_0.disabled=$AP_DISABLE
-uci set wireless.vt_ap_0.encryption=$ENCRYPT
-uci set wireless.vt_ap_0.maxassoc=$MAXASSOC
-uci set wireless.vt_ap_0.isolate=$AP_ISOL
-uci set wireless.vt_ah_0.disabled=$MESH_DISABLE
+uci set wireless.ap_0.key=$PASSPHRASE
+uci set wireless.ap_0.ssid=$SSID
+uci set wireless.ap_0.mode="ap"
+uci set wireless.ap_0.disabled=$AP_DISABLE
+uci set wireless.ap_0.encryption=$ENCRYPT
+uci set wireless.ap_0.maxassoc=$MAXASSOC
+uci set wireless.ap_0.isolate=$AP_ISOL
+uci set wireless.ah_0.disabled=$MESH_DISABLE
 
 
 # ------------------------------------------------------------------
@@ -84,14 +84,14 @@ elif [ $ENCRYPTION = "NONE" ]; then
 ENCRYPT="none"                                                      
 fi
 
-uci set wireless.vt_ap_1.encryption=$ENCRYPT
-uci set wireless.vt_ap_1.key=$PASSPHRASE
-uci set wireless.vt_ap_1.ssid=$SSID
-uci set wireless.vt_ap_1.mode="ap"
-uci set wireless.vt_ap_1.disabled=$AP_DISABLE
-uci set wireless.vt_ap_1.maxassoc=$MAXASSOC
-uci set wireless.vt_ap_1.isolate=$AP_ISOL1
-uci set wireless.vt_ah_1.disabled=$MESH_DISABLE1
+uci set wireless.ap_1.encryption=$ENCRYPT
+uci set wireless.ap_1.key=$PASSPHRASE
+uci set wireless.ap_1.ssid=$SSID
+uci set wireless.ap_1.mode="ap"
+uci set wireless.ap_1.disabled=$AP_DISABLE
+uci set wireless.ap_1.maxassoc=$MAXASSOC
+uci set wireless.ap_1.isolate=$AP_ISOL1
+uci set wireless.ah_1.disabled=$MESH_DISABLE1
 
 # Check to see if mesh AP isolation is required by either band.
 WANPORT=`uci get secn.wan.wanport`
