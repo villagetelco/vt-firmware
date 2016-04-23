@@ -1,0 +1,39 @@
+
+config interface 'loopback'
+	option ifname 'lo'
+	option proto 'static'
+	option ipaddr '127.0.0.1'
+	option netmask '255.0.0.0'
+
+config interface 'lan'
+	option type 'bridge'
+	option ifname 'eth1 '  # Default version: eth0. Also wlan0 added on startup
+#	option force_link '1'
+#	option ip6assign '60'
+	option proto 'static'
+	option ipaddr '172.18.126.101'
+	option netmask '255.255.224.0'
+	option gateway '172.18.96.1'
+	option broadcast '172.18.127.255'
+	option dns '172.18.96.1'
+
+config interface 'mesh_0'
+	option proto 'static'
+	option ipaddr '10.10.1.20'
+	option netmask '255.255.255.0'
+	option mtu '1532'
+
+config interface
+	option ifname 'bat0'
+
+config interface 'wan'
+	option proto 'dhcp'
+
+config interface 'wwan'
+	option proto 'dhcp'
+
+config 'interface' 'stabridge'
+	option 'proto' 'relay'
+	option 'network' 'wwan'
+
+
