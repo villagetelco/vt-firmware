@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Set the host name prefix
-HOST="MP2"
+HOST="MT300A"
 
 # Build the hostname ($HOST-nnn) from the device IP address last octet
 OCTET_D=`uci get network.lan.ipaddr | cut -d = -f2 | cut -d . -f4`
