@@ -14,3 +14,18 @@ config led 'led_wlan'
 	option name 'WLAN'
 	option sysfs 'gl_ar150:wlan'
 	option trigger 'phy0tpt'
+
+config led 'led_lan'
+	option name 'LAN'
+	option sysfs 'gl_ar150:lan'
+	option trigger 'netdev'
+	option dev 'eth1'
+	option mode 'link tx rx'
+
+config led 'led_wan' 
+	option name 'WAN' 
+	option sysfs 'gl_ar150:wan' 
+	option trigger 'netdev' 
+	option dev 'eth0'      
+	option mode 'link tx rx'
+
