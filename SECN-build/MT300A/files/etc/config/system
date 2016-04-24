@@ -12,5 +12,5 @@ config timeserver 'ntp'
 
 config led 'led_wlan'
         option name 'WLAN'
-        option sysfs 'dragino2:red:wlan'
+        option sysfs 'gl_mt300:wlan'  #???
         option trigger 'phy0tpt'
