@@ -203,4 +203,5 @@ uci commit network
 uci commit wireless
 uci commit secn
 uci commit firewall
+sleep 1
 
