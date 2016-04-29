@@ -12,14 +12,14 @@ config timeserver 'ntp'
 
 config led 'led_lan'
 	option name 'LAN'
-	option sysfs 'gl_ar150:lan'
+	option sysfs 'domino:green:lan1'
 	option trigger 'netdev'
 	option dev 'eth1'
 	option mode 'link tx rx'
 
 config led 'led_wan' 
 	option name 'WAN' 
-	option sysfs 'domino:green:lan1' 
+	option sysfs 'domino:red:wan' 
 	option trigger 'netdev' 
 	option dev 'eth0'      
 	option mode 'link tx rx'
@@ -32,11 +32,13 @@ config led 'led_wlan'
 config led 'led_wps'
 	option name 'WPS'
 	option sysfs 'domino:yellow:wps'
-#	option trigger 'phy0tpt'
+#	option trigger xxxxx
 
-domino:white:usb
 config led 'led_usb'
-	option name 'USB'
+	option default '0'
+	option name 'usb'
 	option sysfs 'domino:white:usb'
-#	option trigger 'phy0tpt'
+	option trigger 'usbdev'
+	option dev '1-1'
+
 
