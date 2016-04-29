@@ -188,6 +188,8 @@ uci set wireless.radio1.htmode=\$RADIOMODE1
 # Write the adhoc interface settings into /etc/config/wireless
 uci set wireless.ah_0.ssid=\$ATH0_SSID
 uci set wireless.ah_0.bssid=\$ATH0_BSSID
+uci set wireless.ah_1.ssid=\$ATH0_SSID
+uci set wireless.ah_1.bssid=\$ATH0_BSSID
 
 # Write LAN Port Disable setting
 uci set secn.wan.lanport_disable=\$LANPORT_DISABLE
