@@ -36,24 +36,6 @@ elif [ $ENCRYPTION = "NONE" ]; then
 ENCRYPT="none"                                                      
 fi
 
-uci set wireless.ap_0.key=$PASSPHRASE
-uci set wireless.ap_0.ssid=$SSID
-uci set wireless.ap_0.mode="ap"
-uci set wireless.ap_0.disabled=$AP_DISABLE
-uci set wireless.ap_0.encryption=$ENCRYPT
-uci set wireless.ap_0.maxassoc=$MAXASSOC
-uci set wireless.ap_0.isolate=$AP_ISOL
-uci set wireless.ah_0.disabled=$MESH_DISABLE
-
-# Setup AP Isolation on mesh unless it is used for WAN
-WANPORT=`uci get secn.wan.wanport`
-
-if [ $AP_ISOL = "1" ] && [ $WANPORT != "Mesh" ]; then  
-	batctl ap 1
-else
-	batctl ap 0
-fi
-
 # Set up mesh encryption
 MESH_ENCR=`uci get secn.mesh.mesh_encr`
 MESHPASSPHRASE=`uci get secn.mesh.mesh_passphrase`
@@ -67,12 +49,30 @@ elif [ $MESH_ENCR = "WPA2" ]; then
 MESH_ENCRYPT="psk2"
 fi
 
+uci set wireless.ap_0.key=$PASSPHRASE
+uci set wireless.ap_0.ssid=$SSID
+uci set wireless.ap_0.mode="ap"
+uci set wireless.ap_0.disabled=$AP_DISABLE
+uci set wireless.ap_0.encryption=$ENCRYPT
+uci set wireless.ap_0.maxassoc=$MAXASSOC
+uci set wireless.ap_0.isolate=$AP_ISOL
+uci set wireless.ah_0.disabled=$MESH_DISABLE
 uci set wireless.ah_0.encryption=$MESH_ENCRYPT
 uci set wireless.ah_0.key=$MESHPASSPHRASE
 
-#----------------------------------------------
+# Setup AP Isolation on mesh unless it is used for WAN
+WANPORT=`uci get secn.wan.wanport`
 
+if [ $AP_ISOL = "1" ] && [ $WANPORT != "Mesh" ]; then  
+	batctl ap 1
+else
+	batctl ap 0
+fi
+
+
+#----------------------------------------------
 # Save the changes 
 uci commit wireless
 uci commit secn
+sleep 1
 
