@@ -243,6 +243,9 @@ uci set secn.dhcp.device_ip=\$DEVICE_IP
 # Save mesh settings to /etc/config/secn
 uci set secn.mesh.mesh_disable=\$MESH_DISABLE
 uci set secn.mesh.mpgw=\$MPGW
+uci set secn.mesh.mesh_encr=\$MESH_ENCR
+uci set secn.mesh.mesh_passphrase=\$MESHPASSPHRASE
+
 
 # Set up mesh gateway mode on the fly
 if [ \$MPGW = "OFF" ]; then
