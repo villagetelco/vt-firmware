@@ -6,11 +6,11 @@
 
 # Select the repo to use
 REPO="vt-firmware"
-BRANCH="secn_4.0"
+BRANCH="secn"
 
 echo "Set up version strings"
-DIRVER="Alpha3"
-VER="SECN-4.0-TP-WDR-"$DIRVER
+DIRVER="G2-Alpha1"
+VER="SECN-3-TP-WDR-"$DIRVER
 
 
 echo "************************************"
@@ -76,7 +76,7 @@ BUILDDIR="./Builds/ar71xx"
 ###########################
 echo "Copy files from Git repo into build folder"
 rm -rf ./SECN-build/
-cp -rp $GITREPO/$REPO/SECN-build/ .
+cp -rfp $GITREPO/$REPO/SECN-build/ .
 cp -fp $GITREPO/$REPO/Build-scripts/FactoryRestore.sh  .
 cp -fp $GITREPO/$REPO/Build-scripts/GetGitVersions.sh  .
 
@@ -115,10 +115,10 @@ rm ./.config
 
 if [ $2 ]; then
 	echo "Config file: config-"$1-$2
-	cp ./SECN-build/$1/config-$1-$2  ./.config
+	cp -f ./SECN-build/$1/config-$1-$2  ./.config
 else
 	echo "Config file: config-"$1
-	cp ./SECN-build/$1/config-$1  ./.config
+	cp -f ./SECN-build/$1/config-$1  ./.config
 fi
 
 echo "Run defconfig"
@@ -136,10 +136,14 @@ echo "Remove files directory"
 rm -r ./files
 
 echo "Copy generic files"
-cp -r ./SECN-build/files     .  
+cp -rf ./SECN-build/files     .  
+
+cp -rf ./SECN-build/files-2/*         ./files  
+cp -rf ./SECN-build/files-aster/*     ./files  
+cp -rf ./SECN-build/files-usbmodem/*  ./files  
 
 echo "Overlay device specific files"
-cp -r ./SECN-build/$1/files  .  
+cp -rf ./SECN-build/$1/files  .  
 echo ""
 
 echo "Build Factory Restore tar file"
@@ -168,8 +172,9 @@ rm $BINDIR/openwrt-*
 echo ""
 
 echo "Run make for "$1 $2
-#make -j5
-make -j1 V=s 2>&1 | tee ~/build.txt
+#make
+make -j3
+#make -j1 V=s 2>&1 | tee ~/build.txt
 echo ""
 
 # Get the hardware version eg (WDR) 4300 or 3500 
@@ -191,9 +196,9 @@ echo "Update new md5sums file"
 md5sum $BINDIR/*wdr$HWVER*-squash*sysupgrade.bin >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 #md5sum $BINDIR/*wdr$HWVER*-squash*factory.bin    >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 
-echo  "Copy files to build folder"
-cp $BINDIR/openwrt*wdr$HWVER*-squash*sysupgrade.bin $BUILDDIR/builds/build-$DIR
-#cp $BINDIR/openwrt*wdr$HWVER*-squash*factory.bin    $BUILDDIR/builds/build-$DIR
+echo  "Move files to build folder"
+mv $BINDIR/openwrt*wdr$HWVER*-squash*sysupgrade.bin $BUILDDIR/builds/build-$DIR
+#mv $BINDIR/openwrt*wdr$HWVER*-squash*factory.bin    $BUILDDIR/builds/build-$DIR
 echo ""
 
 echo "Clean up unused files"

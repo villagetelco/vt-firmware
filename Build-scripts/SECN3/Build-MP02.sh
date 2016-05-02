@@ -9,13 +9,13 @@ REPO="vt-firmware"
 BRANCH="secn"
 
 echo "Set up version strings"
-DIRVER="RC1"
-VER="MP02-RACHEL-"$DIRVER
+DIRVER="GA02.1"
+VER="SECN-3.0-MP02-"$DIRVER
 
 
 echo "************************************"
 echo ""
-echo "Build script for MP02 RACHEL device"
+echo "Build script for MP02 and MP02-FXS devices"
 
 echo "Git directory: "$GITREPO
 echo "Repo: "$REPO
@@ -76,14 +76,10 @@ BUILDDIR="./Builds/ar71xx"
 ###########################
 echo "Copy files from Git repo into build folder"
 rm -rf ./SECN-build/
-
 cp -rp $GITREPO/$REPO/SECN-build/ .
-
 cp -fp $GITREPO/$REPO/Build-scripts/FactoryRestore.sh  .
 cp -fp $GITREPO/$REPO/Build-scripts/GetGitVersions.sh  .
 
-echo "Overlay RACHEL files"
-cp -rfp $GITREPO/$REPO/RACHEL-build/* ./SECN-build/
 
 ###########################
 
@@ -97,7 +93,7 @@ echo "Source repo details: "$REPO $REPOID
 
 # Set up new directory name with date and version
 DATE=`date +%Y-%m-%d-%H:%M`
-DIR=$DATE"-MP02-RACHEL-"$DIRVER
+DIR=$DATE"-MP02-"$DIRVER
 
 ###########################
 # Set up build directory
@@ -130,8 +126,6 @@ make defconfig > /dev/null
 
 # Set target string
 TARGET=$1
-
-echo "Check .config version"
 echo "Target:  " $TARGET
 echo ""
 
@@ -140,13 +134,20 @@ echo "Remove files directory"
 rm -r ./files
 
 echo "Copy base files"
-cp -rf ./SECN-build/files     .  
+cp -rf ./SECN-build/files             .  
 
-echo "Copy additional files"
-cp -rf ./SECN-build/files-2/* ./files  
+echo "Overlay additional files"
+cp -rf ./SECN-build/files-2/*         ./files  
+cp -rf ./SECN-build/files-aster/*     ./files  
+
+if [ $1 = "MP02FXS" ]; then
+cp -rf ./SECN-build/files-ivr/*       ./files  
+fi
+
+cp -rf ./SECN-build/files-usbmodem/*  ./files  
 
 echo "Overlay device specific files"
-cp -rf ./SECN-build/$1/files  .  
+cp -r ./SECN-build/$1/files  .  
 echo ""
 
 echo "Build Factory Restore tar file"
@@ -175,8 +176,9 @@ rm $BINDIR/openwrt-*
 echo ""
 
 echo "Run make for "$1 $2
-make
-#make -j3
+#make
+make -j3
+#make -j5
 #make -j1 V=s 2>&1 | tee ~/build.txt
 echo ""
 
@@ -224,10 +226,13 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
+build_mp02 MP02FXS
 build_mp02 MP02
+#build_mp02 MP02FXS dundi
+#build_mp02 MP02FXS 729
 
 echo " "
-echo " Build script MP02 RACHEL complete"
+echo " Build script MP02FXS complete"
 echo " "
 echo '----------------------------'
 

@@ -6,16 +6,16 @@
 
 # Select the repo to use
 REPO="vt-firmware"
-BRANCH="secn_4.0"
+BRANCH="secn"
 
 echo "Set up version strings"
-DIRVER="Alpha3"
-VER="SECN-4.0-MP02-Duo-"$DIRVER
+DIRVER="MIFI-RACHEL-Alpha1"
+VER="SECN-3.1-"$DIRVER
 
 
 echo "************************************"
 echo ""
-echo "Build script for MP02 Duo device"
+echo "Build script for MIFI device"
 
 echo "Git directory: "$GITREPO
 echo "Repo: "$REPO
@@ -56,8 +56,6 @@ if [ ! -f ./already_configured ]; then
   mkdir ./Builds/
   mkdir ./Builds/ar71xx/
   mkdir ./Builds/ar71xx/builds
-  mkdir ./Builds/atheros/
-  mkdir ./Builds/atheros/builds
   echo "Initial set up completed. Continuing with build"
   echo ""
 else
@@ -80,8 +78,8 @@ cp -rp $GITREPO/$REPO/SECN-build/ .
 cp -fp $GITREPO/$REPO/Build-scripts/FactoryRestore.sh  .
 cp -fp $GITREPO/$REPO/Build-scripts/GetGitVersions.sh  .
 
-echo "Overlay Duo files"
-cp -rp $GITREPO/$REPO/Duo-build/* ./SECN-build/
+echo "Overlay RACHEL files"
+cp -rfp $GITREPO/$REPO/RACHEL-build/* ./SECN-build/
 
 ###########################
 
@@ -95,7 +93,7 @@ echo "Source repo details: "$REPO $REPOID
 
 # Set up new directory name with date and version
 DATE=`date +%Y-%m-%d-%H:%M`
-DIR=$DATE"-MP02-Duo-"$DIRVER
+DIR=$DATE-$DIRVER
 
 ###########################
 # Set up build directory
@@ -110,7 +108,7 @@ echo $DIR > $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 
 # Build function
 
-function build_mp02() {
+function build() {
 
 echo "Set up .config for "$1 $2
 rm ./.config
@@ -142,11 +140,9 @@ cp -rf ./SECN-build/files             .
 
 echo "Copy additional files"
 cp -rf ./SECN-build/files-2/*         ./files  
-cp -rf ./SECN-build/files-aster/*     ./files  
-cp -rf ./SECN-build/files-usbmodem/*  ./files  
 
 echo "Overlay device specific files"
-cp -r ./SECN-build/$1/files  .  
+cp -rf ./SECN-build/$1/files  .  
 echo ""
 
 echo "Build Factory Restore tar file"
@@ -175,33 +171,34 @@ rm $BINDIR/openwrt-*
 echo ""
 
 echo "Run make for "$1 $2
-#make -j5
-make -j1 V=s 2>&1 | tee ~/build.txt
+#make
+make -j3
+#make -j1 V=s 2>&1 | tee ~/build.txt
 echo ""
 
 echo "Update original md5sums file"
-cat $BINDIR/md5sums | grep "squashfs.bin"   | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
-cat $BINDIR/md5sums | grep "kernel.bin"     | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
+#cat $BINDIR/md5sums | grep "squashfs.bin"   | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
+#cat $BINDIR/md5sums | grep "kernel.bin"     | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
 cat $BINDIR/md5sums | grep "sysupgrade.bin" | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
 echo ""
 
 echo  "Rename files to add version info"
 echo ""
 if [ $2 ]; then
-	for n in `ls $BINDIR/openwrt*.bin`; do mv  $n   $BINDIR/openwrt-$VER-$1-$2-`echo $n|cut -d '-' -f 5-10`; done
+	for n in `ls $BINDIR/openwrt*.bin`; do mv  $n   $BINDIR/openwrt-$VER-`echo $n|cut -d '-' -f 5-10`; done
 else
-	for n in `ls $BINDIR/openwrt*.bin`; do mv  $n   $BINDIR/openwrt-$VER-$1-`echo $n|cut -d '-' -f 5-10`; done
+	for n in `ls $BINDIR/openwrt*.bin`; do mv  $n   $BINDIR/openwrt-$VER-`echo $n|cut -d '-' -f 5-10`; done
 fi
 
 echo "Update new md5sums file"
 md5sum $BINDIR/*-squash*sysupgrade.bin >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
-md5sum $BINDIR/openwrt*kernel.bin      >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
-md5sum $BINDIR/openwrt*squashfs.bin    >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
+#md5sum $BINDIR/openwrt*kernel.bin      >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
+#md5sum $BINDIR/openwrt*squashfs.bin    >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 
 echo  "Move files to build folder"
 mv $BINDIR/openwrt*-squash*sysupgrade.bin $BUILDDIR/builds/build-$DIR
-mv $BINDIR/openwrt*kernel.bin             $BUILDDIR/builds/build-$DIR
-mv $BINDIR/openwrt*squashfs.bin           $BUILDDIR/builds/build-$DIR
+#mv $BINDIR/openwrt*kernel.bin             $BUILDDIR/builds/build-$DIR
+#mv $BINDIR/openwrt*squashfs.bin           $BUILDDIR/builds/build-$DIR
 echo ""
 
 echo "Clean up unused files"
@@ -223,10 +220,10 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-build_mp02 MP02 Duo
+build MIFI
 
 echo " "
-echo " Build script Duo MP02 complete"
+echo " Build script MIFI RACHEL complete"
 echo " "
 echo '----------------------------'
 

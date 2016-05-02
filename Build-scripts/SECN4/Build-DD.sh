@@ -6,16 +6,16 @@
 
 # Select the repo to use
 REPO="vt-firmware"
-BRANCH="secn_4.0"
+BRANCH="secn"
 
 echo "Set up version strings"
-DIRVER="Alpha3"
-VER="SECN-4.0-TP-CR-"$DIRVER
+DIRVER="RC1"
+VER="SECN-4.0-DD-"$DIRVER
 
 
 echo "************************************"
 echo ""
-echo "CR Build script for TP Link devices"
+echo "Build script for Dragino Duo devices"
 
 echo "Git directory: "$GITREPO
 echo "Repo: "$REPO
@@ -56,8 +56,8 @@ if [ ! -f ./already_configured ]; then
   mkdir ./Builds/
   mkdir ./Builds/ar71xx/
   mkdir ./Builds/ar71xx/builds
-  mkdir ./Builds/atheros/
-  mkdir ./Builds/atheros/builds
+  mkdir ./Builds/ramips/
+  mkdir ./Builds/ramips/builds
   echo "Initial set up completed. Continuing with build"
   echo ""
 else
@@ -70,8 +70,8 @@ fi
 
 echo "Start build process"
 
-BINDIR="./bin/ar71xx"
-BUILDDIR="./Builds/ar71xx"
+BINDIR="./bin/ramips"
+BUILDDIR="./Builds/ramips"
 
 ###########################
 echo "Copy files from Git repo into build folder"
@@ -80,8 +80,6 @@ cp -rp $GITREPO/$REPO/SECN-build/ .
 cp -fp $GITREPO/$REPO/Build-scripts/FactoryRestore.sh  .
 cp -fp $GITREPO/$REPO/Build-scripts/GetGitVersions.sh  .
 
-echo "Overlay Class Router files"
-cp -rp $GITREPO/$REPO/CR-build/* ./SECN-build
 
 ###########################
 
@@ -95,7 +93,7 @@ echo "Source repo details: "$REPO $REPOID
 
 # Set up new directory name with date and version
 DATE=`date +%Y-%m-%d-%H:%M`
-DIR=$DATE"-TP-CR-"$DIRVER
+DIR=$DATE"-DDuo-"$DIRVER
 
 ###########################
 # Set up build directory
@@ -110,7 +108,7 @@ echo $DIR > $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 
 # Build function
 
-function build_tp() {
+function build_dd() {
 
 echo "Set up .config for "$1 $2
 rm ./.config
@@ -126,8 +124,8 @@ fi
 echo "Run defconfig"
 make defconfig > /dev/null
 
-# Set up target display strings
-TARGET=`cat .config | grep "CONFIG_TARGET" | grep "=y" | grep "_generic_" | cut -d _ -f 5 | cut -d = -f 1 `
+# Set target string
+TARGET=$1
 
 echo "Check .config version"
 echo "Target:  " $TARGET
@@ -137,10 +135,13 @@ echo "Set up files for "$1 $2
 echo "Remove files directory"
 rm -r ./files
 
-echo "Copy generic files"
-cp -r ./SECN-build/files     .  
-echo "Copy additional files"    #### Note: This will only be correct for WR842!!!!!  ########
+echo "Copy base files"
+cp -rf ./SECN-build/files             .  
+
+echo "Copy additional files"
 cp -rf ./SECN-build/files-2/*         ./files  
+cp -rf ./SECN-build/files-aster/*     ./files  
+cp -rf ./SECN-build/files-usbmodem/*  ./files  
 
 echo "Overlay device specific files"
 cp -r ./SECN-build/$1/files  .  
@@ -172,30 +173,34 @@ rm $BINDIR/openwrt-*
 echo ""
 
 echo "Run make for "$1 $2
-#make -j5
-make -j1 V=s 2>&1 | tee ~/build.txt
+make
+#make -j3
+#make -j1 V=s 2>&1 | tee ~/build.txt
 echo ""
 
 echo "Update original md5sums file"
-cat $BINDIR/md5sums | grep "squashfs" | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
+cat $BINDIR/md5sums | grep "squashfs.bin"   | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
+cat $BINDIR/md5sums | grep "kernel.bin"     | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
+cat $BINDIR/md5sums | grep "sysupgrade.bin" | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
 echo ""
 
 echo  "Rename files to add version info"
 echo ""
 if [ $2 ]; then
-	for n in `ls $BINDIR/openwrt*.bin`; do mv  $n   $BINDIR/openwrt-$VER-$2-`echo $n|cut -d '-' -f 5-10`; done
+	for n in `ls $BINDIR/openwrt*.bin`; do mv  $n   $BINDIR/openwrt-$VER-$1-$2-`echo $n|cut -d '-' -f 5-10`; done
 else
-	for n in `ls $BINDIR/openwrt*.bin`; do mv  $n   $BINDIR/openwrt-$VER-`echo $n|cut -d '-' -f 5-10`; done
+	for n in `ls $BINDIR/openwrt*.bin`; do mv  $n   $BINDIR/openwrt-$VER-$1-`echo $n|cut -d '-' -f 5-10`; done
 fi
 
 echo "Update new md5sums file"
 md5sum $BINDIR/*-squash*sysupgrade.bin >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
-#md5sum $BINDIR/*-squash*factory.bin    >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
-echo ""
+md5sum $BINDIR/openwrt*kernel.bin      >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
+md5sum $BINDIR/openwrt*squashfs.bin    >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 
 echo  "Move files to build folder"
 mv $BINDIR/openwrt*-squash*sysupgrade.bin $BUILDDIR/builds/build-$DIR
-#mv $BINDIR/*-squash*factory.bin    $BUILDDIR/builds/build-$DIR
+mv $BINDIR/openwrt*kernel.bin             $BUILDDIR/builds/build-$DIR
+mv $BINDIR/openwrt*squashfs.bin           $BUILDDIR/builds/build-$DIR
 echo ""
 
 echo "Clean up unused files"
@@ -217,10 +222,10 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-build_tp WR842
+build_dd DDuo
 
 echo " "
-echo "Build script TP complete"
+echo " Build script Dragino Duo complete"
 echo " "
 echo '----------------------------'
 

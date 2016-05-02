@@ -6,16 +6,16 @@
 
 # Select the repo to use
 REPO="vt-firmware"
-BRANCH="secn_4.0"
+BRANCH="secn"
 
 echo "Set up version strings"
-DIRVER="Duo-Alpha3"
-VER="SECN-4.0-TP-"$DIRVER
+DIRVER="XSCE-Alpha3"
+VER="SECN-5.0-TP-"$DIRVER
 
 
 echo "************************************"
 echo ""
-echo "Build script for TP Link Duo devices"
+echo "Build script for TP Link devices"
 
 echo "Git directory: "$GITREPO
 echo "Repo: "$REPO
@@ -80,8 +80,8 @@ cp -rp $GITREPO/$REPO/SECN-build/ .
 cp -fp $GITREPO/$REPO/Build-scripts/FactoryRestore.sh  .
 cp -fp $GITREPO/$REPO/Build-scripts/GetGitVersions.sh  .
 
-echo "Overlay Duo files"
-cp -rp $GITREPO/$REPO/Duo-build/* ./SECN-build/
+echo "Overlay XSCE files"
+cp -rp $GITREPO/$REPO/XSCE-build/* ./SECN-build
 
 ###########################
 
@@ -137,13 +137,15 @@ echo "Set up files for "$1 $2
 echo "Remove files directory"
 rm -r ./files
 
-echo "Copy generic files"
+echo "Copy base files"
 cp -r ./SECN-build/files     .  
 
-echo "Copy additional files"    #### Note: This will only be correct for WR842!!!!!  ########
-cp -rf ./SECN-build/files-2/*         ./files  
-cp -rf ./SECN-build/files-aster/*     ./files  
-cp -rf ./SECN-build/files-usbmodem/*  ./files  
+# Add files for WR842 if required
+#if [ $1 = "WR842" ]; then
+#  cp -rf ./XSCE-build/files-2/*         ./files  
+#  cp -rf ./XSCE-build/files-aster/*     ./files  
+#  cp -rf ./XSCE-build/files-usbmodem/*  ./files  
+#fi
 
 echo "Overlay device specific files"
 cp -r ./SECN-build/$1/files  .  
@@ -175,8 +177,10 @@ rm $BINDIR/openwrt-*
 echo ""
 
 echo "Run make for "$1 $2
+#make
+make -j3
 #make -j5
-make -j1 V=s 2>&1 | tee ~/build.txt
+#make -j1 V=s 2>&1 | tee ~/build.txt
 echo ""
 
 echo "Update original md5sums file"
@@ -186,10 +190,9 @@ echo ""
 echo  "Rename files to add version info"
 echo ""
 if [ $2 ]; then
-#	for n in `ls $BINDIR/openwrt*.bin`; do mv  $n   $BINDIR/openwrt-$VER-$2-`echo $n|cut -d '-' -f 5-10`; done
-	for n in `ls $BINDIR/openwrt*.bin`; do mv  $n   $BINDIR/openwrt-$VER-`echo $n|cut -d '-' -f 5-10`; done
+	for n in `ls $BINDIR/openwrt*.bin`; do mv  $n   $BINDIR/$VER-$2-`echo $n|cut -d '-' -f 5-10`; done
 else
-	for n in `ls $BINDIR/openwrt*.bin`; do mv  $n   $BINDIR/openwrt-$VER-`echo $n|cut -d '-' -f 5-10`; done
+	for n in `ls $BINDIR/openwrt*.bin`; do mv  $n   $BINDIR/$VER-`echo $n|cut -d '-' -f 5-10`; done
 fi
 
 echo "Update new md5sums file"
@@ -198,7 +201,7 @@ md5sum $BINDIR/*-squash*sysupgrade.bin >> $BUILDDIR/builds/build-$DIR/md5sums-$V
 echo ""
 
 echo  "Move files to build folder"
-mv $BINDIR/openwrt*-squash*sysupgrade.bin $BUILDDIR/builds/build-$DIR
+mv $BINDIR/*-squash*sysupgrade.bin $BUILDDIR/builds/build-$DIR
 #mv $BINDIR/*-squash*factory.bin    $BUILDDIR/builds/build-$DIR
 echo ""
 
@@ -221,10 +224,12 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-build_tp WR842 Duo
+build_tp MR3020
+build_tp WR841
+#build_tp WR842
 
 echo " "
-echo "Build script Duo TP complete"
+echo "Build script TP complete"
 echo " "
 echo '----------------------------'
 
