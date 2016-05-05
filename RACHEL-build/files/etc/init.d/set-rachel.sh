@@ -32,6 +32,16 @@ if [ -e "/mnt/sda1/modules" ]; then
 	ln -s -f /mnt/sda1/logs    /www/rachel/logs
 fi
 
+# Check for second VT-RACHEL SD/USB
+if [ -e "/mnt/sdb1/modules" ]; then
+	ln -s -f /mnt/sdb1/modules /www/rachel/modules
+	ln -s -f /mnt/sdb1/local   /www/rachel/local
+	ln -s -f /mnt/sdb1/index.html   /www/rachel/index.html # Set up VT-RACHEL home page
+	mkdir /mnt/sdb1/logs
+	ln -s -f /mnt/sdb1/logs    /www/rachel/logs
+fi
+
+
 # Set up logs
 mv /www/rachel/logs/log4.txt  /www/rachel/logs/log5.txt
 mv /www/rachel/logs/log3.txt  /www/rachel/logs/log4.txt
