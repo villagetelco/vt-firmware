@@ -1,0 +1,32 @@
+
+config system
+	option timezone 'UTC'
+	option hostname 'ATH25-20'
+
+config timeserver 'ntp'
+	list server '0.openwrt.pool.ntp.org'
+	list server '1.openwrt.pool.ntp.org'
+	list server '2.openwrt.pool.ntp.org'
+	list server '3.openwrt.pool.ntp.org'
+	option enable_server '0'
+
+config button
+        option button 'reset'
+        option action 'released'
+        option handler 'logger reboot'
+        option min '0'
+        option max '4'
+
+config button
+        option button 'reset'
+        option action 'released'
+        option handler 'logger factory default'
+        option min '5'
+        option max '30'
+
+config led 'led_wlan'
+        option name 'wlan'
+        option sysfs 'wlan'
+        option trigger 'netdev'
+        option dev 'wlan0-1'
+        option mode 'link tx rx'
