@@ -248,6 +248,8 @@ cat > /tmp/config.html << EOF
 										<td></td>
 										<td class="label"><label for="BR_GATEWAY">LAN Gateway</label></td>
 										<td class="field"><input type="text" name="BR_GATEWAY" id="br_gateway" VALUE=$BR_GATEWAY ></td>
+										<td class="label"><label>Restrict LAN Port</label></td>
+										<td class="field"><input  type="checkbox" name="LANPORT_DISABLE" id="lanport_disable" VALUE="checked" $LANPORT_DISABLE ></td>
 									</tr>
 
 									<tr>
@@ -304,7 +306,7 @@ cat > /tmp/config.html << EOF
 					<td class="label"><label for="ATH0_TXPOWER"> Tx Power 0-27 dBm</label></td>
 					<td class="field"><input type="text" name="ATH0_TXPOWER" id="ath0_txpower" VALUE=$ATH0_TXPOWER ></td>
 
-					<td class="label"><label for="ATH0_TXPOWER_ACTUAL"> Actual Power: </label></td> <td>$ATH0_TXPOWER_ACTUAL </td>
+					<td class="label"><label for="ATH0_TXPOWER_ACTUAL"> Reported Power: </label></td> <td>$ATH0_TXPOWER_ACTUAL </td>
 				</tr>
 			</table>
 
@@ -481,23 +483,27 @@ cat > /tmp/config.html << EOF
 						<option value="SERVER-10Mb">SERVER 10Mb</option>
 						</SELECT>
 					</td>
-
+<!--
 					<td class="label"><label for="MESH_ENCR">Encryption</label></td>
 					<td class="field">
 						<SELECT name="MESH_ENCR" id="MESH_ENCR" >
-						<option selected="off">OFF</option>
-<!--				<option selected="$MESH_ENCR">$MESH_ENCR</option>
-						<option value="off">OFF</option>
-						<option value="psk">WPA</option>
-						<option value="psk2">WPA2</option> -->
+						<option selected="$MESH_ENCR">$MESH_ENCR</option>
+						<option value="OFF">OFF</option>
+						<option value="WPA2">WPA2</option>
+						<option value="WPA2-AES">WPA2-AES</option>
 						</SELECT>
 					</td>
+-->
 				</tr>
 				<tr>
 					<td class="label"><label for="ATH0_IPADDR">IP Address</label></td>
 					<td class="field"><input type="text" name="ATH0_IPADDR" id="ath0_ipaddr" VALUE=$ATH0_IPADDR ></td>
 					<td class="label"><label for="ATH0_NETMASK">Netmask</label></td>
 					<td class="field"><input type="text" name="ATH0_NETMASK" id="ath0_netmask" VALUE=$ATH0_NETMASK ></td>
+<!--
+					<td class="label"><label for="MESHPASSPHRASE">Mesh Passphrase</label></td>
+					<td class="field"><input type="text" name="MESHPASSPHRASE" id="meshpassphrase" VALUE=$MESHPASSPHRASE ></td>
+-->
 				</tr>
 				<tr>
 					<td class="label"><label for="ATH0_SSID"> SSID </label></td>
@@ -688,6 +694,7 @@ cat > /tmp/config.html << EOF
 							<td class="field"><input name="SP_PW2" id="SP_PW2" type="password" autocomplete ="off" VALUE=$SP_PW2></td>
 							<td class="status"></td>
 							<td class="field"> <INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Save" > </td>
+							<td class="field"> <INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Delete" > </td>
 						</tr>
 					</table>
 				</fieldset>
@@ -710,7 +717,7 @@ cat > /tmp/config.html << EOF
 
 		<!-- WAN Configuration Form -->
 					<div id="tab-wan">
-						<form name="MP-ADV2" id="MP-ADV2" METHOD="GET" ACTION="/cgi-bin/config/conf-sub-adv2.sh">
+						<form name="MP-WAN" id="MP-WAN" METHOD="GET" ACTION="/cgi-bin/config/conf-sub-wan.sh">
 							<fieldset class="dhcp">
 								<legend>WAN Configuration</legend>
 								<table>
@@ -721,8 +728,9 @@ cat > /tmp/config.html << EOF
 											<option selected="$WANPORT">$WANPORT</option>
 											<option value="Disable"> Disable </option>
 											<option value="Ethernet"> Ethernet </option>
-											<option value="USB-Modem"> USB-Modem </option>
+<!--											<option value="USB-Modem"> USB-Modem </option>
 											<option value="USB-Eth-Modem"> USB-Eth-Modem </option>
+-->
 											<option value="WiFi"> WiFi </option>
 											<option value="WiFi-Relay"> WiFi-Relay </option>
 											<option value="Mesh"> Mesh </option>
@@ -765,8 +773,6 @@ cat > /tmp/config.html << EOF
 										<td class="label"><label for="WANGATEWAY">Gateway</label></td>
 										<td class="field"><input type="text" name="WANGATEWAY" id="wangateway" VALUE=$WANGATEWAY ></td>
 
-										<td class="label"><label for="SECWANIP">Secondary IP</label></td>
-										<td class="field"><input type="text" name="SECWANIP" id="secwanip" VALUE=$SECWANIP ></td>
 									</tr>
 
 									<tr>
@@ -777,6 +783,10 @@ cat > /tmp/config.html << EOF
 										<td class="field"><input type="text" name="WANDNS" id="wandns" VALUE=$WANDNS ></td>
 									</tr>
 
+									<tr>
+										<td class="label"><label for="SECWANIP">Secondary IP</label></td>
+										<td class="field"><input type="text" name="SECWANIP" id="secwanip" VALUE=$SECWANIP ></td>
+									</tr>
 
 									<tr>	
 										<td class="label"><label> <H4>WiFi WAN Host Settings</H4> </label> </td>
@@ -805,7 +815,7 @@ cat > /tmp/config.html << EOF
 											</SELECT>
 										</td>
 									</tr>
-
+<!--
 									<tr>	
 										<td class="label"><label> <H4>USB Modem Settings</H4> </label> </td>
 									</tr>
@@ -847,8 +857,7 @@ cat > /tmp/config.html << EOF
 										<td class="field"><input type="text" name="APNPW" id="apnpw" VALUE=$APNPW ></td>
 									</tr>
 
-									<tr>
-										<td class="label"><label for="MODEMPIN">PIN</label></td>
+									<tr><td class="label"><label for="MODEMPIN">PIN</label></td>
 										<td class="field"><input type="text" name="MODEMPIN" id="modempin" VALUE=$MODEMPIN ></td>
 
 										<td class="label"><label>USB Serial Port</label></td>
@@ -889,7 +898,7 @@ cat > /tmp/config.html << EOF
                 <td class="field"><input type="text" name="MODEMURL" id="modemurl" VALUE=$MODEMURL ></td>
 								<br></br>
 								<iframe id="FrameID5" src=$MODEMURL width="100%" height="150" ></iframe>
-
+-->
 							</fieldset>
 
 							<table class="submitform">

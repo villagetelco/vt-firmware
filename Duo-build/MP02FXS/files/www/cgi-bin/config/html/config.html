@@ -484,7 +484,7 @@ cat > /tmp/config.html << EOF
 						<option value="SERVER-10Mb">SERVER 10Mb</option>
 						</SELECT>
 					</td>
-
+<!--
 					<td class="label"><label for="MESH_ENCR">Encryption</label></td>
 					<td class="field">
 						<SELECT name="MESH_ENCR" id="MESH_ENCR" >
@@ -494,14 +494,17 @@ cat > /tmp/config.html << EOF
 						<option value="WPA2-AES">WPA2-AES</option>
 						</SELECT>
 					</td>
+-->
 				</tr>
 				<tr>
 					<td class="label"><label for="ATH0_IPADDR">IP Address</label></td>
 					<td class="field"><input type="text" name="ATH0_IPADDR" id="ath0_ipaddr" VALUE=$ATH0_IPADDR ></td>
 					<td class="label"><label for="ATH0_NETMASK">Netmask</label></td>
 					<td class="field"><input type="text" name="ATH0_NETMASK" id="ath0_netmask" VALUE=$ATH0_NETMASK ></td>
+<!--
 					<td class="label"><label for="MESHPASSPHRASE">Mesh Passphrase</label></td>
 					<td class="field"><input type="text" name="MESHPASSPHRASE" id="meshpassphrase" VALUE=$MESHPASSPHRASE ></td>
+-->
 				</tr>
 				<tr>
 					<td class="label"><label for="ATH0_SSID"> SSID </label></td>
@@ -524,7 +527,7 @@ cat > /tmp/config.html << EOF
 												<SELECT name="SOFTPH" id="softph">
 												<option selected="$SOFTPH">$SOFTPH</option>
 												<option value="OFF"> OFF </option>
-<!--												<option value="CLIENT"> CLIENT </option> -->
+												<option value="CLIENT"> CLIENT </option>
 												<option value="MASTER"> MASTER </option>
 												</SELECT>
 										</td>
@@ -809,7 +812,7 @@ cat > /tmp/config.html << EOF
 
 		<!-- WAN Configuration Form -->
 					<div id="tab-wan">
-						<form name="MP-ADV2" id="MP-ADV2" METHOD="GET" ACTION="/cgi-bin/config/conf-sub-wan.sh">
+						<form name="MP-WAN" id="MP-WAN" METHOD="GET" ACTION="/cgi-bin/config/conf-sub-wan.sh">
 							<fieldset class="dhcp">
 								<legend>WAN Configuration</legend>
 								<table>
@@ -820,8 +823,9 @@ cat > /tmp/config.html << EOF
 											<option selected="$WANPORT">$WANPORT</option>
 											<option value="Disable"> Disable </option>
 											<option value="Ethernet"> Ethernet </option>
-											<option value="USB-Modem"> USB-Modem </option>
+<!--											<option value="USB-Modem"> USB-Modem </option>
 											<option value="USB-Eth-Modem"> USB-Eth-Modem </option>
+-->
 											<option value="WiFi"> WiFi </option>
 											<option value="WiFi-Relay"> WiFi-Relay </option>
 											<option value="Mesh"> Mesh </option>
@@ -864,8 +868,6 @@ cat > /tmp/config.html << EOF
 										<td class="label"><label for="WANGATEWAY">Gateway</label></td>
 										<td class="field"><input type="text" name="WANGATEWAY" id="wangateway" VALUE=$WANGATEWAY ></td>
 
-										<td class="label"><label for="SECWANIP">Secondary IP</label></td>
-										<td class="field"><input type="text" name="SECWANIP" id="secwanip" VALUE=$SECWANIP ></td>
 									</tr>
 
 									<tr>
@@ -876,6 +878,10 @@ cat > /tmp/config.html << EOF
 										<td class="field"><input type="text" name="WANDNS" id="wandns" VALUE=$WANDNS ></td>
 									</tr>
 
+									<tr>
+										<td class="label"><label for="SECWANIP">Secondary IP</label></td>
+										<td class="field"><input type="text" name="SECWANIP" id="secwanip" VALUE=$SECWANIP ></td>
+									</tr>
 
 									<tr>	
 										<td class="label"><label> <H4>WiFi WAN Host Settings</H4> </label> </td>
@@ -904,7 +910,7 @@ cat > /tmp/config.html << EOF
 											</SELECT>
 										</td>
 									</tr>
-
+<!--
 									<tr>	
 										<td class="label"><label> <H4>USB Modem Settings</H4> </label> </td>
 									</tr>
@@ -946,8 +952,7 @@ cat > /tmp/config.html << EOF
 										<td class="field"><input type="text" name="APNPW" id="apnpw" VALUE=$APNPW ></td>
 									</tr>
 
-									<tr>
-										<td class="label"><label for="MODEMPIN">PIN</label></td>
+									<tr><td class="label"><label for="MODEMPIN">PIN</label></td>
 										<td class="field"><input type="text" name="MODEMPIN" id="modempin" VALUE=$MODEMPIN ></td>
 
 										<td class="label"><label>USB Serial Port</label></td>
@@ -988,7 +993,7 @@ cat > /tmp/config.html << EOF
                 <td class="field"><input type="text" name="MODEMURL" id="modemurl" VALUE=$MODEMURL ></td>
 								<br></br>
 								<iframe id="FrameID5" src=$MODEMURL width="100%" height="150" ></iframe>
-
+-->
 							</fieldset>
 
 							<table class="submitform">
