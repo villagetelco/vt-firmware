@@ -585,6 +585,7 @@ cat > /tmp/config.html << EOF
 							<td class="label"><label for="SP_NUMBER"> SoftPhone Number </label></td>
 							<td class="field"><input type="text" name="SP_NUMBER" id="sp_number" VALUE=$SP_NUMBER ></td>
 							<td class="label"><label> Range: 300 -> 399 </label> </td>
+							<td class="field"> <INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Delete" > </td>
 						</tr>
 					</table>
 
@@ -592,14 +593,15 @@ cat > /tmp/config.html << EOF
 						<tr>
 							<td class="label"><label for="SP_NAME"> SoftPhone Name </label></td> <td>$SP_NAME </td>
 							<td class="field"><input type="text" name="SP_NAME" id="sp_name" VALUE=$SP_NAME ></td>
+						</tr>
+					</table>
+					<table>
+						<tr>
 							<td class="label"><label for="SP_PW1"> Enter Password</label></td>
 							<td class="field"><input name="SP_PW1" id="SP_PW1" type="password" autocomplete ="off" VALUE=$SP_PW1></td>
-							<td class="status"></td>
 							<td class="label"><label for="SP_PW2"> Repeat Password</label></td>
 							<td class="field"><input name="SP_PW2" id="SP_PW2" type="password" autocomplete ="off" VALUE=$SP_PW2></td>
-							<td class="status"></td>
 							<td class="field"> <INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Save" > </td>
-							<td class="field"> <INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Delete" > </td>
 						</tr>
 					</table>
 				</fieldset>
@@ -676,7 +678,6 @@ cat > /tmp/config.html << EOF
 										
 										<td class="label"><label for="WANGATEWAY">Gateway</label></td>
 										<td class="field"><input type="text" name="WANGATEWAY" id="wangateway" VALUE=$WANGATEWAY ></td>
-
 									</tr>
 
 									<tr>
