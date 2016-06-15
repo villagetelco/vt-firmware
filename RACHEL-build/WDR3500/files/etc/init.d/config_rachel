@@ -33,13 +33,25 @@ uci set secn.modem.username=$USERNAME
 uci set secn.modem.password=$PASSWORD
 
 # Get RACHEL initial settings
+TOTALASSOC=`uci get rachel.setup.totalassoc`  # Total wifi connections
+
 CLASS=`uci get rachel.setup.class`
 MODE=`uci get rachel.setup.mode`
+TXPOWER=`uci get rachel.setup.txpower`
+
+# Primary APs
 SSIDPREFIX=`uci get rachel.setup.ssidprefix`
 SSID=`uci get rachel.setup.ssid`
 PASSPHRASE=`uci get rachel.setup.passphrase`
 MAXASSOC=`uci get rachel.setup.maxassoc`
-TXPOWER=`uci get rachel.setup.txpower`
+ENCRYPTION=`uci get rachel.setup.encryption`
+
+# Secondary APs
+SSIDPREFIX2=`uci get rachel.setup.ssidprefix2`
+SSID2=`uci get rachel.setup.ssid2`
+PASSPHRASE2=`uci get rachel.setup.passphrase2`
+MAXASSOC2=`uci get rachel.setup.maxassoc2`
+ENCRYPTION2=`uci get rachel.setup.encryption2`
 
 # Limit CLASS value 1-99
 if [ $CLASS -gt 99 ] || [ $CLASS -lt 1 ]; then
@@ -97,13 +109,21 @@ SSID=$SSIDPREFIX-$CLASS$SSID
 uci set secn.accesspoint.ssid=$SSID
 uci set secn.accesspoint1.ssid=$SSID"A"
 
+SSID2=$SSIDPREFIX2-$CLASS$SSID2
+uci set secn.accesspoint2.ssid=$SSID2
+
+
 # Save wifi password
 uci set secn.accesspoint.passphrase=$PASSPHRASE
 uci set secn.accesspoint1.passphrase=$PASSPHRASE
 
+uci set secn.accesspoint2.passphrase=$PASSPHRASE2
+
 # Save the wifi maxassoc
 uci set secn.accesspoint.maxassoc=$MAXASSOC
 uci set secn.accesspoint1.maxassoc=$MAXASSOC
+
+uci set secn.accesspoint2.maxassoc=$MAXASSOC2
 
 # Set wifi tx power
 uci set wireless.radio0.txpower=$TXPOWER

@@ -21,11 +21,13 @@ rm /www/rachel/logs
 # Set up default home page
 ln -s -f /www/rachel/rachel.index.html   /www/rachel/index.html
 
-# Find modules directory and force link
+# Find modules etc directories and force link
 
 # Check for VT-RACHEL SD/USB
 if [ -e "/mnt/sda1/modules" ]; then
 	ln -s -f /mnt/sda1/modules /www/rachel/modules
+	ln -s -f /mnt/sda1/art   /www/rachel/art
+	ln -s -f /mnt/sda1/css   /www/rachel/css
 	ln -s -f /mnt/sda1/local   /www/rachel/local
 	ln -s -f /mnt/sda1/index.html   /www/rachel/index.html # Set up VT-RACHEL home page
 	mkdir /mnt/sda1/logs
