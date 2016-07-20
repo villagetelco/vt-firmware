@@ -2,8 +2,8 @@
 
 # Set default version parameters
 REVISION="15.05"
-SETSHA="TRUE"
-SHA="48e7befb"    # 15.05 branch as at 5 Aug 2015
+SETSHA="TRUE" 
+SHA="134e2b4"    # 15.05(.1) branch as at 10/07/2016
 
 
 USAGE1="Usage:   ./Setup-15.05.sh   /your-preferred-source-installation-path "
@@ -87,19 +87,19 @@ cat > feeds.conf.default << EOF
 # Package feeds
 
 #src-git packages https://github.com/openwrt/packages.git;$REV
-src-git packages https://github.com/openwrt/packages.git^1ee31bd            # for-15.05 @ 5/8/2015
+src-git packages https://github.com/openwrt/packages.git^992130a            # for-15.05 @ 10/07/2016
 
 #src-git telephony https://github.com/openwrt/telephony.git;$REV
-src-git telephony https://github.com/openwrt/telephony.git^bbf0cbf          # Specific version to avoid bug in "for-15.05" branch @ 5/8/2015
+src-git telephony https://github.com/openwrt/telephony.git^bbf0cbf          # Specific Aster ver for FXS code compatibility
 
 #src-git routing https://github.com/openwrt-routing/packages.git;$REV
-src-git routing https://github.com/openwrt-routing/packages.git^0e8fd18     # for-15.05 @ 5/8/2015
+src-git routing https://github.com/openwrt-routing/packages.git^216429d     # for-15.05 @ 10/07/2016
 
 #src-git fxs git://github.com/villagetelco/vt-fxs-packages.git
 src-git fxs git://github.com/villagetelco/vt-fxs-packages.git^3d992429      # Master @ 5/8/2015
 
 #src-git alfred git://git.open-mesh.org/openwrt-feed-alfred.git
-src-git alfred git://git.open-mesh.org/openwrt-feed-alfred.git^472f627d     # Master @ 5/8/2015
+src-git alfred git://git.open-mesh.org/openwrt-feed-alfred.git^0bfacb7      # Master @ 10/07/2016
 
 EOF
 ###################
