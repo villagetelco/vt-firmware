@@ -9,8 +9,8 @@ REPO="vt-firmware"
 BRANCH="secn"
 
 echo "Set up version strings"
-DIRVER="RC1"
-VER="SECN-4.0-MP02-Duo-"$DIRVER
+DIRVER="RC3c"
+VER="SECN-4-MP02-Duo-"$DIRVER
 
 
 echo "************************************"
@@ -143,6 +143,7 @@ cp -rf ./SECN-build/files     .
 echo "Copy additional files"
 cp -rf ./SECN-build/files-2/*         ./files  
 cp -rf ./SECN-build/files-aster/*     ./files  
+cp -rf ./SECN-build/files-ivr/*       ./files  
 cp -rf ./SECN-build/files-usbmodem/*  ./files  
 
 echo "Overlay device specific files"
