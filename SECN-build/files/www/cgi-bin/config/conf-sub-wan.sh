@@ -1,6 +1,6 @@
 #!/bin/sh -x
 
-# /www/cgi-bin/config/config-sub-adv2.sh
+# /www/cgi-bin/config/config-sub-wan.sh
 # This script saves the settings when the WAN page is submitted
 
 # Build the new script file
