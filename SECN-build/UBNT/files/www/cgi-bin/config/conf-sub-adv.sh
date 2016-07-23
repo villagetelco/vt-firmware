@@ -16,13 +16,13 @@ ENABLENAT="0"
 BUTTON="0"
 DHCP_ENABLE="0"
 ENABLE_AST="0"
-USREG_DOMAIN="0"
 DHCP_AUTH="0"
 MESH_ENABLE="0"
 AP_ENABLE="0"
 DEVICE_IP="0"
 AP_ISOL="0"
 COUNTRY=" "
+LANPORT_DISABLE="0"
 
 # Get Field-Value pairs from QUERY_STRING environment variable
 # set by the form GET action
@@ -145,6 +145,13 @@ else
 	AP_DISABLE="1"
 fi
 
+# Disable Mesh if required
+if [ \$MESH_ENABLE = "checked" ]; then
+	MESH_DISABLE="0"
+else
+	MESH_DISABLE="1"
+fi
+
 # Set up AP Isolation
 if [ \$AP_ISOL = "checked" ]; then
 	AP_ISOL="1"
@@ -170,20 +177,22 @@ uci set wireless.radio0.channel=\$CHANNEL
 uci set wireless.radio0.txpower=\$ATH0_TXPOWER
 uci set wireless.radio0.chanbw=\$CHANBW
 uci set wireless.radio0.country=\$COUNTRY
-uci set wireless.radio0.hwmode=\$RADIOMODE
+uci set wireless.radio0.htmode=\$RADIOMODE
 
 # Write the adhoc interface settings into /etc/config/wireless
 uci set wireless.ah_0.ssid=\$ATH0_SSID
 uci set wireless.ah_0.bssid=\$ATH0_BSSID
 
+# Write LAN Port Disable setting
+uci set secn.wan.lanport_disable=\$LANPORT_DISABLE
+
 # Write the Access Point wifi settings into /etc/config/secn
 uci set secn.accesspoint.ssid=\$SSID
 uci set secn.accesspoint.encryption=\$ENCRYPTION
 uci set secn.accesspoint.passphrase=\$PASSPHRASE
-uci set secn.accesspoint.ap_disable=\$AP_DISABLE
-uci set secn.accesspoint.usreg_domain=\$USREG_DOMAIN  
 uci set secn.accesspoint.maxassoc=\$MAXASSOC
 uci set secn.accesspoint.ap_isol=\$AP_ISOL
+uci set secn.accesspoint.ap_disable=\$AP_DISABLE
 
 # Write the Asterisk settings into /etc/config/secn
 uci set secn.asterisk.host=\$HOST
@@ -214,7 +223,6 @@ uci set secn.dhcp.endip=\$ENDIP
 uci set secn.dhcp.maxleases=\$MAXLEASES
 uci set secn.dhcp.leaseterm=\$LEASETERM
 uci set secn.dhcp.domain=\$DOMAIN
-uci set secn.dhcp.dns=\$OPTION_DNS
 uci set secn.dhcp.subnet=\$OPTION_SUBNET
 uci set secn.dhcp.router=\$OPTION_ROUTER
 uci set secn.dhcp.dns=\$OPTION_DNS
@@ -222,7 +230,7 @@ uci set secn.dhcp.dns2=\$OPTION_DNS2
 uci set secn.dhcp.device_ip=\$DEVICE_IP
 
 # Save mesh settings to /etc/config/secn
-uci set secn.mesh.mesh_enable=\$MESH_ENABLE
+uci set secn.mesh.mesh_disable=\$MESH_DISABLE
 uci set secn.mesh.mpgw=\$MPGW
 uci set secn.mesh.mesh_encr=\$MESH_ENCR
 uci set secn.mesh.mesh_passphrase=\$MESHPASSPHRASE
