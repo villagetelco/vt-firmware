@@ -1,7 +1,8 @@
 #!/bin/sh -x
 # /bin/config_secn_dhcp.sh
 
-# Disable odhcpd as we are only using dnsmasq
+# Stop and Disable odhcpd as we are only using dnsmasq
+/etc/init.d/odhcpd stop
 /etc/init.d/odhcpd disable
 
 # Set up DHCP server
