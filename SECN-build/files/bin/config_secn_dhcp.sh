@@ -1,6 +1,8 @@
 #!/bin/sh -x
 # /bin/config_secn_dhcp.sh
 
+# Disable odhcpd as we are only using dnsmasq
+/etc/init.d/odhcpd disable
 
 # Set up DHCP server
 # Get the DHCP parameters from uci config file /etc/config/secn
