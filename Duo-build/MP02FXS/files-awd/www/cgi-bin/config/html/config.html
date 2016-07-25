@@ -62,7 +62,7 @@ cat > /tmp/config.html << EOF
 				</fieldset>
 
 				<fieldset class="wifi">
-					<legend>Primary Radio Access Point ($ENCRYPTION)</legend>
+					<legend>WiFi Access Point</legend>
 					<table>
 						<tr>
 							<td class="label"><label for="ssid"> Station ID </label></td>
@@ -70,7 +70,7 @@ cat > /tmp/config.html << EOF
 
 							<td class="label"><label for="passphrase"> Passphrase </label></td>
 							<td class="field"><input  type="text" name="PASSPHRASE" id="passphrase" VALUE=$PASSPHRASE></td>
-
+<!--
 							<td class="label"><label for="CHANNEL"> Channel </label></td>
 							<td class="field">
 							<SELECT name="CHANNEL" id="CHANNEL" >
@@ -88,6 +88,7 @@ cat > /tmp/config.html << EOF
 							<option value="11">Channel 11</option>
 							<option value="auto">Auto</option>
 							</SELECT></td>
+-->
 
 					<td class="label"><label>Encryption</label></td>
 					<td class="field">
@@ -99,7 +100,6 @@ cat > /tmp/config.html << EOF
 						<option value="NONE">NONE</option>
 						</SELECT>
 					</td>
-
 
 						</tr>
 					</table>
