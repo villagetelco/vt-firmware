@@ -8,7 +8,7 @@ config secn 'accesspoint'
 	option encryption 'WPA2'
 
 config secn 'radio'
-	option duomode 'Int_AP_Mesh'
+	option duomode 'Pri_AP_Mesh'
 
 config secn 'mesh'
 	option mesh_disable '0'
