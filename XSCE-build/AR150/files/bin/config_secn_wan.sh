@@ -161,6 +161,15 @@ if [ $WANPORT = "WiFi-Relay" ]; then
 	/etc/init.d/relayd enable
 fi
 
+# Set up for USB WiFi Relay WAN
+if [ $WANPORT = "WiFi-USB-Relay" ]; then
+	uci set network.stabridge.network='lan wwan'
+	uci set wireless.sta_1.network='wwan'
+	uci set wireless.sta_1.disabled='0'
+	/etc/init.d/relayd enable
+fi
+
+
 # Set up for DHCP or Static
 if [ $ETHWANMODE = "Static" ]; then
 	uci set network.wan.proto='static'
