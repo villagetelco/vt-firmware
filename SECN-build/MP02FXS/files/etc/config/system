@@ -10,7 +10,23 @@ config timeserver 'ntp'
 	list server '3.openwrt.pool.ntp.org'
 	option enable_server '0'
 
+# Restore factory settings 10+ sec button press
+config button
+	option button   wps
+	option action   released
+	option handler  "/bin/factory-restore.sh && reboot"
+	option min      10
+	option max      20
+
+# Restore firmware 20+ sec button press
+config button
+	option button   wps
+	option action   released
+	option handler  "/bin/firmware-restore.sh && reboot"
+	option min      20
+	option max      30
+
 config led 'led_wlan'
-        option name 'WLAN'
-        option sysfs 'dragino2:red:wlan'
-        option trigger 'phy0tpt'
+	option name 'WLAN'
+	option sysfs 'dragino2:red:wlan'
+	option trigger 'phy0tpt'
