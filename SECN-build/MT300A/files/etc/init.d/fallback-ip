@@ -2,8 +2,8 @@
 
 # Set up network for MT300A 
 
-	WANETH="eth0"  
-	LANETH="eth1"
+	WANETH="eth0.1"  
+	LANETH="eth0.2"
 
 # Set up Fallback IP on LAN bridge or on LANETH if LAN port is disabled.
 LANPORT_DISABLE=`uci get secn.wan.lanport_disable`

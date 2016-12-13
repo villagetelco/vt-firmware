@@ -1,37 +1,35 @@
-
 config interface 'loopback'
 	option ifname 'lo'
 	option proto 'static'
 	option ipaddr '127.0.0.1'
 	option netmask '255.0.0.0'
 
+config globals 'globals'
+	option ula_prefix 'fd9a:3342:1b50::/48'
+
 config interface 'lan'
 	option type 'bridge'
-	option ifname 'eth0.1'  # Also wlan0 and bat0 added on startup
+	option ifname 'eth0.1'
 	option proto 'static'
-	option ipaddr '10.130.1.20'
+	option ipaddr '192.168.1.1'
 	option netmask '255.255.255.0'
-	option gateway '10.130.1.1'
-	option dns '8.8.8.8'
+	option ip6assign '60'
 
-config interface 'mesh_0'
-	option proto 'static'
-	option ipaddr '10.10.1.20'
-	option netmask '255.255.255.0'
-	option mtu '1532'
-
-config interface
-	option ifname 'bat0'
+config device 'lan_dev'
+	option name 'eth0.1'
+	option macaddr 'e4:95:6e:40:98:05'
 
 config interface 'wan'
+	option ifname 'eth0.2'
 	option proto 'dhcp'
 
-config interface 'wwan'
-	option proto 'dhcp'
+config device 'wan_dev'
+	option name 'eth0.2'
+	option macaddr 'e4:95:6e:40:98:06'
 
-config 'interface' 'stabridge'
-	option 'proto' 'relay'
-	option 'network' 'wwan'
+config interface 'wan6'
+	option ifname 'eth0.2'
+	option proto 'dhcpv6'
 
 config switch
 	option name 'switch0'
@@ -47,4 +45,3 @@ config switch_vlan
 	option device 'switch0'
 	option vlan '2'
 	option ports '0 6t'
-
