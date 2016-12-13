@@ -178,6 +178,10 @@ uci set wireless.radio0.txpower=\$ATH0_TXPOWER
 uci set wireless.radio0.chanbw=\$CHANBW
 uci set wireless.radio0.country=\$COUNTRY
 uci set wireless.radio0.htmode=\$RADIOMODE
+uci set wireless.radio0.coverage=\$COVERAGE
+
+# Set coverage now
+/etc/init.d/set_coverage.sh
 
 # Write the adhoc interface settings into /etc/config/wireless
 uci set wireless.ah_0.ssid=\$ATH0_SSID

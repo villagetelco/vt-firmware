@@ -215,6 +215,9 @@ $(document).ready( function() {
 			COUNTRY: {
 			CountryChecker: true
 			},
+			COVERAGE: {
+			range: [0, 99]
+			},
 			HOST: {
 			PassChecker2: true
 			},
