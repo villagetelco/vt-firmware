@@ -29,5 +29,8 @@ fi
 uci commit polipo
 uci commit tinyproxy
 
-
+# Make sure cache directory exists
+if [ ! -d /mnt/sda1/cache ]; then
+	mkdir /mnt/sda1/cache
+fi
 
