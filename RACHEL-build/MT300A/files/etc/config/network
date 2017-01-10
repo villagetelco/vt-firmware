@@ -7,9 +7,9 @@ config interface 'loopback'
 
 config interface 'lan'
 	option type 'bridge'
-	option ifname 'eth1'  # Also wlan0 and bat0 added on startup
+	option ifname 'eth0.1'  # Also wlan0 and bat0 added on startup
 	option proto 'static'
-	option ipaddr '10.130.1.20'
+	option ipaddr '10.130.1.254'
 	option netmask '255.255.255.0'
 	option gateway '10.130.1.1'
 	option dns '8.8.8.8'
@@ -38,4 +38,18 @@ config 'interface' 'stabridge'
 	option 'proto' 'relay'
 	option 'network' 'wwan'
 
+config switch
+	option name 'switch0'
+	option reset '1'
+	option enable_vlan '1'
+
+config switch_vlan
+	option device 'switch0'
+	option vlan '1'
+	option ports '1 2 3 4 6t'
+
+config switch_vlan
+	option device 'switch0'
+	option vlan '2'
+	option ports '0 6t'
 

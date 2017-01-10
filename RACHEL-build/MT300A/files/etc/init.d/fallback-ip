@@ -1,9 +1,9 @@
 #!/bin/sh
 
-# Set up network for AR150 
+# Set up network for MT300A 
 
-	WANETH="eth0"  
-	LANETH="eth1"
+	WANETH="eth0.2"  
+	LANETH="eth0.1"
 
 # Set up Fallback IP on LAN bridge or on LANETH if LAN port is disabled.
 LANPORT_DISABLE=`uci get secn.wan.lanport_disable`

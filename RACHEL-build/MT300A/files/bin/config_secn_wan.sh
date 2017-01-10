@@ -1,10 +1,10 @@
 #!/bin/sh -x
 # /bin/config_secn_wan.sh
 
-# Set up network for MT300
+# Set up network for MT300A
 
-	LANETH="eth1"
-	WANETH="eth0"
+	LANETH="eth0.1"
+	WANETH="eth0.2"
 
 uci set network.lan.ifname=$LANETH
 
