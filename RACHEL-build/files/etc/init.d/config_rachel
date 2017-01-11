@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/sh
 # /etc/init.d/config_rachel
 
 # Get the wanport mode
@@ -44,12 +44,14 @@ CLASS=`uci get rachel.setup.class`
 MODE=`uci get rachel.setup.mode`
 TXPOWER=`uci get rachel.setup.txpower`
 
+# Primary AP
 SSIDPREFIX=`uci get rachel.setup.ssidprefix`
 SSID=`uci get rachel.setup.ssid`
 PASSPHRASE=`uci get rachel.setup.passphrase`
 MAXASSOC=`uci get rachel.setup.maxassoc`
 ENCRYPTION=`uci get rachel.setup.encryption`
 
+# Secondary AP
 SSIDPREFIX2=`uci get rachel.setup.ssidprefix2`
 SSID2=`uci get rachel.setup.ssid2`
 PASSPHRASE2=`uci get rachel.setup.passphrase2`
@@ -147,7 +149,7 @@ uci set secn.accesspoint2.encryption=$ENCRYPTION2
 # Set wifi tx power
 uci set wireless.radio0.txpower=$TXPOWER
 
-# Enabe DHCP
+# Enable DHCP
 uci set secn.dhcp.enable="checked"
 /bin/setdhcpsubnet.sh
 uci set secn.dhcp.leaseterm="14400"

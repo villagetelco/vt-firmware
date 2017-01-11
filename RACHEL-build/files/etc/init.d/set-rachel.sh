@@ -43,6 +43,10 @@ if [ -e "/mnt/sdb1/modules" ]; then
 	ln -s -f /mnt/sdb1/logs    /www/rachel/logs
 fi
 
+# Make sure cache directory exists
+if [ ! -d /mnt/sda1/cache ]; then 
+        mkdir /mnt/sda1/cache    
+fi 
 
 # Set up logs
 mv /www/rachel/logs/log4.txt  /www/rachel/logs/log5.txt
