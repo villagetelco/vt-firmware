@@ -14,6 +14,11 @@ config interface 'lan'
 	option gateway '10.130.1.1'
 	option dns '8.8.8.8'
 
+config interface 'fallback'
+	option proto static
+	option ifname eth98
+	option netmask 255.255.255.252
+
 config interface 'mesh_0'
 	option proto 'static'
 	option ipaddr '10.10.1.20'

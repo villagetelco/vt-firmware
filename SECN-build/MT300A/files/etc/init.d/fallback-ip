@@ -8,6 +8,8 @@
 # Set up Fallback IP on LAN bridge or on LANETH if LAN port is disabled.
 LANPORT_DISABLE=`uci get secn.wan.lanport_disable`
 if [ $LANPORT_DISABLE = "0" ]; then
+	uci set network.fallback.ifname=eth98
+	uci commit network
 	sleep 5  # make sure bridge is up
 	ifconfig br-lan:9 172.31.255.254 netmask 255.255.255.252
 else

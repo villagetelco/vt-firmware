@@ -7,7 +7,7 @@ config interface 'loopback'
 
 config interface 'lan'
 	option type 'bridge'
-	option ifname 'eth0.1'  # Also wlan0 and bat0 added on startup
+	option ifname 'eth97'  # Also wlan0 added on startup
 	option proto 'static'
 	option ipaddr '10.130.1.254'
 	option netmask '255.255.255.0'
@@ -21,7 +21,7 @@ config interface 'guest'
 
 config interface 'fallback'
 	option proto static
-	option ifname eth98
+	option ifname eth0.1
 	option netmask 255.255.255.252
 
 config interface 'mesh_0'
