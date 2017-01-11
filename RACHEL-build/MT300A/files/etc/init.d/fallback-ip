@@ -11,6 +11,8 @@ if [ $LANPORT_DISABLE = "0" ]; then
 	sleep 5  # make sure bridge is up
 	ifconfig br-lan:9 172.31.255.254 netmask 255.255.255.252
 else
+	uci set network.fallback.ifname=LANETH
+	uci commit network
 	ifconfig $LANETH 172.31.255.254 netmask 255.255.255.252
 fi
 
