@@ -41,7 +41,7 @@ MESH_ENCR=`uci get secn.mesh.mesh_encr`
 MESHPASSPHRASE=`uci get secn.mesh.mesh_passphrase`
 
 # Set to OFF by default                                 
-MESH_ENCRYPT="off"
+MESH_ENCRYPT="none"
 
 if [ $MESH_ENCR = "WPA2-AES" ]; then
 MESH_ENCRYPT="psk2+aes"
@@ -76,8 +76,9 @@ if [ $DUOMODE = "Int_AP..USB_Mesh" ]; then
 	uci set wireless.ah_0.disabled=1
 	uci set wireless.ap_1.disabled=1
 	uci set wireless.ah_1.disabled=$MESH_DISABLE
-	uci set wireless.ah_1.encryption=$MESH_ENCRYPT
-	uci set wireless.ah_1.key=$MESHPASSPHRASE
+# Remove mesh encryption for meshpoint mode tests
+#######	uci set wireless.ah_1.encryption=$MESH_ENCRYPT
+#######	uci set wireless.ah_1.key=$MESHPASSPHRASE
 
 elif [ $DUOMODE = "Int_Mesh..USB_AP" ]; then  
 	uci set wireless.radio0.disabled=0 # Ensure both radios enabled for correct phy allocation
@@ -109,21 +110,6 @@ else
 	batctl ap 0
 fi
 
-# Set up mesh encryption
-MESH_ENCR=`uci get secn.mesh.mesh_encr`
-MESHPASSPHRASE=`uci get secn.mesh.mesh_passphrase`
-
-# Set to OFF by default                                 
-MESH_ENCRYPT="off"
-
-if [ $MESH_ENCR = "WPA2-AES" ]; then
-MESH_ENCRYPT="psk2+aes"
-elif [ $MESH_ENCR = "WPA2" ]; then
-MESH_ENCRYPT="psk2"
-fi
-
-uci set wireless.ah_0.encryption=$MESH_ENCRYPT
-uci set wireless.ah_0.key=$MESHPASSPHRASE
 
 #----------------------------------------------
 # Save the changes 
