@@ -18,17 +18,21 @@ mount -rw /dev/mmcblk0p1  /mnt/mmcblk0p1
 # Remove old links
 rm /www/rachel/modules
 rm /www/rachel/local
-rm /www/rachel/modules2
-rm /www/rachel/local2
+rm /www/rachel/art
+rm /www/rachel/css
 rm /www/rachel/logs
+rm /www/rachel/modules1
+rm /www/rachel/local1
+rm /www/rachel/art1
+rm /www/rachel/css1
 
 # Set up default home page
 ln -s -f /www/rachel/rachel.index.html   /www/rachel/index.html
 
-# Find modules etc directories and force link
+# Find contents directories and force link to /www/rachel
 
-# Check for VT-RACHEL MMC/SD card
-if [ -e "/mnt/mmcblk0p1/modules" ]; then                            
+# Check for VT-RACHEL MMC/SD card alone
+if [ -e "/mnt/mmcblk0p1/modules" ] && [ !-e "/mnt/sda1/modules" ]; then                            
 	ln -s -f /mnt/mmcblk0p1/modules /www/rachel/modules                                     
 	ln -s -f /mnt/mmcblk0p1/art     /www/rachel/art                                           
 	ln -s -f /mnt/mmcblk0p1/css     /www/rachel/css   
@@ -38,8 +42,8 @@ if [ -e "/mnt/mmcblk0p1/modules" ]; then
 	ln -s -f /mnt/mmcblk0p1/logs    /www/rachel/logs                                        
 fi                                                    
 
-# Check for VT-RACHEL USB and no MMC/SD
-if [ !-e "/mnt/mmcblk0p1/modules" ] && [ -e "/mnt/sda1/modules" ]; then
+# Check for VT-RACHEL USB alone
+if [ -e "/mnt/sda1/modules" ] && [ !-e "/mnt/mmcblk0p1/modules" ]; then
 	ln -s -f /mnt/sda1/modules   /www/rachel/modules
 	ln -s -f /mnt/sda1/art       /www/rachel/art
 	ln -s -f /mnt/sda1/css       /www/rachel/css
@@ -51,14 +55,17 @@ fi
 
 # Check for both VT-RACHEL USB and MMC/SD present
 if [ -e "/mnt/sda1/modules" ] && [ -e "/mnt/mmcblk0p1/modules" ]; then
-	mkdir /www/rachel/modules2
-	mkdir /www/rachel/local2
-	ln -s -f /mnt/sda1/modules      /www/rachel/modules2
-	ln -s -f /mnt/sda1/local        /www/rachel/local2
-	# Use the page on USB for VT-RACHEL home page. 
-	# It should point to the page from the MMC/SD card to allow access to that content.
-	ln -s -f /mnt/sda1/index.html   /www/rachel/index.html
-	ln -s -f /mnt/mmcblk0p1/index.html /www/rachel/index1.html
+	ln -s -f /mnt/sda1/modules   /www/rachel/modules
+	ln -s -f /mnt/sda1/art       /www/rachel/art
+	ln -s -f /mnt/sda1/css       /www/rachel/css
+	ln -s -f /mnt/sda1/local     /www/rachel/local
+	ln -s -f /mnt/sda1/index.html /www/rachel/index.html 
+	# Map the MMC/SD card index file and contents to alternate locations
+	ln -s -f /mnt/mmcblk0p1/index1.html /www/rachel/index1.html
+	ln -s -f /mnt/mmcblk0p1/modules     /www/rachel/modules1
+	ln -s -f /mnt/mmcblk0p1/local       /www/rachel/local1
+	ln -s -f /mnt/mmcblk0p1/art         /www/rachel/art1                                          
+	ln -s -f /mnt/mmcblk0p1/css         /www/rachel/css1
 fi
 
 # Make sure cache directory exists
