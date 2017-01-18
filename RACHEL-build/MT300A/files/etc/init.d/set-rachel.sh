@@ -32,29 +32,40 @@ ln -s -f /www/rachel/rachel.index.html   /www/rachel/index.html
 # Find contents directories and force link to /www/rachel
 
 # Check for VT-RACHEL MMC/SD card alone
-if [ -e "/mnt/mmcblk0p1/modules" ] && [ !-e "/mnt/sda1/modules" ]; then                            
-	ln -s -f /mnt/mmcblk0p1/modules /www/rachel/modules                                     
-	ln -s -f /mnt/mmcblk0p1/art     /www/rachel/art                                           
-	ln -s -f /mnt/mmcblk0p1/css     /www/rachel/css   
-	ln -s -f /mnt/mmcblk0p1/local   /www/rachel/local
-	ln -s -f /mnt/mmcblk0p1/index.html /www/rachel/index.html # Set up VT-RACHEL home page
-	mkdir /mnt/mmcblk0p1/logs                                                               
-	ln -s -f /mnt/mmcblk0p1/logs    /www/rachel/logs                                        
+if [ -e "/mnt/mmcblk0p1/modules" ]; then
+  if [ -e "/dev/sda1/" ]; then
+  echo "USB present"
+  else
+  echo "Got MMC RACHEL mem only"
+		ln -s -f /mnt/mmcblk0p1/modules /www/rachel/modules                                     
+		ln -s -f /mnt/mmcblk0p1/art     /www/rachel/art                                           
+		ln -s -f /mnt/mmcblk0p1/css     /www/rachel/css   
+		ln -s -f /mnt/mmcblk0p1/local   /www/rachel/local
+		ln -s -f /mnt/mmcblk0p1/index.html /www/rachel/index.html # Set up VT-RACHEL home page
+		mkdir /mnt/mmcblk0p1/logs                                                               
+		ln -s -f /mnt/mmcblk0p1/logs    /www/rachel/logs                                        
+  fi
 fi                                                    
 
 # Check for VT-RACHEL USB alone
-if [ -e "/mnt/sda1/modules" ] && [ !-e "/mnt/mmcblk0p1/modules" ]; then
-	ln -s -f /mnt/sda1/modules   /www/rachel/modules
-	ln -s -f /mnt/sda1/art       /www/rachel/art
-	ln -s -f /mnt/sda1/css       /www/rachel/css
-	ln -s -f /mnt/sda1/local     /www/rachel/local
-	ln -s -f /mnt/sda1/index.html /www/rachel/index.html # Set up VT-RACHEL home page
-	mkdir /mnt/sda1/logs
-	ln -s -f /mnt/sda1/logs      /www/rachel/logs
+if [ -e "/mnt/sda1/modules" ]; then
+  if [ -e "/dev/mmcblk0p1" ]; then
+		echo "MMC present"
+  else
+	  echo "Got USB RACHEL mem only"
+		ln -s -f /mnt/sda1/modules   /www/rachel/modules
+		ln -s -f /mnt/sda1/art       /www/rachel/art
+		ln -s -f /mnt/sda1/css       /www/rachel/css
+		ln -s -f /mnt/sda1/local     /www/rachel/local
+		ln -s -f /mnt/sda1/index.html /www/rachel/index.html # Set up VT-RACHEL home page
+		mkdir /mnt/sda1/logs
+		ln -s -f /mnt/sda1/logs      /www/rachel/logs
+  fi
 fi
 
 # Check for both VT-RACHEL USB and MMC/SD present
 if [ -e "/mnt/sda1/modules" ] && [ -e "/mnt/mmcblk0p1/modules" ]; then
+	echo "Got both MMC and USB RACHEL memories"
 	ln -s -f /mnt/sda1/modules   /www/rachel/modules
 	ln -s -f /mnt/sda1/art       /www/rachel/art
 	ln -s -f /mnt/sda1/css       /www/rachel/css
