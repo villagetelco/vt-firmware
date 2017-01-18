@@ -6,15 +6,9 @@ sleep 10
 # ------------------------------
 
 # Make dirs in case it is first boot
-if [ !-d /mnt/sda1 ]; then
-	mkdir /mnt/sda1
-fi
-if [ !-d /mnt/sda2 ]; then
-	mkdir /mnt/sda2
-fi
-if [ !-d /mnt/mmcblk0p1 ]; then
-	mkdir /mnt/mmcblk0p1
-fi
+mkdir /mnt/sda1
+mkdir /mnt/sda2
+mkdir /mnt/mmcblk0p1
 
 # Mount the RACHEL memory device in case auto mount did not work.
 mount -rw /dev/sda1       /mnt/sda1
@@ -57,12 +51,14 @@ fi
 
 # Check for both VT-RACHEL USB and MMC/SD present
 if [ -e "/mnt/sda1/modules" && -e "/mnt/mmcblk0p1/modules" ]; then
+	mkdir /www/rachel/modules2
+	mkdir /www/rachel/local2
 	ln -s -f /mnt/sda1/modules      /www/rachel/modules2
 	ln -s -f /mnt/sda1/local        /www/rachel/local2
-	# Use the page on USB for VT-RACHEL home page. 
-	# It should point to the page from the MMC/SD card to allow access to that content.
+	# Use index.html on USB for the home page. 
+	# It may point to index1.html from the MMC/SD card to allow access to that content.
 	ln -s -f /mnt/sda1/index.html   /www/rachel/index.html
-	ln -s -f /mnt/mmcblk0p1/index.html /www/rachel/index2.html
+	ln -s -f /mnt/mmcblk0p1/index.html /www/rachel/index1.html
 fi
 
 # Make sure cache directory exists
