@@ -39,26 +39,30 @@ if [ -e "/mnt/mmcblk0p1/modules" ]; then
 fi                                                    
 
 # Check for VT-RACHEL USB and no MMC/SD
-if [ !-e "/mnt/mmcblk0p1/modules" && -e "/mnt/sda1/modules" ]; then
-	ln -s -f /mnt/sda1/modules   /www/rachel/modules
-	ln -s -f /mnt/sda1/art       /www/rachel/art
-	ln -s -f /mnt/sda1/css       /www/rachel/css
-	ln -s -f /mnt/sda1/local     /www/rachel/local
-	ln -s -f /mnt/sda1/index.html /www/rachel/index.html # Set up VT-RACHEL home page
-	mkdir /mnt/sda1/logs
-	ln -s -f /mnt/sda1/logs      /www/rachel/logs
+if [ !-e "/mnt/mmcblk0p1/modules" ]; then
+	if [ -e "/mnt/sda1/modules" ]; then 
+		ln -s -f /mnt/sda1/modules   /www/rachel/modules
+		ln -s -f /mnt/sda1/art       /www/rachel/art
+		ln -s -f /mnt/sda1/css       /www/rachel/css
+		ln -s -f /mnt/sda1/local     /www/rachel/local
+		ln -s -f /mnt/sda1/index.html /www/rachel/index.html # Set up VT-RACHEL home page
+		mkdir /mnt/sda1/logs
+		ln -s -f /mnt/sda1/logs      /www/rachel/logs
+	fi
 fi
 
 # Check for both VT-RACHEL USB and MMC/SD present
-if [ -e "/mnt/sda1/modules" && -e "/mnt/mmcblk0p1/modules" ]; then
-	mkdir /www/rachel/modules2
-	mkdir /www/rachel/local2
-	ln -s -f /mnt/sda1/modules      /www/rachel/modules2
-	ln -s -f /mnt/sda1/local        /www/rachel/local2
-	# Use index.html on USB for the home page. 
-	# It may point to index1.html from the MMC/SD card to allow access to that content.
-	ln -s -f /mnt/sda1/index.html   /www/rachel/index.html
-	ln -s -f /mnt/mmcblk0p1/index.html /www/rachel/index1.html
+if [ -e "/mnt/sda1/modules" ]; then
+	if [ -e "/mnt/mmcblk0p1/modules" ]; then 
+		mkdir /www/rachel/modules2
+		mkdir /www/rachel/local2
+		ln -s -f /mnt/sda1/modules      /www/rachel/modules2
+		ln -s -f /mnt/sda1/local        /www/rachel/local2
+		# Use the page on USB for VT-RACHEL home page. 
+		# It should point to the page from the MMC/SD card to allow access to that content.
+		ln -s -f /mnt/sda1/index.html   /www/rachel/index.html
+		ln -s -f /mnt/mmcblk0p1/index.html /www/rachel/index1.html
+	fi
 fi
 
 # Make sure cache directory exists
