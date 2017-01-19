@@ -8,7 +8,7 @@ config secn 'accesspoint'
 	option encryption 'WPA2'
 
 config secn 'mesh'
-	option mesh_disable '1'
+	option mesh_disable '0'
 	option mpgw 'OFF'
 	option mesh_encr 'OFF'
 	option mesh_passphrase 'mesh-mesh'

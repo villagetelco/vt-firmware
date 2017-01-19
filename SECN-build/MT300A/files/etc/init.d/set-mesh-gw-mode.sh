@@ -4,10 +4,6 @@
 # This script configures batman-adv correctly on startup
 # It sets up bridge loop avoidance mode and mesh gateway mode on startup
 
-
-exit ######################################### Fails on MT300A platform.
-
-
 # Ensure that wifi interfaces are up
 sleep 5  
 
