@@ -114,7 +114,6 @@ fi
 # Set up for 4G Eth Modem
 if [ $WANPORT = "USB-Eth-Modem" ]; then
  	# Set up for Eth WAN port
-#	uci set network.lan.ifname='eth0'  
 	uci set network.lan.gateway='255.255.255.255'
 	uci set network.wan.ifname='eth2'
 fi
@@ -157,7 +156,6 @@ if [ $WANPORT = "WiFi" ]; then
 	uci set wireless.sta_0.network='wan'
 	uci set wireless.sta_0.disabled='0'
 	uci set wireless.ah_0.disabled='1'
-	uci set secn.mesh.mesh_disable='1'
 	uci set network.wan.ifname='wlan0-2'
 fi
 
@@ -167,7 +165,6 @@ if [ $WANPORT = "WiFi-Relay" ]; then
 	uci set wireless.sta_0.network='wwan'
 	uci set wireless.sta_0.disabled='0'
 	uci set wireless.ah_0.disabled='1'
-	uci set secn.mesh.mesh_disable='1'
 	/etc/init.d/relayd enable
 fi
 

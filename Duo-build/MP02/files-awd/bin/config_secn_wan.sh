@@ -80,12 +80,12 @@ uci set wireless.sta_0.disabled='1' # Make sure wifi WAN is off by default
 uci set network.stabridge.network='wwan' # Disable wifi relay bridge
 /etc/init.d/relayd disable # Disable relayd
 
-
-# Disable WAN port as LAN for Single Eth port devices
-uci set secn.wan.wanlan_enable='0'
-
-# Set default LAN port to eth0
-uci set network.lan.ifname='eth0'
+# Set default LAN port to eth0 and eth1 if 'WAN' port changed to LAN
+if [ $WANLAN_ENABLE = "checked" ]; then
+	uci set network.lan.ifname='eth0 eth1'
+else
+	uci set network.lan.ifname='eth0'
+fi
 
 # Set up for WAN disabled
 if [ $WANPORT = "Disable" ]; then
@@ -95,30 +95,36 @@ fi
 
 # Set up for Ethernet WAN
 if [ $WANPORT = "Ethernet" ]; then
-	uci set network.lan.ifname='eth9'   # This is just a dummy
+ 	# Set up for Eth WAN port
+	uci set network.lan.ifname='eth0'
 	uci set network.lan.gateway='255.255.255.255'
-	uci set network.wan.ifname='eth0'   # Single Eth port devices
+	uci set network.wan.ifname='eth1'
+	# Disable WAN port as LAN
+	uci set secn.wan.wanlan_enable='0'
 fi
-
 
 # Set up for 4G Eth Modem
 if [ $WANPORT = "USB-Eth-Modem" ]; then
  	# Set up for Eth WAN port
-	uci set network.lan.ifname='eth0'  
 	uci set network.lan.gateway='255.255.255.255'
-	uci set network.wan.ifname='eth1'   # Single Eth port devices
+	uci set network.wan.ifname='eth2'
 fi
 
 # Set up for Mesh WAN
 if [ $WANPORT = "Mesh" ]; then
-	uci set network.lan.ifname='eth0'
-	uci set network.wan.ifname='bat0' 
+ 	# Set up eth1 as LAN or WAN
+	if [ $WANLAN_ENABLE = "checked" ]; then
+		uci set network.lan.ifname='eth0 eth1'
+		uci set network.wan.ifname='bat0'
+	else
+		uci set network.lan.ifname='eth0'
+		uci set network.wan.ifname='bat0 eth1' 
+	fi
 	uci set network.lan.gateway='255.255.255.255'
 	uci set network.wan.type='bridge' # Reqd. See /etc/init.d/set-mesh-gw-mode
 	MESH_DISABLE='0'
 	uci set secn.mesh.mesh_disable='0'
 fi
-
 
 # Disable mesh if required
 DUOMODE=`uci get secn.radio.duomode`
@@ -142,7 +148,6 @@ if [ $WANPORT = "WiFi" ]; then
 	uci set wireless.sta_0.network='wan'
 	uci set wireless.sta_0.disabled='0'
 	uci set wireless.ah_0.disabled='1'
-	uci set secn.mesh.mesh_disable='1'
 	uci set network.wan.ifname='wlan0-2'
 fi
 
@@ -152,7 +157,6 @@ if [ $WANPORT = "WiFi-Relay" ]; then
 	uci set wireless.sta_0.network='wwan'
 	uci set wireless.sta_0.disabled='0'
 	uci set wireless.ah_0.disabled='1'
-	uci set secn.mesh.mesh_disable='1'
 	/etc/init.d/relayd enable
 fi
 
