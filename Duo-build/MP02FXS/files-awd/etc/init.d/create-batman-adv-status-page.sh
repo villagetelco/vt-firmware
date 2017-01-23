@@ -26,20 +26,20 @@ STA_MODE=`iwconfig|grep -c $WIRELESS"0-2"`
 
 if [ $STA_MODE = "0" ]; then 
 # Get mesh adhoc association details
-echo "Station MAC Addr     Signal    *Int WiFi*" > /tmp/mesh.txt
+echo "Station MAC Addr     Signal    *Pri WiFi*" > /tmp/mesh.txt
 iwinfo $WIRELESS'0-1' assoclist                  >> /tmp/mesh.txt
-echo "Station MAC Addr     Signal    *USB WiFi*" >> /tmp/mesh.txt
+echo "Station MAC Addr     Signal    *Sec WiFi*" >> /tmp/mesh.txt
 iwinfo $WIRELESS'1-1' assoclist                  >> /tmp/mesh.txt
 
 else
 # Get sta connection details
 echo "Host AP"                                   > /tmp/mesh.txt
-echo "Station MAC Addr     Signal    *Int WiFi*" >> /tmp/mesh.txt
+echo "Station MAC Addr     Signal    *Pri WiFi*" >> /tmp/mesh.txt
 iwinfo $WIRELESS'0-2' assoclist                  >> /tmp/mesh.txt
 
-echo "Station MAC Addr     Signal    *Int WiFi*" >> /tmp/mesh.txt
+echo "Station MAC Addr     Signal    *Pri WiFi*" >> /tmp/mesh.txt
 iwinfo $WIRELESS'0-1' assoclist                  >> /tmp/mesh.txt
-echo "Station MAC Addr     Signal    *USB WiFi*" >> /tmp/mesh.txt
+echo "Station MAC Addr     Signal    *Sec WiFi*" >> /tmp/mesh.txt
 iwinfo $WIRELESS'1-1' assoclist                  >> /tmp/mesh.txt
 fi
 
