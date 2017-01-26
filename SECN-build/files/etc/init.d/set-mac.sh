@@ -1,15 +1,14 @@
 #!/bin/sh
 
 # /etc/init.d/set-mac
-# This script looks for a MAC address conflict between AdHoc wifi interface and br-lan.
+# This script looks for a MAC address conflict between the mesh wifi interface and br-lan.
+# If both have the same MAC, batman-adv logs warning messages in dmesg re receiving packets on own address.
 # If there is a conflict, the MAC address of the AdHoc interface is changed in the third octet,
-# and is explictly set in the wireless config file.
+# and is explictly set using the ifconfig command before the interface is added to br-lan.
 # This avoids batman-adv receiving packets on own MAC address
-# A MAC conflict will be resolved after first restart.
 
 
 WLAN="wlan0-1"
-AH="ah_0"
 
 # Get the current MAC addresses
 if [ -e /sys/class/net/$WLAN ]; then
@@ -33,9 +32,10 @@ if [ $MACADDR = $BRLANMAC ]; then
 	else
 		MAC2="0"
 	fi
-	# Save the new MAC
-	uci set wireless.$AH.macaddr=$MAC1$MAC2$MAC3
-	uci commit wireless
+
+	# Set the new MAC address for the mesh interface
+	ifconfig $WLAN hw ether $MAC1$MAC2$MAC3
+
 fi
 
 exit
