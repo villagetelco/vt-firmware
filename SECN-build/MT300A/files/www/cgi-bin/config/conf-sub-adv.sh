@@ -181,7 +181,7 @@ uci set wireless.radio0.htmode=\$RADIOMODE
 uci set wireless.radio0.coverage=\$COVERAGE
 
 # Set coverage now
-/etc/init.d/set_coverage.sh
+###/etc/init.d/set_coverage.sh  # Not supported in MTK7620
 
 # Write the mesh interface settings into /etc/config/wireless
 uci set wireless.ah_0.mesh_id=\$MESH_ID
