@@ -414,6 +414,9 @@ cat > /tmp/config.html << EOF
 					<td class="label"><label>Enable Mesh</label> </td>
 					<td class="field"><input  type="checkbox" name="MESH_ENABLE" id="mesh_enable" VALUE="checked" $MESH_ENABLE > </td>
 
+					<td class="label"><label for="MESH_ID"> Mesh ID </label></td>
+					<td class="field"><input type="text" name="MESH_ID" id="mesh_id" VALUE=$MESH_ID ></td>
+
 					<td class="label"><label>Mesh Gateway</label></td>
 					<td class="field">
 						<SELECT name="MPGW" id="mpgw"/>
@@ -427,35 +430,32 @@ cat > /tmp/config.html << EOF
 						<option value="SERVER-10Mb">SERVER 10Mb</option>
 						</SELECT>
 					</td>
-
+<!--
 					<td class="label"><label for="MESH_ENCR">Encryption</label></td>
 					<td class="field">
 						<SELECT name="MESH_ENCR" id="MESH_ENCR" >
 						<option selected="$MESH_ENCR">$MESH_ENCR</option>
-						<option value="OFF">OFF</option>
+						<option value="None">None</option>
 						<option value="WPA2">WPA2</option>
 						<option value="WPA2-AES">WPA2-AES</option>
 						</SELECT>
 					</td>
+-->
 				</tr>
 				<tr>
 					<td class="label"><label for="ATH0_IPADDR">IP Address</label></td>
 					<td class="field"><input type="text" name="ATH0_IPADDR" id="ath0_ipaddr" VALUE=$ATH0_IPADDR ></td>
 					<td class="label"><label for="ATH0_NETMASK">Netmask</label></td>
 					<td class="field"><input type="text" name="ATH0_NETMASK" id="ath0_netmask" VALUE=$ATH0_NETMASK ></td>
+<!--
 					<td class="label"><label for="MESHPASSPHRASE">Mesh Passphrase</label></td>
 					<td class="field"><input type="text" name="MESHPASSPHRASE" id="meshpassphrase" VALUE=$MESHPASSPHRASE ></td>
-				</tr>
-				<tr>
-					<td class="label"><label for="ATH0_SSID"> SSID </label></td>
-					<td class="field"><input type="text" name="ATH0_SSID" id="ath0_ssid" VALUE=$ATH0_SSID ></td>
-					<td class="label"><label for="ATH0_BSSID"> BSSID </label></td>
-					<td class="field"><input type="text" name="ATH0_BSSID" id="ath0_bssid" VALUE=$ATH0_BSSID ></td>
+-->
 				</tr>
 			</table>
 		</fieldset>
 
-							<fieldset class="asterisk-adv">
+						<fieldset class="asterisk-adv">
 								<legend>Asterisk Configuration</legend>
 
 								<table>

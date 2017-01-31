@@ -116,8 +116,7 @@ BR_NETMASK=`uci get network.lan.netmask`
 # mesh_0 configuration parameters
 ATH0_IPADDR=`uci get network.mesh_0.ipaddr`
 ATH0_NETMASK=`uci get network.mesh_0.netmask`
-ATH0_SSID=`uci get wireless.ah_0.ssid`
-ATH0_BSSID=`uci get wireless.ah_0.bssid`
+MESH_ID=`uci get wireless.ah_0.mesh_id`
 
 # Radio
 CHANNEL=`uci get wireless.radio0.channel`

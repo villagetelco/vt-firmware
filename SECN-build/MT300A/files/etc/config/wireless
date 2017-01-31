@@ -30,7 +30,7 @@ config wifi-iface ah_0
 	option network 'mesh_0'
 	option encryption 'none'
 	option disabled '0'
-  option mesh_fwding '0'
+	option mesh_fwding '0'
 
 config wifi-iface sta_0
 	option device 'radio0'

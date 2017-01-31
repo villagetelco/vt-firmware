@@ -110,8 +110,6 @@ if [ \$DIALOUT = "%23" ]; then
 	DIALOUT="#"
 fi
 
-# Fix ATH0_BSSID string colon characters - replace '%3A' with ':'
-###ATH0_BSSID=\$(echo \$ATH0_BSSID | sed -e s/%3A/:/g)
 
 # If Master softphone mode is selected, then make sure Asterisk is enabled 
 if [ \$SOFTPH = "MASTER" ]; then

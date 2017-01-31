@@ -111,8 +111,7 @@ BR_NETMASK=`uci get network.lan.netmask`
 # mesh_0 configuration parameters
 ATH0_IPADDR=`uci get network.mesh_0.ipaddr`
 ATH0_NETMASK=`uci get network.mesh_0.netmask`
-ATH0_SSID=`uci get wireless.ah_0.ssid`
-ATH0_BSSID=`uci get wireless.ah_0.bssid`
+MESH_ID=`uci get wireless.ah_0.mesh_id`
 
 # Radio
 CHANNEL=`uci get wireless.radio0.channel`
@@ -121,6 +120,7 @@ ATH0_TXPOWER_ACTUAL=`iwconfig | grep -A 2 'wlan0' | grep -m 1 'Tx-Power'| cut -d
 RADIOMODE=`uci get wireless.radio0.htmode`
 CHANBW=`uci get wireless.radio0.chanbw`
 COUNTRY=`uci get wireless.radio0.country`
+COVERAGE=`uci get wireless.radio0.coverage`
 
 # Get web server parameters
 AUTH=`uci get secn.http.auth`

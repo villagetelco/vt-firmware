@@ -110,8 +110,6 @@ if [ \$DIALOUT = "%23" ]; then
 	DIALOUT="#"
 fi
 
-# Fix ATH0_BSSID string colon characters - replace '%3A' with ':'
-ATH0_BSSID=\$(echo \$ATH0_BSSID | sed -e s/%3A/:/g)
 
 # If Master softphone mode is selected, then make sure Asterisk is enabled 
 if [ \$SOFTPH = "MASTER" ]; then
@@ -183,9 +181,8 @@ uci set wireless.radio0.coverage=\$COVERAGE
 # Set coverage now
 /etc/init.d/set_coverage.sh
 
-# Write the adhoc interface settings into /etc/config/wireless
-uci set wireless.ah_0.ssid=\$ATH0_SSID
-uci set wireless.ah_0.bssid=\$ATH0_BSSID
+# Write the mesh interface settings into /etc/config/wireless
+uci set wireless.ah_0.mesh_id=\$MESH_ID
 
 # Write LAN Port Disable setting
 uci set secn.wan.lanport_disable=\$LANPORT_DISABLE
