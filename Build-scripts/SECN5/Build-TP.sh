@@ -9,7 +9,7 @@ REPO="vt-firmware"
 BRANCH="secn"
 
 echo "Set up version strings"
-DIRVER="Alpha1"
+DIRVER="Alpha2-m"
 VER="SECN-5.0-TP-"$DIRVER
 
 
@@ -233,15 +233,17 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-#build_tp WR841
+build_tp MR3020
+#exit
+
+build_tp WR841
 build_tp WR842
 #build_tp MR3020
-exit
 build_tp MR3040
 build_tp MR3420
 build_tp WR703
 build_tp WR741
-#build_tp WA701
+build_tp WA701
 build_tp WA901
 build_tp MR11U
 

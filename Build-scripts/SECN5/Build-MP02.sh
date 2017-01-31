@@ -6,10 +6,10 @@
 
 # Select the repo to use
 REPO="vt-firmware"
-BRANCH="secn"
+BRANCH="secn5"
 
 echo "Set up version strings"
-DIRVER="Alpha1"
+DIRVER="Alpha2-m"
 VER="SECN-5.0-MP02-"$DIRVER
 
 
@@ -222,8 +222,10 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
+build_mp02 MP02FXS
 build_mp02 MP02
-#build_mp02 MP02FXS
+#build_mp02 MP02FXS mt7610u
+#build_mp02 MP02 mt7610u
 #build_mp02 MP02 dundi
 #build_mp02 MP02FXS dundi
 #build_mp02 MP02FXS 729

@@ -9,7 +9,7 @@ REPO="vt-firmware"
 BRANCH="secn"
 
 echo "Set up version strings"
-DIRVER="MT300A-Alpha4"
+DIRVER="MT300A-Alpha6"
 VER="SECN-5.0-"$DIRVER
 
 
