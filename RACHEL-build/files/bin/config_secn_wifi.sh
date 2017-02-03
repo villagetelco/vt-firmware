@@ -98,7 +98,7 @@ MESH_ENCR=`uci get secn.mesh.mesh_encr`
 MESHPASSPHRASE=`uci get secn.mesh.mesh_passphrase`
 
 # Set to OFF by default                                 
-MESH_ENCRYPT="off"
+MESH_ENCRYPT="none"
 
 if [ $MESH_ENCR = "WPA2-AES" ]; then
 MESH_ENCRYPT="psk2+aes"
