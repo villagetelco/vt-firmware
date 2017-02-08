@@ -76,17 +76,16 @@ if [ $DUOMODE = "Int_AP..USB_Mesh" ]; then
 	uci set wireless.ah_0.disabled=1
 	uci set wireless.ap_1.disabled=1
 	uci set wireless.ah_1.disabled=$MESH_DISABLE
-# Remove mesh encryption for meshpoint mode tests
-#######	uci set wireless.ah_1.encryption=$MESH_ENCRYPT
-#######	uci set wireless.ah_1.key=$MESHPASSPHRASE
+#	uci set wireless.ah_1.encryption=$MESH_ENCRYPT
+#	uci set wireless.ah_1.key=$MESHPASSPHRASE
 
 elif [ $DUOMODE = "Int_Mesh..USB_AP" ]; then  
 	uci set wireless.radio0.disabled=0 # Ensure both radios enabled for correct phy allocation
 	uci set wireless.radio1.disabled=0
 	uci set wireless.ap_0.disabled=1
 	uci set wireless.ah_0.disabled=$MESH_DISABLE
-	uci set wireless.ah_0.encryption=$MESH_ENCRYPT
-	uci set wireless.ah_0.key=$MESHPASSPHRASE
+#	uci set wireless.ah_0.encryption=$MESH_ENCRYPT
+#	uci set wireless.ah_0.key=$MESHPASSPHRASE
 	uci set wireless.ap_1.disabled=$AP_DISABLE
 	uci set wireless.ah_1.disabled=1
 
@@ -95,8 +94,8 @@ else  # Single Int radio
 	uci set wireless.radio1.disabled=0
 	uci set wireless.ap_0.disabled=$AP_DISABLE
 	uci set wireless.ah_0.disabled=$MESH_DISABLE
-	uci set wireless.ah_0.encryption=$MESH_ENCRYPT
-	uci set wireless.ah_0.key=$MESHPASSPHRASE
+#	uci set wireless.ah_0.encryption=$MESH_ENCRYPT
+#	uci set wireless.ah_0.key=$MESHPASSPHRASE
 	uci set wireless.ap_1.disabled=1
 	uci set wireless.ah_1.disabled=1
 fi
