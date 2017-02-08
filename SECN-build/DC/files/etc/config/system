@@ -1,0 +1,52 @@
+
+config system
+	option timezone 'UTC'
+	option hostname 'MIFI-20'
+
+config timeserver 'ntp'
+	list server '0.openwrt.pool.ntp.org'
+	list server '1.openwrt.pool.ntp.org'
+	list server '2.openwrt.pool.ntp.org'
+	list server '3.openwrt.pool.ntp.org'
+	option enable_server '0'
+
+# Restore firmware 10 - 20 sec button press
+config button
+	option button   wps
+	option action   released
+	option handler  "/bin/firmware-restore.sh && reboot"
+	option min      10
+	option max      20
+
+config led 'led_lan'
+	option name 'LAN'
+	option sysfs 'domino:green:lan1'
+	option trigger 'netdev'
+	option dev 'eth1'
+	option mode 'link tx rx'
+
+config led 'led_wan' 
+	option name 'WAN' 
+	option sysfs 'domino:red:wan' 
+	option trigger 'netdev' 
+	option dev 'eth0'      
+	option mode 'link tx rx'
+
+config led 'led_wlan'
+	option name 'WLAN'
+	option sysfs 'domino:blue:wlan'
+	option trigger 'phy0tpt'
+
+config led 'led_wps'
+	option name 'WPS'
+	option sysfs 'domino:yellow:wps'
+#	option trigger xxxxx
+
+config led 'led_usb'
+	option default '0'
+	option name 'usb'
+	option sysfs 'domino:white:usb'
+	option trigger 'usbdev'
+	option dev '1-1'
+
+
