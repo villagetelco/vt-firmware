@@ -6,7 +6,7 @@
 
 # Select the repo to use
 REPO="vt-firmware"
-BRANCH="secn"
+BRANCH="secn5"
 
 echo "Set up version strings"
 DIRVER="MT300A-Alpha6"

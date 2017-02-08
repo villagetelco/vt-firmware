@@ -6,7 +6,7 @@
 
 # Select the repo to use
 REPO="vt-firmware"
-BRANCH="secn"
+BRANCH="secn5"
 
 echo "Set up version strings"
 DIRVER="Alpha2-m"
@@ -233,15 +233,16 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-build_tp MR3020
+#build_tp MR3020
 #exit
 
-build_tp WR841
 build_tp WR842
-#build_tp MR3020
+build_tp WR841
+build_tp MR3020
 build_tp MR3040
-build_tp MR3420
 build_tp WR703
+exit
+build_tp MR3420
 build_tp WR741
 build_tp WA701
 build_tp WA901

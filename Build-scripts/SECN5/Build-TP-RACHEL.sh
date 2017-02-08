@@ -10,12 +10,12 @@ BRANCH="secn5"
 
 echo "Set up version strings"
 DIRVER="Alpha2-m"
-VER="SECN-5.0-MP02-RACHEL-"$DIRVER
+VER="SECN-5-TP-RACHEL-"$DIRVER
 
 
 echo "************************************"
 echo ""
-echo "Build script for MP02 RACHEL device"
+echo "Build script for TP Link devices"
 
 echo "Git directory: "$GITREPO
 echo "Repo: "$REPO
@@ -76,14 +76,12 @@ BUILDDIR="./Builds/ar71xx"
 ###########################
 echo "Copy files from Git repo into build folder"
 rm -rf ./SECN-build/
-
 cp -rp $GITREPO/$REPO/SECN-build/ .
-
 cp -fp $GITREPO/$REPO/Build-scripts/FactoryRestore.sh  .
 cp -fp $GITREPO/$REPO/Build-scripts/GetGitVersions.sh  .
 
 echo "Overlay RACHEL files"
-cp -rfp $GITREPO/$REPO/RACHEL-build/* ./SECN-build/
+cp -rfp $GITREPO/$REPO/RACHEL-build/* ./SECN-build
 
 ###########################
 
@@ -97,7 +95,7 @@ echo "Source repo details: "$REPO $REPOID
 
 # Set up new directory name with date and version
 DATE=`date +%Y-%m-%d-%H:%M`
-DIR=$DATE"-MP02-RACHEL-"$DIRVER
+DIR=$DATE"-TP-RACHEL-"$DIRVER
 
 ###########################
 # Set up build directory
@@ -112,7 +110,7 @@ echo $DIR > $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 
 # Build function
 
-function build_mp02() {
+function build_tp() {
 
 echo "Set up .config for "$1 $2
 rm ./.config
@@ -128,8 +126,8 @@ fi
 echo "Run defconfig"
 make defconfig > /dev/null
 
-# Set target string
-TARGET=$1
+# Set up target display strings
+TARGET=`cat .config | grep "CONFIG_TARGET" | grep "=y" | grep "_generic_" | cut -d _ -f 5 | cut -d = -f 1 `
 
 echo "Check .config version"
 echo "Target:  " $TARGET
@@ -139,14 +137,29 @@ echo "Set up files for "$1 $2
 echo "Remove files directory"
 rm -r ./files
 
-echo "Copy base files"
+echo "Copy generic files"
 cp -rf ./SECN-build/files     .  
 
-echo "Copy additional files"
-cp -rf ./SECN-build/files-2/* ./files  
+# Multi-port
+if [ $1 = "MR3420" ] || [ $1 = "WR842" ]; then
+	echo "Overlay files for multi port devices"
+  cp -rf ./SECN-build/files-2/*         ./files  
+fi
+
+# Asterisk - not required for RACHEL build.
+#if [ $1 = "WR842" ]; then
+#	echo "Overlay files for Asterisk"
+#  cp -rf ./SECN-build/files-aster/*     ./files  
+#fi
+
+# USB
+if [ $1 = "MR3020" ] || [ $1 = "MR3040" ] || [ $1 = "MR3420" ] || [ $1 = "WR703" ] || [ $1 = "WR842" ]; then
+	echo "Overlay files for USB port devices"
+  cp -rf ./SECN-build/files-usbmodem/*  ./files  
+fi
 
 echo "Overlay device specific files"
-cp -rf ./SECN-build/$1/files  .  
+cp -r ./SECN-build/$1/files  .  
 echo ""
 
 echo "Build Factory Restore tar file"
@@ -175,34 +188,32 @@ rm $BINDIR/openwrt-*
 echo ""
 
 echo "Run make for "$1 $2
-make
-#make -j3
+#make
+make -j3
+#make -j5
 #make -j1 V=s 2>&1 | tee ~/build.txt
 echo ""
 
 echo "Update original md5sums file"
-cat $BINDIR/md5sums | grep "squashfs.bin"   | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
-cat $BINDIR/md5sums | grep "kernel.bin"     | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
-cat $BINDIR/md5sums | grep "sysupgrade.bin" | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
+cat $BINDIR/md5sums | grep "squashfs" | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
 echo ""
 
 echo  "Rename files to add version info"
 echo ""
 if [ $2 ]; then
-	for n in `ls $BINDIR/openwrt*.bin`; do mv  $n   $BINDIR/openwrt-$VER-$1-$2-`echo $n|cut -d '-' -f 5-10`; done
+	for n in `ls $BINDIR/openwrt*.bin`; do mv  $n   $BINDIR/openwrt-$VER-$2-`echo $n|cut -d '-' -f 5-10`; done
 else
-	for n in `ls $BINDIR/openwrt*.bin`; do mv  $n   $BINDIR/openwrt-$VER-$1-`echo $n|cut -d '-' -f 5-10`; done
+	for n in `ls $BINDIR/openwrt*.bin`; do mv  $n   $BINDIR/openwrt-$VER-`echo $n|cut -d '-' -f 5-10`; done
 fi
 
 echo "Update new md5sums file"
 md5sum $BINDIR/*-squash*sysupgrade.bin >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
-md5sum $BINDIR/openwrt*kernel.bin      >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
-md5sum $BINDIR/openwrt*squashfs.bin    >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
+#md5sum $BINDIR/*-squash*factory.bin    >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
+echo ""
 
 echo  "Move files to build folder"
 mv $BINDIR/openwrt*-squash*sysupgrade.bin $BUILDDIR/builds/build-$DIR
-mv $BINDIR/openwrt*kernel.bin             $BUILDDIR/builds/build-$DIR
-mv $BINDIR/openwrt*squashfs.bin           $BUILDDIR/builds/build-$DIR
+#mv $BINDIR/*-squash*factory.bin    $BUILDDIR/builds/build-$DIR
 echo ""
 
 echo "Clean up unused files"
@@ -224,10 +235,14 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-build_mp02 MP02
+build_tp MR3020
+build_tp WR842
+build_tp MR3040
+build_tp MR3420
+build_tp WR703
 
 echo " "
-echo " Build script MP02 RACHEL complete"
+echo "Build script TP complete"
 echo " "
 echo '----------------------------'
 
