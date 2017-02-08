@@ -13,6 +13,7 @@ DATE=`date`
 UPTIME=`uptime`
 TZ=`cat /etc/TZ`
 PROC=`ps|wc -l`
+
 # Memory
 MEMFREE=`cat /proc/meminfo | grep MemFree |cut -d : -f2 | tr -d ' '|tr -d 'kB'`
 MEMTOT=`cat /proc/meminfo | grep MemTotal |cut -d : -f2 | tr -d ' '`
@@ -103,6 +104,10 @@ fi
 # Mesh gateway setting
 MPGW=`uci get secn.mesh.mpgw`
 
+# Mesh Encryption
+MESH_ENCR=`uci get secn.mesh.mesh_encr`
+MESHPASSPHRASE=`uci get secn.mesh.mesh_passphrase`
+
 # Get network settings from /etc/config/network and wireless
 
 # br_lan configuration parameters
@@ -114,8 +119,7 @@ BR_NETMASK=`uci get network.lan.netmask`
 # mesh_0 configuration parameters
 ATH0_IPADDR=`uci get network.mesh_0.ipaddr`
 ATH0_NETMASK=`uci get network.mesh_0.netmask`
-ATH0_SSID=`uci get wireless.ah_0.ssid`
-ATH0_BSSID=`uci get wireless.ah_0.bssid`
+MESH_ID=`uci get wireless.ah_0.mesh_id`
 
 # Radio0
 CHANNEL=`uci get wireless.radio0.channel`
@@ -124,6 +128,8 @@ ATH0_TXPOWER_ACTUAL=`iwconfig | grep -A 2 'wlan0' | grep -m 1 'Tx-Power'| cut -d
 RADIOMODE=`uci get wireless.radio0.htmode`
 CHANBW=`uci get wireless.radio0.chanbw`
 COUNTRY=`uci get wireless.radio0.country`
+COVERAGE=`uci get wireless.radio0.coverage`
+
 # Radio1
 CHANNEL1=`uci get wireless.radio1.channel`
 ATH0_TXPOWER1=`uci get wireless.radio1.txpower`
@@ -131,6 +137,8 @@ ATH0_TXPOWER_ACTUAL1=`iwconfig | grep -A 2 'wlan1' | grep -m 1 'Tx-Power'| cut -
 RADIOMODE1=`uci get wireless.radio1.htmode`
 CHANBW1=`uci get wireless.radio1.chanbw`
 COUNTRY1=`uci get wireless.radio1.country`
+COVERAGE1=`uci get wireless.radio1.coverage`
+
 
 # Get web server parameters
 AUTH=`uci get secn.http.auth`

@@ -110,8 +110,6 @@ if [ \$DIALOUT = "%23" ]; then
 	DIALOUT="#"
 fi
 
-# Fix ATH0_BSSID string colon characters - replace '%3A' with ':'
-ATH0_BSSID=\$(echo \$ATH0_BSSID | sed -e s/%3A/:/g)
 
 # If Master softphone mode is selected, then make sure Asterisk is enabled 
 if [ \$SOFTPH = "MASTER" ]; then
@@ -178,18 +176,21 @@ uci set wireless.radio0.txpower=\$ATH0_TXPOWER
 uci set wireless.radio0.chanbw=\$CHANBW
 uci set wireless.radio0.country=\$COUNTRY
 uci set wireless.radio0.htmode=\$RADIOMODE
+uci set wireless.radio0.coverage=\$COVERAGE
 
 uci set wireless.radio1.channel=\$CHANNEL1
 uci set wireless.radio1.txpower=\$ATH0_TXPOWER1
 uci set wireless.radio1.chanbw=\$CHANBW1
 uci set wireless.radio1.country=\$COUNTRY1
 uci set wireless.radio1.htmode=\$RADIOMODE1
+uci set wireless.radio1.coverage=\$COVERAGE1
 
-# Write the adhoc interface settings into /etc/config/wireless
-uci set wireless.ah_0.ssid=\$ATH0_SSID
-uci set wireless.ah_0.bssid=\$ATH0_BSSID
-uci set wireless.ah_1.ssid=\$ATH0_SSID
-uci set wireless.ah_1.bssid=\$ATH0_BSSID
+# Set coverage now
+/etc/init.d/set_coverage.sh
+
+# Write the mesh interface settings into /etc/config/wireless
+uci set wireless.ah_0.mesh_id=\$MESH_ID
+uci set wireless.ah_1.mesh_id=\$MESH_ID
 
 # Write LAN Port Disable setting
 uci set secn.wan.lanport_disable=\$LANPORT_DISABLE
@@ -245,7 +246,6 @@ uci set secn.mesh.mesh_disable=\$MESH_DISABLE
 uci set secn.mesh.mpgw=\$MPGW
 uci set secn.mesh.mesh_encr=\$MESH_ENCR
 uci set secn.mesh.mesh_passphrase=\$MESHPASSPHRASE
-
 
 # Set up mesh gateway mode on the fly
 if [ \$MPGW = "OFF" ]; then
