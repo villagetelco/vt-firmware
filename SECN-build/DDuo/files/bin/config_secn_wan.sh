@@ -29,6 +29,23 @@ WANPASS=`uci get secn.wan.wanpass`
 WANPASS=`echo "$WANPASS" | sed -f /bin/url-decode.sed`
 uci set secn.wan.wanpass=$WANPASS
 
+# Get modem params
+SERVICE=`uci get secn.modem.service`
+MODEMPORT=`uci get secn.modem.modemport`
+APN=`uci get secn.modem.apn`
+PIN=`uci get secn.modem.pin`
+
+APNUSER=`uci get secn.modem.username`
+APNUSER=`echo "$APNUSER" | sed -f /bin/url-decode.sed`
+uci set secn.modem.username=$APNUSER
+
+APNPW=`uci get secn.modem.password`
+APNPW=`echo "$APNPW" | sed -f /bin/url-decode.sed`
+uci set secn.modem.password=$APNPW
+
+# Set up USBtty port string
+TTY="/dev/ttyUSB"$MODEMPORT
+
 # Get Mesh setting
 MESH_DISABLE=`uci get secn.mesh.mesh_disable`
 
