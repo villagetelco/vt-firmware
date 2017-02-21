@@ -9,7 +9,7 @@ REPO="vt-firmware"
 BRANCH="secn"
 
 echo "Set up version strings"
-DIRVER="GA01"
+DIRVER="GA01.2-Alpha1"
 VER="SECN-4.0-MP02-"$DIRVER
 
 
@@ -223,8 +223,9 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-build_mp02 MP02FXS
 build_mp02 MP02
+build_mp02 MP02FXS
+
 #build_mp02 MP02 dundi
 #build_mp02 MP02FXS dundi
 #build_mp02 MP02FXS 729
