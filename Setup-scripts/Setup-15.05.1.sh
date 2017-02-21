@@ -3,7 +3,7 @@
 # Set default version parameters
 REVISION="15.05"
 SETSHA="TRUE" 
-SHA="134e2b4"    # 15.05(.1) branch as at 10/07/2016
+SHA="b21852c"    # 15.05(.1) branch as at 10/09/2016
 
 
 USAGE1="Usage:   ./Setup-15.05.sh   /your-preferred-source-installation-path "
