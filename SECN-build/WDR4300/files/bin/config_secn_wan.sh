@@ -26,6 +26,23 @@ uci set secn.wan.wanpass=$WANPASS
 MESH_DISABLE=`uci get secn.mesh.mesh_disable`
 MESH_DISABLE1=`uci get secn.mesh1.mesh_disable`
 
+# Get modem params
+SERVICE=`uci get secn.modem.service`
+MODEMPORT=`uci get secn.modem.modemport`
+APN=`uci get secn.modem.apn`
+PIN=`uci get secn.modem.pin`
+
+APNUSER=`uci get secn.modem.username`
+APNUSER=`echo "$APNUSER" | sed -f /bin/url-decode.sed`
+uci set secn.modem.username=$APNUSER
+
+APNPW=`uci get secn.modem.password`
+APNPW=`echo "$APNPW" | sed -f /bin/url-decode.sed`
+uci set secn.modem.password=$APNPW
+
+# Set up USBtty port string
+TTY="/dev/ttyUSB"$MODEMPORT
+
 # Set up WAN Port Forwarding for ssh and https
 	uci set firewall.https.dest="NULL"
 	uci set firewall.ssh.dest="NULL"
