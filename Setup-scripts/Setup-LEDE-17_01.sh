@@ -186,8 +186,8 @@ src-git packages https://git.lede-project.org/feed/packages.git^$SHA_PACKAGES
 src-git routing https://git.lede-project.org/feed/routing.git^$SHA_ROUTING 
 
 #src-git telephony https://git.lede-project.org/feed/telephony.git$REV
-#src-git telephony https://git.lede-project.org/feed/telephony.git^$SHA_TELEPHONY 
-src-git telephony https://git.lede-project.org/feed/telephony.git^bbf0cbf # Specific Aster ver for FXS code compatibility
+src-git telephony https://git.lede-project.org/feed/telephony.git^$SHA_TELEPHONY 
+#src-git telephony https://git.lede-project.org/feed/telephony.git^bbf0cbf # Specific Aster ver for FXS code compatibility
 
 #src-git fxs git://github.com/villagetelco/vt-fxs-packages.git
 src-git fxs git://github.com/villagetelco/vt-fxs-packages.git^$SHA_FXS 
