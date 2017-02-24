@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
 
 # Set default version parameters
+
+# REVISION will be used if set to TRUE
 SETREV="TRUE"
 REVISION="17.01" # Specify named revision 
 
-SETSHA="FALSE" 
-SHA="e01b034cdc"    # LEDE trunk as at 2/2/2017
+# SHA will be used if SETREV is FALSE
+SETSHA="TRUE" 
+SHA="0a3088cb4b"    # lede-17.01 as at 19/2/2017
 
 
 USAGE1="Usage:   ./Setup-LEDE-01.sh   /your-preferred-source-installation-path "
@@ -50,6 +53,10 @@ if [ $SETREV == "TRUE" ]; then
 else
   REV=" "
 fi
+
+if [ $SETSHA == "TRUE" ]; then
+	echo "*** Check out a specific SHA: $SHA"
+fi
 echo " "
 
 echo " "
@@ -89,11 +96,12 @@ cd $LEDE_PATH
 echo " "
 
 if [ $SETSHA == "TRUE" ]; then
-	echo "*** Check out a specific rev SHA: $SHA"
+	echo "*** Check out a specific SHA: $SHA"
 	git checkout -q $SHA
 	git reset --hard
-elif [ $SETREV == "TRUE" ]; then
-	git checkout $REV
+elif [ $SETREV == "TRUE" ]; then            #If not using SHA
+	echo "*** Check out Revision: $REVISION"
+	git checkout "lede-$REVISION"
 	git reset --hard
 fi
 echo " "
