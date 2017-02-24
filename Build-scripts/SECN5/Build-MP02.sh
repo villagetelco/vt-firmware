@@ -9,8 +9,8 @@ REPO="vt-firmware"
 BRANCH="secn5"
 
 echo "Set up version strings"
-DIRVER="Alpha2-m"
-VER="SECN-5.0-MP02-"$DIRVER
+DIRVER="GA01.2-LEDE-Alpha1"
+VER="SECN-5-MP02-"$DIRVER
 
 
 echo "************************************"
@@ -56,8 +56,6 @@ if [ ! -f ./already_configured ]; then
   mkdir ./Builds/
   mkdir ./Builds/ar71xx/
   mkdir ./Builds/ar71xx/builds
-  mkdir ./Builds/atheros/
-  mkdir ./Builds/atheros/builds
   echo "Initial set up completed. Continuing with build"
   echo ""
 else
@@ -69,8 +67,7 @@ fi
 #########################
 
 echo "Start build process"
-
-BINDIR="./bin/ar71xx"
+BINDIR="./bin/targets/ar71xx/generic"
 BUILDDIR="./Builds/ar71xx"
 
 ###########################
@@ -141,6 +138,7 @@ cp -rf ./SECN-build/files             .
 echo "Copy additional files"
 cp -rf ./SECN-build/files-2/*         ./files  
 cp -rf ./SECN-build/files-aster/*     ./files  
+cp -rf ./SECN-build/files-ivr/*       ./files  
 cp -rf ./SECN-build/files-usbmodem/*  ./files  
 
 echo "Overlay device specific files"
@@ -169,42 +167,42 @@ cat ./files/etc/secn_version
 echo ""
 
 echo "Clean up any left over files"
-rm $BINDIR/openwrt-*
+####rm $BINDIR/lede-*
 echo ""
 
 echo "Run make for "$1 $2
-make
-#make -j5
+make -j1
+#make
 #make -j1 V=s 2>&1 | tee ~/build.txt
 echo ""
 
 echo "Update original md5sums file"
-cat $BINDIR/md5sums | grep "squashfs.bin"   | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
-cat $BINDIR/md5sums | grep "kernel.bin"     | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
+#cat $BINDIR/md5sums | grep "squashfs.bin"   | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
+#cat $BINDIR/md5sums | grep "kernel.bin"     | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
 cat $BINDIR/md5sums | grep "sysupgrade.bin" | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
 echo ""
 
 echo  "Rename files to add version info"
 echo ""
 if [ $2 ]; then
-	for n in `ls $BINDIR/openwrt*.bin`; do mv  $n   $BINDIR/openwrt-$VER-$1-$2-`echo $n|cut -d '-' -f 5-10`; done
+	for n in `ls $BINDIR/lede*.bin`; do mv  $n   $BINDIR/lede-$VER-$1-$2-`echo $n|cut -d '-' -f 5-10`; done
 else
-	for n in `ls $BINDIR/openwrt*.bin`; do mv  $n   $BINDIR/openwrt-$VER-$1-`echo $n|cut -d '-' -f 5-10`; done
+	for n in `ls $BINDIR/lede*.bin`; do mv  $n   $BINDIR/lede-$VER-$1-`echo $n|cut -d '-' -f 5-10`; done
 fi
 
 echo "Update new md5sums file"
 md5sum $BINDIR/*-squash*sysupgrade.bin >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
-md5sum $BINDIR/openwrt*kernel.bin      >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
-md5sum $BINDIR/openwrt*squashfs.bin    >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
+#md5sum $BINDIR/lede*kernel.bin      >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
+#md5sum $BINDIR/lede*squashfs.bin    >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 
 echo  "Move files to build folder"
-mv $BINDIR/openwrt*-squash*sysupgrade.bin $BUILDDIR/builds/build-$DIR
-mv $BINDIR/openwrt*kernel.bin             $BUILDDIR/builds/build-$DIR
-mv $BINDIR/openwrt*squashfs.bin           $BUILDDIR/builds/build-$DIR
+mv $BINDIR/lede*-squash*sysupgrade.bin $BUILDDIR/builds/build-$DIR
+#mv $BINDIR/lede*kernel.bin             $BUILDDIR/builds/build-$DIR
+#mv $BINDIR/lede*squashfs.bin           $BUILDDIR/builds/build-$DIR
 echo ""
 
 echo "Clean up unused files"
-rm $BINDIR/openwrt-*
+######rm $BINDIR/lede-*
 echo ""
 
 echo ""
@@ -222,13 +220,8 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-build_mp02 MP02FXS
 build_mp02 MP02
-#build_mp02 MP02FXS mt7610u
-#build_mp02 MP02 mt7610u
-#build_mp02 MP02 dundi
-#build_mp02 MP02FXS dundi
-#build_mp02 MP02FXS 729
+build_mp02 MP02FXS
 
 echo " "
 echo " Build script MP02 complete"
