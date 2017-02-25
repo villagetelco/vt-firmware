@@ -9,13 +9,13 @@ REPO="vt-firmware"
 BRANCH="secn5"
 
 echo "Set up version strings"
-DIRVER="GA01.2-LEDE-Alpha2"
-VER="SECN-5-MP02-"$DIRVER
+DIRVER="LEDE-Alpha6-m"
+VER="SECN-5.0-AR150-"$DIRVER
 
 
 echo "************************************"
 echo ""
-echo "Build script for MP02 and MP02FXS devices"
+echo "Build script for AR150 device"
 
 echo "Git directory: "$GITREPO
 echo "Repo: "$REPO
@@ -67,6 +67,7 @@ fi
 #########################
 
 echo "Start build process"
+
 BINDIR="./bin/targets/ar71xx/generic"
 BUILDDIR="./Builds/ar71xx"
 
@@ -90,7 +91,7 @@ echo "Source repo details: "$REPO $REPOID
 
 # Set up new directory name with date and version
 DATE=`date +%Y-%m-%d-%H:%M`
-DIR=$DATE"-MP02-"$DIRVER
+DIR=$DATE"-AR150-"$DIRVER
 
 ###########################
 # Set up build directory
@@ -103,9 +104,10 @@ echo $DIR > $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 
 ##########################
 
+
 # Build function
 
-function build_mp02() {
+function build_ar150() {
 
 echo "Set up .config for "$1 $2
 rm ./.config
@@ -138,7 +140,6 @@ cp -rf ./SECN-build/files             .
 echo "Copy additional files"
 cp -rf ./SECN-build/files-2/*         ./files  
 cp -rf ./SECN-build/files-aster/*     ./files  
-cp -rf ./SECN-build/files-ivr/*       ./files  
 cp -rf ./SECN-build/files-usbmodem/*  ./files  
 
 echo "Overlay device specific files"
@@ -171,8 +172,8 @@ rm $BINDIR/lede-*
 echo ""
 
 echo "Run make for "$1 $2
-make -j1
 #make
+make -j1
 #make -j1 V=s 2>&1 | tee ~/build.txt
 echo ""
 
@@ -202,7 +203,7 @@ mv $BINDIR/lede*-squash*sysupgrade.bin $BUILDDIR/builds/build-$DIR
 echo ""
 
 echo "Clean up unused files"
-######rm $BINDIR/lede-*
+#rm $BINDIR/lede-*
 echo ""
 
 echo ""
@@ -220,11 +221,10 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-build_mp02 MP02
-build_mp02 MP02FXS
+build_ar150 AR150
 
 echo " "
-echo " Build script MP02 complete"
+echo " Build script AR150 complete"
 echo " "
 echo '----------------------------'
 
