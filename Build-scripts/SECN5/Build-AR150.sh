@@ -177,10 +177,6 @@ make -j1
 #make -j1 V=s 2>&1 | tee ~/build.txt
 echo ""
 
-##echo "Update original md5sums file"
-#cat $BINDIR/md5sums | grep "squashfs.bin"   | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
-#cat $BINDIR/md5sums | grep "kernel.bin"     | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
-##cat $BINDIR/md5sums | grep "sysupgrade.bin" | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
 echo ""
 
 echo  "Rename files to add version info"
@@ -193,13 +189,9 @@ fi
 
 echo "Update new md5sums file"
 md5sum $BINDIR/*-squash*sysupgrade.bin >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
-#md5sum $BINDIR/lede*kernel.bin      >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
-#md5sum $BINDIR/lede*squashfs.bin    >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 
 echo  "Move files to build folder"
 mv $BINDIR/lede*-squash*sysupgrade.bin $BUILDDIR/builds/build-$DIR
-#mv $BINDIR/lede*kernel.bin             $BUILDDIR/builds/build-$DIR
-#mv $BINDIR/lede*squashfs.bin           $BUILDDIR/builds/build-$DIR
 echo ""
 
 echo "Clean up unused files"
@@ -222,6 +214,8 @@ echo " "
 echo '----------------------------'
 
 build_ar150 AR150
+build_ar150 AR150 CD
+build_ar150 AR150 I2C
 
 echo " "
 echo " Build script AR150 complete"

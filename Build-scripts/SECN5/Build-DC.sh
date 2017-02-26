@@ -223,6 +223,7 @@ echo " "
 echo '----------------------------'
 
 build_dc DC
+build_dc DC i2c
 
 echo " "
 echo " Build script for Domino Core complete"
