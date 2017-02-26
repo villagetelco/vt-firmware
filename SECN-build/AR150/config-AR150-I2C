@@ -2805,7 +2805,7 @@ CONFIG_PACKAGE_libblobmsg-json=y
 # CONFIG_PACKAGE_libcharset is not set
 # CONFIG_PACKAGE_libcoap is not set
 CONFIG_PACKAGE_libconfig=y
-CONFIG_PACKAGE_libcurl=y
+CONFIG_PACKAGE_libcurl=n
 
 #
 # SSL support
@@ -3679,7 +3679,7 @@ CONFIG_PACKAGE_asterisk11-codec-gsm=y
 # CONFIG_PACKAGE_asterisk11-codec-ilbc is not set
 # CONFIG_PACKAGE_asterisk11-codec-lpc10 is not set
 # CONFIG_PACKAGE_asterisk11-codec-resample is not set
-CONFIG_PACKAGE_asterisk11-curl=y
+CONFIG_PACKAGE_asterisk11-curl=n
 # CONFIG_PACKAGE_asterisk11-format-g726 is not set
 # CONFIG_PACKAGE_asterisk11-format-g729 is not set
 CONFIG_PACKAGE_asterisk11-format-gsm=y

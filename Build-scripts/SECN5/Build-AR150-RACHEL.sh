@@ -9,7 +9,7 @@ REPO="vt-firmware"
 BRANCH="secn5"
 
 echo "Set up version strings"
-DIRVER="LEDE-Alpha6-m"
+DIRVER="LEDE-Alpha7"
 VER="SECN-5.0-AR150-RACHEL-"$DIRVER
 
 
@@ -103,7 +103,7 @@ echo "Set up new build directory  $BUILDDIR/builds/build-"$DIR
 mkdir $BUILDDIR/builds/build-$DIR
 
 # Create md5sums files
-echo $DIR > $BUILDDIR/builds/build-$DIR/md5sums.txt
+#echo $DIR > $BUILDDIR/builds/build-$DIR/md5sums.txt
 echo $DIR > $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 
 ##########################
@@ -179,12 +179,6 @@ make -j3
 #make -j1 V=s 2>&1 | tee ~/build.txt
 echo ""
 
-#echo "Update original md5sums file"
-#cat $BINDIR/md5sums | grep "squashfs.bin"   | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
-#cat $BINDIR/md5sums | grep "kernel.bin"     | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
-##cat $BINDIR/md5sums | grep "sysupgrade.bin" | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
-echo ""
-
 echo  "Rename files to add version info"
 echo ""
 if [ $2 ]; then
@@ -223,7 +217,7 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-build_ar150 AR150
+build_ar150 AR150 RACHEL
 
 echo " "
 echo " Build script AR150 RACHEL complete"

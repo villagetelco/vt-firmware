@@ -210,7 +210,7 @@ CONFIG_TARGET_ar71xx_generic=y
 # CONFIG_TARGET_ar71xx_generic_DEVICE_tl-mr11u-v2 is not set
 # CONFIG_TARGET_ar71xx_generic_DEVICE_tl-mr12u-v1 is not set
 # CONFIG_TARGET_ar71xx_generic_DEVICE_tl-mr13u-v1 is not set
-CONFIG_TARGET_ar71xx_generic_DEVICE_tl-mr3020-v1=y
+# CONFIG_TARGET_ar71xx_generic_DEVICE_tl-mr3020-v1 is not set
 # CONFIG_TARGET_ar71xx_generic_DEVICE_tl-mr3040-v1 is not set
 # CONFIG_TARGET_ar71xx_generic_DEVICE_tl-mr3040-v2 is not set
 # CONFIG_TARGET_ar71xx_generic_DEVICE_tl-mr3220-v1 is not set
@@ -269,7 +269,7 @@ CONFIG_TARGET_ar71xx_generic_DEVICE_tl-mr3020-v1=y
 # CONFIG_TARGET_ar71xx_generic_DEVICE_tl-wr802n-v1 is not set
 # CONFIG_TARGET_ar71xx_generic_DEVICE_tl-wr841-v1.5 is not set
 # CONFIG_TARGET_ar71xx_generic_DEVICE_tl-wr841-v10 is not set
-# CONFIG_TARGET_ar71xx_generic_DEVICE_tl-wr841-v11 is not set
+CONFIG_TARGET_ar71xx_generic_DEVICE_tl-wr841-v11=y
 # CONFIG_TARGET_ar71xx_generic_DEVICE_tl-wr841-v3 is not set
 # CONFIG_TARGET_ar71xx_generic_DEVICE_tl-wr841-v5 is not set
 # CONFIG_TARGET_ar71xx_generic_DEVICE_tl-wr841-v7 is not set
@@ -347,7 +347,7 @@ CONFIG_HAS_SUBTARGETS=y
 CONFIG_HAS_DEVICES=y
 CONFIG_TARGET_BOARD="ar71xx"
 CONFIG_TARGET_SUBTARGET="generic"
-CONFIG_TARGET_PROFILE="DEVICE_tl-mr3020-v1"
+CONFIG_TARGET_PROFILE="DEVICE_tl-wr841-v11"
 CONFIG_TARGET_ARCH_PACKAGES="mips_24kc"
 CONFIG_DEFAULT_TARGET_OPTIMIZATION="-Os -pipe -mno-branch-likely -mips32r2 -mtune=24kc"
 CONFIG_CPU_TYPE="24kc"
@@ -363,9 +363,6 @@ CONFIG_DEFAULT_iptables=y
 CONFIG_DEFAULT_iwinfo=y
 CONFIG_DEFAULT_kmod-ath9k=y
 CONFIG_DEFAULT_kmod-gpio-button-hotplug=y
-CONFIG_DEFAULT_kmod-usb-core=y
-CONFIG_DEFAULT_kmod-usb-ledtrig-usbport=y
-CONFIG_DEFAULT_kmod-usb2=y
 CONFIG_DEFAULT_libc=y
 CONFIG_DEFAULT_libgcc=y
 CONFIG_DEFAULT_logd=y
@@ -2121,7 +2118,7 @@ CONFIG_PACKAGE_kmod-usb-core=y
 # CONFIG_PACKAGE_kmod-usb-dwc3 is not set
 # CONFIG_PACKAGE_kmod-usb-dwc3-of-simple is not set
 # CONFIG_PACKAGE_kmod-usb-hid is not set
-CONFIG_PACKAGE_kmod-usb-ledtrig-usbport=y
+# CONFIG_PACKAGE_kmod-usb-ledtrig-usbport is not set
 # CONFIG_PACKAGE_kmod-usb-net is not set
 CONFIG_PACKAGE_kmod-usb-ohci=y
 # CONFIG_PACKAGE_kmod-usb-ohci-pci is not set
