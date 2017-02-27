@@ -9,13 +9,13 @@ REPO="vt-firmware"
 BRANCH="secn5"
 
 echo "Set up version strings"
-DIRVER="LEDE-RC1"
-VER="SECN-5.0-AR150-RACHEL-"$DIRVER
+DIRVER="LEDE-RC1-m"
+VER="SECN-5.0-TP-"$DIRVER
 
 
 echo "************************************"
 echo ""
-echo "Build script for AR150 RACHEL device"
+echo "Build script for TP Link devices"
 
 echo "Git directory: "$GITREPO
 echo "Repo: "$REPO
@@ -74,14 +74,10 @@ BUILDDIR="./Builds/ar71xx"
 ###########################
 echo "Copy files from Git repo into build folder"
 rm -rf ./SECN-build/
-
 cp -rp $GITREPO/$REPO/SECN-build/ .
-
 cp -fp $GITREPO/$REPO/Build-scripts/FactoryRestore.sh  .
 cp -fp $GITREPO/$REPO/Build-scripts/GetGitVersions.sh  .
 
-echo "Overlay RACHEL files"
-cp -rfp $GITREPO/$REPO/RACHEL-build/* ./SECN-build/
 
 ###########################
 
@@ -95,7 +91,7 @@ echo "Source repo details: "$REPO $REPOID
 
 # Set up new directory name with date and version
 DATE=`date +%Y-%m-%d-%H:%M`
-DIR=$DATE"-AR150-RACHEL-"$DIRVER
+DIR=$DATE"-TP-"$DIRVER
 
 ###########################
 # Set up build directory
@@ -103,15 +99,14 @@ echo "Set up new build directory  $BUILDDIR/builds/build-"$DIR
 mkdir $BUILDDIR/builds/build-$DIR
 
 # Create md5sums files
-#echo $DIR > $BUILDDIR/builds/build-$DIR/md5sums.txt
+echo $DIR > $BUILDDIR/builds/build-$DIR/md5sums.txt
 echo $DIR > $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 
 ##########################
 
-
 # Build function
 
-function build_ar150() {
+function build_tp() {
 
 echo "Set up .config for "$1 $2
 rm ./.config
@@ -127,8 +122,8 @@ fi
 echo "Run defconfig"
 make defconfig > /dev/null
 
-# Set target string
-TARGET=$1
+# Set up target display strings
+TARGET=`cat .config | grep "CONFIG_TARGET" | grep "=y" | grep "_generic_" | cut -d _ -f 6 | cut -d = -f 1 `
 
 echo "Check .config version"
 echo "Target:  " $TARGET
@@ -139,13 +134,28 @@ echo "Remove files directory"
 rm -r ./files
 
 echo "Copy base files"
-cp -rf ./SECN-build/files     .  
+cp -r ./SECN-build/files     .  
 
-echo "Copy additional files"
-cp -rf ./SECN-build/files-2/* ./files  
+# Multi-port
+if [ $1 = "MR3420" ] || [ $1 = "WR741" ] || [ $1 = "WR841" ] || [ $1 = "WR842" ]; then
+	echo "Overlay files for multi port devices"
+  cp -rf ./SECN-build/files-2/*         ./files  
+fi
+
+# Asterisk
+if [ $1 = "WR842" ]; then
+	echo "Overlay files for Asterisk"
+  cp -rf ./SECN-build/files-aster/*     ./files  
+fi
+
+# USB
+if [ $1 = "MR11U" ] || [ $1 = "MR3020" ] || [ $1 = "MR3040" ] || [ $1 = "MR3420" ] || [ $1 = "WR703" ] || [ $1 = "WR842" ]; then
+	echo "Overlay files for USB port devices"
+  cp -rf ./SECN-build/files-usbmodem/*  ./files  
+fi
 
 echo "Overlay device specific files"
-cp -rf ./SECN-build/$1/files  .  
+cp -r ./SECN-build/$1/files  .  
 echo ""
 
 echo "Build Factory Restore tar file"
@@ -174,28 +184,36 @@ rm $BINDIR/lede-*
 echo ""
 
 echo "Run make for "$1 $2
-#make
 make -j1
+#make -j3
+#make -j5
 #make -j1 V=s 2>&1 | tee ~/build.txt
+echo ""
+
+echo "Update original md5sums file"
+cat $BINDIR/md5sums | grep "squashfs" | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
 echo ""
 
 echo  "Rename files to add version info"
 echo ""
 if [ $2 ]; then
-	for n in `ls $BINDIR/lede*.bin`; do mv  $n   $BINDIR/lede-$VER-$1-$2-`echo $n|cut -d '-' -f 5-10`; done
+	for n in `ls $BINDIR/lede*.bin`; do mv  $n   $BINDIR/lede-$VER-$2-`echo $n|cut -d '-' -f 5-10`; done
 else
-	for n in `ls $BINDIR/lede*.bin`; do mv  $n   $BINDIR/lede-$VER-$1-`echo $n|cut -d '-' -f 5-10`; done
+	for n in `ls $BINDIR/lede*.bin`; do mv  $n   $BINDIR/lede-$VER-`echo $n|cut -d '-' -f 5-10`; done
 fi
 
 echo "Update new md5sums file"
 md5sum $BINDIR/*-squash*sysupgrade.bin >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
+#md5sum $BINDIR/*-squash*factory.bin    >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
+echo ""
 
 echo  "Move files to build folder"
 mv $BINDIR/lede*-squash*sysupgrade.bin $BUILDDIR/builds/build-$DIR
+#mv $BINDIR/*-squash*factory.bin    $BUILDDIR/builds/build-$DIR
 echo ""
 
 echo "Clean up unused files"
-###rm $BINDIR/lede-*
+rm $BINDIR/lede-*
 echo ""
 
 echo ""
@@ -213,10 +231,32 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-build_ar150 AR150 RACHEL
+build_tp WR841 v8
+build_tp WR841 v9
+build_tp WR841 v10
+build_tp WR841 v11
+
+build_tp MR3020 
+build_tp MR3040
+build_tp WR703
+
+build_tp WR842 v1
+build_tp WR842 v2
+build_tp WR842 v3
+
+build_tp MR3420
+build_tp MR3420 v2
+
+build_tp WR741 v1
+build_tp WR741 v5
+
+build_tp WA701 v1
+build_tp WA701 v2
+
+build_tp WA901 v4
 
 echo " "
-echo " Build script AR150 RACHEL complete"
+echo "Build script TP complete"
 echo " "
 echo '----------------------------'
 
