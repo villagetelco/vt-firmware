@@ -10,7 +10,7 @@ BRANCH="secn5"
 
 echo "Set up version strings"
 DIRVER="LEDE-RC1-m"
-VER="SECN-5.0-TP-"$DIRVER
+VER="SECN-5-TP-"$DIRVER
 
 
 echo "************************************"
@@ -99,7 +99,6 @@ echo "Set up new build directory  $BUILDDIR/builds/build-"$DIR
 mkdir $BUILDDIR/builds/build-$DIR
 
 # Create md5sums files
-echo $DIR > $BUILDDIR/builds/build-$DIR/md5sums.txt
 echo $DIR > $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 
 ##########################

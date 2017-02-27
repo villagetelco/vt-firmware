@@ -10,7 +10,7 @@ BRANCH="secn5"
 
 echo "Set up version strings"
 DIRVER="LEDE-RC1"
-VER="SECN-5.0-AR150-RACHEL-"$DIRVER
+VER="SECN-5-AR150-RACHEL-"$DIRVER
 
 
 echo "************************************"
