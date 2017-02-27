@@ -1624,7 +1624,7 @@ CONFIG_PACKAGE_muninlite=y
 #
 # Boot Loaders
 #
-CONFIG_PACKAGE_uboot-ar71xx-nbg460n_550n_550nh=y
+# CONFIG_PACKAGE_uboot-ar71xx-nbg460n_550n_550nh is not set
 
 #
 # Development
@@ -2151,7 +2151,7 @@ CONFIG_PACKAGE_kmod-usb-core=y
 # CONFIG_PACKAGE_kmod-usb-dwc3 is not set
 # CONFIG_PACKAGE_kmod-usb-dwc3-of-simple is not set
 # CONFIG_PACKAGE_kmod-usb-hid is not set
-# CONFIG_PACKAGE_kmod-usb-ledtrig-usbport is not set
+CONFIG_PACKAGE_kmod-usb-ledtrig-usbport=y
 CONFIG_PACKAGE_kmod-usb-net=y
 # CONFIG_PACKAGE_kmod-usb-net-asix is not set
 # CONFIG_PACKAGE_kmod-usb-net-asix-ax88179 is not set

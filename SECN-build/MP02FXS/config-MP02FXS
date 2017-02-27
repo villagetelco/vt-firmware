@@ -1626,7 +1626,7 @@ CONFIG_PACKAGE_muninlite=y
 #
 # Boot Loaders
 #
-CONFIG_PACKAGE_uboot-ar71xx-nbg460n_550n_550nh=y
+CONFIG_PACKAGE_uboot-ar71xx-nbg460n_550n_550nh=n
 
 #
 # Development

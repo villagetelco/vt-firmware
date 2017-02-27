@@ -9,7 +9,7 @@ REPO="vt-firmware"
 BRANCH="secn5"
 
 echo "Set up version strings"
-DIRVER="GA01.2-LEDE-Alpha2"
+DIRVER="LEDE-RC1"
 VER="SECN-5-MP02-"$DIRVER
 
 
@@ -98,7 +98,6 @@ echo "Set up new build directory  $BUILDDIR/builds/build-"$DIR
 mkdir $BUILDDIR/builds/build-$DIR
 
 # Create md5sums files
-#echo $DIR > $BUILDDIR/builds/build-$DIR/md5sums.txt
 echo $DIR > $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 
 ##########################
@@ -176,10 +175,6 @@ make -j1
 #make -j1 V=s 2>&1 | tee ~/build.txt
 echo ""
 
-##echo "Update original md5sums file"
-#cat $BINDIR/md5sums | grep "squashfs.bin"   | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
-#cat $BINDIR/md5sums | grep "kernel.bin"     | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
-##cat $BINDIR/md5sums | grep "sysupgrade.bin" | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
 echo ""
 
 echo  "Rename files to add version info"
@@ -192,17 +187,13 @@ fi
 
 echo "Update new md5sums file"
 md5sum $BINDIR/*-squash*sysupgrade.bin >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
-#md5sum $BINDIR/lede*kernel.bin      >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
-#md5sum $BINDIR/lede*squashfs.bin    >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 
 echo  "Move files to build folder"
 mv $BINDIR/lede*-squash*sysupgrade.bin $BUILDDIR/builds/build-$DIR
-#mv $BINDIR/lede*kernel.bin             $BUILDDIR/builds/build-$DIR
-#mv $BINDIR/lede*squashfs.bin           $BUILDDIR/builds/build-$DIR
 echo ""
 
 echo "Clean up unused files"
-######rm $BINDIR/lede-*
+##rm $BINDIR/lede-*
 echo ""
 
 echo ""

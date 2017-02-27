@@ -9,7 +9,7 @@ REPO="vt-firmware"
 BRANCH="secn5"
 
 echo "Set up version strings"
-DIRVER="LEDE-Alpha6-m"
+DIRVER="LEDE-RC1-m"
 VER="SECN-5.0-AR150-"$DIRVER
 
 
