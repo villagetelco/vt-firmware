@@ -18,21 +18,21 @@ config button
 	option min      10
 	option max      20
 
-config led 'led_wlan'
+config led 'led-wlan'
 	option name 'WLAN'
-	option sysfs 'gl_ar150:wlan'
+	option sysfs 'gl-ar150:wlan'
 	option trigger 'phy0tpt'
 
-config led 'led_lan'
+config led 'led-lan'
 	option name 'LAN'
-	option sysfs 'gl_ar150:lan'
+	option sysfs 'gl-ar150:lan'
 	option trigger 'netdev'
 	option dev 'eth1'
 	option mode 'link tx rx'
 
-config led 'led_wan' 
+config led 'led-wan' 
 	option name 'WAN' 
-	option sysfs 'gl_ar150:wan' 
+	option sysfs 'gl-ar150:wan' 
 	option trigger 'netdev' 
 	option dev 'eth0'      
 	option mode 'link tx rx'
