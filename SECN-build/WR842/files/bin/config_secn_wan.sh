@@ -1,14 +1,20 @@
 #!/bin/sh -x
 # /bin/config_secn_wan.sh
 
-# Set up network for WR842 version
-SYSTEMTYPE=`cat /proc/cpuinfo | grep AR7241 | cut -d " " -f 4`
-if [ $SYSTEMTYPE = "AR7241" ]; then 
+# Set up network for WR842 hardware version
+
+if [ "`grep -i -e AR7241 /proc/cpuinfo`" != "" ]; then  #Ver 1
+	LANETH="eth0"
+	WANETH="eth1"
+elif [ "`grep -i -e AR9341 /proc/cpuinfo`" != "" ]; then #Ver 2
+	LANETH="eth1"
+	WANETH="eth0"
+elif [ "`grep -i -e QCA9531 /proc/cpuinfo`" != "" ]; then # Ver3
 	LANETH="eth0"
 	WANETH="eth1"
 else
-	LANETH="eth1"
-	WANETH="eth0"
+	LANETH="eth0"
+	WANETH="eth1"
 fi
 
 uci set network.lan.ifname=$LANETH
