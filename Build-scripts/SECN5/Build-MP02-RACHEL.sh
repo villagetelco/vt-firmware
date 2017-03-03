@@ -9,13 +9,13 @@ REPO="vt-firmware"
 BRANCH="secn5"
 
 echo "Set up version strings"
-DIRVER="LEDE-RC1-m"
-VER="SECN-5-TP-RACHEL-"$DIRVER
+DIRVER="RC1-m"
+VER="SECN-5-MP02-RACHEL-"$DIRVER
 
 
 echo "************************************"
 echo ""
-echo "Build script for TP Link devices"
+echo "Build script for MP02 RACHEL device"
 
 echo "Git directory: "$GITREPO
 echo "Repo: "$REPO
@@ -74,12 +74,14 @@ BUILDDIR="./Builds/ar71xx"
 ###########################
 echo "Copy files from Git repo into build folder"
 rm -rf ./SECN-build/
+
 cp -rp $GITREPO/$REPO/SECN-build/ .
+
 cp -fp $GITREPO/$REPO/Build-scripts/FactoryRestore.sh  .
 cp -fp $GITREPO/$REPO/Build-scripts/GetGitVersions.sh  .
 
 echo "Overlay RACHEL files"
-cp -rfp $GITREPO/$REPO/RACHEL-build/* ./SECN-build
+cp -rfp $GITREPO/$REPO/RACHEL-build/* ./SECN-build/
 
 ###########################
 
@@ -93,7 +95,7 @@ echo "Source repo details: "$REPO $REPOID
 
 # Set up new directory name with date and version
 DATE=`date +%Y-%m-%d-%H:%M`
-DIR=$DATE"-TP-RACHEL-"$DIRVER
+DIR=$DATE"-MP02-RACHEL-"$DIRVER
 
 ###########################
 # Set up build directory
@@ -107,7 +109,7 @@ echo $DIR > $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 
 # Build function
 
-function build_tp() {
+function build_mp02() {
 
 echo "Set up .config for "$1 $2
 rm ./.config
@@ -123,8 +125,8 @@ fi
 echo "Run defconfig"
 make defconfig > /dev/null
 
-# Set up target display strings
-TARGET=`cat .config | grep "CONFIG_TARGET" | grep "=y" | grep "_generic_" | cut -d _ -f 6 | cut -d = -f 1 `
+# Set target string
+TARGET=$1
 
 echo "Check .config version"
 echo "Target:  " $TARGET
@@ -134,30 +136,14 @@ echo "Set up files for "$1 $2
 echo "Remove files directory"
 rm -r ./files
 
-echo "Copy generic files"
+echo "Copy base files"
 cp -rf ./SECN-build/files     .  
 
-# Multi-port
-if [ $1 = "MR3420" ] || [ $1 = "WR842" ]; then
-	echo "Overlay files for multi port devices"
-  cp -rf ./SECN-build/files-2/*         ./files  
-fi
-
-# Asterisk - not required for RACHEL build.
-#if [ $1 = "WR842" ]; then
-#	echo "Overlay files for Asterisk"
-#  cp -rf ./SECN-build/files-aster/*     ./files  
-#fi
-
-# USB
-#if [ $1 = "MR3020" ] || [ $1 = "MR3040" ] || [ $1 = "MR3420" ] || [ $1 = "WR703" ] || [ $1 = "WR842" ]; then
-if [ $1 = "WR842" ]; then
-	echo "Overlay files for USB modem devices"
-  cp -rf ./SECN-build/files-usbmodem/*  ./files  
-fi
+echo "Copy additional files"
+cp -rf ./SECN-build/files-2/* ./files  
 
 echo "Overlay device specific files"
-cp -r ./SECN-build/$1/files  .  
+cp -rf ./SECN-build/$1/files  .  
 echo ""
 
 echo "Build Factory Restore tar file"
@@ -186,32 +172,24 @@ rm $BINDIR/lede-*
 echo ""
 
 echo "Run make for "$1 $2
-#make
 make -j1
-#make -j5
+#make -j3
 #make -j1 V=s 2>&1 | tee ~/build.txt
-echo ""
-
-echo "Update original md5sums file"
-cat $BINDIR/md5sums | grep "squashfs" | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
 echo ""
 
 echo  "Rename files to add version info"
 echo ""
 if [ $2 ]; then
-	for n in `ls $BINDIR/lede*.bin`; do mv  $n   $BINDIR/lede-$VER-$2-`echo $n|cut -d '-' -f 5-10`; done
+	for n in `ls $BINDIR/lede*.bin`; do mv  $n   $BINDIR/lede-$VER-$1-$2-`echo $n|cut -d '-' -f 5-10`; done
 else
-	for n in `ls $BINDIR/lede*.bin`; do mv  $n   $BINDIR/lede-$VER-`echo $n|cut -d '-' -f 5-10`; done
+	for n in `ls $BINDIR/lede*.bin`; do mv  $n   $BINDIR/lede-$VER-$1-`echo $n|cut -d '-' -f 5-10`; done
 fi
 
 echo "Update new md5sums file"
 md5sum $BINDIR/*-squash*sysupgrade.bin >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
-#md5sum $BINDIR/*-squash*factory.bin    >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
-echo ""
 
 echo  "Move files to build folder"
 mv $BINDIR/lede*-squash*sysupgrade.bin $BUILDDIR/builds/build-$DIR
-#mv $BINDIR/*-squash*factory.bin    $BUILDDIR/builds/build-$DIR
 echo ""
 
 echo "Clean up unused files"
@@ -233,20 +211,10 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-build_tp WR842 v1
-build_tp WR842 v2
-build_tp WR842 v3
-exit
-
-build_tp MR3020 
-build_tp MR3040
-build_tp WR703
-
-build_tp MR3420
-build_tp MR3420 v2
+build_mp02 MP02 RACHEL
 
 echo " "
-echo "Build script TP complete"
+echo " Build script MP02 RACHEL complete"
 echo " "
 echo '----------------------------'
 
