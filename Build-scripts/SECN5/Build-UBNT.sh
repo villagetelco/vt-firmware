@@ -215,11 +215,7 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-build_ubnt UBNT BulletM
-build_ubnt UBNT NanoM
-build_ubnt UBNT RocketM
-build_ubnt UBNT NanoMXW
-build_ubnt UBNT RocketMXW
+build_ubnt UBNT
 
 echo " "
 echo " Build script for UBNT M devices complete"

@@ -230,29 +230,16 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-build_tp WR841 v8
-build_tp WR841 v9
-build_tp WR841 v10
-build_tp WR841 v11
-
+build_tp WR842
+build_tp WR841
 build_tp MR3020 
 build_tp MR3040
 build_tp WR703
-
-build_tp WR842 v1
-build_tp WR842 v2
-build_tp WR842 v3
-
+build_tp WR842
 build_tp MR3420
-build_tp MR3420 v2
-
-build_tp WR741 v1
-build_tp WR741 v5
-
-build_tp WA701 v1
-build_tp WA701 v2
-
-build_tp WA901 v4
+build_tp WR741
+build_tp WA701
+build_tp WA901
 
 echo " "
 echo "Build script TP complete"
