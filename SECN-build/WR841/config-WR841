@@ -47,7 +47,7 @@ CONFIG_TARGET_ar71xx=y
 CONFIG_TARGET_ar71xx_generic=y
 # CONFIG_TARGET_ar71xx_nand is not set
 # CONFIG_TARGET_ar71xx_mikrotik is not set
-# CONFIG_TARGET_MULTI_PROFILE is not set
+CONFIG_TARGET_MULTI_PROFILE=y
 # CONFIG_TARGET_ar71xx_generic_Default is not set
 # CONFIG_TARGET_ar71xx_generic_DEVICE_ALFAAP120C is not set
 # CONFIG_TARGET_ar71xx_generic_DEVICE_ALFAAP96 is not set
@@ -304,7 +304,7 @@ CONFIG_TARGET_ar71xx_generic=y
 # CONFIG_TARGET_ar71xx_generic_DEVICE_ubnt-bullet-m is not set
 # CONFIG_TARGET_ar71xx_generic_DEVICE_ubnt-ls-sr71 is not set
 # CONFIG_TARGET_ar71xx_generic_DEVICE_ubnt-loco-m-xw is not set
-CONFIG_TARGET_ar71xx_generic_DEVICE_ubnt-nano-m-xw=y
+# CONFIG_TARGET_ar71xx_generic_DEVICE_ubnt-nano-m-xw is not set
 # CONFIG_TARGET_ar71xx_generic_DEVICE_ubnt-nano-m is not set
 # CONFIG_TARGET_ar71xx_generic_DEVICE_rw2458n is not set
 # CONFIG_TARGET_ar71xx_generic_DEVICE_ubnt-rocket-m-ti is not set
@@ -343,11 +343,310 @@ CONFIG_TARGET_ar71xx_generic_DEVICE_ubnt-nano-m-xw=y
 # CONFIG_TARGET_ar71xx_generic_DEVICE_JA76PF2 is not set
 # CONFIG_TARGET_ar71xx_generic_DEVICE_JWAP003 is not set
 # CONFIG_TARGET_ar71xx_generic_DEVICE_jwap230 is not set
+
+#
+# Target Devices
+#
+# CONFIG_TARGET_ALL_PROFILES is not set
+# CONFIG_TARGET_PER_DEVICE_ROOTFS is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_c-55 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_ALFAAP120C is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_ALFAAP96 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_HORNETUB is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_HORNETUBx2 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_ALFANX is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_TUBE2H16M is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_TUBE2H8M is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_ALL0258N is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_ALL0305 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_ALL0315N is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_antminer-s1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_antminer-s3 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_antrouter-r1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_YUN_16M is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_YUN_8M is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_AP121_16M is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_AP121_8M is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_AP132 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_AP135 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_AP136_010 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_AP136_020 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_AP96 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_DB120 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_PB42 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_PB44 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_A02RBW300N is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_F9K1115V2 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_BXU2000N2 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_bhr-4grv2 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_WHRG301N is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_WHRHPG300N is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_WHRHPGN is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_WLAEAG300N is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_WZR450HP2 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_WZR600DHP is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_WZRHPAG300H is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_WZRHPG300NH is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_WZRHPG300NH2 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_WZRHPG450H is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_carambola2 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_cf-e316n-v2 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_cf-e320n-v2 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_cf-e380ac-v1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_cf-e380ac-v2 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_cf-e520n is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_cf-e530n is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_WP543_16M is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_WP543_4M is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_WP543_8M is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_WPE72_16M is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_WPE72_4M is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_WPE72_8M is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_WPJ342_16M is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_WPJ344_16M is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_WPJ531_16M is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_WPJ558_16M is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_dap-2695-a1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_DGL5500A1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_DHP1565A1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_DIR505A1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_DIR600A1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_DIR601A1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_DIR601B1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_DIR615C1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_DIR615E1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_DIR615E4 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_DIR615I1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_DIR615I3 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_DIR825B1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_DIR825C1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_DIR835A1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_dir-869-a1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_dLAN_Hotspot is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_dLAN_pro_1200_ac is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_dLAN_pro_500_wp is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_dragino2 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_el-m150 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_el-mini is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_EWDORIN16M is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_EWDORINAP is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_EWDORINRT is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_EAP300V2 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_EPG5000 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_ESR1750 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_ESR900 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_FR54RTR is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_minibox-v1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_oolite is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_gl-ar150 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_gl-ar300 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_gl-ar300m is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_gl-domino is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_gl-mifi is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_gl-inet-6408A-v1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_gl-inet-6416A-v1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_hiwifi-hc6361 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_JA76PF is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_JA76PF2 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_JWAP003 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_jwap230 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_WRT160NL is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_WRT400N is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_mr12 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_mr16 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_mc-mac1200r is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_mw4530r-v1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_smart-300 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_WNDAP360 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_wndr3700 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_wndr3700v2 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_wndr3800 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_wndr3800ch is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_wndrmac is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_wndrmacv2 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_REALWNR1000V2 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_WNR1000V2_VC is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_WNR2000 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_WNR2000V3 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_WNR2000V4 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_WNR2200 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_REALWNR612V2 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_WPN824N is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_omy-g1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_omy-x1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_N150R is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_onion-omega is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_som9331 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_A60 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_MR1750 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_MR600 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_MR900 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_OM2P is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_OM5PAC is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_OM5P is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_MZKW04NU is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_MZKW300NH is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_cap324 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_cap324-nocloud is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_cr3000-nocloud is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_cr3000 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_cr5000-nocloud is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_cr5000 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_DLRTDEV01 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_qihoo-c301 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_AP143_16M is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_AP143_8M is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_AP147_010 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_AP152_16M is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_rnx-n360rt is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_CAP4200AG is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_EAP7660D is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_WLR8100 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_bsb is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tellstick-znet-lite is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_archer-c5-v1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_archer-c7-v1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_archer-c7-v2 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_archer-c7-v2-il is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wdr7500-v3 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_cpe210-220 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_cpe510-520 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_eap120 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_re450 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-mr10u-v1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-mr11u-v1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-mr11u-v2 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-mr12u-v1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-mr13u-v1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-mr3020-v1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-mr3040-v1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-mr3040-v2 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-mr3220-v1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-mr3220-v2 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-mr3420-v1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-mr3420-v2 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wa701nd-v1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wa701nd-v2 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wa7210n-v2 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wa730re-v1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wa750re-v1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wa7510n is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wa801nd-v1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wa801nd-v2 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wa801nd-v3 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wa830re-v1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wa830re-v2 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wa850re-v1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wa860re-v1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wa901nd-v1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wa901nd-v2 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wa901nd-v3 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wa901nd-v4 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wdr3320-v2 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wdr3500-v1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wdr3600-v1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wdr4300-v1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wdr4300-v1-il is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wdr4310-v1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wdr4900-v2 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wdr6500-v2 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wpa8630 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr1041n-v2 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr1043nd-v1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr1043nd-v2 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr1043nd-v3 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr1043nd-v4 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr2543-v1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr703n-v1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr710n-v1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr710n-v2 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr710n-v2.1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr720n-v3 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr720n-v4 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr740n-v1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr740n-v3 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr740n-v4 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr740n-v5 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr740n-v6 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr741nd-v1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr741nd-v2 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr741nd-v4 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr741nd-v5 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr743nd-v1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr743nd-v2 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr802n-v1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr810n is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr841-v1.5 is not set
+CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr841-v10=y
+CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr841-v11=y
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr841-v3 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr841-v5 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr841-v7 is not set
+CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr841-v8=y
+CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr841-v9=y
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr842n-v1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr842n-v2 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr842n-v3 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr843nd-v1 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr847n-v8 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr940n-v4 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr941nd-v2 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr941nd-v3 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr941nd-v4 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr941nd-v5 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr941nd-v6 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr941nd-v6-cn is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_wbs210 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_wbs510 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_TEW632BRP is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_TEW652BRP_FW is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_TEW652BRP_RECOVERY is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_TEW673GRU is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_TEW712BR is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_TEW732BR is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_TEW823DRU is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_ubnt-air-gateway is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_ubnt-air-gateway-pro is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_ubnt-airrouter is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_ubnt-bullet-m is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_ubnt-loco-m-xw is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_ubnt-ls-sr71 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_ubnt-nano-m-xw is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_ubnt-nano-m is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_ubnt-rocket-m-ti is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_ubnt-rocket-m-xw is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_ubnt-rocket-m is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_ubnt-rs is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_ubnt-rspro is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_rw2458n is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_ubnt-uap-pro is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_ubdev01 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_ubnt-unifi is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_ubnt-unifiac-lite is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_ubnt-unifiac-pro is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_ubnt-unifi-outdoor is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_ubnt-unifi-outdoor-plus is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_DR344 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_dr531 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_MYNETREXT is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_weio is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_mynet-n600 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_mynet-n750 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_WRTNODE2Q is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_ap90q is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_cpe830 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_cpe870 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_sr3200 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_xd3200 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_ZBTWE1526 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_ZCN1523H28 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_ZCN1523H516 is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_NBG_460N_550N_550NH is not set
+# CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_NBG6616 is not set
 CONFIG_HAS_SUBTARGETS=y
 CONFIG_HAS_DEVICES=y
 CONFIG_TARGET_BOARD="ar71xx"
 CONFIG_TARGET_SUBTARGET="generic"
-CONFIG_TARGET_PROFILE="DEVICE_ubnt-nano-m-xw"
 CONFIG_TARGET_ARCH_PACKAGES="mips_24kc"
 CONFIG_DEFAULT_TARGET_OPTIMIZATION="-Os -pipe -mno-branch-likely -mips32r2 -mtune=24kc"
 CONFIG_CPU_TYPE="24kc"
@@ -363,9 +662,6 @@ CONFIG_DEFAULT_iptables=y
 CONFIG_DEFAULT_iwinfo=y
 CONFIG_DEFAULT_kmod-ath9k=y
 CONFIG_DEFAULT_kmod-gpio-button-hotplug=y
-CONFIG_DEFAULT_kmod-usb-core=y
-CONFIG_DEFAULT_kmod-usb-ohci=y
-CONFIG_DEFAULT_kmod-usb2=y
 CONFIG_DEFAULT_libc=y
 CONFIG_DEFAULT_libgcc=y
 CONFIG_DEFAULT_logd=y
@@ -478,11 +774,7 @@ CONFIG_KERNEL_RELAY=y
 # CONFIG_KERNEL_LXC_MISC is not set
 # CONFIG_KERNEL_SECCOMP_FILTER is not set
 # CONFIG_KERNEL_SECCOMP is not set
-CONFIG_KERNEL_IPV6=y
-CONFIG_KERNEL_IPV6_MULTIPLE_TABLES=y
-CONFIG_KERNEL_IPV6_SUBTREES=y
-CONFIG_KERNEL_IPV6_MROUTE=y
-# CONFIG_KERNEL_IPV6_PIMSM_V2 is not set
+# CONFIG_KERNEL_IPV6 is not set
 # CONFIG_KERNEL_IP_PNP is not set
 
 #
@@ -512,7 +804,7 @@ CONFIG_KERNEL_IPV6_MROUTE=y
 # Package build options
 #
 # CONFIG_DEBUG is not set
-CONFIG_IPV6=y
+# CONFIG_IPV6 is not set
 
 #
 # Stripping options
@@ -1547,7 +1839,6 @@ CONFIG_BUSYBOX_DEFAULT_FEATURE_IPC_SYSLOG_BUFFER_SIZE=0
 # CONFIG_PACKAGE_ca-bundle is not set
 # CONFIG_PACKAGE_ca-certificates is not set
 CONFIG_PACKAGE_dnsmasq=y
-# CONFIG_PACKAGE_dnsmasq-dhcpv6 is not set
 # CONFIG_PACKAGE_dnsmasq-full is not set
 CONFIG_PACKAGE_dropbear=y
 
@@ -1617,7 +1908,7 @@ CONFIG_PACKAGE_wireless-tools=y
 # CONFIG_PACKAGE_htop is not set
 # CONFIG_PACKAGE_monit is not set
 # CONFIG_PACKAGE_monit-nossl is not set
-CONFIG_PACKAGE_muninlite=y
+# CONFIG_PACKAGE_muninlite is not set
 # CONFIG_PACKAGE_netdata is not set
 # CONFIG_PACKAGE_sudo is not set
 # CONFIG_PACKAGE_syslog-ng is not set
@@ -1634,7 +1925,6 @@ CONFIG_PACKAGE_muninlite=y
 #
 # Libraries
 #
-# CONFIG_PACKAGE_zlib-dev is not set
 # CONFIG_PACKAGE_ar is not set
 # CONFIG_PACKAGE_autoconf is not set
 # CONFIG_PACKAGE_automake is not set
@@ -1792,7 +2082,7 @@ CONFIG_PACKAGE_kmod-crypto-hash=y
 # CONFIG_PACKAGE_kmod-fs-cramfs is not set
 # CONFIG_PACKAGE_kmod-fs-exfat is not set
 # CONFIG_PACKAGE_kmod-fs-exportfs is not set
-CONFIG_PACKAGE_kmod-fs-ext4=y
+# CONFIG_PACKAGE_kmod-fs-ext4 is not set
 # CONFIG_PACKAGE_kmod-fs-f2fs is not set
 # CONFIG_PACKAGE_kmod-fs-fscache is not set
 # CONFIG_PACKAGE_kmod-fs-hfs is not set
@@ -1899,8 +2189,6 @@ CONFIG_PACKAGE_kmod-nls-utf8=y
 #
 # CONFIG_PACKAGE_kmod-arptables is not set
 # CONFIG_PACKAGE_kmod-ebtables is not set
-CONFIG_PACKAGE_kmod-ip6tables=y
-# CONFIG_PACKAGE_kmod-ip6tables-extra is not set
 # CONFIG_PACKAGE_kmod-ipt-account is not set
 # CONFIG_PACKAGE_kmod-ipt-chaos is not set
 # CONFIG_PACKAGE_kmod-ipt-cluster is not set
@@ -1934,14 +2222,12 @@ CONFIG_PACKAGE_kmod-ipt-core=y
 # CONFIG_PACKAGE_kmod-ipt-lua is not set
 CONFIG_PACKAGE_kmod-ipt-nat=y
 # CONFIG_PACKAGE_kmod-ipt-nat-extra is not set
-# CONFIG_PACKAGE_kmod-ipt-nat6 is not set
 # CONFIG_PACKAGE_kmod-ipt-nathelper-rtsp is not set
 # CONFIG_PACKAGE_kmod-ipt-nflog is not set
 # CONFIG_PACKAGE_kmod-ipt-nfqueue is not set
 # CONFIG_PACKAGE_kmod-ipt-psd is not set
 # CONFIG_PACKAGE_kmod-ipt-quota2 is not set
 # CONFIG_PACKAGE_kmod-ipt-raw is not set
-# CONFIG_PACKAGE_kmod-ipt-raw6 is not set
 # CONFIG_PACKAGE_kmod-ipt-sysrq is not set
 # CONFIG_PACKAGE_kmod-ipt-tarpit is not set
 # CONFIG_PACKAGE_kmod-ipt-tproxy is not set
@@ -1949,19 +2235,13 @@ CONFIG_PACKAGE_kmod-ipt-nat=y
 # CONFIG_PACKAGE_kmod-ipt-ulog is not set
 CONFIG_PACKAGE_kmod-nf-conntrack=y
 # CONFIG_PACKAGE_kmod-nf-conntrack-netlink is not set
-CONFIG_PACKAGE_kmod-nf-conntrack6=y
 CONFIG_PACKAGE_kmod-nf-ipt=y
-CONFIG_PACKAGE_kmod-nf-ipt6=y
 CONFIG_PACKAGE_kmod-nf-nat=y
-# CONFIG_PACKAGE_kmod-nf-nat6 is not set
 CONFIG_PACKAGE_kmod-nf-nathelper=y
 # CONFIG_PACKAGE_kmod-nf-nathelper-extra is not set
 # CONFIG_PACKAGE_kmod-nfnetlink is not set
 # CONFIG_PACKAGE_kmod-nfnetlink-log is not set
 # CONFIG_PACKAGE_kmod-nfnetlink-queue is not set
-# CONFIG_PACKAGE_kmod-nft-core is not set
-# CONFIG_PACKAGE_kmod-nft-nat is not set
-# CONFIG_PACKAGE_kmod-nft-nat6 is not set
 
 #
 # Network Devices
@@ -1989,7 +2269,7 @@ CONFIG_PACKAGE_kmod-nf-nathelper=y
 # CONFIG_PACKAGE_kmod-igb is not set
 # CONFIG_PACKAGE_kmod-libphy is not set
 # CONFIG_PACKAGE_kmod-macvlan is not set
-# CONFIG_PACKAGE_kmod-mii is not set
+CONFIG_PACKAGE_kmod-mii=y
 # CONFIG_PACKAGE_kmod-natsemi is not set
 # CONFIG_PACKAGE_kmod-ne2k-pci is not set
 # CONFIG_PACKAGE_kmod-of-mdio is not set
@@ -2038,39 +2318,24 @@ CONFIG_KMOD_BATMAN_ADV_BATMAN_V=y
 # CONFIG_PACKAGE_kmod-capi is not set
 # CONFIG_PACKAGE_kmod-dnsresolver is not set
 # CONFIG_PACKAGE_kmod-gre is not set
-# CONFIG_PACKAGE_kmod-gre6 is not set
-# CONFIG_PACKAGE_kmod-ip6-tunnel is not set
 # CONFIG_PACKAGE_kmod-ipip is not set
 # CONFIG_PACKAGE_kmod-ipsec is not set
-# CONFIG_PACKAGE_kmod-iptunnel6 is not set
 # CONFIG_PACKAGE_kmod-isdn4linux is not set
-# CONFIG_PACKAGE_kmod-jool is not set
 # CONFIG_PACKAGE_kmod-l2tp is not set
 # CONFIG_PACKAGE_kmod-l2tp-eth is not set
 # CONFIG_PACKAGE_kmod-l2tp-ip is not set
 # CONFIG_PACKAGE_kmod-llc is not set
 # CONFIG_PACKAGE_kmod-misdn is not set
 # CONFIG_PACKAGE_kmod-mpls is not set
-# CONFIG_PACKAGE_kmod-nat46 is not set
 # CONFIG_PACKAGE_kmod-netem is not set
 # CONFIG_PACKAGE_kmod-nlmon is not set
-# CONFIG_PACKAGE_kmod-openvswitch is not set
-CONFIG_PACKAGE_kmod-ppp=y
-# CONFIG_PACKAGE_kmod-mppe is not set
+# CONFIG_PACKAGE_kmod-ppp is not set
 # CONFIG_PACKAGE_kmod-pktgen is not set
-# CONFIG_PACKAGE_kmod-ppp-synctty is not set
-# CONFIG_PACKAGE_kmod-pppoa is not set
-CONFIG_PACKAGE_kmod-pppoe=y
-# CONFIG_PACKAGE_kmod-pppol2tp is not set
-CONFIG_PACKAGE_kmod-pppox=y
-# CONFIG_PACKAGE_kmod-pptp is not set
 # CONFIG_PACKAGE_kmod-sched is not set
 # CONFIG_PACKAGE_kmod-sched-cake is not set
 # CONFIG_PACKAGE_kmod-sched-connmark is not set
 # CONFIG_PACKAGE_kmod-sched-core is not set
 # CONFIG_PACKAGE_kmod-sctp is not set
-# CONFIG_PACKAGE_kmod-sit is not set
-CONFIG_PACKAGE_kmod-slhc=y
 # CONFIG_PACKAGE_kmod-slip is not set
 # CONFIG_PACKAGE_kmod-stp is not set
 # CONFIG_PACKAGE_kmod-trelay is not set
@@ -2157,29 +2422,7 @@ CONFIG_PACKAGE_kmod-usb-core=y
 CONFIG_PACKAGE_kmod-usb-ohci=y
 # CONFIG_PACKAGE_kmod-usb-ohci-pci is not set
 # CONFIG_PACKAGE_kmod-usb-printer is not set
-CONFIG_PACKAGE_kmod-usb-serial=y
-# CONFIG_PACKAGE_kmod-usb-serial-ark3116 is not set
-# CONFIG_PACKAGE_kmod-usb-serial-belkin is not set
-# CONFIG_PACKAGE_kmod-usb-serial-ch341 is not set
-# CONFIG_PACKAGE_kmod-usb-serial-cp210x is not set
-# CONFIG_PACKAGE_kmod-usb-serial-cypress-m8 is not set
-# CONFIG_PACKAGE_kmod-usb-serial-dmx_usb_module is not set
-# CONFIG_PACKAGE_kmod-usb-serial-ftdi is not set
-# CONFIG_PACKAGE_kmod-usb-serial-garmin is not set
-# CONFIG_PACKAGE_kmod-usb-serial-ipw is not set
-# CONFIG_PACKAGE_kmod-usb-serial-keyspan is not set
-# CONFIG_PACKAGE_kmod-usb-serial-mct is not set
-# CONFIG_PACKAGE_kmod-usb-serial-mos7720 is not set
-# CONFIG_PACKAGE_kmod-usb-serial-option is not set
-# CONFIG_PACKAGE_kmod-usb-serial-oti6858 is not set
-# CONFIG_PACKAGE_kmod-usb-serial-pl2303 is not set
-# CONFIG_PACKAGE_kmod-usb-serial-qualcomm is not set
-# CONFIG_PACKAGE_kmod-usb-serial-sierrawireless is not set
-# CONFIG_PACKAGE_kmod-usb-serial-simple is not set
-# CONFIG_PACKAGE_kmod-usb-serial-ti-usb is not set
-# CONFIG_PACKAGE_kmod-usb-serial-visor is not set
-# CONFIG_PACKAGE_kmod-usb-serial-wwan is not set
-# CONFIG_PACKAGE_kmod-usb-serial-xr_usb_serial_common is not set
+# CONFIG_PACKAGE_kmod-usb-serial is not set
 CONFIG_PACKAGE_kmod-usb-storage=y
 # CONFIG_PACKAGE_kmod-usb-storage-extras is not set
 # CONFIG_PACKAGE_kmod-usb-uhci is not set
@@ -2665,21 +2908,21 @@ CONFIG_PACKAGE_libxtables=y
 #
 # SSL
 #
-# CONFIG_PACKAGE_libcyassl is not set
+CONFIG_PACKAGE_libcyassl=y
+# CONFIG_CYASSL_HAS_AES_CCM is not set
+# CONFIG_CYASSL_HAS_AES_GCM is not set
+# CONFIG_CYASSL_HAS_CHACHA is not set
+CONFIG_CYASSL_HAS_ECC=y
+# CONFIG_CYASSL_HAS_DH is not set
+# CONFIG_CYASSL_HAS_ARC4 is not set
+# CONFIG_CYASSL_HAS_DES3 is not set
+# CONFIG_CYASSL_HAS_PSK is not set
+# CONFIG_CYASSL_HAS_DTLS is not set
+# CONFIG_CYASSL_HAS_ECC25519 is not set
+# CONFIG_CYASSL_HAS_POLY_1305 is not set
 # CONFIG_PACKAGE_libgnutls is not set
 # CONFIG_PACKAGE_libmbedtls is not set
-CONFIG_PACKAGE_libopenssl=y
-CONFIG_OPENSSL_WITH_EC=y
-# CONFIG_OPENSSL_WITH_EC2M is not set
-# CONFIG_OPENSSL_WITH_SSL3 is not set
-CONFIG_OPENSSL_WITH_DEPRECATED=y
-# CONFIG_OPENSSL_WITH_DTLS is not set
-# CONFIG_OPENSSL_WITH_COMPRESSION is not set
-CONFIG_OPENSSL_WITH_NPN=y
-CONFIG_OPENSSL_WITH_PSK=y
-CONFIG_OPENSSL_WITH_SRP=y
-# CONFIG_OPENSSL_HARDWARE_SUPPORT is not set
-# CONFIG_OPENSSL_ENGINE_CRYPTO is not set
+# CONFIG_PACKAGE_libopenssl is not set
 
 #
 # Sound
@@ -2925,7 +3168,7 @@ CONFIG_PACKAGE_libpcap=y
 # CONFIG_PACKAGE_libplist is not set
 # CONFIG_PACKAGE_libplistcxx is not set
 # CONFIG_PACKAGE_libpng is not set
-CONFIG_PACKAGE_libpopt=y
+# CONFIG_PACKAGE_libpopt is not set
 # CONFIG_PACKAGE_libpri is not set
 # CONFIG_PACKAGE_libprotobuf-c is not set
 # CONFIG_PACKAGE_libqrencode is not set
@@ -2982,9 +3225,9 @@ CONFIG_PACKAGE_libuclient=y
 CONFIG_PACKAGE_libusb-1.0=y
 # CONFIG_PACKAGE_libusb-compat is not set
 # CONFIG_PACKAGE_libusbmuxd is not set
-# CONFIG_PACKAGE_libustream-cyassl is not set
+CONFIG_PACKAGE_libustream-cyassl=y
 # CONFIG_PACKAGE_libustream-mbedtls is not set
-CONFIG_PACKAGE_libustream-openssl=y
+# CONFIG_PACKAGE_libustream-openssl is not set
 # CONFIG_PACKAGE_libuuid is not set
 # CONFIG_PACKAGE_libuv is not set
 # CONFIG_PACKAGE_libuvc is not set
@@ -3025,7 +3268,7 @@ CONFIG_PACKAGE_terminfo=y
 # CONFIG_PACKAGE_xmlrpc-c-client is not set
 # CONFIG_PACKAGE_xmlrpc-c-server is not set
 # CONFIG_PACKAGE_yajl is not set
-CONFIG_PACKAGE_zlib=y
+# CONFIG_PACKAGE_zlib is not set
 
 #
 # LuCI
@@ -3078,9 +3321,7 @@ CONFIG_PACKAGE_zlib=y
 #
 # CONFIG_PACKAGE_luci-app-bird4 is not set
 # CONFIG_PACKAGE_luci-app-bird6 is not set
-# CONFIG_PACKAGE_luci-app-bmx6 is not set
 # CONFIG_PACKAGE_luci-app-bmx7 is not set
-# CONFIG_PACKAGE_luci-app-cjdns is not set
 # CONFIG_PACKAGE_luci-app-clamav is not set
 # CONFIG_PACKAGE_luci-app-cshark is not set
 # CONFIG_PACKAGE_luci-app-e2guardian is not set
@@ -3240,9 +3481,6 @@ CONFIG_POSTFIX_CDB=y
 # CONFIG_PACKAGE_ebtables is not set
 # CONFIG_PACKAGE_fwknop is not set
 # CONFIG_PACKAGE_fwknopd is not set
-CONFIG_PACKAGE_ip6tables=y
-# CONFIG_PACKAGE_ip6tables-extra is not set
-# CONFIG_PACKAGE_ip6tables-mod-nat is not set
 CONFIG_PACKAGE_iptables=y
 # CONFIG_PACKAGE_iptables-mod-account is not set
 # CONFIG_PACKAGE_iptables-mod-chaos is not set
@@ -3284,7 +3522,6 @@ CONFIG_PACKAGE_iptables=y
 # CONFIG_PACKAGE_miniupnpc is not set
 # CONFIG_PACKAGE_miniupnpd is not set
 # CONFIG_PACKAGE_natpmpc is not set
-# CONFIG_PACKAGE_nftables is not set
 # CONFIG_PACKAGE_snort is not set
 
 #
@@ -3435,16 +3672,6 @@ CONFIG_PACKAGE_iptables=y
 #
 # Open vSwitch
 #
-# CONFIG_PACKAGE_openvswitch is not set
-# CONFIG_PACKAGE_openvswitch-base is not set
-# CONFIG_PACKAGE_openvswitch-benchmark is not set
-# CONFIG_PACKAGE_openvswitch-ipsec is not set
-# CONFIG_PACKAGE_openvswitch-ovs-appctl is not set
-# CONFIG_PACKAGE_openvswitch-ovs-dpctl is not set
-# CONFIG_PACKAGE_openvswitch-ovs-ofctl is not set
-# CONFIG_PACKAGE_openvswitch-ovs-vsctl is not set
-# CONFIG_PACKAGE_openvswitch-ovsdb-client is not set
-# CONFIG_PACKAGE_openvswitch-python is not set
 
 #
 # Printing
@@ -3455,7 +3682,6 @@ CONFIG_PACKAGE_iptables=y
 # Routing and Redirection
 #
 # CONFIG_PACKAGE_babel-pinger is not set
-# CONFIG_PACKAGE_babeld is not set
 # CONFIG_PACKAGE_batmand is not set
 # CONFIG_PACKAGE_bcp38 is not set
 # CONFIG_PACKAGE_bird4 is not set
@@ -3466,9 +3692,7 @@ CONFIG_PACKAGE_iptables=y
 # CONFIG_PACKAGE_birdc6 is not set
 # CONFIG_PACKAGE_birdcl4 is not set
 # CONFIG_PACKAGE_birdcl6 is not set
-# CONFIG_PACKAGE_bmx6 is not set
 # CONFIG_PACKAGE_bmx7 is not set
-# CONFIG_PACKAGE_cjdns is not set
 # CONFIG_PACKAGE_cjdns-tests is not set
 # CONFIG_PACKAGE_genl is not set
 # CONFIG_PACKAGE_igmpproxy is not set
@@ -3502,7 +3726,7 @@ CONFIG_PACKAGE_relayd=y
 # CONFIG_PACKAGE_openssh-server-pam is not set
 # CONFIG_PACKAGE_openssh-sftp-avahi-service is not set
 # CONFIG_PACKAGE_openssh-sftp-client is not set
-CONFIG_PACKAGE_openssh-sftp-server=y
+# CONFIG_PACKAGE_openssh-sftp-server is not set
 # CONFIG_PACKAGE_sshtunnel is not set
 
 #
@@ -3691,7 +3915,6 @@ CONFIG_PACKAGE_openssh-sftp-server=y
 # CONFIG_PACKAGE_uanytun-sslcrypt is not set
 # CONFIG_PACKAGE_vpnc is not set
 # CONFIG_PACKAGE_vpnc-scripts is not set
-# CONFIG_PACKAGE_xl2tpd is not set
 # CONFIG_PACKAGE_zerotier is not set
 
 #
@@ -3706,7 +3929,7 @@ CONFIG_PACKAGE_openssh-sftp-server=y
 #
 # WWAN
 #
-CONFIG_PACKAGE_comgt=y
+# CONFIG_PACKAGE_comgt is not set
 # CONFIG_PACKAGE_comgt-directip is not set
 # CONFIG_PACKAGE_comgt-ncm is not set
 # CONFIG_PACKAGE_uqmi is not set
@@ -3771,17 +3994,9 @@ CONFIG_PACKAGE_uhttpd=y
 # CONFIG_PACKAGE_reaver is not set
 # CONFIG_PACKAGE_wavemon is not set
 # CONFIG_PACKAGE_wifischedule is not set
-# CONFIG_PACKAGE_464xlat is not set
-# CONFIG_PACKAGE_6in4 is not set
-# CONFIG_PACKAGE_6rd is not set
-# CONFIG_PACKAGE_6to4 is not set
 # CONFIG_PACKAGE_acme is not set
 # CONFIG_PACKAGE_adblock is not set
 # CONFIG_PACKAGE_addrwatch is not set
-# CONFIG_PACKAGE_ahcpd is not set
-# CONFIG_PACKAGE_aiccu is not set
-# CONFIG_PACKAGE_aiccu-gnutls is not set
-# CONFIG_PACKAGE_alfred is not set
 # CONFIG_PACKAGE_apcupsd is not set
 # CONFIG_PACKAGE_apcupsd-cgi is not set
 # CONFIG_PACKAGE_apinger is not set
@@ -3790,14 +4005,13 @@ CONFIG_PACKAGE_uhttpd=y
 CONFIG_PACKAGE_batctl=y
 # CONFIG_PACKAGE_bmon is not set
 # CONFIG_PACKAGE_bwm-ng is not set
-CONFIG_PACKAGE_chat=y
+# CONFIG_PACKAGE_chat is not set
 # CONFIG_PACKAGE_cifsmount is not set
 # CONFIG_PACKAGE_cshark is not set
 # CONFIG_PACKAGE_daemonlogger is not set
 # CONFIG_PACKAGE_darkstat is not set
 # CONFIG_PACKAGE_dhcpcd is not set
 # CONFIG_PACKAGE_dmapd is not set
-# CONFIG_PACKAGE_ds-lite is not set
 # CONFIG_PACKAGE_eapol-test is not set
 # CONFIG_PACKAGE_esniper is not set
 # CONFIG_PACKAGE_etherwake is not set
@@ -3807,11 +4021,6 @@ CONFIG_PACKAGE_chat=y
 # CONFIG_PACKAGE_gpsd is not set
 # CONFIG_PACKAGE_gpsd-clients is not set
 # CONFIG_PACKAGE_gre is not set
-# CONFIG_PACKAGE_hnet-full is not set
-# CONFIG_PACKAGE_hnet-full-l2tp is not set
-# CONFIG_PACKAGE_hnet-full-secure is not set
-# CONFIG_PACKAGE_hnetd-nossl is not set
-# CONFIG_PACKAGE_hnetd-openssl is not set
 # CONFIG_PACKAGE_hostapd is not set
 CONFIG_PACKAGE_hostapd-common=y
 # CONFIG_PACKAGE_hostapd-mini is not set
@@ -3819,7 +4028,7 @@ CONFIG_PACKAGE_hostapd-common=y
 # CONFIG_PACKAGE_https_dns_proxy is not set
 # CONFIG_PACKAGE_ibrdtn-tools is not set
 # CONFIG_PACKAGE_ibrdtnd is not set
-CONFIG_PACKAGE_iftop=y
+# CONFIG_PACKAGE_iftop is not set
 # CONFIG_PACKAGE_iotivity is not set
 # CONFIG_PACKAGE_iotivity-cpp is not set
 # CONFIG_PACKAGE_iotivity-example-garage is not set
@@ -3838,13 +4047,9 @@ CONFIG_PACKAGE_iftop=y
 # CONFIG_PACKAGE_iputils-arping is not set
 # CONFIG_PACKAGE_iputils-clockdiff is not set
 # CONFIG_PACKAGE_iputils-ping is not set
-# CONFIG_PACKAGE_iputils-ping6 is not set
 # CONFIG_PACKAGE_iputils-tftpd is not set
 # CONFIG_PACKAGE_iputils-tracepath is not set
-# CONFIG_PACKAGE_iputils-tracepath6 is not set
-# CONFIG_PACKAGE_iputils-traceroute6 is not set
 CONFIG_PACKAGE_iw=y
-# CONFIG_PACKAGE_jool is not set
 # CONFIG_PACKAGE_jool-tools is not set
 # CONFIG_PACKAGE_keepalived is not set
 # CONFIG_PACKAGE_knxd is not set
@@ -3854,35 +4059,27 @@ CONFIG_PACKAGE_iw=y
 # CONFIG_PACKAGE_krb5-libs is not set
 # CONFIG_PACKAGE_krb5-server is not set
 # CONFIG_PACKAGE_linknx is not set
-# CONFIG_PACKAGE_lispd is not set
 # CONFIG_PACKAGE_mac-telnet-client is not set
 # CONFIG_PACKAGE_mac-telnet-discover is not set
 # CONFIG_PACKAGE_mac-telnet-ping is not set
 # CONFIG_PACKAGE_mac-telnet-server is not set
-# CONFIG_PACKAGE_map is not set
-# CONFIG_PACKAGE_map-t is not set
 # CONFIG_PACKAGE_memcached is not set
 # CONFIG_PACKAGE_mii-tool is not set
 # CONFIG_PACKAGE_mini_snmpd is not set
-# CONFIG_PACKAGE_minimalist-pcproxy is not set
 # CONFIG_PACKAGE_mosquitto-client is not set
 # CONFIG_PACKAGE_mosquitto-client-nossl is not set
 # CONFIG_PACKAGE_mosquitto-nossl is not set
 # CONFIG_PACKAGE_mosquitto-ssl is not set
-# CONFIG_PACKAGE_mrd6 is not set
 # CONFIG_PACKAGE_mtr is not set
 # CONFIG_PACKAGE_nbd is not set
 # CONFIG_PACKAGE_nbd-server is not set
 # CONFIG_PACKAGE_ncp is not set
-# CONFIG_PACKAGE_ndppd is not set
 # CONFIG_PACKAGE_netcat is not set
 # CONFIG_PACKAGE_netdiscover is not set
 # CONFIG_PACKAGE_netperf is not set
 # CONFIG_PACKAGE_noping is not set
 # CONFIG_PACKAGE_nut is not set
 # CONFIG_PACKAGE_obfsproxy is not set
-CONFIG_PACKAGE_odhcp6c=y
-CONFIG_PACKAGE_odhcp6c_ext_cer_id=0
 CONFIG_PACKAGE_odhcpd=y
 CONFIG_PACKAGE_odhcpd_ext_cer_id=0
 # CONFIG_PACKAGE_ola is not set
@@ -3890,21 +4087,12 @@ CONFIG_PACKAGE_odhcpd_ext_cer_id=0
 # CONFIG_PACKAGE_openldap-server is not set
 # CONFIG_PACKAGE_oping is not set
 # CONFIG_PACKAGE_pen is not set
-# CONFIG_PACKAGE_pimbd is not set
 # CONFIG_PACKAGE_pingcheck is not set
 # CONFIG_PACKAGE_port-mirroring is not set
 # CONFIG_PACKAGE_portmap is not set
-CONFIG_PACKAGE_ppp=y
-# CONFIG_PACKAGE_ppp-mod-passwordfd is not set
-# CONFIG_PACKAGE_ppp-mod-pppoa is not set
-CONFIG_PACKAGE_ppp-mod-pppoe=y
-# CONFIG_PACKAGE_ppp-mod-pppol2tp is not set
-# CONFIG_PACKAGE_ppp-mod-pptp is not set
-# CONFIG_PACKAGE_ppp-mod-radius is not set
+# CONFIG_PACKAGE_ppp is not set
 # CONFIG_PACKAGE_ppp-multilink is not set
-# CONFIG_PACKAGE_pppdump is not set
 # CONFIG_PACKAGE_pppossh is not set
-# CONFIG_PACKAGE_pppstats is not set
 # CONFIG_PACKAGE_radsecproxy is not set
 # CONFIG_PACKAGE_redsocks is not set
 # CONFIG_PACKAGE_remserial is not set
@@ -3932,7 +4120,6 @@ CONFIG_PACKAGE_ppp-mod-pppoe=y
 # CONFIG_PACKAGE_softflowd is not set
 # CONFIG_PACKAGE_soloscli is not set
 # CONFIG_PACKAGE_stunnel is not set
-# CONFIG_PACKAGE_tayga is not set
 # CONFIG_PACKAGE_tcpdump is not set
 # CONFIG_PACKAGE_tcpdump-mini is not set
 # CONFIG_PACKAGE_tor is not set
@@ -3958,7 +4145,7 @@ CONFIG_PACKAGE_uclient-fetch=y
 # CONFIG_PACKAGE_wpa-cli is not set
 # CONFIG_PACKAGE_wpa-supplicant is not set
 # CONFIG_WPA_SUPPLICANT_NO_TIMESTAMP_CHECK is not set
-CONFIG_WPA_SUPPLICANT_INTERNAL=y
+# CONFIG_WPA_SUPPLICANT_INTERNAL is not set
 # CONFIG_WPA_SUPPLICANT_OPENSSL is not set
 # CONFIG_WPA_RFKILL_SUPPORT is not set
 CONFIG_WPA_MSG_MIN_PRIORITY=3
@@ -3969,13 +4156,13 @@ CONFIG_DRIVER_11W_SUPPORT=y
 # CONFIG_PACKAGE_wpa-supplicant-mesh is not set
 # CONFIG_PACKAGE_wpa-supplicant-mini is not set
 # CONFIG_PACKAGE_wpa-supplicant-p2p is not set
-CONFIG_PACKAGE_wpad=y
+# CONFIG_PACKAGE_wpad is not set
 # CONFIG_PACKAGE_wpad-mesh is not set
-# CONFIG_PACKAGE_wpad-mini is not set
+CONFIG_PACKAGE_wpad-mini=y
 # CONFIG_PACKAGE_wpan-tools is not set
 # CONFIG_PACKAGE_wshaper is not set
 # CONFIG_PACKAGE_wwan is not set
-CONFIG_PACKAGE_xinetd=y
+# CONFIG_PACKAGE_xinetd is not set
 
 #
 # Sound
@@ -4345,7 +4532,7 @@ CONFIG_PACKAGE_libjson-script=y
 # CONFIG_PACKAGE_tracertools is not set
 # CONFIG_PACKAGE_triggerhappy is not set
 # CONFIG_PACKAGE_ugps is not set
-CONFIG_PACKAGE_usb-modeswitch=y
+# CONFIG_PACKAGE_usb-modeswitch is not set
 # CONFIG_PACKAGE_usbmuxd is not set
 # CONFIG_PACKAGE_usbreset is not set
 # CONFIG_PACKAGE_usbutils is not set
