@@ -124,7 +124,7 @@ echo "Run defconfig"
 make defconfig > /dev/null
 
 # Set up target display strings
-TARGET=`cat .config | grep "CONFIG_TARGET" | grep "=y" | grep "_generic_" | cut -d _ -f 6 | cut -d = -f 1 `
+TARGET=`cat .config | grep "CONFIG_TARGET" | grep "=y" | grep "_generic_" | cut -d _ -f 7 | cut -d = -f 1 `
 
 echo "Check .config version"
 echo "Target:  " $TARGET
@@ -192,6 +192,10 @@ make -j1
 #make -j1 V=s 2>&1 | tee ~/build.txt
 echo ""
 
+echo "Update original md5sums file"
+cat $BINDIR/md5sums | grep "squashfs" | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
+echo ""
+
 echo  "Rename files to add version info"
 echo ""
 if [ $2 ]; then
@@ -229,10 +233,13 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-build_tp WR842
+build_tp WR842 RACHEL
+
 build_tp MR3020 
 build_tp MR3040
 build_tp WR703
+
+build_tp MR3420
 build_tp MR3420
 
 echo " "
