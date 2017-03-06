@@ -174,10 +174,6 @@ make -j1
 #make -j1 V=s 2>&1 | tee ~/build.txt
 echo ""
 
-echo "Update original md5sums file"
-cat $BINDIR/md5sums | grep "squashfs" | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
-echo ""
-
 echo  "Rename files to add version info"
 echo ""
 if [ $2 ]; then

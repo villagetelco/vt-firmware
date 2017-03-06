@@ -184,15 +184,11 @@ else
 	for n in `ls $BINDIR/lede*.bin`; do mv  $n   $BINDIR/lede-$VER-`echo $n|cut -d '-' -f 5-10`; done
 fi
 
-echo "Update new md5sums file"
+echo "Update md5sums file"
 md5sum $BINDIR/*-squash*sysupgrade.bin >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
-#md5sum $BINDIR/lede*kernel.bin      >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
-#md5sum $BINDIR/lede*squashfs.bin    >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 
 echo  "Move files to build folder"
 mv $BINDIR/lede*-squash*sysupgrade.bin $BUILDDIR/builds/build-$DIR
-#mv $BINDIR/lede*kernel.bin             $BUILDDIR/builds/build-$DIR
-#mv $BINDIR/lede*squashfs.bin           $BUILDDIR/builds/build-$DIR
 echo ""
 
 echo "Clean up unused files"
