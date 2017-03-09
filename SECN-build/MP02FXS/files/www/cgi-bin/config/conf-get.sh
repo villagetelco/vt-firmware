@@ -159,6 +159,7 @@ ATH0_TXPOWER_ACTUAL=`iwconfig | grep -A 2 'wlan0' | grep -m 1 'Tx-Power'| cut -d
 RADIOMODE=`uci get wireless.radio0.htmode`
 CHANBW=`uci get wireless.radio0.chanbw`
 COUNTRY=`uci get wireless.radio0.country`
+COVERAGE=`uci get wireless.radio0.coverage`
 
 # Get web server parameters
 AUTH=`uci get secn.http.auth`
