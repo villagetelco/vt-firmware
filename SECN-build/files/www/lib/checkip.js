@@ -11,6 +11,7 @@ $(document).ready( function() {
         $("#FrameID20")[0].src = $("#FrameID20")[0].src;
         $("#FrameID30")[0].src = $("#FrameID30")[0].src;
         $("#FrameID40")[0].src = $("#FrameID40")[0].src;
+        $("#FrameID50")[0].src = $("#FrameID50")[0].src;
     }
 
 
@@ -217,9 +218,6 @@ $(document).ready( function() {
 			},
 			COUNTRY: {
 			CountryChecker: true
-			},
-			COVERAGE: {
-			range: [0, 99]
 			},
 			HOST: {
 			PassChecker2: true
