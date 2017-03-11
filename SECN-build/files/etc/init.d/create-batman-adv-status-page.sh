@@ -17,6 +17,8 @@ touch /tmp/bat1.txt
 ln -s /tmp/bat1.txt /www/bat1.txt
 touch /tmp/bat2.txt
 ln -s /tmp/bat2.txt /www/bat2.txt
+touch /tmp/stat.txt
+ln -s /tmp/stat.txt /www/stat.txt
 
 # Generate the txt files every 10 seconds
 # Get batman-adv info
@@ -25,6 +27,14 @@ batctl o > /tmp/bat1 &&\
 batctl gwl > /tmp/bat2 &&\
 mv  /tmp/bat1  /tmp/bat1.txt
 mv /tmp/bat2   /tmp/bat2.txt
+
+# Status iframe
+DATE=`date`
+UPTIME=`uptime`
+PROC=`ps|wc -l`
+MEMFREE=`cat /proc/meminfo | grep MemFree |cut -d : -f2 | tr -d ' '|tr -d 'kB'`
+MEMTOT=`cat /proc/meminfo | grep MemTotal |cut -d : -f2 | tr -d ' '`
+echo "Time: $DATE $UPTIME  CPU Processes: $PROC  Free/Total Memory: $MEMFREE" / "$MEMTOT" > /tmp/stat.txt 
 
 # Check whether mesh adhoc or sta mode
 STA_MODE=`iwconfig|grep -c $WIRELESS"0-2"`

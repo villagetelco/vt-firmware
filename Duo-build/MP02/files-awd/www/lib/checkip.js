@@ -7,10 +7,11 @@ $(document).ready( function() {
 // function to refresh iframes on status page
     setInterval(refreshIframe, 10000);
     function refreshIframe() {
-        $("#FrameID1")[0].src = $("#FrameID1")[0].src;
-        $("#FrameID2")[0].src = $("#FrameID2")[0].src;
-        $("#FrameID3")[0].src = $("#FrameID3")[0].src;
-        $("#FrameID4")[0].src = $("#FrameID4")[0].src;
+        $("#FrameID10")[0].src = $("#FrameID10")[0].src;
+        $("#FrameID20")[0].src = $("#FrameID20")[0].src;
+        $("#FrameID30")[0].src = $("#FrameID30")[0].src;
+        $("#FrameID40")[0].src = $("#FrameID40")[0].src;
+        $("#FrameID50")[0].src = $("#FrameID50")[0].src;
     }
 
 
@@ -214,6 +215,9 @@ $(document).ready( function() {
 			},
 			COUNTRY: {
 			CountryChecker: true
+			},
+			COVERAGE: {
+			range: [0, 255]
 			},
 			HOST: {
 			PassChecker2: true
