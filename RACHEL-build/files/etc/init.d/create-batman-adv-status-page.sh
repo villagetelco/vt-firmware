@@ -35,12 +35,11 @@ mv  /tmp/bat1  /tmp/bat1.txt &&\
 mv /tmp/bat2   /tmp/bat2.txt
 
 # Status iframe
-DATE=`date`
 UPTIME=`uptime`
 PROC=`ps|wc -l`
 MEMFREE=`cat /proc/meminfo | grep MemFree |cut -d : -f2 | tr -d ' '|tr -d 'kB'`
 MEMTOT=`cat /proc/meminfo | grep MemTotal |cut -d : -f2 | tr -d ' '`
-echo "Time: $DATE $UPTIME  CPU Processes: $PROC  Free/Total Memory: $MEMFREE" / "$MEMTOT" > /tmp/stat.txt 
+echo "Time: $UPTIME  CPU Processes: $PROC  Free/Total Memory: $MEMFREE" / "$MEMTOT" > /tmp/stat.txt 
 
 # Check whether mesh adhoc or sta mode
 STA_MODE=`iwconfig|grep -c $WIRELESS"0-2"`
