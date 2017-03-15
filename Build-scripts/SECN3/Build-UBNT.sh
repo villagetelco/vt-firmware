@@ -9,8 +9,8 @@ REPO="vt-firmware"
 BRANCH="secn"
 
 echo "Set up version strings"
-DIRVER="GA02.1.1"
-VER="SECN-3.0-UBNT-"$DIRVER
+DIRVER="GA02.4"
+VER="SECN-3-UBNT-"$DIRVER
 
 
 echo "************************************"
@@ -101,7 +101,6 @@ echo "Set up new build directory  $BUILDDIR/builds/build-"$DIR
 mkdir $BUILDDIR/builds/build-$DIR
 
 # Create md5sums files
-echo $DIR > $BUILDDIR/builds/build-$DIR/md5sums.txt
 echo $DIR > $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 
 ##########################
@@ -178,9 +177,6 @@ make -j3
 #make -j1 V=s 2>&1 | tee ~/build.txt
 echo ""
 
-echo "Update original md5sums file"
-cat $BINDIR/md5sums | grep "squashfs" | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
-echo ""
 
 echo  "Rename files to add version info"
 echo ""
@@ -201,7 +197,7 @@ mv $BINDIR/openwrt*-squash*sysupgrade.bin $BUILDDIR/builds/build-$DIR
 echo ""
 
 echo "Clean up unused files"
-rm $BINDIR/openwrt-*
+#rm $BINDIR/openwrt-*
 echo ""
 
 echo ""

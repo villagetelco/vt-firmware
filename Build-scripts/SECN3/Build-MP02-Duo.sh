@@ -9,8 +9,8 @@ REPO="vt-firmware"
 BRANCH="secn"
 
 echo "Set up version strings"
-DIRVER="GA02.1.1"
-VER="SECN-3.0-MP02-Duo-"$DIRVER
+DIRVER="GA02.4"
+VER="SECN-3-MP02-Duo-"$DIRVER
 
 
 echo "************************************"
@@ -103,7 +103,6 @@ echo "Set up new build directory  $BUILDDIR/builds/build-"$DIR
 mkdir $BUILDDIR/builds/build-$DIR
 
 # Create md5sums files
-echo $DIR > $BUILDDIR/builds/build-$DIR/md5sums.txt
 echo $DIR > $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 
 ##########################
@@ -180,12 +179,6 @@ make -j3
 #make -j1 V=s 2>&1 | tee ~/build.txt
 echo ""
 
-echo "Update original md5sums file"
-cat $BINDIR/md5sums | grep "squashfs.bin"   | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
-cat $BINDIR/md5sums | grep "kernel.bin"     | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
-cat $BINDIR/md5sums | grep "sysupgrade.bin" | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
-echo ""
-
 echo  "Rename files to add version info"
 echo ""
 if [ $2 ]; then
@@ -196,17 +189,17 @@ fi
 
 echo "Update new md5sums file"
 md5sum $BINDIR/*-squash*sysupgrade.bin >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
-md5sum $BINDIR/openwrt*kernel.bin      >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
-md5sum $BINDIR/openwrt*squashfs.bin    >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
+#md5sum $BINDIR/openwrt*kernel.bin      >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
+#md5sum $BINDIR/openwrt*squashfs.bin    >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 
 echo  "Move files to build folder"
 mv $BINDIR/openwrt*-squash*sysupgrade.bin $BUILDDIR/builds/build-$DIR
-mv $BINDIR/openwrt*kernel.bin             $BUILDDIR/builds/build-$DIR
-mv $BINDIR/openwrt*squashfs.bin           $BUILDDIR/builds/build-$DIR
+#mv $BINDIR/openwrt*kernel.bin             $BUILDDIR/builds/build-$DIR
+#mv $BINDIR/openwrt*squashfs.bin           $BUILDDIR/builds/build-$DIR
 echo ""
 
 echo "Clean up unused files"
-rm $BINDIR/openwrt-*
+#rm $BINDIR/openwrt-*
 echo ""
 
 echo ""

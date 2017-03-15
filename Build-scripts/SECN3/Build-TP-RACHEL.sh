@@ -9,7 +9,7 @@ REPO="vt-firmware"
 BRANCH="secn"
 
 echo "Set up version strings"
-DIRVER="GA02.1.1"
+DIRVER="GA02.4"
 VER="SECN-3.0-TP-RACHEL-"$DIRVER
 
 
@@ -76,7 +76,9 @@ BUILDDIR="./Builds/ar71xx"
 ###########################
 echo "Copy files from Git repo into build folder"
 rm -rf ./SECN-build/
+
 cp -rp $GITREPO/$REPO/SECN-build/ .
+
 cp -fp $GITREPO/$REPO/Build-scripts/FactoryRestore.sh  .
 cp -fp $GITREPO/$REPO/Build-scripts/GetGitVersions.sh  .
 
@@ -103,7 +105,6 @@ echo "Set up new build directory  $BUILDDIR/builds/build-"$DIR
 mkdir $BUILDDIR/builds/build-$DIR
 
 # Create md5sums files
-echo $DIR > $BUILDDIR/builds/build-$DIR/md5sums.txt
 echo $DIR > $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 
 ##########################
@@ -137,21 +138,14 @@ echo "Set up files for "$1 $2
 echo "Remove files directory"
 rm -r ./files
 
-echo "Copy generic files"
-cp -r ./SECN-build/files     .  
+echo "Copy base files"
+cp -rf ./SECN-build/files     .  
 
 # Multi-port
 if [ $1 = "MR3420" ] || [ $1 = "WR842" ]; then
 	echo "Overlay files for multi port devices"
   cp -rf ./SECN-build/files-2/*         ./files  
 fi
-
-# Asterisk - not required for RACHEL build.
-#if [ $1 = "WR842" ]; then
-#	echo "Overlay files for Asterisk"
-#  cp -rf ./SECN-build/files-aster/*     ./files  
-#fi
-
 # USB
 if [ $1 = "MR3020" ] || [ $1 = "MR3040" ] || [ $1 = "MR3420" ] || [ $1 = "WR703" ] || [ $1 = "WR842" ]; then
 	echo "Overlay files for USB port devices"
@@ -159,7 +153,7 @@ if [ $1 = "MR3020" ] || [ $1 = "MR3040" ] || [ $1 = "MR3420" ] || [ $1 = "WR703"
 fi
 
 echo "Overlay device specific files"
-cp -r ./SECN-build/$1/files  .  
+cp -rf ./SECN-build/$1/files  .  
 echo ""
 
 echo "Build Factory Restore tar file"
@@ -190,13 +184,9 @@ echo ""
 echo "Run make for "$1 $2
 #make
 make -j3
-#make -j5
 #make -j1 V=s 2>&1 | tee ~/build.txt
 echo ""
 
-echo "Update original md5sums file"
-cat $BINDIR/md5sums | grep "squashfs" | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
-echo ""
 
 echo  "Rename files to add version info"
 echo ""
@@ -217,7 +207,7 @@ mv $BINDIR/openwrt*-squash*sysupgrade.bin $BUILDDIR/builds/build-$DIR
 echo ""
 
 echo "Clean up unused files"
-rm $BINDIR/openwrt-*
+#rm $BINDIR/openwrt-*
 echo ""
 
 echo ""
@@ -234,6 +224,7 @@ echo " "
 echo "Start Device builds"
 echo " "
 echo '----------------------------'
+
 
 build_tp MR3020
 build_tp MR3040
