@@ -9,8 +9,8 @@ REPO="vt-firmware"
 BRANCH="secn"
 
 echo "Set up version strings"
-DIRVER="GA01"
-VER="SECN-4.0-TP-"$DIRVER
+DIRVER="GA01.2"
+VER="SECN-4-TP-"$DIRVER
 
 
 echo "************************************"
@@ -101,7 +101,6 @@ echo "Set up new build directory  $BUILDDIR/builds/build-"$DIR
 mkdir $BUILDDIR/builds/build-$DIR
 
 # Create md5sums files
-echo $DIR > $BUILDDIR/builds/build-$DIR/md5sums.txt
 echo $DIR > $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 
 ##########################
@@ -176,12 +175,8 @@ echo ""
 
 echo "Run make for "$1 $2
 #make
-make -j3
+make -j1
 #make -j1 V=s 2>&1 | tee ~/build.txt
-echo ""
-
-echo "Update original md5sums file"
-cat $BINDIR/md5sums | grep "squashfs" | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
 echo ""
 
 echo  "Rename files to add version info"
@@ -215,21 +210,21 @@ echo '----------------------------'
 ############################
 
 
-echo '----------------------------'
+echo '----------------------------'Build-TP.sh
 echo " "
 echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-build_tp MR11U
 build_tp MR3020
+build_tp WR842
 build_tp MR3040
 build_tp MR3420
 build_tp WA901
 build_tp WR703
 build_tp WR741
 build_tp WR841
-build_tp WR842
+build_tp MR11U
 
 echo " "
 echo "Build script TP complete"

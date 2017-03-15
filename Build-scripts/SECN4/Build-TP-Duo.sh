@@ -9,7 +9,7 @@ REPO="vt-firmware"
 BRANCH="secn"
 
 echo "Set up version strings"
-DIRVER="Duo-GA01"
+DIRVER="Duo-GA01.2"
 VER="SECN-4-TP-"$DIRVER
 
 
@@ -103,7 +103,6 @@ echo "Set up new build directory  $BUILDDIR/builds/build-"$DIR
 mkdir $BUILDDIR/builds/build-$DIR
 
 # Create md5sums files
-echo $DIR > $BUILDDIR/builds/build-$DIR/md5sums.txt
 echo $DIR > $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 
 ##########################
@@ -183,10 +182,6 @@ make -j3
 #make -j1 V=s 2>&1 | tee ~/build.txt
 echo ""
 
-echo "Update original md5sums file"
-cat $BINDIR/md5sums | grep "squashfs" | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
-echo ""
-
 echo  "Rename files to add version info"
 echo ""
 if [ $2 ]; then
@@ -206,7 +201,7 @@ mv $BINDIR/openwrt*-squash*sysupgrade.bin $BUILDDIR/builds/build-$DIR
 echo ""
 
 echo "Clean up unused files"
-rm $BINDIR/openwrt-*
+#rm $BINDIR/openwrt-*
 echo ""
 
 echo ""
@@ -224,12 +219,7 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-build_tp MR3020 Duo
 build_tp WR842 Duo
-build_tp WR703 Duo
-build_tp MR3040 Duo
-build_tp MR11U Duo
-build_tp MR3420 Duo
 
 echo " "
 echo "Build script TP complete"

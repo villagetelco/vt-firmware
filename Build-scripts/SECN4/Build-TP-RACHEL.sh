@@ -9,8 +9,8 @@ REPO="vt-firmware"
 BRANCH="secn"
 
 echo "Set up version strings"
-DIRVER="GA01"
-VER="SECN-4.0-TP-RACHEL-"$DIRVER
+DIRVER="GA01.2"
+VER="SECN-4-TP-RACHEL-"$DIRVER
 
 
 echo "************************************"
@@ -103,7 +103,6 @@ echo "Set up new build directory  $BUILDDIR/builds/build-"$DIR
 mkdir $BUILDDIR/builds/build-$DIR
 
 # Create md5sums files
-echo $DIR > $BUILDDIR/builds/build-$DIR/md5sums.txt
 echo $DIR > $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 
 ##########################
@@ -189,7 +188,7 @@ echo ""
 
 echo "Run make for "$1 $2
 #make
-make -j3
+make -j1
 #make -j5
 #make -j1 V=s 2>&1 | tee ~/build.txt
 echo ""
@@ -236,10 +235,10 @@ echo " "
 echo '----------------------------'
 
 build_tp MR3020
+build_tp WR842
 build_tp MR3040
 build_tp MR3420
 build_tp WR703
-build_tp WR842
 
 echo " "
 echo "Build script TP complete"
