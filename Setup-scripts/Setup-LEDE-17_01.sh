@@ -52,6 +52,7 @@ if [ $SETREV == "TRUE" ]; then
 	REV=";lede-$REVISION"
 else
   REV=" "
+	REVISION="Trunk"
 fi
 
 if [ $SETSHA == "TRUE" ]; then
