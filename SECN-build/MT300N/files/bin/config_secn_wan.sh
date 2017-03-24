@@ -1,7 +1,7 @@
 #!/bin/sh -x
 # /bin/config_secn_wan.sh
 
-# Set up network for MT300A
+# Set up network for MT300N
 
 	LANETH="eth1"
 	WANETH="eth0"
