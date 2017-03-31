@@ -1,0 +1,13 @@
+#!/bin/sh
+
+#  /www/cgi-bin/test.html
+# This cgi script is located on the DUT and 
+# calls the main test script.
+
+# For compatibility with uhttpd
+echo -en "Content-type: text/html\r\n\r\n"
+
+# Call main test script
+/bin/testscript.sh
+
+
