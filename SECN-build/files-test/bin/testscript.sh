@@ -11,7 +11,7 @@ if ping -c 1 8.8.8.8 &> /dev/null
 then
 	PING1="OK"
 else
-	PING="FAIL"
+	PING1="FAIL"
 fi
 
 # Test 2. Get CPU usage
