@@ -56,10 +56,11 @@ do
 		# Get local test data
 		TEMP=$(/bin/gettemp.sh)
 		DATE=$(date +"20%y-%m-%d %H:%M:%S")
+		RSSI=$(iw dev wlan0-1 station dump | grep "signal avg:"|cut  -f 3|cut -d " " -f1,3)
 
 		# Save to test log file
-		echo "$DATE  Temp: "$TEMP"C  $TESTSTR"		>> /tmp/testlog.txt
-		echo "$DATE  Temp: "$TEMP"C  $TESTSTR"
+		echo "$DATE Temp: "$TEMP"C RSSI: $RSSI $TESTSTR"		>> /tmp/testlog.txt
+		echo "$DATE Temp: "$TEMP"C RSSI: $RSSI $TESTSTR"
 		sleep 50
 	fi
 	sleep 1
