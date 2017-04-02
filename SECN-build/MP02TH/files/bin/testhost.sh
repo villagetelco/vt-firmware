@@ -21,6 +21,17 @@ fi
 DUT=$1
 MAXMINS=$2
 
+if !(ping -c 1 $DUT &> /dev/null)
+then
+	echo ""
+	echo "Unable to ping DUT IP address"
+	echo ""
+	echo $USAGE
+	echo " "
+	exit
+fi
+
+
 # Set up www link to testlog file
 touch /tmp/testlog.txt
 if [ ! -e /www/testlog.txt ]; then
