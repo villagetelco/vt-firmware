@@ -65,7 +65,8 @@ do
 		TESTSTR=$(wget -q -O - http://$DUT/cgi-bin/test.html) 
 
 		# Get local test data
-		TEMP=$(/bin/gettemp.sh)
+		#TEMP=$(/bin/gettemp-w1.sh)
+		TEMP=$(/bin/gettemp-i2c.sh)
 		DATE=$(date +"20%y-%m-%d %H:%M:%S")
 		RSSI=$(iw dev wlan0-1 station dump | grep "signal avg:"|cut  -f 3|cut -d " " -f1,3)
 
