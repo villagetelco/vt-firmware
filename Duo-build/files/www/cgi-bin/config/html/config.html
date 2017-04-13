@@ -265,7 +265,7 @@ cat > /tmp/config.html << EOF
 						</SELECT>
 					</td>
 					<td class="label"><label for="COUNTRY"> Country Code</label></td>
-					<td class="field"><input type="text" name="COUNTRY" id="country" VALUE=$COUNTRY ></td>
+					<td class="field"><input type="text" size="4" maxlength="2" name="COUNTRY" id="country" VALUE=$COUNTRY ></td>
 
 					<td class="label"><label for="CHANBW">Chan BW</label></td>
 					<td class="field">
@@ -276,6 +276,8 @@ cat > /tmp/config.html << EOF
 						<option value="20">20MHz</option>
 						</SELECT>
 					</td>
+					<td class="label"><label for="COVERAGE"> Coverage</label></td>          
+					<td class="field"><input type="text" size="4" maxlength="2" name="COVERAGE" id="coverage" VALUE=$COVERAGE ></td>
 				</tr>
 			</table> 
 		</fieldset>
@@ -340,7 +342,7 @@ cat > /tmp/config.html << EOF
 						</SELECT>
 					</td>
 					<td class="label"><label for="COUNTRY1"> Country Code</label></td>
-					<td class="field"><input type="text" name="COUNTRY1" id="country1" VALUE=$COUNTRY1 ></td>
+					<td class="field"><input type="text" size="4" maxlength="2" name="COUNTRY1" id="country1" VALUE=$COUNTRY1 ></td>
 
 					<td class="label"><label for="CHANBW1">Chan BW</label></td>
 					<td class="field">
@@ -351,6 +353,8 @@ cat > /tmp/config.html << EOF
 						<option value="20">20MHz</option>
 						</SELECT>
 					</td>
+					<td class="label"><label for="COVERAGE1"> Coverage</label></td>          
+					<td class="field"><input type="text" size="4" maxlength="2" name="COVERAGE1" id="coverage1" VALUE=$COVERAGE1 ></td>
 				</tr>
 			</table> 
 		</fieldset>
