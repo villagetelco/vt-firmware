@@ -71,8 +71,8 @@ do
 		RSSI=$(iw dev wlan0-1 station dump | grep "signal avg:"|cut  -f 3|cut -d " " -f1,3)
 
 		# Save to test log file
-		echo "$DATE Temp: "$TEMP"C RSSI: $RSSI $TESTSTR"		>> /tmp/testlog.txt
-		echo "$DATE Temp: "$TEMP"C RSSI: $RSSI $TESTSTR"
+		echo "$DATE Temp: "$TEMP" C RSSI: $RSSI $TESTSTR"		>> /tmp/testlog.txt
+		echo "$DATE Temp: "$TEMP" C RSSI: $RSSI $TESTSTR"
 		sleep 50
 	fi
 	sleep 1
