@@ -175,14 +175,14 @@ $(document).ready( function() {
 			range: [0, 18]
 			},
 			ATH0_TXPOWER1: {
-			range: [0, 30]
+			range: [0, 29]
 			},
 			ATH0_BSSID: {
 			HexChecker: true
 			},
-			ATH0_BSSID1: {
-			HexChecker: true
-			},
+//			ATH0_BSSID1: {
+//			HexChecker: true
+//			},
 			ATH0_SSID: {
 			maxlength: 32,
 			minlength: 1,
