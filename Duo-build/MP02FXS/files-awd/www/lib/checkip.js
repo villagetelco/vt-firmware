@@ -175,7 +175,7 @@ $(document).ready( function() {
 			range: [0, 18]
 			},
 			ATH0_TXPOWER1: {
-			range: [0, 29]
+			range: [1, 29]
 			},
 			ATH0_BSSID: {
 			HexChecker: true
