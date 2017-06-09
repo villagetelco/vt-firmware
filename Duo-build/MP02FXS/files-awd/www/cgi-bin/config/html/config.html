@@ -254,9 +254,7 @@ cat > /tmp/config.html << EOF
 					<SELECT name="DUOMODE" id="duomode" >
 						<option selected="$DUOMODE">$DUOMODE</option>
 						<option value="Pri_AP_Mesh">Pri AP & Mesh</option>
-<!--
 						<option value="Pri_AP..Sec_Mesh">Pri AP - Sec Mesh</option>
--->
 						<option value="Pri_Mesh..Sec_AP">Pri Mesh - Sec AP</option>
 					</SELECT>
 					</td>
@@ -364,7 +362,7 @@ cat > /tmp/config.html << EOF
 						</SELECT>
 					</td>
 
-					<td class="label"><label for="ATH0_TXPOWER1"> Tx Power 1-29 dBm</label></td>
+					<td class="label"><label for="ATH0_TXPOWER1"> Tx Power 0-30</label></td>
 					<td class="field"><input type="text" name="ATH0_TXPOWER1" id="ath0_txpower1" VALUE=$ATH0_TXPOWER1 ></td>
 
 					<td class="label"><label for="ATH0_TXPOWER_ACTUAL1"> Reported Power: </label></td> <td>$ATH0_TXPOWER_ACTUAL1 </td>
