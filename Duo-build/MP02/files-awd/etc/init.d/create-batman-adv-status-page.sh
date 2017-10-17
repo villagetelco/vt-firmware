@@ -56,11 +56,11 @@ fi
 
 # Get AP association details
 echo "Number of connected clients: "`iwinfo $WIRELESS"0" assoclist | grep -c SNR` > /tmp/wifi.txt
-echo "Station MAC Addr     Signal    *Int WiFi*"                              >> /tmp/wifi.txt
+echo "Station MAC Addr     Signal    *Pri WiFi*"                              >> /tmp/wifi.txt
 iwinfo $WIRELESS'0' assoclist                                                 >> /tmp/wifi.txt
 
 echo "Number of connected clients: "`iwinfo $WIRELESS"1" assoclist | grep -c SNR` >> /tmp/wifi.txt
-echo "Station MAC Addr     Signal    *USB WiFi*"                            >> /tmp/wifi.txt       
+echo "Station MAC Addr     Signal    *Sec WiFi*"                            >> /tmp/wifi.txt       
 iwinfo $WIRELESS'1' assoclist                                               >> /tmp/wifi.txt       
  
 

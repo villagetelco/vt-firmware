@@ -1,0 +1,39 @@
+
+config system
+	option timezone 'UTC'
+	option hostname 'MP02-20'
+
+config timeserver 'ntp'
+	list server '0.openwrt.pool.ntp.org'
+	list server '1.openwrt.pool.ntp.org'
+	list server '2.openwrt.pool.ntp.org'
+	list server '3.openwrt.pool.ntp.org'
+	option enable_server '0'
+
+config led 'led_wlan'
+	option name 'WLAN'
+	option sysfs 'dragino2:red:wlan'
+	option trigger 'phy0tpt'
+
+config led 'led_lan'
+	option name 'LAN'
+	option sysfs 'dragino2:red:lan'
+	option trigger 'netdev'
+	option dev 'eth0'
+	option mode 'link tx rx'
+
+config led 'led_wan' 
+	option name 'WAN' 
+	option sysfs 'dragino2:red:wan' 
+	option trigger 'netdev' 
+	option dev 'eth1'      
+	option mode 'link tx rx'
+
+# Restore firmware 10 - 20 sec button press
+config button
+	option button   wps
+	option action   released
+	option handler  "/bin/firmware-restore.sh && reboot"
+	option min      10
+	option max      20
+

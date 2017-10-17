@@ -2,7 +2,7 @@
 
 # Set default version parameters
 REVISION="DD-A"
-SETSHA="TRUE" ###############################################################
+SETSHA="TRUE" 
 SHA="6bdf9ae2fe3c3"    # trunk as at 2 April 2016
 
 
