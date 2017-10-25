@@ -2,7 +2,7 @@
 
 # Set default version parameters
 REVISION="15.05"
-SETSHA="TRUE" 
+SETSHA="FALSE" 
 SHA="134e2b4"    # 15.05(.1) branch as at 10/07/2016
 
 
@@ -86,20 +86,19 @@ echo "*** Create new feeds.conf.default file"
 cat > feeds.conf.default << EOF
 # Package feeds
 
-#src-git packages https://github.com/openwrt/packages.git;$REV
-src-git packages https://github.com/openwrt/packages.git^992130a            # for-15.05 @ 10/07/2016
+src-git packages https://github.com/openwrt/packages.git;$REV
+#src-git packages https://github.com/openwrt/packages.git^992130a            # for-15.05 @ 10/07/2016
 
-#src-git telephony https://github.com/openwrt/telephony.git;$REV
-src-git telephony https://github.com/openwrt/telephony.git^bbf0cbf          # Specific Aster ver for FXS code compatibility
+src-git telephony https://github.com/openwrt/telephony.git;$REV
+#src-git telephony https://github.com/openwrt/telephony.git^bbf0cbf          # Specific Aster ver for FXS code compatibility
 
-#src-git routing https://github.com/openwrt-routing/packages.git;$REV
-src-git routing https://github.com/openwrt-routing/packages.git^216429d     # for-15.05 @ 10/07/2016
+src-git routing https://github.com/openwrt-routing/packages.git;$REV
+#src-git routing https://github.com/openwrt-routing/packages.git^216429d     # for-15.05 @ 10/07/2016
 
-#src-git fxs git://github.com/villagetelco/vt-fxs-packages.git
-src-git fxs git://github.com/villagetelco/vt-fxs-packages.git^3d992429      # Master @ 5/8/2015
+src-git fxs git://github.com/villagetelco/vt-fxs-packages.git
+#src-git fxs git://github.com/villagetelco/vt-fxs-packages.git^3d992429      # Master @ 5/8/2015
 
-#src-git alfred git://git.open-mesh.org/openwrt-feed-alfred.git
-src-git alfred git://git.open-mesh.org/openwrt-feed-alfred.git^0bfacb7      # Master @ 10/07/2016
+src-git alfred git://git.open-mesh.org/openwrt-feed-alfred.git
 
 EOF
 ###################
