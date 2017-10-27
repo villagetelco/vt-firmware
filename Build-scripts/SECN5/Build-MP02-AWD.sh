@@ -9,13 +9,13 @@ REPO="vt-firmware"
 BRANCH="secn5"
 
 echo "Set up version strings"
-DIRVER="GA01.0-RC1"
-VER="SECN-5-MP02-"$DIRVER
+DIRVER="LEDE-17.01.4-test1"
+VER="SECN-5-MP02-AWD-"$DIRVER
 
 
 echo "************************************"
 echo ""
-echo "Build script for MP02 and MP02FXS devices"
+echo "Build script for MP02 AWD device"
 
 echo "Git directory: "$GITREPO
 echo "Repo: "$REPO
@@ -56,6 +56,8 @@ if [ ! -f ./already_configured ]; then
   mkdir ./Builds/
   mkdir ./Builds/ar71xx/
   mkdir ./Builds/ar71xx/builds
+  mkdir ./Builds/atheros/
+  mkdir ./Builds/atheros/builds
   echo "Initial set up completed. Continuing with build"
   echo ""
 else
@@ -65,7 +67,6 @@ fi
 
 
 #########################
-
 echo "Start build process"
 BINDIR="./bin/targets/ar71xx/generic"
 BUILDDIR="./Builds/ar71xx"
@@ -73,10 +74,12 @@ BUILDDIR="./Builds/ar71xx"
 ###########################
 echo "Copy files from Git repo into build folder"
 rm -rf ./SECN-build/
-cp -rp $GITREPO/$REPO/SECN-build/ .
+cp -rfp $GITREPO/$REPO/SECN-build/ .
 cp -fp $GITREPO/$REPO/Build-scripts/FactoryRestore.sh  .
 cp -fp $GITREPO/$REPO/Build-scripts/GetGitVersions.sh  .
 
+echo "Overlay Duo files"
+cp -rfp $GITREPO/$REPO/Duo-build/* ./SECN-build
 
 ###########################
 
@@ -90,7 +93,7 @@ echo "Source repo details: "$REPO $REPOID
 
 # Set up new directory name with date and version
 DATE=`date +%Y-%m-%d-%H:%M`
-DIR=$DATE"-MP02-"$DIRVER
+DIR=$DATE"-MP02-AWD-"$DIRVER
 
 ###########################
 # Set up build directory
@@ -129,10 +132,10 @@ echo ""
 
 echo "Set up files for "$1 $2
 echo "Remove files directory"
-rm -r ./files
+rm -rf ./files
 
 echo "Copy base files"
-cp -rf ./SECN-build/files             .  
+cp -rf ./SECN-build/files     .  
 
 echo "Copy additional files"
 cp -rf ./SECN-build/files-2/*         ./files  
@@ -141,7 +144,8 @@ cp -rf ./SECN-build/files-ivr/*       ./files
 cp -rf ./SECN-build/files-usbmodem/*  ./files  
 
 echo "Overlay device specific files"
-cp -r ./SECN-build/$1/files  .  
+cp -rf ./SECN-build/$1/files        .  
+cp -rf ./SECN-build/$1/files-awd/*  ./files  
 echo ""
 
 echo "Build Factory Restore tar file"
@@ -155,7 +159,8 @@ echo ""
 echo "Version: " $VER $TARGET $2
 echo "Date stamp: " $DATE
 
-echo "Version:    " $VER $TARGET $2        > ./files/etc/secn_version
+#echo "Version:    " $VER $TARGET $2        > ./files/etc/secn_version
+echo "Version:    " $VER $TARGET AWD        > ./files/etc/secn_version
 echo "Build date: " $DATE                 >> ./files/etc/secn_version
 echo "GitHub:     " $REPO $REPOID         >> ./files/etc/secn_version
 echo " "                                  >> ./files/etc/secn_version
@@ -171,10 +176,8 @@ echo ""
 
 echo "Run make for "$1 $2
 make -j1
-#make
+#make -j3
 #make -j1 V=s 2>&1 | tee ~/build.txt
-echo ""
-
 echo ""
 
 echo  "Rename files to add version info"
@@ -193,7 +196,7 @@ mv $BINDIR/lede*-squash*sysupgrade.bin $BUILDDIR/builds/build-$DIR
 echo ""
 
 echo "Clean up unused files"
-##rm $BINDIR/lede-*
+#rm $BINDIR/lede-*
 echo ""
 
 echo ""
@@ -211,11 +214,11 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-build_mp02 MP02
-#build_mp02 MP02FXS
+build_mp02 MP02 Duo
+build_mp02 MP02FXS Duo
 
 echo " "
-echo " Build script MP02 complete"
+echo " Build script Duo MP02 complete"
 echo " "
 echo '----------------------------'
 

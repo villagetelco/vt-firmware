@@ -9,7 +9,7 @@ REPO="vt-firmware"
 BRANCH="secn5"
 
 echo "Set up version strings"
-DIRVER="LEDE-RC1-m"
+DIRVER="GA01.1-RC1"
 VER="SECN-5-TP-"$DIRVER
 
 
@@ -229,6 +229,9 @@ echo " "
 echo "Start Device builds"
 echo " "
 echo '----------------------------'
+
+build_tp MR3020 
+exit
 
 build_tp WR842
 build_tp WR841

@@ -9,7 +9,7 @@ REPO="vt-firmware"
 BRANCH="secn5"
 
 echo "Set up version strings"
-DIRVER="LEDE-RC1-m"
+DIRVER="GA01-RC1"
 VER="SECN-5.0-UBNT-"$DIRVER
 
 
@@ -174,6 +174,10 @@ make -j1
 #make -j1 V=s 2>&1 | tee ~/build.txt
 echo ""
 
+echo "Update original md5sums file"
+cat $BINDIR/md5sums | grep "squashfs" | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
+echo ""
+
 echo  "Rename files to add version info"
 echo ""
 if [ $2 ]; then
@@ -211,7 +215,11 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-build_ubnt UBNT
+build_ubnt UBNT BulletM
+build_ubnt UBNT NanoM
+build_ubnt UBNT RocketM
+build_ubnt UBNT NanoMXW
+build_ubnt UBNT RocketMXW
 
 echo " "
 echo " Build script for UBNT M devices complete"

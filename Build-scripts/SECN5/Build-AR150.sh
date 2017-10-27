@@ -9,7 +9,7 @@ REPO="vt-firmware"
 BRANCH="secn5"
 
 echo "Set up version strings"
-DIRVER="LEDE-RC1-m"
+DIRVER="GA01.0-RC1"
 VER="SECN-5.0-AR150-"$DIRVER
 
 
@@ -213,8 +213,8 @@ echo " "
 echo '----------------------------'
 
 build_ar150 AR150
-build_ar150 AR150 CD
-build_ar150 AR150 I2C
+#build_ar150 AR150 CD
+#build_ar150 AR150 I2C
 
 echo " "
 echo " Build script AR150 complete"
