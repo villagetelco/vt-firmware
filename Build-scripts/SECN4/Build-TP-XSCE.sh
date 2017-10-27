@@ -9,7 +9,7 @@ REPO="vt-firmware"
 BRANCH="secn"
 
 echo "Set up version strings"
-DIRVER="XSCE-GAO1.2"
+DIRVER="XSCE-GAO1.3"
 VER="SECN-4.0-TP-"$DIRVER
 
 

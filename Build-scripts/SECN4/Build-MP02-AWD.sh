@@ -9,7 +9,7 @@ REPO="vt-firmware"
 BRANCH="secn"
 
 echo "Set up version strings"
-DIRVER="RC10"
+DIRVER="GA01.3"
 VER="SECN-4-MP02-AWD-"$DIRVER
 
 
@@ -101,7 +101,6 @@ echo "Set up new build directory  $BUILDDIR/builds/build-"$DIR
 mkdir $BUILDDIR/builds/build-$DIR
 
 # Create md5sums files
-#echo $DIR > $BUILDDIR/builds/build-$DIR/md5sums.txt
 echo $DIR > $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 
 ##########################
@@ -215,8 +214,8 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-build_mp02 MP02FXS Duo
-#build_mp02 MP02 Duo
+#build_mp02 MP02FXS Duo
+build_mp02 MP02 Duo
 
 echo " "
 echo " Build script Duo MP02 complete"

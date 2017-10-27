@@ -9,7 +9,7 @@ REPO="vt-firmware"
 BRANCH="secn"
 
 echo "Set up version strings"
-DIRVER="GA01.2"
+DIRVER="GA01.3"
 VER="SECN-4-MP02-"$DIRVER
 
 
@@ -184,10 +184,11 @@ else
 	for n in `ls $BINDIR/openwrt*.bin`; do mv  $n   $BINDIR/openwrt-$VER-$1-`echo $n|cut -d '-' -f 5-10`; done
 fi
 
+echo "Update new md5sums file"
+md5sum $BINDIR/*-squash*sysupgrade.bin >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
+
 echo  "Move files to build folder"
 mv $BINDIR/openwrt*-squash*sysupgrade.bin $BUILDDIR/builds/build-$DIR
-#mv $BINDIR/openwrt*kernel.bin             $BUILDDIR/builds/build-$DIR
-#mv $BINDIR/openwrt*squashfs.bin           $BUILDDIR/builds/build-$DIR
 echo ""
 
 echo "Clean up unused files"
@@ -210,7 +211,7 @@ echo " "
 echo '----------------------------'
 
 build_mp02 MP02
-build_mp02 MP02FXS
+#build_mp02 MP02FXS
 
 echo " "
 echo " Build script MP02 complete"

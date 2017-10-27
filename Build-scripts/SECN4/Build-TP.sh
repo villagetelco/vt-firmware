@@ -9,7 +9,7 @@ REPO="vt-firmware"
 BRANCH="secn"
 
 echo "Set up version strings"
-DIRVER="GA01.2"
+DIRVER="GA01.3"
 VER="SECN-4-TP-"$DIRVER
 
 
@@ -218,13 +218,13 @@ echo '----------------------------'
 
 build_tp MR3020
 build_tp WR842
-build_tp MR3040
-build_tp MR3420
-build_tp WA901
+#build_tp MR3040
+#build_tp MR3420
+#build_tp WA901
 build_tp WR703
-build_tp WR741
+#build_tp WR741
 build_tp WR841
-build_tp MR11U
+#build_tp MR11U
 
 echo " "
 echo "Build script TP complete"
