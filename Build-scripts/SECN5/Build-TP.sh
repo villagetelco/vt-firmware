@@ -189,10 +189,6 @@ make -j1
 #make -j1 V=s 2>&1 | tee ~/build.txt
 echo ""
 
-echo "Update original md5sums file"
-cat $BINDIR/md5sums | grep "squashfs" | grep ".bin" >> $BUILDDIR/builds/build-$DIR/md5sums.txt
-echo ""
-
 echo  "Rename files to add version info"
 echo ""
 if [ $2 ]; then
@@ -230,19 +226,7 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-build_tp MR3020 
-exit
-
 build_tp WR842
-build_tp WR841
-build_tp MR3020 
-build_tp MR3040
-build_tp WR703
-build_tp WR842
-build_tp MR3420
-build_tp WR741
-build_tp WA701
-build_tp WA901
 
 echo " "
 echo "Build script TP complete"

@@ -9,13 +9,13 @@ REPO="vt-firmware"
 BRANCH="secn5"
 
 echo "Set up version strings"
-DIRVER="GA01-RC1"
-VER="SECN-5.0-UBNT-"$DIRVER
+DIRVER="GA01.0-RC1"
+VER="SECN-5.0-AR300-"$DIRVER
 
 
 echo "************************************"
 echo ""
-echo "Build script for Ubiquity UBNT M devices"
+echo "Build script for AR300 device"
 
 echo "Git directory: "$GITREPO
 echo "Repo: "$REPO
@@ -91,7 +91,7 @@ echo "Source repo details: "$REPO $REPOID
 
 # Set up new directory name with date and version
 DATE=`date +%Y-%m-%d-%H:%M`
-DIR=$DATE"-UBNT-"$DIRVER
+DIR=$DATE"-AR300-"$DIRVER
 
 ###########################
 # Set up build directory
@@ -103,9 +103,10 @@ echo $DIR > $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 
 ##########################
 
+
 # Build function
 
-function build_ubnt() {
+function build_ar300() {
 
 echo "Set up .config for "$1 $2
 rm ./.config
@@ -121,8 +122,8 @@ fi
 echo "Run defconfig"
 make defconfig > /dev/null
 
-# Set up target display strings
-TARGET=`cat .config | grep "CONFIG_TARGET" | grep "=y" | grep "_generic_" | cut -d _ -f 5 | cut -d = -f 1 `
+# Set target string
+TARGET=$1
 
 echo "Check .config version"
 echo "Target:  " $TARGET
@@ -138,6 +139,7 @@ cp -rf ./SECN-build/files             .
 echo "Copy additional files"
 cp -rf ./SECN-build/files-2/*         ./files  
 cp -rf ./SECN-build/files-aster/*     ./files  
+cp -rf ./SECN-build/files-usbmodem/*  ./files  
 
 echo "Overlay device specific files"
 cp -r ./SECN-build/$1/files  .  
@@ -174,26 +176,25 @@ make -j1
 #make -j1 V=s 2>&1 | tee ~/build.txt
 echo ""
 
+echo ""
+
 echo  "Rename files to add version info"
 echo ""
 if [ $2 ]; then
-	for n in `ls $BINDIR/lede*.bin`; do mv  $n   $BINDIR/lede-$VER-$2-`echo $n|cut -d '-' -f 5-10`; done
+	for n in `ls $BINDIR/lede*.bin`; do mv  $n   $BINDIR/lede-$VER-$1-$2-`echo $n|cut -d '-' -f 5-10`; done
 else
-	for n in `ls $BINDIR/lede*.bin`; do mv  $n   $BINDIR/lede-$VER-`echo $n|cut -d '-' -f 5-10`; done
+	for n in `ls $BINDIR/lede*.bin`; do mv  $n   $BINDIR/lede-$VER-$1-`echo $n|cut -d '-' -f 5-10`; done
 fi
 
-echo "Update md5sums file"
+echo "Update  md5sums file"
 md5sum $BINDIR/*-squash*sysupgrade.bin >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
-#md5sum $BINDIR/*-squash*factory.bin    >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
-echo ""
 
 echo  "Move files to build folder"
 mv $BINDIR/lede*-squash*sysupgrade.bin $BUILDDIR/builds/build-$DIR
-#mv $BINDIR/*-squash*factory.bin    $BUILDDIR/builds/build-$DIR
 echo ""
 
 echo "Clean up unused files"
-##rm $BINDIR/lede-*
+#rm $BINDIR/lede-*
 echo ""
 
 echo ""
@@ -211,10 +212,10 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-build_ubnt UBNT 
+build_ar300 AR300
 
 echo " "
-echo " Build script for UBNT M devices complete"
+echo " Build script AR300 complete"
 echo " "
 echo '----------------------------'
 
