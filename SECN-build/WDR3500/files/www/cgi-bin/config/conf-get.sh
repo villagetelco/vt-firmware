@@ -153,14 +153,12 @@ BR_NETMASK=`uci get network.lan.netmask`
 # mesh_0 configuration parameters
 ATH0_IPADDR=`uci get network.mesh_0.ipaddr`
 ATH0_NETMASK=`uci get network.mesh_0.netmask`
-ATH0_SSID=`uci get wireless.ah_0.ssid`
-ATH0_BSSID=`uci get wireless.ah_0.bssid`
+MESH_ID=`uci get wireless.ah_0.mesh_id`
 
 # mesh_1 configuration parameters
 ATH0_IPADDR1=`uci get network.mesh_1.ipaddr`
 ATH0_NETMASK1=`uci get network.mesh_1.netmask`
-ATH0_SSID1=`uci get wireless.ah_1.ssid`
-ATH0_BSSID1=`uci get wireless.ah_1.bssid`
+MESH_ID1=`uci get wireless.ah_0.mesh_id1`
 MESH_DISABLE1=`uci get secn.mesh1.mesh_disnable`
 
 # 2.4GHz Radio 
