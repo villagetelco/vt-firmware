@@ -8,12 +8,12 @@ WIFI_INT=`uci get wireless.radio0.phy`
 
 if [ $WIFI_INT = "phy0" ]; then	
 	COVERAGE=`uci get wireless.radio0.coverage`
-	iw phy phy0 set coverage $COVERAGE
+	iw phy phy0 set coverage $COVERAGE  >  /dev/null
 	COVERAGE=`uci get wireless.radio1.coverage`
-	iw phy phy1 set coverage $COVERAGE
+	iw phy phy1 set coverage $COVERAGE  >  /dev/null
 else
 	COVERAGE=`uci get wireless.radio0.coverage`
-	iw phy phy1 set coverage $COVERAGE
+	iw phy phy1 set coverage $COVERAGE  >  /dev/null
 	COVERAGE=`uci get wireless.radio1.coverage`
-	iw phy phy0 set coverage $COVERAGE
+	iw phy phy0 set coverage $COVERAGE  >  /dev/null
 fi

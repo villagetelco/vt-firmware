@@ -4,4 +4,4 @@
 # Each increment corresponds to 3uSec of air propogation time.
 
 COVERAGE=`uci get wireless.radio0.coverage`
-iw phy phy0 set coverage $COVERAGE
+iw phy phy0 set coverage $COVERAGE  >  /dev/null
