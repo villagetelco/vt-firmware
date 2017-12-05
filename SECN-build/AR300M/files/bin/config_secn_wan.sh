@@ -1,7 +1,7 @@
 #!/bin/sh -x
 # /bin/config_secn_wan.sh
 
-# Set up network for AR150
+# Set up network for AR300M
 
 	LANETH="eth1"
 	WANETH="eth0"
