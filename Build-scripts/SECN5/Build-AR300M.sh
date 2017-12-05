@@ -9,7 +9,7 @@ REPO="vt-firmware"
 BRANCH="secn5"
 
 echo "Set up version strings"
-DIRVER="GA01.0-RC1b"
+DIRVER="GA01.0-RC1c"
 VER="SECN-5.0-AR300M-"$DIRVER
 
 
