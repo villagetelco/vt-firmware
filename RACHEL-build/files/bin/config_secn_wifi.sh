@@ -80,7 +80,7 @@ uci set wireless.ap_1.disabled=$AP_DISABLE2
 uci set wireless.ap_1.encryption=$ENCRYPT2
 uci set wireless.ap_1.maxassoc=$MAXASSOC2
 
-#uci set wireless.ap_1.isolate=$AP_ISOL # AP isolation is on.
+#uci set wireless.ap_1.isolate=$AP_ISOL # AP isolation is on for this AP.
 
 # -------------
 
@@ -100,14 +100,14 @@ MESHPASSPHRASE=`uci get secn.mesh.mesh_passphrase`
 # Set to OFF by default                                 
 MESH_ENCRYPT="none"
 
-if [ $MESH_ENCR = "WPA2-AES" ]; then
-MESH_ENCRYPT="psk2+aes"
-elif [ $MESH_ENCR = "WPA2" ]; then
-MESH_ENCRYPT="psk2"
-fi
+##if [ $MESH_ENCR = "WPA2-AES" ]; then
+##MESH_ENCRYPT="psk2+aes"
+##elif [ $MESH_ENCR = "WPA2" ]; then
+##MESH_ENCRYPT="psk2"
+##fi
 
-uci set wireless.ah_0.encryption=$MESH_ENCRYPT
-uci set wireless.ah_0.key=$MESHPASSPHRASE
+uci set wireless.ah_0.encryption=$MESH_ENCRYPT # force to default
+##uci set wireless.ah_0.key=$MESHPASSPHRASE # fails in LEDE
 
 #----------------------------------------------
 
