@@ -64,13 +64,16 @@ if [ $CLASS -gt 99 ] || [ $CLASS -lt 1 ]; then
 fi
 
 
-# Build IP address with CLASS as octet 3 and octet 4 as per MODE                          
+# Build IP address with CLASS as octet 3 and octet 4                          
+OCTET3=$((CLASS+100))
 OCTET4="254"                                                                      
 OCTET12=`uci get network.lan.ipaddr | cut -d = -f 2 | cut -d . -f 1,2`                   
-IP=$OCTET12"."$CLASS"."$OCTET4                                                            
+IP=$OCTET12"."$OCTET3"."$OCTET4                                                            
 
 # Build Master IP                                                                         
 MASTER_IP=$OCTET12"."$CLASS".254"                                                         
+
+# Save IP address
 uci set network.lan.ipaddr=$IP                                                            
 
 # Setup WAN access
@@ -151,8 +154,8 @@ uci set wireless.radio0.txpower=$TXPOWER
 uci set secn.dhcp.enable="checked"
 /bin/setdhcpsubnet.sh
 uci set secn.dhcp.leaseterm="14400"
-uci set secn.dhcp.startip=$OCTET12"."$CLASS".100"
-uci set secn.dhcp.endip=$OCTET12"."$CLASS".200"
+uci set secn.dhcp.startip=$OCTET12"."$OCTET3".100"
+uci set secn.dhcp.endip=$OCTET12"."$OCTET3".200"
 uci set secn.dhcp.maxleases="100"
 uci set secn.dhcp.dhcp_auth="checked"
 
