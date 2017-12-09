@@ -5,8 +5,9 @@
 
 COVERAGE=`uci get wireless.radio0.coverage`
 PHY=`uci get wireless.radio0.phy`
-iw phy $PHY set coverage $COVERAGE
+iw phy $PHY set coverage $COVERAGE  >  /dev/null
 
 COVERAGE=`uci get wireless.radio1.coverage`
 PHY=`uci get wireless.radio1.phy`
-iw phy $PHY set coverage $COVERAGE
+iw phy $PHY set coverage $COVERAGE  >  /dev/null
+
