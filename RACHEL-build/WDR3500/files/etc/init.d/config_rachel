@@ -72,7 +72,9 @@ OCTET12=`uci get network.lan.ipaddr | cut -d = -f 2 | cut -d . -f 1,2`
 IP=$OCTET12"."$OCTET3"."$OCTET4                                                            
 
 # Build Master IP                                                                         
-MASTER_IP=$OCTET12"."$CLASS".254"                                                         
+MASTER_IP=$OCTET12"."$OCTET3".254"                                                         
+
+# Save IP address
 uci set network.lan.ipaddr=$IP                                                            
 
 # Setup WAN access
@@ -119,7 +121,6 @@ uci set secn.accesspoint1.ssid=$SSID"A"
 SSID2=$SSIDPREFIX2-$CLASS$SSID2
 uci set secn.accesspoint2.ssid=$SSID2
 
-
 # Save wifi password
 uci set secn.accesspoint.passphrase=$PASSPHRASE
 uci set secn.accesspoint1.passphrase=$PASSPHRASE
@@ -135,7 +136,6 @@ else
 fi
 uci set secn.accesspoint.maxassoc=$MAXASSOC
 uci set secn.accesspoint1.maxassoc=$MAXASSOC
-
 uci set secn.accesspoint2.maxassoc=$MAXASSOC2
 uci set rachel.setup.maxassoc=$MAXASSOC
 uci set rachel.setup.maxassoc2=$MAXASSOC2
