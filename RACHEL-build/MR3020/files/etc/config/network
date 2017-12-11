@@ -9,9 +9,9 @@ config interface 'lan'
 	option type 'bridge'
 	option ifname 'eth99'  # Dummy port
 	option proto 'static'
-	option ipaddr '10.130.1.20'
+	option ipaddr '10.130.101.254'
 	option netmask '255.255.255.0'
-	option gateway '10.130.1.1'
+	option gateway '255.255.255.255'
 	option dns '8.8.8.8'
 
 config interface 'guest'
