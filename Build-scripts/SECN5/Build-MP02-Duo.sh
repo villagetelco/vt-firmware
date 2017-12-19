@@ -10,12 +10,12 @@ BRANCH="secn5"
 
 echo "Set up version strings"
 DIRVER="GA01.0"
-VER="SECN-5.0-AR300M-"$DIRVER
+VER="SECN-5-MP02-Duo-"$DIRVER
 
 
 echo "************************************"
 echo ""
-echo "Build script for AR300M device"
+echo "Build script for MP02 Duo device"
 
 echo "Git directory: "$GITREPO
 echo "Repo: "$REPO
@@ -56,6 +56,8 @@ if [ ! -f ./already_configured ]; then
   mkdir ./Builds/
   mkdir ./Builds/ar71xx/
   mkdir ./Builds/ar71xx/builds
+  mkdir ./Builds/atheros/
+  mkdir ./Builds/atheros/builds
   echo "Initial set up completed. Continuing with build"
   echo ""
 else
@@ -67,17 +69,18 @@ fi
 #########################
 
 echo "Start build process"
-
 BINDIR="./bin/targets/ar71xx/generic"
 BUILDDIR="./Builds/ar71xx"
 
 ###########################
 echo "Copy files from Git repo into build folder"
 rm -rf ./SECN-build/
-cp -rp $GITREPO/$REPO/SECN-build/ .
+cp -rfp $GITREPO/$REPO/SECN-build/ .
 cp -fp $GITREPO/$REPO/Build-scripts/FactoryRestore.sh  .
 cp -fp $GITREPO/$REPO/Build-scripts/GetGitVersions.sh  .
 
+echo "Overlay Duo files"
+cp -rfp $GITREPO/$REPO/Duo-build/* ./SECN-build
 
 ###########################
 
@@ -91,22 +94,21 @@ echo "Source repo details: "$REPO $REPOID
 
 # Set up new directory name with date and version
 DATE=`date +%Y-%m-%d-%H:%M`
-DIR=$DATE"-AR300M-"$DIRVER
+DIR=$DATE"-MP02-Duo-"$DIRVER
 
 ###########################
 # Set up build directory
 echo "Set up new build directory  $BUILDDIR/builds/build-"$DIR
 mkdir $BUILDDIR/builds/build-$DIR
 
-# Create md5sums files
+# Create md5sums file
 echo $DIR > $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 
 ##########################
 
-
 # Build function
 
-function build_ar300m() {
+function build_mp02() {
 
 echo "Set up .config for "$1 $2
 rm ./.config
@@ -131,18 +133,19 @@ echo ""
 
 echo "Set up files for "$1 $2
 echo "Remove files directory"
-rm -r ./files
+rm -rf ./files
 
 echo "Copy base files"
-cp -rf ./SECN-build/files             .  
+cp -rf ./SECN-build/files     .  
 
 echo "Copy additional files"
 cp -rf ./SECN-build/files-2/*         ./files  
 cp -rf ./SECN-build/files-aster/*     ./files  
+cp -rf ./SECN-build/files-ivr/*       ./files  
 cp -rf ./SECN-build/files-usbmodem/*  ./files  
 
 echo "Overlay device specific files"
-cp -r ./SECN-build/$1/files  .  
+cp -rf ./SECN-build/$1/files        .  
 echo ""
 
 echo "Build Factory Restore tar file"
@@ -171,11 +174,9 @@ rm $BINDIR/lede-*
 echo ""
 
 echo "Run make for "$1 $2
-#make
 make -j1
+#make -j3
 #make -j1 V=s 2>&1 | tee ~/build.txt
-echo ""
-
 echo ""
 
 echo  "Rename files to add version info"
@@ -186,7 +187,7 @@ else
 	for n in `ls $BINDIR/lede*.bin`; do mv  $n   $BINDIR/lede-$VER-$1-`echo $n|cut -d '-' -f 5-10`; done
 fi
 
-echo "Update  md5sums file"
+echo "Update md5sums file"
 md5sum $BINDIR/*-squash*sysupgrade.bin >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 
 echo  "Move files to build folder"
@@ -212,10 +213,11 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-build_ar300m AR300M
+build_mp02 MP02 Duo
+#build_mp02 MP02FXS Duo
 
 echo " "
-echo " Build script AR300M complete"
+echo " Build script Duo MP02 complete"
 echo " "
 echo '----------------------------'
 

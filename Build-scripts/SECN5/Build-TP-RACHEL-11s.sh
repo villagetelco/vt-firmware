@@ -9,7 +9,7 @@ REPO="vt-firmware"
 BRANCH="secn5"
 
 echo "Set up version strings"
-DIRVER="GA01-RC1"
+DIRVER="GA01.0"
 VER="SECN-5-TP-RACHEL-11s-"$DIRVER
 
 
@@ -93,7 +93,7 @@ echo "Source repo details: "$REPO $REPOID
 
 # Set up new directory name with date and version
 DATE=`date +%Y-%m-%d-%H:%M`
-DIR=$DATE"-TP-RACHEL-"$DIRVER
+DIR=$DATE"-TP-RACHEL-11s-"$DIRVER
 
 ###########################
 # Set up build directory
@@ -124,7 +124,7 @@ echo "Run defconfig"
 make defconfig > /dev/null
 
 # Set up target display strings
-TARGET=`cat .config | grep "CONFIG_TARGET" | grep "=y" | grep "_generic_" | cut -d _ -f 7 | cut -d = -f 1 `
+TARGET=`cat .config | grep "CONFIG_TARGET" | grep "=y" | grep "_generic_" | cut -d _ -f 6 | cut -d = -f 1 `
 
 echo "Check .config version"
 echo "Target:  " $TARGET
@@ -230,6 +230,8 @@ echo " "
 echo '----------------------------'
 
 build_tp MR3020 RACHEL
+build_tp MR3040 RACHEL
+build_tp WR703 RACHEL
 
 echo " "
 echo "Build script TP complete"

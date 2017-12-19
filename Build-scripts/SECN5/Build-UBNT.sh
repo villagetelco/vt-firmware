@@ -9,7 +9,7 @@ REPO="vt-firmware"
 BRANCH="secn5"
 
 echo "Set up version strings"
-DIRVER="GA01-RC1"
+DIRVER="GA01.0"
 VER="SECN-5.0-UBNT-"$DIRVER
 
 
@@ -122,7 +122,8 @@ echo "Run defconfig"
 make defconfig > /dev/null
 
 # Set up target display strings
-TARGET=`cat .config | grep "CONFIG_TARGET" | grep "=y" | grep "_generic_" | cut -d _ -f 5 | cut -d = -f 1 `
+#TARGET=`cat .config | grep "CONFIG_TARGET" | grep "=y" | grep "_generic_" | cut -d _ -f 7 | cut -d = -f 1 `
+TARGET="UBNT"
 
 echo "Check .config version"
 echo "Target:  " $TARGET

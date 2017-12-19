@@ -9,7 +9,7 @@ REPO="vt-firmware"
 BRANCH="secn5"
 
 echo "Set up version strings"
-DIRVER="LEDE-17.01.4-test1"
+DIRVER="GA01.0"
 VER="SECN-5-MP02-AWD-"$DIRVER
 
 
@@ -67,6 +67,7 @@ fi
 
 
 #########################
+
 echo "Start build process"
 BINDIR="./bin/targets/ar71xx/generic"
 BUILDDIR="./Builds/ar71xx"
@@ -100,7 +101,7 @@ DIR=$DATE"-MP02-AWD-"$DIRVER
 echo "Set up new build directory  $BUILDDIR/builds/build-"$DIR
 mkdir $BUILDDIR/builds/build-$DIR
 
-# Create md5sums files
+# Create md5sums file
 echo $DIR > $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 
 ##########################
@@ -160,7 +161,7 @@ echo "Version: " $VER $TARGET $2
 echo "Date stamp: " $DATE
 
 #echo "Version:    " $VER $TARGET $2        > ./files/etc/secn_version
-echo "Version:    " $VER $TARGET AWD        > ./files/etc/secn_version
+echo "Version:    " $VER $TARGET "AWD"        > ./files/etc/secn_version
 echo "Build date: " $DATE                 >> ./files/etc/secn_version
 echo "GitHub:     " $REPO $REPOID         >> ./files/etc/secn_version
 echo " "                                  >> ./files/etc/secn_version
@@ -215,10 +216,10 @@ echo " "
 echo '----------------------------'
 
 build_mp02 MP02 Duo
-build_mp02 MP02FXS Duo
+#build_mp02 MP02FXS Duo
 
 echo " "
-echo " Build script Duo MP02 complete"
+echo " Build script MP02 AWD complete"
 echo " "
 echo '----------------------------'
 
