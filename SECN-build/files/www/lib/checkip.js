@@ -180,12 +180,6 @@ $(document).ready( function() {
 			COVERAGE: {
 			range: [0, 255]
 			},
-			ATH0_BSSID: {
-			HexChecker: true
-			},
-			ATH0_BSSID1: {
-			HexChecker: true
-			},
 			ATH0_SSID: {
 			maxlength: 32,
 			minlength: 1,
