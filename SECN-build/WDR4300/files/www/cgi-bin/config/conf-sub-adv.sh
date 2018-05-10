@@ -25,6 +25,7 @@ DEVICE_IP="0"
 AP_ISOL="0"
 AP_ISOL1="0"
 COUNTRY=" "
+COUNTRY1=" "
 
 # Get Field-Value pairs from QUERY_STRING environment variable
 # set by the form GET action
@@ -124,8 +125,8 @@ if [ \$DIALOUT = "%23" ]; then
 fi
 
 # Fix ATH0_BSSID string colon characters - replace '%3A' with ':'
-ATH0_BSSID=\$(echo \$ATH0_BSSID | sed -e s/%3A/:/g)
-ATH0_BSSID1=\$(echo \$ATH0_BSSID1 | sed -e s/%3A/:/g)
+##ATH0_BSSID=\$(echo \$ATH0_BSSID | sed -e s/%3A/:/g)
+##ATH0_BSSID1=\$(echo \$ATH0_BSSID1 | sed -e s/%3A/:/g)
 
 # If Master softphone mode is selected, then make sure Asterisk is enabled 
 if [ \$SOFTPH = "MASTER" ]; then
@@ -220,7 +221,7 @@ uci set wireless.radio0.chanbw=\$CHANBW
 uci set wireless.radio0.country=\$COUNTRY
 uci set wireless.radio0.htmode=\$RADIOMODE
 
-uci set wireless.radio1.country=\$COUNTRY
+uci set wireless.radio1.country=\$COUNTRY1
 uci set wireless.radio1.channel=\$CHANNEL1
 uci set wireless.radio1.txpower=\$ATH0_TXPOWER1
 uci set wireless.radio1.chanbw=\$CHANBW1
@@ -228,9 +229,9 @@ uci set wireless.radio1.htmode=\$RADIOMODE
 
 # Write the adhoc interface settings into /etc/config/wireless
 uci set wireless.ah_0.ssid=\$ATH0_SSID
-uci set wireless.ah_0.bssid=\$ATH0_BSSID
+##uci set wireless.ah_0.bssid=\$ATH0_BSSID
 uci set wireless.ah_1.ssid=\$ATH0_SSID1
-uci set wireless.ah_1.bssid=\$ATH0_BSSID1
+##uci set wireless.ah_1.bssid=\$ATH0_BSSID1
 
 # Write the Access Point wifi settings into /etc/config/secn
 uci set secn.accesspoint.ssid=\$SSID
@@ -287,10 +288,15 @@ uci set secn.dhcp.device_ip=\$DEVICE_IP
 uci set secn.mesh.mesh_disable=\$MESH_DISABLE
 uci set secn.mesh1.mesh_disable=\$MESH_DISABLE1
 uci set secn.mesh.mpgw=\$MPGW
-uci set secn.mesh.mesh_encr=\$MESH_ENCR
-uci set secn.mesh.mesh_passphrase=\$MESHPASSPHRASE
-uci set secn.mesh1.mesh_encr=\$MESH_ENCR1
-uci set secn.mesh1.mesh_passphrase=\$MESHPASSPHRASE1
+##uci set secn.mesh.mesh_encr=\$MESH_ENCR
+##uci set secn.mesh.mesh_passphrase=\$MESHPASSPHRASE
+##uci set secn.mesh1.mesh_encr=\$MESH_ENCR1
+##uci set secn.mesh1.mesh_passphrase=\$MESHPASSPHRASE1
+
+# Save mesh settings to /etc/config/wireless
+uci set wireless.ah0.mesh_id=\$MESH_ID
+uci set wireless.ah1.mesh_id=\$MESH_ID   # Use same id for single batman instance
+#uci set wireless.ah1.mesh_id=\$MESH_ID1
 
 # Set up mesh gateway mode on the fly
 if [ \$MPGW = "OFF" ]; then

@@ -435,7 +435,7 @@ cat > /tmp/config.html << EOF
 						</SELECT>
 					(Master Setting)
 					</td>
-
+<!--
 					<td class="label"><label for="MESH_ENCR">Encryption</label></td>
 					<td class="field">
 						<SELECT name="MESH_ENCR" id="MESH_ENCR" >
@@ -445,6 +445,7 @@ cat > /tmp/config.html << EOF
 						<option value="WPA2-AES">WPA2-AES</option>
 						</SELECT>
 					</td>
+-->
 				</tr>
 				<tr>
 					<td class="label"><label for="ATH0_IPADDR">IP Address</label></td>
@@ -498,6 +499,9 @@ cat > /tmp/config.html << EOF
 						<option value="NONE">NONE</option>
 						</SELECT>
 					</td>
+
+					<td class="label"><label for="COUNTRY1"> Country Code</label></td>
+					<td class="field"><input type="text" name="COUNTRY1" id="country1" VALUE=$COUNTRY1 ></td>
 
 					<td class="label"><label for="CHANBW1">Chan BW</label></td>
 					<td class="field">
@@ -574,6 +578,9 @@ cat > /tmp/config.html << EOF
 					<td class="label"><label>Enable Mesh</label> </td>
 					<td class="field"><input  type="checkbox" name="MESH_ENABLE1" id="mesh_enable1" VALUE="checked" $MESH_ENABLE1 > </td>
 
+					<td class="label"><label for="MESH_ID1"> Mesh ID </label></td>
+					<td class="field"><input type="text" name="MESH_ID1" id="mesh_id1" VALUE=$MESH_ID1 ></td>
+
 					<td class="label"><label>Gateway Mode</label></td>
 					<td class="field">
 					<SELECT name="MPGW1" id="mpgw1"/>
@@ -594,6 +601,7 @@ cat > /tmp/config.html << EOF
 -->
 					</td>
 
+<!--
 					<td class="label"><label for="MESH_ENCR1">Encryption</label></td>
 					<td class="field">
 						<SELECT name="MESH_ENCR1" id="MESH_ENCR1" >
@@ -604,6 +612,7 @@ cat > /tmp/config.html << EOF
 						</SELECT>
 					</SELECT>
 					</td>
+-->
 				</tr>
 
 				<tr>
@@ -611,16 +620,19 @@ cat > /tmp/config.html << EOF
 					<td class="field"><input type="text" name="ATH0_IPADDR1" id="ath0_ipaddr1" VALUE=$ATH0_IPADDR1 ></td>
 					<td class="label"><label for="ATH0_NETMASK1">Netmask</label></td>
 					<td class="field"><input type="text" name="ATH0_NETMASK1" id="ath0_netmask" VALUE=$ATH0_NETMASK1 ></td>
+<!--
 					<td class="label"><label for="MESHPASSPHRASE1">5GHz Mesh Passphrase</label></td>
 					<td class="field"><input type="text" name="MESHPASSPHRASE1" id="meshpassphrase1" VALUE=$MESHPASSPHRASE1 ></td>
+-->
 				</tr>
+<!--
 				<tr>
 					<td class="label"><label for="ATH1_SSID1"> SSID </label></td>
 					<td class="field"><input type="text" name="ATH0_SSID1" id="ath0_ssid1" VALUE=$ATH0_SSID1 ></td>
 					<td class="label"><label for="ATH0_BSSID1"> BSSID </label></td>
 					<td class="field"><input type="text" name="ATH0_BSSID1" id="ath0_bssid1" VALUE=$ATH0_BSSID1 ></td>
 				</tr>
-
+-->
 			</table>
 		</fieldset>
 

@@ -158,8 +158,8 @@ MESH_ID=`uci get wireless.ah_0.mesh_id`
 # mesh_1 configuration parameters
 ATH0_IPADDR1=`uci get network.mesh_1.ipaddr`
 ATH0_NETMASK1=`uci get network.mesh_1.netmask`
-MESH_ID1=`uci get wireless.ah_0.mesh_id1`
-MESH_DISABLE1=`uci get secn.mesh1.mesh_disnable`
+MESH_ID1=`uci get wireless.ah_1.mesh_id`
+MESH_DISABLE1=`uci get secn.mesh1.mesh_disable`
 
 # 2.4GHz Radio 
 CHANNEL=`uci get wireless.radio0.channel`
@@ -175,6 +175,7 @@ ATH0_TXPOWER1=`uci get wireless.radio1.txpower`
 ATH0_TXPOWER1_ACTUAL=`iwconfig | grep -A 2 'wlan1' | grep -m 1 'Tx-Power'| cut -d T -f 2|cut -d = -f 2`
 RADIOMODE1=`uci get wireless.radio1.htmode`
 CHANBW1=`uci get wireless.radio1.chanbw`
+COUNTRY1=`uci get wireless.radio1.country`
 
 # Get web server parameters
 AUTH=`uci get secn.http.auth`
