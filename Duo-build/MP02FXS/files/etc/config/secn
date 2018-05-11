@@ -78,5 +78,8 @@ config secn 'modem'
 	option service 'umts'
 	option dialstr '*99#'
 	option url     '/nomodem.html'
+	option apn 'my.apn'
+	option vendor '1234'
+	option product '5678'
 
 
