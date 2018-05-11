@@ -210,8 +210,8 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
+build_mp02 MP02FXS
 build_mp02 MP02
-#build_mp02 MP02FXS
 
 echo " "
 echo " Build script MP02 complete"
