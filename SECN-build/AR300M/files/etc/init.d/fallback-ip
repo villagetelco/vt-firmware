@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Set up network for AR150 
+# Set up network for AR300M 
 
 	WANETH="eth0"  
 	LANETH="eth1"

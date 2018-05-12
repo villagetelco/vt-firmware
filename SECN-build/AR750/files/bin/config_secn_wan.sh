@@ -1,6 +1,14 @@
 #!/bin/sh -x
 # /bin/config_secn_wan.sh
 
+# Set up network for AR750
+
+	LANETH="eth1"
+	WANETH="eth0"
+
+uci set network.lan.ifname=$LANETH
+
+
 # Set up WAN Port
 
 # Get WAN settings
@@ -41,7 +49,10 @@ TTY="/dev/ttyUSB"$MODEMPORT
 
 # Get Mesh setting
 MESH_DISABLE=`uci get secn.mesh.mesh_disable`
-MESH_DISABLE1=`uci get secn.mesh1.mesh_disable`
+
+# Set up connection tracking max
+CONNTRACK_MAX=`uci get secn.wan.conntrack_max`
+sysctl -w net.netfilter.nf_conntrack_max=$CONNTRACK_MAX
 
 # Set up WAN Port Forwarding for ssh and https
 	uci set firewall.https.dest="NULL"
@@ -74,9 +85,6 @@ fi
 uci set wireless.sta_0.ssid=$WANSSID
 uci set wireless.sta_0.key=$WANPASS
 uci set wireless.sta_0.encryption=$WANENCR
-uci set wireless.sta_1.ssid=$WANSSID
-uci set wireless.sta_1.key=$WANPASS
-uci set wireless.sta_1.encryption=$WANENCR
 
 # Clear WAN settings
 uci set network.wan.ifname=''
@@ -94,15 +102,14 @@ uci set network.wan.password=''
 uci set network.wan.pin=''
 uci set network.wan.device=''
 uci set wireless.sta_0.disabled='1' # Make sure wifi WAN is off by default
-uci set wireless.sta_1.disabled='1'
 uci set network.stabridge.network='wwan' # Disable wifi relay bridge
 /etc/init.d/relayd disable # Disable relayd
 
-# Set up for WAN port bridged to LAN
+# Set default LAN port to eth0 and eth1 if 'WAN' port changed to LAN
 if [ $WANLAN_ENABLE = "checked" ]; then
-	uci set network.lan.ifname='eth0.1 eth0.2'
+	uci set network.lan.ifname="$LANETH $WANETH"
 else
-	uci set network.lan.ifname='eth0.1'
+	uci set network.lan.ifname="$LANETH"
 fi
 
 # Set up for WAN disabled
@@ -114,9 +121,9 @@ fi
 # Set up for Ethernet WAN
 if [ $WANPORT = "Ethernet" ]; then
  	# Set up for Eth WAN port
-	uci set network.lan.ifname='eth0.1'
+	uci set network.lan.ifname="$LANETH"
 	uci set network.lan.gateway='255.255.255.255'
-	uci set network.wan.ifname='eth0.2'
+	uci set network.wan.ifname="$WANETH"
 	# Disable WAN port as LAN
 	uci set secn.wan.wanlan_enable='0'
 fi
@@ -124,20 +131,19 @@ fi
 # Set up for 4G Eth Modem
 if [ $WANPORT = "USB-Eth-Modem" ]; then
  	# Set up for Eth WAN port
-#	uci set network.lan.ifname='eth0.1'
 	uci set network.lan.gateway='255.255.255.255'
-	uci set network.wan.ifname='eth1'
+	uci set network.wan.ifname='eth2'
 fi
 
 # Set up for Mesh WAN
 if [ $WANPORT = "Mesh" ]; then
  	# Set up eth1 as LAN or WAN
 	if [ $WANLAN_ENABLE = "checked" ]; then
-		uci set network.lan.ifname='eth0.1 eth0.2'
-		uci set network.wan.ifname='bat0'
+		uci set network.lan.ifname="$LANETH $WANETH"
+		uci set network.wan.ifname="bat0"
 	else
-		uci set network.lan.ifname='eth0.1'
-		uci set network.wan.ifname='bat0 eth0.2' 
+		uci set network.lan.ifname="$LANETH"
+		uci set network.wan.ifname="bat0 $WANETH" 
 	fi
 	uci set network.lan.gateway='255.255.255.255'
 	uci set network.wan.type='bridge' # Reqd. See /etc/init.d/set-mesh-gw-mode
@@ -145,22 +151,15 @@ if [ $WANPORT = "Mesh" ]; then
 	uci set secn.mesh.mesh_disable='0'
 fi
 
-# Disable mesh-0 if required
+# Disable mesh if required
 if [ $MESH_DISABLE = "0" ]; then
   uci set wireless.ah_0.disabled='0'
 else
 	uci set wireless.ah_0.disabled='1'
 fi
 
-# Disable mesh-1 if required
-if [ $MESH_DISABLE1 = "0" ]; then
-	uci set wireless.ah_1.disabled='0'
-else
-	uci set wireless.ah_1.disabled='1'
-fi
-
 # Set up for WiFi WAN
-if [ $WANPORT = "2.4GHz_WiFi" ]; then
+if [ $WANPORT = "WiFi" ]; then
 	uci set network.lan.gateway='255.255.255.255'
 	uci set wireless.sta_0.network='wan'
 	uci set wireless.sta_0.disabled='0'
@@ -169,31 +168,13 @@ if [ $WANPORT = "2.4GHz_WiFi" ]; then
 	uci set network.wan.ifname='wlan0-2'
 fi
 
-if [ $WANPORT = "5.0GHz_WiFi" ]; then
-	uci set network.lan.gateway='255.255.255.255'
-	uci set wireless.sta_1.network='wan'
-	uci set wireless.sta_1.disabled='0'
-	uci set wireless.ah_1.disabled='1'
-	uci set secn.mesh1.mesh_disable='1' 
-	uci set network.wan.ifname='wlan1-2'
-fi
-
 # Set up for WiFi Relay WAN
-if [ $WANPORT = "2.4GHz_WiFi-Relay" ]; then
+if [ $WANPORT = "WiFi-Relay" ]; then
 	uci set network.stabridge.network='lan wwan'
 	uci set wireless.sta_0.network='wwan'
 	uci set wireless.sta_0.disabled='0'
 	uci set wireless.ah_0.disabled='1'
 	uci set secn.mesh.mesh_disable='1'
-	/etc/init.d/relayd enable
-fi
-
-if [ $WANPORT = "5.0GHz_WiFi-Relay" ]; then
-	uci set network.stabridge.network='lan wwan'
-	uci set wireless.sta_1.network='wwan'
-	uci set wireless.sta_1.disabled='0'
-	uci set wireless.ah_1.disabled='1'
-	uci set secn.mesh1.mesh_disable='1'
 	/etc/init.d/relayd enable
 fi
 
@@ -233,7 +214,7 @@ LANPORT_DISABLE=`uci get secn.wan.lanport_disable`
 LANIFNAME=`uci get network.lan.ifname`
 
 if [ $LANPORT_DISABLE != "0" ]; then
-        uci set network.lan.ifname='eth99'
+	uci set network.lan.ifname='eth99'
 fi
 
 # Make sure firewall is enabled

@@ -6,7 +6,7 @@ config interface 'loopback'
 
 config interface 'lan'
 	option type 'bridge'
-	option ifname 'eth0.1'  # Also wlan0,1 and bat0 added on startup
+	option ifname 'eth1'  # Also wlan0,1 and bat0 added on startup
 	option proto 'static'
 	option ipaddr '10.130.1.20'
 	option netmask '255.255.255.0'
