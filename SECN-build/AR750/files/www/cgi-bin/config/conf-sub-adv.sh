@@ -223,7 +223,7 @@ uci set wireless.radio1.country=\$COUNTRY1
 uci set wireless.radio1.channel=\$CHANNEL1
 uci set wireless.radio1.txpower=\$ATH0_TXPOWER1
 uci set wireless.radio1.chanbw=\$CHANBW1
-uci set wireless.radio1.htmode=\$RADIOMODE
+uci set wireless.radio1.htmode=\$RADIOMODE1
 uci set wireless.radio1.coverage=\$COVERAGE1
 
 # Set coverage now
