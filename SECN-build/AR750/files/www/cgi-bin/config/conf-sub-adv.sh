@@ -26,6 +26,7 @@ AP_ISOL="0"
 AP_ISOL1="0"
 COUNTRY=" "
 COUNTRY1=" "
+LANPORT_DISABLE="0"
 
 # Get Field-Value pairs from QUERY_STRING environment variable
 # set by the form GET action
@@ -124,9 +125,6 @@ if [ \$DIALOUT = "%23" ]; then
 	DIALOUT="#"
 fi
 
-# Fix ATH0_BSSID string colon characters - replace '%3A' with ':'
-##ATH0_BSSID=\$(echo \$ATH0_BSSID | sed -e s/%3A/:/g)
-##ATH0_BSSID1=\$(echo \$ATH0_BSSID1 | sed -e s/%3A/:/g)
 
 # If Master softphone mode is selected, then make sure Asterisk is enabled 
 if [ \$SOFTPH = "MASTER" ]; then
@@ -173,7 +171,6 @@ if [ \$AP_ISOL = "checked" ]; then
 else
 	AP_ISOL="0"
 fi
- 
 
 # Set MAXASSOC1 to null if display value 'Max' is returned
 if [ \$MAXASSOC1 = "Max" ]; then
@@ -220,12 +217,17 @@ uci set wireless.radio0.txpower=\$ATH0_TXPOWER
 uci set wireless.radio0.chanbw=\$CHANBW
 uci set wireless.radio0.country=\$COUNTRY
 uci set wireless.radio0.htmode=\$RADIOMODE
+uci set wireless.radio0.coverage=\$COVERAGE
 
 uci set wireless.radio1.country=\$COUNTRY1
 uci set wireless.radio1.channel=\$CHANNEL1
 uci set wireless.radio1.txpower=\$ATH0_TXPOWER1
 uci set wireless.radio1.chanbw=\$CHANBW1
 uci set wireless.radio1.htmode=\$RADIOMODE
+uci set wireless.radio1.coverage=\$COVERAGE1
+
+# Set coverage now
+/etc/init.d/set_coverage.sh
 
 # Write the adhoc interface settings into /etc/config/wireless
 uci set wireless.ah_0.ssid=\$ATH0_SSID
