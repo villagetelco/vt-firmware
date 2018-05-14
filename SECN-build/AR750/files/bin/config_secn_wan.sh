@@ -49,6 +49,7 @@ TTY="/dev/ttyUSB"$MODEMPORT
 
 # Get Mesh setting
 MESH_DISABLE=`uci get secn.mesh.mesh_disable`
+MESH_DISABLE1=`uci get secn.mesh1.mesh_disable`
 
 # Set up connection tracking max
 CONNTRACK_MAX=`uci get secn.wan.conntrack_max`
@@ -147,8 +148,8 @@ if [ $WANPORT = "Mesh" ]; then
 	fi
 	uci set network.lan.gateway='255.255.255.255'
 	uci set network.wan.type='bridge' # Reqd. See /etc/init.d/set-mesh-gw-mode
-	MESH_DISABLE='0'
-	uci set secn.mesh.mesh_disable='0'
+	#MESH_DISABLE='0'									# Not used on dual band
+	#uci set secn.mesh.mesh_disable='0' # Ditto
 fi
 
 # Disable mesh if required
@@ -156,6 +157,12 @@ if [ $MESH_DISABLE = "0" ]; then
   uci set wireless.ah_0.disabled='0'
 else
 	uci set wireless.ah_0.disabled='1'
+fi
+
+if [ $MESH_DISABLE1 = "0" ]; then
+  uci set wireless.ah_1.disabled='0'
+else
+  uci set wireless.ah_1.disabled='1'
 fi
 
 # Set up for WiFi WAN
