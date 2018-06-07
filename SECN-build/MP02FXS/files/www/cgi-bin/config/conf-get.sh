@@ -13,6 +13,7 @@ DATE=`date`
 UPTIME=`uptime`
 TZ=`cat /etc/TZ`
 PROC=`ps|wc -l`
+
 # Memory
 MEMFREE=`cat /proc/meminfo | grep MemFree |cut -d : -f2 | tr -d ' '|tr -d 'kB'`
 MEMTOT=`cat /proc/meminfo | grep MemTotal |cut -d : -f2 | tr -d ' '`
@@ -119,9 +120,19 @@ LEASETERM=`uci get secn.dhcp.leaseterm`
 DOMAIN=`uci get secn.dhcp.domain`
 OPTION_SUBNET=`uci get secn.dhcp.subnet`
 OPTION_ROUTER=`uci get secn.dhcp.router`
+DEVICE_IP=`uci get secn.dhcp.device_ip`
+
+DNSFILTER_ENABLE=` uci get secn.dnsfilter.enable`
+DNSFILTER_NAME=` uci get secn.dnsfilter.name`
+
+# Display the appropriate DNS setting. ????
+if [ $DNSFILTER_ENABLE = "checked" ]; then
+OPTION_DNS=`uci get secn.dnsfilter.dns1`
+OPTION_DNS2=`uci get secn.dnsfilter.dns2`
+else
 OPTION_DNS=`uci get secn.dhcp.dns`
 OPTION_DNS2=`uci get secn.dhcp.dns2`
-DEVICE_IP=`uci get secn.dhcp.device_ip`
+fi 
 
 # Set up Mesh Enable
 MESH_DISABLE=`uci get secn.mesh.mesh_disable`
@@ -158,6 +169,7 @@ ATH0_TXPOWER_ACTUAL=`iwconfig | grep -A 2 'wlan0' | grep -m 1 'Tx-Power'| cut -d
 RADIOMODE=`uci get wireless.radio0.htmode`
 CHANBW=`uci get wireless.radio0.chanbw`
 COUNTRY=`uci get wireless.radio0.country`
+COVERAGE=`uci get wireless.radio0.coverage`
 
 # Get web server parameters
 AUTH=`uci get secn.http.auth`

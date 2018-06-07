@@ -41,7 +41,7 @@ MESH_ENCR=`uci get secn.mesh.mesh_encr`
 MESHPASSPHRASE=`uci get secn.mesh.mesh_passphrase`
 
 # Set to OFF by default                                 
-MESH_ENCRYPT="none"
+MESH_ENCRYPT="off"
 
 if [ $MESH_ENCR = "WPA2-AES" ]; then
 MESH_ENCRYPT="psk2+aes"
@@ -58,6 +58,7 @@ uci set wireless.ap_0.maxassoc=$MAXASSOC
 uci set wireless.ap_0.isolate=$AP_ISOL
 uci set wireless.ah_0.disabled=$MESH_DISABLE
 uci set wireless.ah_0.encryption=$MESH_ENCRYPT
+uci set wireless.ah_0.key=$MESHPASSPHRASE
 
 # Setup AP Isolation on mesh unless it is used for WAN
 WANPORT=`uci get secn.wan.wanport`

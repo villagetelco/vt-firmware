@@ -98,7 +98,7 @@ config rule
 	option target		ACCEPT
 
 # include a file with users custom iptables rules
-config include
+config include user
 	option path /etc/firewall.user
 
 # VT SECN: Port redirect wan:4433 to lan:443 for https

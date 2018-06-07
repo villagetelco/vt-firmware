@@ -23,11 +23,9 @@ ln -s /tmp/stat.txt /www/stat.txt
 # Generate the txt files every 10 seconds
 # Get batman-adv info
 while (true); do \
-
 batctl o > /tmp/bat1 &&\
-batctl gwl > /tmp/bat2 
-
-mv  /tmp/bat1  /tmp/bat1.txt &&\
+batctl gwl > /tmp/bat2 &&\
+mv  /tmp/bat1  /tmp/bat1.txt
 mv /tmp/bat2   /tmp/bat2.txt
 
 # Status iframe

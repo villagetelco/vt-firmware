@@ -671,15 +671,12 @@ cat > /tmp/config.html << EOF
 						<option value="alaw">alaw</option>
 						</SELECT>
 
-					<td class="label"><label>Codec2</label></td>
-					<td class="field">
-					<SELECT name="CODEC2" id="codec2">
-						<option selected="$CODEC2">$CODEC2</option>
-						<option value="gsm">gsm</option>
-						<option value="ulaw">ulaw</option>
-						<option value="alaw">alaw</option>
-						</SELECT>
-					</td>
+										<td class="label"><label>Use $DNSFILTER_NAME Filter</label>
+										<td class="field"><input type="checkbox" name="DNSFILTER_ENABLE" id="dnsfilter_enable" VALUE="checked" $DNSFILTER_ENABLE ></td>
+									</tr>
+									<tr>
+										<td class="label"><label for="DOMAIN"> Domain </label></td>
+										<td class="field"><input type="text" name="DOMAIN" id="domain" VALUE=$DOMAIN ></td>
 
 					<td class="label"><label>Codec3</label></td>
 					<td class="field">

@@ -27,6 +27,13 @@ config secn 'dhcp'
 	option dns2 '8.8.4.4'
 	option device_ip 'checked'
 
+config secn 'dnsfilter'
+	option enable '0'
+	option name 'OpenDNS'
+	option dns1 '208.67.222.123'
+	option dns2 '208.67.220.123'
+	option landns '8.8.8.8'
+
 config secn 'http'
 	option limitip '0'
 	option enssl '0'
@@ -72,11 +79,11 @@ config secn 'ivr'
 
 config secn 'modem'
 	option modemport '0'
-	option vendor '1234'
-	option product '5678'
-	option apn 'my.apn'
 	option service 'umts'
 	option dialstr '*99#'
 	option url     '/nomodem.html'
+	option apn 'my.apn'
+	option vendor '1234'
+	option product '5678'
 
 

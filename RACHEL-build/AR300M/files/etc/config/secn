@@ -51,6 +51,13 @@ config secn 'dhcp'
 	option dns '10.130.101.254'
 	option dns2 '10.130.101.254'
 
+config secn 'dnsfilter'
+	option enable 'checked'
+	option name 'OpenDNS'
+	option dns1 '208.67.222.123'
+	option dns2 '208.67.220.123'
+	option landns '8.8.8.8'
+
 config secn 'http'
 	option limitip '0'
 	option enssl '0'

@@ -94,9 +94,16 @@ uci commit system
 uci set network.lan.ipaddr=\$BR_IPADDR
 uci set network.lan.gateway=\$BR_GATEWAY
 
+# Set the LAN DNS only if DNS Filter is not enabled
+DNSFILTER_ENABLE=`uci get secn.dnsfilter.enable`
+if [ \$DNSFILTER_ENABLE != "checked" ]; then
+	uci set secn.dnsfilter.landns=\$BR_DNS
+fi
+
 # Write the Access Point wifi settings into /etc/config/secn
 uci set secn.accesspoint.ssid=\$SSID
 uci set secn.accesspoint.passphrase=\$PASSPHRASE
+uci set secn.accesspoint.encryption=\$ENCRYPTION
  
 # Write the wireless channel into /etc/config/wireless
 uci set wireless.radio0.channel=\$CHANNEL

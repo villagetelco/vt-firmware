@@ -81,9 +81,19 @@ LEASETERM=`uci get secn.dhcp.leaseterm`
 DOMAIN=`uci get secn.dhcp.domain`
 OPTION_SUBNET=`uci get secn.dhcp.subnet`
 OPTION_ROUTER=`uci get secn.dhcp.router`
+DEVICE_IP=`uci get secn.dhcp.device_ip`
+
+DNSFILTER_ENABLE=` uci get secn.dnsfilter.enable`
+DNSFILTER_NAME=` uci get secn.dnsfilter.name`
+
+# Display the appropriate DNS setting.
+if [ $DNSFILTER_ENABLE = "checked" ]; then
+OPTION_DNS=`uci get secn.dnsfilter.dns1`
+OPTION_DNS2=`uci get secn.dnsfilter.dns2`
+else
 OPTION_DNS=`uci get secn.dhcp.dns`
 OPTION_DNS2=`uci get secn.dhcp.dns2`
-DEVICE_IP=`uci get secn.dhcp.device_ip`
+fi 
 
 # Set up Mesh Enable
 MESH_DISABLE=`uci get secn.mesh.mesh_disable`

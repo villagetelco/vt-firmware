@@ -546,6 +546,9 @@ cat > /tmp/config.html << EOF
 										
 										<td class="label"><label for="MAXLEASES"> Max Leases </label></td>
 										<td class="field"><input type="text" name="MAXLEASES" id="maxleases" VALUE=$MAXLEASES ></td>
+
+										<td class="label"><label>Use $DNSFILTER_NAME Filter</label>
+										<td class="field"><input type="checkbox" name="DNSFILTER_ENABLE" id="dnsfilter_enable" VALUE="checked" $DNSFILTER_ENABLE ></td>
 									</tr>
 									<tr>
 										<td class="label"><label for="DOMAIN"> Domain </label></td>

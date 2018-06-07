@@ -1,1 +1,1 @@
-usbserial vendor=0x1234 product=0x5678
+usbserial vendor=1234 product=5678

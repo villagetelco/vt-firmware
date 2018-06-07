@@ -177,8 +177,11 @@ $(document).ready( function() {
 			ATH0_TXPOWER1: {
 			range: [0, 23]
 			},
-			COVERAGE: {
-			range: [0, 255]
+			ATH0_BSSID: {
+			HexChecker: true
+			},
+			ATH0_BSSID1: {
+			HexChecker: true
 			},
 			ATH0_SSID: {
 			maxlength: 32,
@@ -212,6 +215,9 @@ $(document).ready( function() {
 			},
 			COUNTRY: {
 			CountryChecker: true
+			},
+			COVERAGE: {
+			range: [0, 255]
 			},
 			HOST: {
 			PassChecker2: true

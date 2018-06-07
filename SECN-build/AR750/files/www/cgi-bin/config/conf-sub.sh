@@ -98,7 +98,12 @@ uci commit system
 # Write br_lan network settings into /etc/config/network
 uci set network.lan.ipaddr=\$BR_IPADDR
 uci set network.lan.gateway=\$BR_GATEWAY
-uci set network.lan.dns=\$BR_DNS
+
+# Set the LAN DNS only if DNS Filter is not enabled
+DNSFILTER_ENABLE=`uci get secn.dnsfilter.enable`
+if [ \$DNSFILTER_ENABLE != "checked" ]; then
+	uci set secn.dnsfilter.landns=\$BR_DNS
+fi
 
 # Write the Access Point wifi settings into /etc/config/secn
 uci set secn.accesspoint.ssid=\$SSID
