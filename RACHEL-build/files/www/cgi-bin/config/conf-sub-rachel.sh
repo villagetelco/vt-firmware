@@ -15,6 +15,7 @@ BUTTON="0"
 AP_ENABLE="0"
 AP_ENABLE2="0"
 CACHE_ENABLE="0"
+DNSFILTER_ENABLE="0"
 
 # Get Field-Value pairs from QUERY_STRING enironment variable
 # set by the form GET action
@@ -105,6 +106,9 @@ fi
 
 # Set Tx Power
 uci set rachel.setup.txpower=\$TXPOWER
+
+# Update the DNS Filter Enable setting
+uci set secn.dnsfilter.enable=\$DNSFILTER_ENABLE 
 
 # Commit the settings 
 uci commit rachel

@@ -17,6 +17,10 @@ TZ=`cat /etc/TZ`
 CACHE_COUNT=`ls -lh /mnt/sda1/ | grep cache | sed -r "s'[[:blank:]]+','g" | cut -d ',' -f 2`
 CACHE_SPACE=`df -h | grep sda1 | sed -r "s'[[:blank:]]+','g" | cut -d ',' -f 4`
 
+# DNS Filter
+DNSFILTER_ENABLE=` uci get secn.dnsfilter.enable`
+DNSFILTER_NAME=` uci get secn.dnsfilter.name`
+
 # Get USB Modem status details
 USBMODEM=`/bin/usbmodem.sh`
 USBSERIAL=`ls /dev/ttyUSB*`

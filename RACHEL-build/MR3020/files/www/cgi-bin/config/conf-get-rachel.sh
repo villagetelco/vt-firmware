@@ -13,6 +13,10 @@ DATE=`date`
 UPTIME=`uptime`
 TZ=`cat /etc/TZ`
 
+# DNS Filter
+DNSFILTER_ENABLE=` uci get secn.dnsfilter.enable`
+DNSFILTER_NAME=` uci get secn.dnsfilter.name`
+
 # Get USB Modem status details
 USBMODEM=`/bin/usbmodem.sh`
 USBSERIAL=`ls /dev/ttyUSB*`
