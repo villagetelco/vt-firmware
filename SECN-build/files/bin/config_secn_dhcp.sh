@@ -41,12 +41,10 @@ if [ $DNSFILTER_ENABLE = "checked" ]; then
   OPTION_DNS=$DNSFILTER_DNS1
   OPTION_DNS2=$DNSFILTER_DNS2
 	uci set network.lan.dns=$DNSFILTER_DNS1
-	uci set firewall.user.path="/etc/firewall.dnsfilter.user"
 else
 	OPTION_DNS=`uci get secn.dhcp.dns`
 	OPTION_DNS2=`uci get secn.dhcp.dns2`
 	uci set network.lan.dns=$LANDNS
-	uci set firewall.user.path="/etc/firewall.user"
 fi
 ###########################
 

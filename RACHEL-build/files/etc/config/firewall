@@ -99,7 +99,7 @@ config rule
 
 # include a file with users custom iptables rules
 # and transparent proxy settings
-config include
+config include user
 	option path /etc/firewall.user
 
 # VT SECN: Port redirect wan:4433 to lan:443 for https

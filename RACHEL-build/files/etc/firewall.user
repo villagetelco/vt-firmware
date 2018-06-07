@@ -27,5 +27,13 @@ else
 	uci set firewall.proxy.dest_ip=" "
 fi
 
+# Set up DNS Filter capture for DNS requests
+
+DNSFILTER_ENABLE=`uci get secn.dnsfilter.enable`
+if [ $DNSFILTER_ENABLE = "checked" ]; then
+	iptables -t nat -A PREROUTING	-i br-lan -p udp --dport 53 -j REDIRECT --to-port 53
+	iptables -t nat -A PREROUTING	-i br-lan -p tcp --dport 53 -j REDIRECT --to-port 53
+fi
+
 uci commit firewall
 
