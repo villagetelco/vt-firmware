@@ -27,6 +27,7 @@ AP_ISOL1="0"
 COUNTRY=" "
 COUNTRY1=" "
 LANPORT_DISABLE="0"
+DNSFILTER_ENABLE="0"
 
 # Get Field-Value pairs from QUERY_STRING environment variable
 # set by the form GET action
@@ -283,6 +284,14 @@ uci set secn.dhcp.router=\$OPTION_ROUTER
 uci set secn.dhcp.dns=\$OPTION_DNS
 uci set secn.dhcp.dns2=\$OPTION_DNS2
 uci set secn.dhcp.device_ip=\$DEVICE_IP
+
+# Save DNS addresses only if DNS filter is not already enabled 
+DNSFILTER_ENABLE_OLD=`uci get secn.dnsfilter.enable`
+if [ \$DNSFILTER_ENABLE_OLD != "checked" ]; then
+	uci set secn.dhcp.dns=\$OPTION_DNS
+	uci set secn.dhcp.dns2=\$OPTION_DNS2
+	uci set secn.dnsfilter.landns=\$BR_DNS
+fi
 
 # Save mesh settings to /etc/config/secn
 uci set secn.mesh.mesh_disable=\$MESH_DISABLE
