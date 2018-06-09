@@ -17,6 +17,8 @@
 
 /bin/config_secn_http.sh
 
+#/bin/config_secn_cache.sh
+
 # Note:Reboot for changes to be effective
 
 #----------------------------------------------

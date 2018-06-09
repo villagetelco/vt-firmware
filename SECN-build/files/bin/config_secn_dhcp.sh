@@ -20,17 +20,13 @@ fi
 STARTIP=`uci get secn.dhcp.startip | cut -d = -f 2 | cut -d . -f 4`
 ENDIP=`uci get secn.dhcp.endip | cut -d = -f 2 | cut -d . -f 4`
 LIMIT=$((ENDIP - STARTIP))
-###########################################
 MAXLEASES=`uci get secn.dhcp.maxleases`
 LEASETERM=`uci get secn.dhcp.leaseterm`
 LEASETERM=$((LEASETERM / 60))'m'
 DOMAIN=`uci get secn.dhcp.domain`
-#OPTION_DNS=`uci get secn.dhcp.dns`
-#OPTION_DNS2=`uci get secn.dhcp.dns2`
 OPTION_SUBNET=`uci get secn.dhcp.subnet`
 OPTION_ROUTER=`uci get secn.dhcp.router`
 
-#####################################
 # Set up DNS Filter
 DNSFILTER_ENABLE=`uci get secn.dnsfilter.enable`
 DNSFILTER_DNS1=`uci get secn.dnsfilter.dns1`
@@ -46,7 +42,6 @@ else
 	OPTION_DNS2=`uci get secn.dhcp.dns2`
 	uci set network.lan.dns=$LANDNS
 fi
-###########################
 
 uci set dhcp.setup.dhcpleasemax=$MAXLEASES
 uci set dhcp.setup.domain=$DOMAIN
