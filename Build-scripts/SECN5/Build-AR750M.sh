@@ -9,7 +9,7 @@ REPO="vt-firmware"
 BRANCH="secn5"
 
 echo "Set up version strings"
-DIRVER="GA1.1Alpha1"
+DIRVER="Alpha3"
 VER="SECN-5-AR750M-"$DIRVER
 
 
@@ -89,7 +89,7 @@ echo "Source repo details: "$REPO $REPOID
 
 # Set up new directory name with date and version
 DATE=`date +%Y-%m-%d-%H:%M`
-DIR=$DATE"-AR750-"$DIRVER
+DIR=$DATE"-AR750M-"$DIRVER
 
 ###########################
 # Set up build directory
@@ -212,7 +212,7 @@ echo '----------------------------'
 build_ar750m AR750M
 
 echo " "
-echo " Build script AR750 complete"
+echo " Build script AR750M complete"
 echo " "
 echo '----------------------------'
 
