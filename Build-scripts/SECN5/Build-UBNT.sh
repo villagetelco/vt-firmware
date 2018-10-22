@@ -9,7 +9,7 @@ REPO="vt-firmware"
 BRANCH="secn5"
 
 echo "Set up version strings"
-DIRVER="GA01.0"
+DIRVER="GA01.1"
 VER="SECN-5.0-UBNT-"$DIRVER
 
 
@@ -166,7 +166,7 @@ cat ./files/etc/secn_version
 echo ""
 
 echo "Clean up any left over files"
-rm $BINDIR/lede-*
+rm $BINDIR/openwrt-*
 echo ""
 
 echo "Run make for "$1 $2
@@ -178,9 +178,9 @@ echo ""
 echo  "Rename files to add version info"
 echo ""
 if [ $2 ]; then
-	for n in `ls $BINDIR/lede*.bin`; do mv  $n   $BINDIR/lede-$VER-$2-`echo $n|cut -d '-' -f 5-10`; done
+	for n in `ls $BINDIR/openwrt*.bin`; do mv  $n   $BINDIR/openwrt-$VER-$2-`echo $n|cut -d '-' -f 5-10`; done
 else
-	for n in `ls $BINDIR/lede*.bin`; do mv  $n   $BINDIR/lede-$VER-`echo $n|cut -d '-' -f 5-10`; done
+	for n in `ls $BINDIR/openwrt*.bin`; do mv  $n   $BINDIR/openwrt-$VER-`echo $n|cut -d '-' -f 5-10`; done
 fi
 
 echo "Update md5sums file"
@@ -189,12 +189,12 @@ md5sum $BINDIR/*-squash*sysupgrade.bin >> $BUILDDIR/builds/build-$DIR/md5sums-$V
 echo ""
 
 echo  "Move files to build folder"
-mv $BINDIR/lede*-squash*sysupgrade.bin $BUILDDIR/builds/build-$DIR
+mv $BINDIR/openwrt*-squash*sysupgrade.bin $BUILDDIR/builds/build-$DIR
 #mv $BINDIR/*-squash*factory.bin    $BUILDDIR/builds/build-$DIR
 echo ""
 
 echo "Clean up unused files"
-##rm $BINDIR/lede-*
+##rm $BINDIR/openwrt-*
 echo ""
 
 echo ""
