@@ -18,15 +18,22 @@ config button
 	option min      10
 	option max      20
 
+# Configure LEDS
 config led 'led_wlan'
     option name 'WLAN'
-    option sysfs 'gl-ar300m:wlan'
+    option sysfs 'gl-ar300m:green:wlan'
     option trigger 'phy0tpt'
 
 config led 'led_wan'
     option name 'WAN'
-    option sysfs 'gl-ar300m:lan'
+    option sysfs 'gl-ar300m:green:lan'
     option trigger 'netdev'
     option dev 'eth0'     
     option mode 'link tx rx'
 
+config led 'led_lan'
+    option name 'WAN'
+    option sysfs 'gl-ar300m:green:wan'
+    option trigger 'netdev'
+    option dev 'eth1'     
+    option mode 'link tx rx'
