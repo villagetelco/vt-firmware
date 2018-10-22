@@ -9,7 +9,7 @@ REPO="vt-firmware"
 BRANCH="secn5"
 
 echo "Set up version strings"
-DIRVER="GA01.1"
+DIRVER="GA01.1-RC1b"
 VER="SECN-5-AR150-RACHEL-"$DIRVER
 
 
@@ -185,6 +185,9 @@ if [ $2 ]; then
 else
 	for n in `ls $BINDIR/openwrt*.bin`; do mv  $n   $BINDIR/openwrt-$VER-$1-`echo $n|cut -d '-' -f 5-10`; done
 fi
+
+echo "Update  md5sums file"
+md5sum $BINDIR/*-squash*sysupgrade.bin >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 
 echo  "Move files to build folder"
 mv $BINDIR/openwrt*-squash*sysupgrade.bin $BUILDDIR/builds/build-$DIR

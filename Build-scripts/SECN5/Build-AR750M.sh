@@ -9,13 +9,13 @@ REPO="vt-firmware"
 BRANCH="secn5"
 
 echo "Set up version strings"
-DIRVER="Alpha4"
-VER="SECN-5-AR750M-"$DIRVER
+DIRVER="GA01.1-RC1b"
+VER="SECN-5-AR750-"$DIRVER
 
 
 echo "************************************"
 echo ""
-echo "Build script for AR750M device"
+echo "Build script for AR750 device"
 
 echo "Git directory: "$GITREPO
 echo "Repo: "$REPO
@@ -89,7 +89,7 @@ echo "Source repo details: "$REPO $REPOID
 
 # Set up new directory name with date and version
 DATE=`date +%Y-%m-%d-%H:%M`
-DIR=$DATE"-AR750M-"$DIRVER
+DIR=$DATE"-AR750-"$DIRVER
 
 ###########################
 # Set up build directory
@@ -103,7 +103,7 @@ echo $DIR > $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 
 # Build function
 
-function build_ar750m() {
+function build_ar750() {
 
 echo "Set up .config for "$1 $2
 rm ./.config
@@ -209,10 +209,10 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-build_ar750m AR750M
+build_ar750 AR750
 
 echo " "
-echo " Build script AR750M complete"
+echo " Build script AR750 complete"
 echo " "
 echo '----------------------------'
 
