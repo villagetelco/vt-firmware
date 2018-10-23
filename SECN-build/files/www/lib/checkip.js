@@ -177,12 +177,6 @@ $(document).ready( function() {
 			ATH0_TXPOWER1: {
 			range: [0, 23]
 			},
-			ATH0_BSSID: {
-			HexChecker: true
-			},
-			ATH0_BSSID1: {
-			HexChecker: true
-			},
 			ATH0_SSID: {
 			maxlength: 32,
 			minlength: 1,
@@ -206,6 +200,11 @@ $(document).ready( function() {
 			PASSPHRASE: {
 			maxlength: 32,
 			minlength: 8,
+			PassChecker: true
+			},
+			MESH_ID: {
+			maxlength: 32,
+			minlength: 1,
 			PassChecker: true
 			},
 			MESHPASSPHRASE: {

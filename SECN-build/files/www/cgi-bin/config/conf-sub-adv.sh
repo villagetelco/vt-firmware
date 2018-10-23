@@ -184,9 +184,8 @@ uci set wireless.radio0.coverage=\$COVERAGE
 # Set coverage now
 /etc/init.d/set_coverage.sh
 
-# Write the adhoc interface settings into /etc/config/wireless
-uci set wireless.ah_0.ssid=\$ATH0_SSID
-uci set wireless.ah_0.bssid=\$ATH0_BSSID
+# Write the mesh interface settings into /etc/config/wireless
+uci set wireless.ah_0.mesh_id=\$MESH_ID
 
 # Write LAN Port Disable setting
 uci set secn.wan.lanport_disable=\$LANPORT_DISABLE
