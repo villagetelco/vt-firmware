@@ -104,7 +104,7 @@ cat > /tmp/config.html << EOF
 						</tr>
 					</table>
 				</fieldset>
-
+<!--
 				<fieldset class="asterisk">
 					<legend>VoIP / SIP Configuration</legend>
 					<table>
@@ -137,7 +137,7 @@ cat > /tmp/config.html << EOF
 						</tr>
 					</table>
 				</fieldset>
-
+-->
 				<fieldset class="password">
 					<legend>Password</legend>
 					<table>
@@ -215,7 +215,7 @@ cat > /tmp/config.html << EOF
 						<td>
 						<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Refresh" >
 						<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Save" >
-						<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Restart Asterisk" >
+<!--						<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Restart Asterisk" > -->
 						<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Reboot" >
 						</td>
 					</tr>
@@ -229,7 +229,7 @@ cat > /tmp/config.html << EOF
 			 <div class="tab-container" id="inner-container">
 				<ul class='etabs'>
 				<li class='tab'><a href="#tab-adv">Advanced</a></li>
-				<li class='tab'><a href="#tab-sph">SoftPhone</a></li>
+<!--				<li class='tab'><a href="#tab-sph">SoftPhone</a></li>  -->
 				<li class='tab'><a href="#tab-wan">WAN</a></li>
 				<li class='tab'><a href="#tab-fw">Firmware/Config</a></li>
 				</ul>
@@ -421,7 +421,7 @@ cat > /tmp/config.html << EOF
 				</tr>
 			</table>
 		</fieldset>
-
+<!--
 							<fieldset class="asterisk-adv">
 								<legend>Asterisk Configuration</legend>
 
@@ -514,7 +514,7 @@ cat > /tmp/config.html << EOF
 									</tr>
 								</table>
 							</fieldset>
-
+-->
 							<fieldset class="dhcp">
 								<legend>DHCP Server</legend>
 								<table>
@@ -567,7 +567,7 @@ cat > /tmp/config.html << EOF
 									<td>
 										<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Refresh">
 										<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Save">
-										<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Restart Asterisk">
+<!--										<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Restart Asterisk">  -->
 										<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Restore Defaults" >
 										<INPUT TYPE="SUBMIT" name="BUTTON" VALUE="Reboot" >
 									</td>
@@ -577,6 +577,7 @@ cat > /tmp/config.html << EOF
 					</div>
 
 	<!-- SoftPhone Directory Form -->
+<!--
 		<div id="tab-sph">
 			<form name="MP-SPH" id="MP-SPH" METHOD="GET" ACTION="/cgi-bin/config/conf-sub-sph.sh">
 
@@ -623,7 +624,7 @@ cat > /tmp/config.html << EOF
 
 			</form>
 		</div>
-
+-->
 
 		<!-- WAN Configuration Form -->
 					<div id="tab-wan">
