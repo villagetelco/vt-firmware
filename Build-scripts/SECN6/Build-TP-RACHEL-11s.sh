@@ -6,11 +6,11 @@
 
 # Select the repo to use
 REPO="vt-firmware"
-BRANCH="secn5"
+BRANCH="secn6"
 
 echo "Set up version strings"
-DIRVER="GA01.1"
-VER="SECN-5-TP-RACHEL-11s-"$DIRVER
+DIRVER="GA01-RC1"
+VER="SECN-6-TP-RACHEL-11s-"$DIRVER
 
 
 echo "************************************"
@@ -192,6 +192,8 @@ make -j1
 #make -j1 V=s 2>&1 | tee ~/build.txt
 echo ""
 
+exit ###
+
 echo  "Rename files to add version info"
 echo ""
 if [ $2 ]; then
@@ -229,9 +231,9 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-build_tp MR3020 RACHEL
+#build_tp MR3020 RACHEL
 build_tp MR3040 RACHEL
-build_tp WR703 RACHEL
+#build_tp WR703 RACHEL
 
 echo " "
 echo "Build script TP complete"

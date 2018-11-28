@@ -6,11 +6,11 @@
 
 # Select the repo to use
 REPO="vt-firmware"
-BRANCH="secn5"
+BRANCH="secn6"
 
 echo "Set up version strings"
-DIRVER="GA01.1"
-VER="SECN-5-TP-WDR-"$DIRVER
+DIRVER="GA01-RC1"
+VER="SECN-6-TP-WDR-"$DIRVER
 
 
 echo "************************************"
@@ -220,7 +220,7 @@ echo " "
 echo '----------------------------'
 
 build_tp WDR4300
-build_tp WDR3500
+#build_tp WDR3500
 
 
 echo " "

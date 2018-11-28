@@ -6,11 +6,11 @@
 
 # Select the repo to use
 REPO="vt-firmware"
-BRANCH="secn5"
+BRANCH="secn6"
 
 echo "Set up version strings"
-DIRVER="GA01.1-RC1b"
-VER="SECN-5-AR300M-RACHEL-"$DIRVER
+DIRVER="GA01-RC1"
+VER="SECN-6-AR300M-RACHEL-"$DIRVER
 
 
 echo "************************************"
