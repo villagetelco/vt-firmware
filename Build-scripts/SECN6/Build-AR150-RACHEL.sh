@@ -6,16 +6,16 @@
 
 # Select the repo to use
 REPO="vt-firmware"
-BRANCH="secn5"
+BRANCH="secn6"
 
 echo "Set up version strings"
-DIRVER="GA01.1-RC1b"
-VER="SECN-5.0-AR150-"$DIRVER
+DIRVER="GA01-RC1"
+VER="SECN-6-AR150-RACHEL-"$DIRVER
 
 
 echo "************************************"
 echo ""
-echo "Build script for AR150 device"
+echo "Build script for AR150 RACHEL device"
 
 echo "Git directory: "$GITREPO
 echo "Repo: "$REPO
@@ -74,10 +74,14 @@ BUILDDIR="./Builds/ar71xx"
 ###########################
 echo "Copy files from Git repo into build folder"
 rm -rf ./SECN-build/
+
 cp -rp $GITREPO/$REPO/SECN-build/ .
+
 cp -fp $GITREPO/$REPO/Build-scripts/FactoryRestore.sh  .
 cp -fp $GITREPO/$REPO/Build-scripts/GetGitVersions.sh  .
 
+echo "Overlay RACHEL files"
+cp -rfp $GITREPO/$REPO/RACHEL-build/* ./SECN-build/
 
 ###########################
 
@@ -91,7 +95,7 @@ echo "Source repo details: "$REPO $REPOID
 
 # Set up new directory name with date and version
 DATE=`date +%Y-%m-%d-%H:%M`
-DIR=$DATE"-AR150-"$DIRVER
+DIR=$DATE"-AR150-RACHEL-"$DIRVER
 
 ###########################
 # Set up build directory
@@ -134,15 +138,13 @@ echo "Remove files directory"
 rm -r ./files
 
 echo "Copy base files"
-cp -rf ./SECN-build/files             .  
+cp -rf ./SECN-build/files     .  
 
 echo "Copy additional files"
-cp -rf ./SECN-build/files-2/*         ./files  
-cp -rf ./SECN-build/files-aster/*     ./files  
-cp -rf ./SECN-build/files-usbmodem/*  ./files  
+cp -rf ./SECN-build/files-2/* ./files  
 
 echo "Overlay device specific files"
-cp -r ./SECN-build/$1/files  .  
+cp -rf ./SECN-build/$1/files  .  
 echo ""
 
 echo "Build Factory Restore tar file"
@@ -176,8 +178,6 @@ make -j1
 #make -j1 V=s 2>&1 | tee ~/build.txt
 echo ""
 
-echo ""
-
 echo  "Rename files to add version info"
 echo ""
 if [ $2 ]; then
@@ -194,7 +194,7 @@ mv $BINDIR/openwrt*-squash*sysupgrade.bin $BUILDDIR/builds/build-$DIR
 echo ""
 
 echo "Clean up unused files"
-#rm $BINDIR/openwrt-*
+###rm $BINDIR/openwrt-*
 echo ""
 
 echo ""
@@ -212,12 +212,10 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-build_ar150 AR150
-#build_ar150 AR150 CD
-#build_ar150 AR150 I2C
+build_ar150 AR150 RACHEL
 
 echo " "
-echo " Build script AR150 complete"
+echo " Build script AR150 RACHEL complete"
 echo " "
 echo '----------------------------'
 
