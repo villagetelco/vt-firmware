@@ -454,8 +454,10 @@ cat > /tmp/config.html << EOF
 					<td class="field"><input type="text" name="ATH0_IPADDR" id="ath0_ipaddr" VALUE=$ATH0_IPADDR ></td>
 					<td class="label"><label for="ATH0_NETMASK">Netmask</label></td>
 					<td class="field"><input type="text" name="ATH0_NETMASK" id="ath0_netmask" VALUE=$ATH0_NETMASK ></td>
+<!--
 					<td class="label"><label for="MESHPASSPHRASE">2.4GHz Mesh Passphrase</label></td>
 					<td class="field"><input type="text" name="MESHPASSPHRASE" id="meshpassphrase" VALUE=$MESHPASSPHRASE ></td>
+-->
 				</tr>
 			</table>
 		</fieldset>
@@ -564,7 +566,7 @@ cat > /tmp/config.html << EOF
 					<td class="label"><label>Encryption</label></td>
 					<td class="field">
 						<SELECT name="ENCRYPTION1" id="encryption1">
-						<option selected="$ENCRYPTION1">$ENCRYPTION2</option>
+						<option selected="$ENCRYPTION1">$ENCRYPTION1</option>
 						<option value="WPA-WPA2-AES">WPA-WPA2-AES</option>
 						<option value="WPA-WPA2">WPA-WPA2</option>
 						<option value="WPA2">WPA2</option>
