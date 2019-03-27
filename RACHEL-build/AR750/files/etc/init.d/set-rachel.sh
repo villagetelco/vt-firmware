@@ -5,7 +5,9 @@ sleep 10
 
 # ------------------------------
 
-# Mount the RACHEL memory device in case auto mount did not work.
+# Mount the memory device in case auto mount did not work.
+# /dev/sda is SD card and /dev/sdb is USB 
+
 # Make dirs in case it is first boot
 mkdir /mnt/sda1
 mkdir /mnt/sda2
@@ -26,42 +28,47 @@ mount -rw /dev/sdb2  /mnt/sdb2
 fi
 
 # Remove old links
-rm /www/rachel/modules
-rm /www/rachel/local
-rm /www/rachel/logs
+rm /www/rachel
+rm /www/rachel-local2
 
-# Set up default home page
-ln -s -f /www/rachel/rachel.index.html   /www/rachel/index.html
+#Set up default Rachel directory in case there are no memory devices installed
+ln -s -f /www/rachel-x /www/rachel
 
-# Find modules etc directories and force link
-# Check for VT-RACHEL SD
-if [ -e "/mnt/sda1/modules" ]; then
-	ln -s -f /mnt/sda1/modules		/www/rachel/modules
-	ln -s -f /mnt/sda1/art   			/www/rachel/art
-	ln -s -f /mnt/sda1/css   			/www/rachel/css
-	ln -s -f /mnt/sda1/local			/www/rachel/local
-	ln -s -f /mnt/sda1/index.html	/www/rachel/index.html # Set up VT-RACHEL home page
+# Find library memory device and link to it
+# Check for SD library on "sda1"
+if [ -e "/mnt/sda1/##LIBRARY##" ]; then
+	rm /www/rachel
+	ln -s -f /mnt/sda1	/www/rachel
+
 	if [ ! -d /mnt/sda1/cache ]; then # Make sure cache directory exists
 		mkdir /mnt/sda1/cache    
 	fi 
+
 	if [ ! -d /mnt/sda1/logs ]; then # Make sure logs directory exists
 		mkdir /mnt/sda1/logs    
-	fi 
+	fi
+
+	if [ -e "/dev/sdb1" ]; then # Check for USB device to use for additional local content
+		ln -s -f /mnt/sdb1 /www/rachel-local2
+	fi
 fi
 
-# Check for second VT-RACHEL USB. This will be used if present in lieu of USB.
-if [ -e "/mnt/sdb1/modules" ]; then
-	ln -s -f /mnt/sdb1/modules 		/www/rachel/modules
-	ln -s -f /mnt/sda1/art				/www/rachel/art
-	ln -s -f /mnt/sda1/css   			/www/rachel/css
-	ln -s -f /mnt/sdb1/local   		/www/rachel/local
-	ln -s -f /mnt/sdb1/index.html	/www/rachel/index.html # Set up VT-RACHEL home page
+# Check for USB library on "sdb1". This will be used if present in lieu of SD.
+if [ -e "/mnt/sdb1/##LIBRARY##" ]; then
+	rm /www/rachel
+	ln -s -f /mnt/sdb1 	/www/rachel
+
 	if [ ! -d /mnt/sdb1/cache ]; then # Make sure cache directory exists
 		mkdir /mnt/sdb1/cache    
 	fi 
+
 	if [ ! -d /mnt/sdb1/logs ]; then # Make sure logs directory exists
 		mkdir /mnt/sdb1/logs    
 	fi 
+
+	if [ -e "/dev/sda1" ]; then # Check for SD device to use for additional local content
+		ln -s -f /mnt/sda1 /www/rachel-local2
+	fi
 fi
 
 # Set up logs
