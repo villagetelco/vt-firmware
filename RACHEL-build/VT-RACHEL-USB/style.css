@@ -25,9 +25,10 @@ b { font-weight: bold; }
 #rachel {
     display: block;
     width: 960px;
-    height: 120px;
-    background: #000 url('art/rachel_banner.jpg') no-repeat 0 0;
-    text-indent: -1000em;
+    height: 90px;
+    background: #000 url('art/OER2GO_banner.png') no-repeat 0 0;
+/*    background: #000 url('art/rachel_banner.jpg') no-repeat 0 0; */
+    text-indent: -1000em; 
     border-radius: 5px;
     margin: auto;
 }
