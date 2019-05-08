@@ -1,0 +1,63 @@
+<!-- position:50 -->
+<div class="indexmodule">
+
+    <?php
+        // this module is really just a pointer to a portion
+        // of the other khan academy module that means we have
+        // to hardcode the directoy thing here - expect it to break
+        // if/when we rename the other module
+        $kadir = "modules/khan_academy";
+        $dir = "$kadir/science/healthcare-and-medicine";
+    ?>
+
+    <form action="<?php echo $kadir ?>/search.html">
+      <div>
+        <input type="text" name="terms" value="">
+        <input type="submit" value="Search Khan Academy">
+      </div>
+    </form>
+
+    <a href="<?php echo $dir ?>/index.html"><img src="modules/khan_health/khanhealthlogo.png" alt="Khan Academy Health"></a>
+
+    <h2><a href="<?php echo $dir ?>/index.html">Khan Academy Health &amp; Medicine</a></h2>
+
+    <p>Nearly 200 videos on health topics, covering the workings of major body
+       systems and the diseases that affect them. All Khan Academy content is
+       available for free at <a href="http://www.khanacademy.org/">www.khanacademy.org</a>.
+    </p>
+
+    <ul class="double">
+    <li><a href="<?php echo $dir ?>/the-heart/index.html"> The Heart</a></li>
+    <li><a href="<?php echo $dir ?>/the-lungs/index.html"> The Lungs</a></li>
+    <li><a href="<?php echo $dir ?>/influenza/index.html"> Influenza</a></li>
+    <li><a href="<?php echo $dir ?>/blood/index.html"> Blood</a></li>
+    <li><a href="<?php echo $dir ?>/blood-vessel-diseases/index.html"> Blood Vessel Diseases</a></li>
+    <li><a href="<?php echo $dir ?>/fetal-circulation/index.html"> Fetal Circulation</a></li>
+    <li><a href="<?php echo $dir ?>/arterial-stiffness/index.html"> Arterial Stiffness</a></li>
+    <li><a href="<?php echo $dir ?>/healthy-lifestyle/index.html"> Healthy Lifestyle</a></li>
+    <li><a href="<?php echo $dir ?>/endocrinology-and-diabetes/index.html"> Endocrinology and Diabetes</a></li>
+    <li><a href="<?php echo $dir ?>/health-care-system/index.html"> Health Care System</a></li>
+    <li><a href="<?php echo $dir ?>/colon-disease/index.html"> Colon Disease</a></li>
+    <li><a href="<?php echo $dir ?>/cervical-spine/index.html"> Cervical Spine</a></li>
+    <li><a href="<?php echo $dir ?>/hypertension/index.html"> Hypertension</a></li>
+    <li><a href="<?php echo $dir ?>/lab-values/index.html"> Lab Values and Concentrations</a></li>
+    <li><a href="<?php echo $dir ?>/heart-disease-and-stroke/index.html"> Heart Disease and Stroke</a></li>
+    <li><a href="<?php echo $dir ?>/heart-muscle-contraction/index.html"> Heart Muscle Contraction</a></li>
+    <li><a href="<?php echo $dir ?>/heart-depolarization/index.html"> Heart Depolarization</a></li>
+    <li><a href="<?php echo $dir ?>/nerve-regulation-of-the-heart/index.html"> Nerve Regulation of the Heart</a></li>
+    <li><a href="<?php echo $dir ?>/pressure-volume-loops/index.html"> Pressure Volume Loops</a></li>
+    <li><a href="<?php echo $dir ?>/changing-the-PV-loop/index.html"> Changing the PV Loop</a></li>
+    <li><a href="<?php echo $dir ?>/preload-and-afterload/index.html"> Preload and Afterload</a></li>
+    <li><a href="<?php echo $dir ?>/healthcare-misc/index.html"> Miscellaneous</a></li>
+    </ul>
+
+    <p class="smallblurb">
+        These materials do not provide medical advice and are for informational purposes only.
+        This content is not intended to be a substitute for professional medical advice, diagnosis or
+        treatment. Always seek the advice of a qualified health provider with any questions you may
+        have regarding a medical condition. Never disregard professional medical advice or delay in
+        seeking it because of something you have read here.
+    </p>
+
+</div>
+

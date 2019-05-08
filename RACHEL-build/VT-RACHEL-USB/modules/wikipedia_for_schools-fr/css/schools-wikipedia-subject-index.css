@@ -1,0 +1,75 @@
+h4 {
+  margin: 0;
+  padding: 0;
+}
+
+div.category {
+  vertical-align: bottom;
+  margin: 0 15px 15px 0;
+  padding: 5px;
+  border:  1px solid black;
+  float: left;
+}
+
+div.categoryname {
+  text-align:  center;
+  font-weight:   bold;
+  font-size: 12px;
+  line-height: 14px;
+  margin: 0;
+  padding: 0;
+}
+
+div.categoryname table {
+  margin: 0;
+  padding: 0;
+}
+
+div.categoryname tr {
+  margin: 0;
+  padding: 0;
+}
+
+div.categoryname td {
+  margin: 0;
+  padding: 0;
+  vertical-align: middle;
+}
+
+div.categoryimage {
+  text-align: center;
+}
+
+div.categoryimage img {
+  vertical-align: top;
+}
+
+table.categoryheading {
+  color: black;
+  background: none;
+  font-weight: normal;
+  margin: 0;
+  padding-top: 0;
+  padding-bottom: .4em;
+}
+
+table.categoryheading td {
+  vertical-align: middle;
+  padding-right: 1em;
+}
+
+table.categoryheading td.categoryimage {
+  vertical-align: top;
+}
+
+table.categoryheading p.name {
+  margin: 0;
+  padding: 0;
+  font-size: 200%;
+  line-height: 120%;
+  vertical-align: top;
+}
+
+table.categoryheading p.description {
+}
+

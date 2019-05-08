@@ -1,0 +1,145 @@
+body {
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+    font-family: Verdana,Arial,Helvetica,sans-serif;
+    background-color: #C2B3A1;
+}
+
+#container {
+  position: relative;
+  margin: 20px auto -60px;
+  width: 1016px;
+  min-height: 100px;
+  height: auto !important;
+  background-color: #FFFFFF;
+}
+#header {
+    z-index: 4;
+    width:1016px;
+    height:90px;
+    margin-top:-20px;
+    margin-left: 0px;
+    position: relative;
+    padding-left:0px;
+    padding-top:0px;
+    padding-bottom:0px;
+    background-image: url("../common/phet-banner.png");
+    background-repeat: no-repeat;
+    background-position: left top;
+}
+#nav {
+    border-top: 4px #CCC;
+    line-height:50px;
+    text-align:center;
+    z-index: 3;
+    position: relative;
+    background: linear-gradient(to bottom, #690 0%, #9AB049 100%) repeat scroll 0% 0% #FFF;
+    height: 54px;
+    margin-top: 2px;
+}
+#main {
+    float:left;
+    padding:20px;
+    padding-top:0px;
+}
+#intro {
+    float:left;
+    padding:30px;
+    padding-top:0px;
+    display: block;
+}
+#linktable {
+    width:500px;
+    float:left;
+    padding:30px;
+    padding-top:0px;
+    border-radius: 10px;
+    border: 2px solid #CCC;
+    background-color: #FFFFFF;
+    display: inline;
+}
+#aside {
+    padding-top:0px;
+    padding-left:40px;
+    display: inline;   
+}
+#footer {
+    background-color:#9CC;
+    color:white;
+    clear:both;
+    text-align:center;
+    padding:20px;
+    display: block;
+}
+
+.navselector {
+
+}
+.navitem {
+    font-family: Arial,Helvetica,sans-serif;
+    vertical-align:middle;
+    text-align: left;
+    padding-right: 30px;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+a.navitem:link {color: #FFFFFF;}
+a.navitem:visited {color: #D75B32;}
+a.navitem:hover {color: #336699;}
+a.navitem:active {color: #336699;}
+
+img.navitem {
+    float;
+    display:inline;
+}
+
+.shadow-lr {
+    box-shadow: 7px 8px 7px -7px #333, -7px 8px 7px -7px #333;
+}
+.motoli-logo {
+    float;
+    padding-top:36px;
+    padding-left:47px;
+}
+
+.RHS_picture {
+    float:right;
+    width: 300px;
+    border-radius:15px; 
+    -moz-border-radius: 15px; 
+    -webkit-border-radius:15px;
+}
+
+h1.main {
+  font-size:26px;
+  color:black;
+}
+
+h2.link {
+  font-size:24px;
+  color:#09F;
+}
+
+td {padding-right:10px;}
+
+td a:link {
+	color:#0000FF;
+	text-decoration:none;
+}
+td a:visited {
+	color:0000FF;
+	text-decoration:none;
+}
+td a:hover {
+	color:#FF0000;
+	text-decoration:none;
+}
+td a:active {
+	color:FF0000;
+	text-decoration:none;
+}
+
+
+
