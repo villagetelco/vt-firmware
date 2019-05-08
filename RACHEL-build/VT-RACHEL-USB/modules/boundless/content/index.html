@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+ 
+ <html class="not-ie"> 
+<head>
+<meta charset='utf-8'>
+ 
+<title>Boundless - Textbook Innovation
+</title>
+
+<link rel="stylesheet" media="screen" href="../boundless-production.boundless-cdn.com/assets/global/common/julia-66ffced2bcb03d8fc0992ac237447a56.css" />
+<link rel="stylesheet" media="all" href="../boundless-production.boundless-cdn.com/assets/shared-e3279bb027d157ad4567deec1b549b6c.css" />
+<link rel="stylesheet" media="all" href="../boundless-production.boundless-cdn.com/assets/marketing/marketing_common-a33685196afefebd9938c90695346cc6.css" debug="false" />
+<link rel="stylesheet" media="all" href="../boundless-production.boundless-cdn.com/assets/marketing/marketing-9dcda2752aa38c1437073b8cdd7b5939.css" debug="false" />
+<script src="../jquery-1.10.2.min.js"></script>
+
+<script>
+
+    function nodeHandler() {
+
+        var data = {};
+        data['tocNode'] = $(this);
+        data['id']      = $(this).parent().attr("data-toc-node-id");
+        data['type']    = $(this).parent().attr("data-toc-node-type");
+
+        $(this).click(data, function(event) {
+
+            var tocNode = event.data.tocNode.closest('.toc-node');
+            tocNode.addClass("disabled");
+
+            childType = event.data.type === 'chapter' ? 'section' : 'concept';
+
+            if (tocNode.is('.loaded')) {
+                tocNode.toggleClass('toc-expanded toc-collapsed').find('.toc-' + childType + 's').toggle();
+                tocNode.removeClass('disabled')
+            } else {
+                $.ajax({
+                    url: "./" + event.data.type + "/" + event.data.id + ".html",
+                    success: function(html) {
+                        tocNode.toggleClass('toc-expanded toc-collapsed loaded').append(html);
+                        tocNode.removeClass('disabled')
+                        tocNode.find('.toc-' + childType + 's').find('.toc-title').each( nodeHandler );
+                        if (childType == "section") {
+                            tocNode.find('.toc-' + childType + 's').find('.toc-link').each(function() {
+                                this.href = "./" + this.pathname.replace(/^\/[^\/]+\//, "") + "index.html";
+                            });
+                        } else {
+                            tocNode.find('.toc-' + childType + 's').find('.toc-heading').each(function() {
+                                this.href = "./" + this.pathname.replace(/^\/[^\/]+\//, "") + "index.html";
+                            });
+                        }
+                    }
+                });
+            }
+
+        });
+    }
+
+    $(function() {
+        $(".toc-title").each( nodeHandler );
+    });
+
+</script>
+
+
+<link rel="stylesheet" href="../katex.min.css">
+<script src="../katex.min.js"></script>
+<script src="../auto-render.min.js"></script>
+</head>
+<body class='ignore_math not-logged-in in-marketing-site marketing-layout-f13 marketing-statics index marketing-statics-index&#x000A; '>
+
+<div id='main' role='main'>
+
+<div class='marketing-content'>
+<header class='fw_header navbar hide-bottom-border home-simple-header' id='header'>
+<div class='rainbow-road'></div>
+<div class='viewport-padding'>
+<nav class='navbar-inner navbar__first'>
+<div class='navbar__first__left'>
+<a class="navbar__app-zone navbar__app-zone__main" href="index.html"><div class='navbar__app-zone navbar__app-zone__main'>
+<div class='navbar__app-zone__icon'></div>
+<div class='navbar__app-zone__label'><div class='navbar__app-zone__label__brand'></div><div class='navbar__app-zone__label__zone'></div>
+</div>
+</div>
+</a></div>
+<div class='navbar__first__right'>
+<div class='navbar__login'>
+<a data-popup="register" data-redirect-reload="true" data-start-event="clicked_sign_up_in_header" class="header__sign-up-link navbar__login__link" href="index.html#register"><i class='boundless-icon-signup'></i>
+<span class='lbl'>Sign Up</span>
+</a><a data-popup="login" data-redirect-reload="true" class="header__login-link navbar__login__link" href="index.html#login"><i class='icon-signin'></i>
+<span class='lbl'>Log in</span>
+</a></div>
+</div>
+</nav>
+</div>
+</header>
+<div class='home__textbook-innovation viewport-padding'>
+<h1>Textbook Innovation</h1>
+<p>Serving the entire education ecosystem with quality content, increased choice, and affordable prices.</p>
+<div class='home__offerings'>
+<div class='big-boundless-logo-outer'>
+ <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" baseProfile="tiny" id="Layer_1" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve" class="big-boundless-logo">
+	<g id="boundless-logo-orange-corner">
+		<path fill="#FBB226" d="M237.5,96.1l-43.2-24.9l-61.7-35.6l0,69.3l0,47.9c0,11.7,8.3,26.1,18.5,32l43.2,24.9l43.2,24.9v0l18.5,10.7    V224v-95.9C256,116.4,247.7,102,237.5,96.1z"></path>
+		<path fill="#F9A627" d="M274.4,96.1l43.2-24.9l61.7-35.6l0,69.3l0,47.9c0,11.7-8.3,26.1-18.5,32l-43.2,24.9l-43.2,24.9v0L256,245.3    V224v-95.9C256,116.4,264.3,102,274.4,96.1z"></path>
+	</g>
+	<g id="boundless-logo-green-corner">
+		<path fill="#65A946" d="M124.8,355.3l0,49.9l0,71.2l60-34.6l41.5-24c10.2-5.9,18.5-20.3,18.5-32l0-49.9l0-49.9l0,0l0-21.3    l-18.5,10.7l-83,47.9C133.1,329.2,124.8,343.6,124.8,355.3z"></path>
+		<path fill="#6BB64F" d="M106.3,323.3l-43.2-24.9L1.5,262.8l60-34.6l41.5-24c10.2-5.9,26.8-5.9,36.9,0l43.2,24.9l43.2,24.9l0,0    l18.5,10.7l-18.5,10.7l-83,47.9C133.1,329.2,116.5,329.2,106.3,323.3z"></path>
+	</g>
+	<g id="boundless-logo-blue-corner">
+		<path fill="#2CA0C3" d="M387.2,355.3l0,49.9l0,71.2l-60-34.6l-41.5-24c-10.2-5.9-18.5-20.3-18.5-32l0-49.9l0-49.9l0,0l0-21.3    l18.5,10.7l83,47.9C378.9,329.2,387.2,343.6,387.2,355.3z"></path>
+		<path fill="#41B0D5" d="M405.7,323.3l43.2-24.9l61.7-35.6l-60-34.6l-41.5-24c-10.2-5.9-26.8-5.9-36.9,0l-43.2,24.9l-43.2,24.9l0,0    l-18.5,10.7l18.5,10.7l83,47.9C378.9,329.2,395.5,329.2,405.7,323.3z"></path>
+	</g>
+</svg>
+
+</div>
+
+<!--<a class='offering for-students' href='students/index.html'>
+<h2 class='header-container students-header'>
+For Students
+<i class='icon-angle-right chevron'></i>
+</h2>
+<p>Save money. Learn smarter.</p>
+</a>
+<a class='offering for-educators' href='https://www.boundless.com/teaching/'>
+<h2 class='header-container'>
+For Educators xxx
+<i class='icon-angle-right chevron'></i>
+</h2>
+<p>Elevate your teaching.</p>
+<p>Upgrade your textbook.</p>
+</a>
+<a class='offering for-institutions' href='https://www.boundless.com/institutions/'>
+<h2 class='header-container'>
+For Institutions xxx
+<i class='icon-angle-right chevron'></i>
+</h2>
+<p>Empower faculty.</p>
+<p>Drive student success.</p>
+</a>
+-->
+
+</div>
+</div>
+<div class='home__subjects viewport-padding'>
+<div class='marketing-inner-content-max-width'>
+<h2 class='section-header'>
+Browse our educational content and resources
+</h2>
+<div class='bcp__subjects-list clearfix'>
+<div class='bcp__subjects-list__item__wrap'>
+<a class="bcp__subjects-list__item__link" data-push="true" href="accounting/subjects/index.html"><div class='bcp__subjects-list__item'>
+<div class='bcp__subjects-list__item__icon bicon-color-accounting'></div>
+<div class='bcp__subjects-list__item__label bcp-sans-copy'>
+Accounting
+</div>
+</div>
+</a></div>
+<div class='bcp__subjects-list__item__wrap'>
+<a class="bcp__subjects-list__item__link" data-push="true" href="algebra/index.html"><div class='bcp__subjects-list__item'>
+<div class='bcp__subjects-list__item__icon bicon-color-algebra'></div>
+<div class='bcp__subjects-list__item__label bcp-sans-copy'>
+Algebra
+</div>
+</div>
+</a></div>
+<div class='bcp__subjects-list__item__wrap'>
+<a class="bcp__subjects-list__item__link" data-push="true" href="art-history/index.html"><div class='bcp__subjects-list__item'>
+<div class='bcp__subjects-list__item__icon bicon-color-art-history'></div>
+<div class='bcp__subjects-list__item__label bcp-sans-copy'>
+Art History
+</div>
+</div>
+</a></div>
+<div class='bcp__subjects-list__item__wrap'>
+<a class="bcp__subjects-list__item__link" data-push="true" href="biology/index.html"><div class='bcp__subjects-list__item'>
+<div class='bcp__subjects-list__item__icon bicon-color-biology'></div>
+<div class='bcp__subjects-list__item__label bcp-sans-copy'>
+Biology
+</div>
+</div>
+</a></div>
+<div class='bcp__subjects-list__item__wrap'>
+<a class="bcp__subjects-list__item__link" data-push="true" href="business/index.html"><div class='bcp__subjects-list__item'>
+<div class='bcp__subjects-list__item__icon bicon-color-business'></div>
+<div class='bcp__subjects-list__item__label bcp-sans-copy'>
+Business
+</div>
+</div>
+</a></div>
+<div class='bcp__subjects-list__item__wrap'>
+<a class="bcp__subjects-list__item__link" data-push="true" href="calculus/index.html"><div class='bcp__subjects-list__item'>
+<div class='bcp__subjects-list__item__icon bicon-color-calculus'></div>
+<div class='bcp__subjects-list__item__label bcp-sans-copy'>
+Calculus
+</div>
+</div>
+</a></div>
+<div class='bcp__subjects-list__item__wrap'>
+<a class="bcp__subjects-list__item__link" data-push="true" href="chemistry/index.html"><div class='bcp__subjects-list__item'>
+<div class='bcp__subjects-list__item__icon bicon-color-chemistry'></div>
+<div class='bcp__subjects-list__item__label bcp-sans-copy'>
+Chemistry
+</div>
+</div>
+</a></div>
+<div class='bcp__subjects-list__item__wrap'>
+<a class="bcp__subjects-list__item__link" data-push="true" href="communications/index.html"><div class='bcp__subjects-list__item'>
+<div class='bcp__subjects-list__item__icon bicon-color-communications'></div>
+<div class='bcp__subjects-list__item__label bcp-sans-copy'>
+Communications
+</div>
+</div>
+</a></div>
+<div class='bcp__subjects-list__item__wrap'>
+<a class="bcp__subjects-list__item__link" data-push="true" href="economics/index.html"><div class='bcp__subjects-list__item'>
+<div class='bcp__subjects-list__item__icon bicon-color-economics'></div>
+<div class='bcp__subjects-list__item__label bcp-sans-copy'>
+Economics
+</div>
+</div>
+</a></div>
+<div class='bcp__subjects-list__item__wrap'>
+<a class="bcp__subjects-list__item__link" data-push="true" href="finance/index.html"><div class='bcp__subjects-list__item'>
+<div class='bcp__subjects-list__item__icon bicon-color-finance'></div>
+<div class='bcp__subjects-list__item__label bcp-sans-copy'>
+Finance
+</div>
+</div>
+</a></div>
+<div class='bcp__subjects-list__item__wrap'>
+<a class="bcp__subjects-list__item__link" data-push="true" href="management/index.html"><div class='bcp__subjects-list__item'>
+<div class='bcp__subjects-list__item__icon bicon-color-management'></div>
+<div class='bcp__subjects-list__item__label bcp-sans-copy'>
+Management
+</div>
+</div>
+</a></div>
+<div class='bcp__subjects-list__item__wrap'>
+<a class="bcp__subjects-list__item__link" data-push="true" href="marketing/index.html"><div class='bcp__subjects-list__item'>
+<div class='bcp__subjects-list__item__icon bicon-color-marketing'></div>
+<div class='bcp__subjects-list__item__label bcp-sans-copy'>
+Marketing
+</div>
+</div>
+</a></div>
+<div class='bcp__subjects-list__item__wrap'>
+<a class="bcp__subjects-list__item__link" data-push="true" href="microbiology/index.html"><div class='bcp__subjects-list__item'>
+<div class='bcp__subjects-list__item__icon bicon-color-microbiology'></div>
+<div class='bcp__subjects-list__item__label bcp-sans-copy'>
+Microbiology
+</div>
+</div>
+</a></div>
+<div class='bcp__subjects-list__item__wrap'>
+<a class="bcp__subjects-list__item__link" data-push="true" href="physics/index.html"><div class='bcp__subjects-list__item'>
+<div class='bcp__subjects-list__item__icon bicon-color-physics'></div>
+<div class='bcp__subjects-list__item__label bcp-sans-copy'>
+Physics
+</div>
+</div>
+</a></div>
+<div class='bcp__subjects-list__item__wrap'>
+<a class="bcp__subjects-list__item__link" data-push="true" href="physiology/index.html"><div class='bcp__subjects-list__item'>
+<div class='bcp__subjects-list__item__icon bicon-color-physiology'></div>
+<div class='bcp__subjects-list__item__label bcp-sans-copy'>
+Physiology
+</div>
+</div>
+</a></div>
+<div class='bcp__subjects-list__item__wrap'>
+<a class="bcp__subjects-list__item__link" data-push="true" href="political-science/index.html"><div class='bcp__subjects-list__item'>
+<div class='bcp__subjects-list__item__icon bicon-color-political-science'></div>
+<div class='bcp__subjects-list__item__label bcp-sans-copy'>
+Political Science
+</div>
+</div>
+</a></div>
+<div class='bcp__subjects-list__item__wrap'>
+<a class="bcp__subjects-list__item__link" data-push="true" href="psychology/index.html"><div class='bcp__subjects-list__item'>
+<div class='bcp__subjects-list__item__icon bicon-color-psychology'></div>
+<div class='bcp__subjects-list__item__label bcp-sans-copy'>
+Psychology
+</div>
+</div>
+</a></div>
+<div class='bcp__subjects-list__item__wrap'>
+<a class="bcp__subjects-list__item__link" data-push="true" href="sociology/index.html"><div class='bcp__subjects-list__item'>
+<div class='bcp__subjects-list__item__icon bicon-color-sociology'></div>
+<div class='bcp__subjects-list__item__label bcp-sans-copy'>
+Sociology
+</div>
+</div>
+</a></div>
+<div class='bcp__subjects-list__item__wrap'>
+<a class="bcp__subjects-list__item__link" data-push="true" href="statistics/index.html"><div class='bcp__subjects-list__item'>
+<div class='bcp__subjects-list__item__icon bicon-color-statistics'></div>
+<div class='bcp__subjects-list__item__label bcp-sans-copy'>
+Statistics
+</div>
+</div>
+</a></div>
+<div class='bcp__subjects-list__item__wrap'>
+<a class="bcp__subjects-list__item__link" data-push="true" href="u-s-history/index.html"><div class='bcp__subjects-list__item'>
+<div class='bcp__subjects-list__item__icon bicon-color-u-s-history'></div>
+<div class='bcp__subjects-list__item__label bcp-sans-copy'>
+U.S. History
+</div>
+</div>
+</a></div>
+<div class='bcp__subjects-list__item__wrap'>
+<a class="bcp__subjects-list__item__link" data-push="true" href="world-history/index.html"><div class='bcp__subjects-list__item'>
+<div class='bcp__subjects-list__item__icon bicon-color-world-history'></div>
+<div class='bcp__subjects-list__item__label bcp-sans-copy'>
+World History
+</div>
+</div>
+</a></div>
+<div class='bcp__subjects-list__item__wrap'>
+<a class="bcp__subjects-list__item__link" data-push="true" href="writing/index.html"><div class='bcp__subjects-list__item'>
+<div class='bcp__subjects-list__item__icon bicon-color-writing'></div>
+<div class='bcp__subjects-list__item__label bcp-sans-copy'>
+Writing
+</div>
+</div>
+</a></div>
+</div>
+
+</div>
+</div>
+
+</div>
+<footer id='footer'>
+<div class='footer__content-container'>
+<div class='footer__group'>
+<h5 class='footer__header'>
+Subjects
+</h5>
+<ul class='footer__subject-list'>
+<li class='footer__subject-list-item'>
+<a href="accounting/index.html">Accounting</a>
+</li>
+<li class='footer__subject-list-item'>
+<a href="algebra/index.html">Algebra</a>
+</li>
+<li class='footer__subject-list-item'>
+<a href="art-history/index.html">Art History</a>
+</li>
+<li class='footer__subject-list-item'>
+<a href="biology/index.html">Biology</a>
+</li>
+<li class='footer__subject-list-item'>
+<a href="business/index.html">Business</a>
+</li>
+<li class='footer__subject-list-item'>
+<a href="calculus/index.html">Calculus</a>
+</li>
+<li class='footer__subject-list-item'>
+<a href="chemistry/index.html">Chemistry</a>
+</li>
+<li class='footer__subject-list-item'>
+<a href="communications/index.html">Communications</a>
+</li>
+<li class='footer__subject-list-item'>
+<a href="economics/index.html">Economics</a>
+</li>
+<li class='footer__subject-list-item'>
+<a href="finance/index.html">Finance</a>
+</li>
+<li class='footer__subject-list-item'>
+<a href="management/index.html">Management</a>
+</li>
+<li class='footer__subject-list-item'>
+<a href="marketing/index.html">Marketing</a>
+</li>
+<li class='footer__subject-list-item'>
+<a href="microbiology/index.html">Microbiology</a>
+</li>
+<li class='footer__subject-list-item'>
+<a href="physics/index.html">Physics</a>
+</li>
+<li class='footer__subject-list-item'>
+<a href="physiology/index.html">Physiology</a>
+</li>
+<li class='footer__subject-list-item'>
+<a href="political-science/index.html">Political Science</a>
+</li>
+<li class='footer__subject-list-item'>
+<a href="psychology/index.html">Psychology</a>
+</li>
+<li class='footer__subject-list-item'>
+<a href="sociology/index.html">Sociology</a>
+</li>
+<li class='footer__subject-list-item'>
+<a href="statistics/index.html">Statistics</a>
+</li>
+<li class='footer__subject-list-item'>
+<a href="u-s-history/index.html">U.S. History</a>
+</li>
+<li class='footer__subject-list-item'>
+<a href="world-history/index.html">World History</a>
+</li>
+<li class='footer__subject-list-item'>
+<a href="writing/index.html">Writing</a>
+</li>
+</ul>
+</div>
+<div class='footer__footer'>
+<p>Except where noted, content and user contributions on this site are licensed under <a rel="license" href="../creativecommons.org/licenses/by-sa/4.0/index.html">CC BY-SA 4.0</a> with attribution required.</p>
+</div>
+</div>
+</footer>
+
+</div>
+<div id='flash_messages_container'></div>
+<div class='modal onboarding-popup fade hide' id='login_cont'></div>
+<img alt='' height='1' id='adwords_conversion_img' src="index.html" style='visibility: hidden; position: absolute; bottom: 0;' width='1'>
+<div style="display: none;">
+</div>
+
+<script>
+    renderMathInElement(
+        document.body, { delimiters: [ {left: "$", right: "$", display: false} ] }
+    );
+</script>
+</body>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+</html>
+

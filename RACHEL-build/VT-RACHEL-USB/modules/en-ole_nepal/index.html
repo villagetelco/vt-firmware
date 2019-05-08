@@ -1,0 +1,125 @@
+<html style="min-height=100%">
+<head>
+    <title>OLE Nepal</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/ole-logo.png">
+    <!--  <link href="css/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css" /> -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/templetestyle.css">
+    <style type="text/css">
+    	@font-face {
+		    font-family: ubuntu;
+		    /*src: url(fonts/Lohit-Nepali.ttf);*/
+		   	/*src: url(fonts/madan.ttf);*/
+		    src: url(fonts/mangal.ttf);
+		}
+		
+        body:lang(np), body:lang(np) * {
+            font-family: ubuntu!important;
+        }
+        
+        body:lang(np) .glyphicon{
+        	font-family: 'Glyphicons Halflings' !important;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="navbar colorPurple" role="navigation">
+      <div class="container">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 nav navbar-nav index">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 logocontainer">
+                <img src="images/ole_logo.png" class="img-responsive col-centered" draggable="false">
+            </div>
+            <div class="indexlangswitchcontainer">
+                <span class="nav-pills"> 
+                    <a href="?lang=np" class="active">ने</a>
+                </span>
+                <span class="label"> 
+                    |
+                </span>
+                <span class="nav-pills"> <a href="?lang=en"> En </a></span>
+            </div>
+        </div>
+      </div>
+    </div>
+</header>
+
+<!-- this contains the contents of index page  -->
+    <div class="container">
+        <div class="row aboutOlePara">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
+                <p class="indexExpText">Please wait...</p>
+                <p class="indexExpText2">While the data loads...</p>
+            </div>
+        </div>
+         <div class="dropdown dropdowncontainer dropdowncontainercenterize">
+            <script type="text/x-handlebars-template" id="classdropdown-template">
+              <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                <span class="buttongradedata">{{gradetextdata}}</span>
+                <span class="glyphicon glyphicon-chevron-down dropdownglyphicon" aria-hidden="true"></span>
+              </button>
+              <ul class="dropdown-menu">
+                {{#each allgrades}}
+                    <li>
+                        <a data-grade="{{specificgrade}}" href="">{{specificgradetext}}</a>
+                    </li>
+                {{/each}}
+              </ul>
+            </script>
+        </div>
+        <div class="container indexsubjectrow">
+        <script type="text/x-handlebars-template" id="subjects-template">
+            {{#each this}}
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                <a href={{link}}>
+                    <div class="index-intro-subject-box thumbnail {{classname}}">             
+                        <img src={{image}} draggable="false">
+                        <h3>{{name}}</h3>
+                    </div>
+                </a>
+                </div>
+            {{/each}}
+        </script>
+        </div>
+        
+        <div class="container alertbox">
+            <div class="alertboxcontent">
+                <span class="alerttext"></span>
+                <!-- simple alert box close button -->
+                <button class="btn btn-primary" onclick="this.parentElement.parentElement.style.display='none';">&#10799;</button>
+            </div>
+            
+        </div>
+    </div>
+    
+    <footer class="footerIndex" >    
+        <div class="row footerCC col-sm-12 col-lg-12 col-md-12">
+            <div class="container">
+                <div class="pull-right design">
+                Please wait while the data is loading...
+                </div>
+            </div>
+        </div>
+    </footer>
+
+<!--####################################################################################
+    Suggested(although a suggestion mind it!) sequence of scripts to put :
+    1.) jquery-1.11.3.min.js -> you know it obvious its what everything in our project uses.
+    2.) bootstrap.min.js -> all the bootstrap functions should be loaded first 
+    if any.
+    3.) handlebars-3.0.3.js -> handlebars templates are decoded at runtime to
+    make dom available.
+    4.) ole.index.js -> all the working of the index page.
+ #####################################################################################-->
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/handlebars-3.0.3.js"></script>
+<script type="text/javascript" src="js/ole.index.js" defer></script>
+</body>
+</html>
