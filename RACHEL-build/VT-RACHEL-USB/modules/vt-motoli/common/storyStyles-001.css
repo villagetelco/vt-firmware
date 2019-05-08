@@ -1,0 +1,241 @@
+/* Stylesheet for MoToLi stories */
+
+@font-face {
+	font-family: 'NotoKhmer';
+	src: url('../fonts/NotoSerifKhmer-Regular.ttf') format('truetype'),
+		url('../fonts/NotoSerifKhmer-Bold.ttf') format('truetype'),
+		url('../fonts/NotoSansKhmer-Regular.ttf') format('truetype'),
+		url('../fonts/NotoSansKhmer-Bold.ttf') format('truetype');
+}
+
+@font-face{		
+	font-family: 'Battambang';
+	src: url('../fonts/Battambang-Regular.ttf') format('truetype');
+	font-stretch: expanded;
+}
+
+@font-face{		
+	font-family: 'Busra';
+	src: url('../fonts/Busra-B.ttf') format('truetype');
+	font-stretch: expanded;
+}
+
+#loadmsg {
+	text-align: center;
+    font-size: 2.0em;
+    padding-top: 150px;
+	padding-bottom: 150px;
+	visibility: visible;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+	font-family: Battambang, serif;
+}
+
+/* Container of all pages */
+#story {
+    margin: 0;
+    padding: 0;
+	border: none;
+	visibility: hidden;
+}
+
+/* Hide story data-only elements */
+p.data {
+	font-size: 0.1em;
+	padding: 0px;
+	color: grey;
+}
+/*#onloads {
+	font-size: 1em;
+	padding: 0px;
+	color: red;
+} */
+
+/* Hide the pause indications */
+span.pause {
+	font-size: 0.5em;
+	padding: 0px;
+	color: grey;
+}
+
+/* Container for picture, text, progress bars and buttons for each page of the story */
+.page {
+    margin: 0;
+    padding: 0;
+	padding-top: 0px;
+	width: 100%;  
+    border: none;
+	position: relative;
+}  
+
+/* Specific layouts for main picture and text block for 'side' and 'under' page formats */
+.side div.page div.pict {
+    text-align: center;
+    width: 42%;
+    float: left;
+    padding: 0px;
+}
+.side div.page div.text {
+    width: 58%;
+    float: right;
+	text-align: center;
+    font-size: 1.2em;
+	padding-left: 0px;
+	padding-right: 0px;
+	padding-top: 20px;
+	padding-bottom: 0px;
+	font-family: Battambang;
+}
+
+.under div.page div.pict {
+	margin: auto;
+    float: none;
+    padding: 0px;	      
+}
+.under div.page div.text {
+    width: 100%; 
+    float: none;
+	text-align: center;
+    font-size: 1.2em;
+	padding-left: 0px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	font-family: Battambang;
+}
+
+/* Specific text line table formats */
+table.texttab {
+	margin: auto;
+	border: none;
+    border-collapse: collapse;
+    padding-top: 0px;
+	padding-bottom: 0px;
+	padding-right: 0px;
+	padding-left: 0px;
+	font-family: inherit;
+}
+table.texttab td {	/*Space between paragraphs (paragraph = one or more text lines invoked by a single Play button) */
+	padding-right: 10px;
+	padding-bottom: 25px;
+}
+
+/* Button layouts */
+/* In both 'side' and 'under' formats, navigation button positions are defined by a table */
+div.pict table, tr, td {
+	border: none;
+	margin: auto; 
+	vertical-align: middle;
+	text-align: center;
+}
+
+/* Specific positioning for Nav buttons in a text-under-picture format */
+.underpic img.btnback {
+	padding-right: 50px;
+	vertical-align: middle;
+}
+.underpic img.btnfwd {
+	padding-left: 50px;
+	vertical-align: middle;
+}
+
+/* Specific positioning for Nav buttons in a text-beside-picture format */
+.sidepic img.btnback {
+	padding-left: 5px;
+	padding-right: 10px;
+	float: left;
+	padding-bottom: 0px;
+}
+.sidepic img.btnfwd {
+	padding-right: 5px;
+	padding-left: 10px;
+	float: right;
+	padding-bottom: 0px;
+}
+
+/* Positioning of Play buttons within a text table cell */
+td.button {
+	vertical-align: top;
+}
+td.button img {	/*Size of Play buttons */
+	height: 30px;
+	width: 30px;
+	padding-right: 0px;
+	padding-left: 0px;
+}
+
+/* Space between main picture and title (in 'side' format) or text lines (in 'under' format) below it */
+img.mainpic {
+	border: none;
+	padding-right: 0px;
+	padding-left: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+div.sidepic .title { /* Format for title text under picture in 'side' format */
+	text-align: center;
+    font-size: 1.5em;
+	padding-left: 0px;
+	padding-right: 0px;
+	padding-top: 10px;
+	padding-bottom: 0px;
+	font-family: inherit;
+}
+.footer { /* Format for title and page # under text in 'under' format */
+	text-align: center;
+    font-size: 1.0em;
+	padding: 0px;
+	font-family: inherit;
+}
+
+/* Reset the default appearance of all Progress Bars */
+progress {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+progress[value] {	/* Determinate */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+progress:not([value]) {	/* Indeterminate */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+/* Set the required appearance of Progress Bars */
+progress {	/* For Firefox (background) */
+    background-color: none;
+/*	border: 1px solid #EEE;  */
+	border: none;  
+	vertical-align: top;
+	height: 0px; 
+}
+
+progress::-moz-progress-bar {  /* For Firefox (value bar) */
+	background-color: #CC4444;
+	border-radius: 5px;
+	height: 10px;
+}
+
+progress::-webkit-progress-bar {  /* For Webkit (background) */
+	background: none;
+	height: 5px; 
+/*	border: 1px solid #EEE; */
+	border: none;
+	border-radius: 5px;
+}
+progress::-webkit-progress-value {  /* For Webkit (value bar) */
+	background-color: #CC4444;
+	border-radius: 5px;
+	height: 10px;
+}
+
