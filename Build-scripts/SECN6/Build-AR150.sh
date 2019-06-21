@@ -176,8 +176,6 @@ make -j1
 #make -j1 V=s 2>&1 | tee ~/build.txt
 echo ""
 
-echo ""
-
 echo  "Rename files to add version info"
 echo ""
 if [ $2 ]; then
