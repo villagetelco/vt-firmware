@@ -77,8 +77,10 @@ uci set secn.wan.wanpass=\$WANPASS
 uci set secn.modem.enabled=\$MODEM_ENABLE
 uci set secn.modem.vendor=\$VENDOR
 uci set secn.modem.product=\$PRODUCT
-uci set secn.modem.dialstr=\$DIALSTR
 uci set secn.modem.modemport=\$MODEMPORT
+
+DIALSTR=\$(echo \$DIALSTR | sed -f /bin/url-decode.sed)
+uci set secn.modem.dialstr=\$DIALSTR
 
 uci set secn.modem.username=\$APNUSER
 uci set secn.modem.password=\$APNPW
@@ -87,7 +89,7 @@ uci set secn.modem.service=\$MODEMSERVICE
 uci set secn.modem.apn=\$APN
 
 # Write USB ethernet modem settings
-MODEMURL=\$(echo \$MODEMURL | sed -e s/%3A/:/g | sed -e 's/%2F/\//g')
+MODEMURL=\$(echo \$MODEMURL | sed -f /bin/url-decode.sed)
 uci set secn.modem.url=\$MODEMURL
 
 # Commit the settings into /etc/config/ files
