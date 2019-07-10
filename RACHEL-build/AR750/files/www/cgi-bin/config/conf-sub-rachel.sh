@@ -115,6 +115,13 @@ uci set rachel.setup.txpower=\$TXPOWER
 # Update the DNS Filter Enable setting
 uci set secn.dnsfilter.enable=\$DNSFILTER_ENABLE 
 
+# LAN Port enable
+if [ \$LANPORT_ENABLE = "checked" ]; then
+	uci set secn.wan.lanport_disable="0"
+else
+	uci set secn.wan.lanport_disable="checked"
+fi
+
 # Commit the settings 
 uci commit rachel
 uci commit secn

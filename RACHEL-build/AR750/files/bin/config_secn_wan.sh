@@ -121,7 +121,7 @@ fi
 
 # Set up for Mesh WAN
 if [ $WANPORT = "Mesh" ]; then
- 	# Set up eth1 as LAN or WAN
+ 	# Set up WANETH as LAN or WAN
 	if [ $WANLAN_ENABLE = "checked" ]; then
 		uci set network.lan.ifname="$LANETH $WANETH"
 		uci set network.wan.ifname="bat0"
@@ -201,10 +201,12 @@ fi
 
 # Set up for LAN port disabled
 LANPORT_DISABLE=`uci get secn.wan.lanport_disable`
-LANIFNAME=`uci get network.lan.ifname`
-
-if [ $LANPORT_DISABLE != "0" ]; then
-	uci set network.lan.ifname='eth99'
+if [ $LANPORT_DISABLE = "checked" ]; then
+	uci set network.lan.ifname='eth99'   # Disable LAN port
+elif [ $WANLAN_ENABLE = "0" ]; then
+	uci set network.lan.ifname="$LANETH" # Enable LAN port
+elif [ $WANLAN_ENABLE != "0" ] && [ $WANPORT != "Ethernet" ]; then
+	uci set network.lan.ifname="$LANETH $WANETH"  # WAN port can be re-mapped if not in use
 fi
 
 # Make sure firewall is enabled

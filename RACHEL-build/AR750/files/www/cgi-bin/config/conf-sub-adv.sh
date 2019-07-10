@@ -147,6 +147,14 @@ if [ \$AST_INSTALLED != "asterisk" ]; then
   ENABLE="0"
   fi
 
+# LAN Port enable
+if [ \$LANPORT_ENABLE = "checked" ]; then
+	LANPORT_DISABLE="0"
+else
+	LANPORT_DISABLE="checked"
+fi
+uci set secn.wan.lanport_disable=\$LANPORT_DISABLE
+
 # Set MAXASSOC to null if display value 'Max' is returned
 if [ \$MAXASSOC = "Max" ]; then
   MAXASSOC=""

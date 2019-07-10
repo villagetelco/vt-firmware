@@ -153,6 +153,14 @@ MPGW1=`uci get secn.mesh.mpgw` # Slave off mpgw setting
 #MESH_ENCR1=`uci get secn.mesh1.mesh_encr`
 #MESHPASSPHRASE1=`uci get secn.mesh1.mesh_passphrase`
 
+# LAN Port enable
+LANPORT_DISABLE=`uci get secn.wan.lanport_disable`
+if [ $LANPORT_DISABLE = "0" ]; then
+	LANPORT_ENABLE="checked"
+else
+	LANPORT_ENABLE="0"
+fi
+
 # Get network settings from /etc/config/network and wireless
 
 # br_lan configuration parameters

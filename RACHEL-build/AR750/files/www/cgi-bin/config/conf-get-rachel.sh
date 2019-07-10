@@ -21,6 +21,14 @@ CACHE_SPACE=`df -h | grep sda1 | sed -r "s'[[:blank:]]+','g" | cut -d ',' -f 4`
 DNSFILTER_ENABLE=` uci get secn.dnsfilter.enable`
 DNSFILTER_NAME=` uci get secn.dnsfilter.name`
 
+# LAN Port enable
+LANPORT_DISABLE=`uci get secn.wan.lanport_disable`
+if [ $LANPORT_DISABLE = "0" ]; then
+	LANPORT_ENABLE="checked"
+else
+	LANPORT_ENABLE="0"
+fi
+
 # Get USB Modem status details
 USBMODEM=`/bin/usbmodem.sh`
 USBSERIAL=`ls /dev/ttyUSB*`
