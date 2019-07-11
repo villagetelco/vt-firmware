@@ -6,16 +6,16 @@
 
 # Select the repo to use
 REPO="vt-firmware"
-BRANCH="secn5"
+BRANCH="secn6"
 
 echo "Set up version strings"
-DIRVER="MT300A-RACHEL-RC1-m"
-VER="SECN-5-"$DIRVER
+DIRVER="MT300A-RC1"
+VER="SECN-6-"$DIRVER
 
 
 echo "************************************"
 echo ""
-echo "Build script for MT300A RACHEL device"
+echo "Build script for MT300A device"
 
 echo "Git directory: "$GITREPO
 echo "Repo: "$REPO
@@ -74,14 +74,10 @@ BUILDDIR="./Builds/ramips"
 ###########################
 echo "Copy files from Git repo into build folder"
 rm -rf ./SECN-build/
-
 cp -rp $GITREPO/$REPO/SECN-build/ .
-
 cp -fp $GITREPO/$REPO/Build-scripts/FactoryRestore.sh  .
 cp -fp $GITREPO/$REPO/Build-scripts/GetGitVersions.sh  .
 
-echo "Overlay RACHEL files"
-cp -rfp $GITREPO/$REPO/RACHEL-build/* ./SECN-build/
 
 ###########################
 
@@ -137,10 +133,12 @@ echo "Remove files directory"
 rm -r ./files
 
 echo "Copy base files"
-cp -rf ./SECN-build/files     .  
+cp -rf ./SECN-build/files             .  
 
 echo "Copy additional files"
-cp -rf ./SECN-build/files-2/* ./files  
+cp -rf ./SECN-build/files-2/*         ./files  
+cp -rf ./SECN-build/files-aster/*     ./files  
+cp -rf ./SECN-build/files-usbmodem/*  ./files  
 
 echo "Overlay device specific files"
 cp -rf ./SECN-build/$1/files  .  
@@ -173,9 +171,10 @@ echo ""
 
 echo "Run make for "$1 $2
 #make
-make -j1
+make -j3
 #make -j1 V=s 2>&1 | tee ~/build.txt
 echo ""
+
 
 echo  "Rename files to add version info"
 echo ""
@@ -211,10 +210,10 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-build MT300A RACHEL
+build MT300A
 
 echo " "
-echo " Build script MT300A RACHEL complete"
+echo " Build script MT300A complete"
 echo " "
 echo '----------------------------'
 
