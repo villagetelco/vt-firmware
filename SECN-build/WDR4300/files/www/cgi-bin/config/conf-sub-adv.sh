@@ -204,9 +204,9 @@ fi
 
 # Write br_lan network settings into /etc/config/network
 uci set network.lan.ipaddr=\$BR_IPADDR
-uci set network.lan.dns=\$BR_DNS
 uci set network.lan.gateway=\$BR_GATEWAY
 uci set network.lan.netmask=\$BR_NETMASK
+#uci set network.lan.dns=\$BR_DNS
 
 # Write the mesh wifi settings into /etc/config/network
 uci set network.mesh_0.ipaddr=\$ATH0_IPADDR
@@ -283,6 +283,17 @@ uci set secn.dhcp.router=\$OPTION_ROUTER
 uci set secn.dhcp.dns=\$OPTION_DNS
 uci set secn.dhcp.dns2=\$OPTION_DNS2
 uci set secn.dhcp.device_ip=\$DEVICE_IP
+
+# Save DNS addresses only if DNS filter is not already enabled 
+DNSFILTER_ENABLE_OLD=`uci get secn.dnsfilter.enable`
+if [ \$DNSFILTER_ENABLE_OLD != "checked" ]; then
+	uci set secn.dhcp.dns=\$OPTION_DNS
+	uci set secn.dhcp.dns2=\$OPTION_DNS2
+	uci set secn.dnsfilter.landns=\$BR_DNS
+fi
+
+# Update the DNS Filter Enable setting
+uci set secn.dnsfilter.enable=\$DNSFILTER_ENABLE 
 
 # Save mesh settings to /etc/config/secn
 uci set secn.mesh.mesh_disable=\$MESH_DISABLE
