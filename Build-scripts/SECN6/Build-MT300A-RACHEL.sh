@@ -9,7 +9,7 @@ REPO="vt-firmware"
 BRANCH="secn6"
 
 echo "Set up version strings"
-DIRVER="MT300A-RACHEL-RC"
+DIRVER="MT300A-RACHEL-GA01.1"
 VER="SECN-6-"$DIRVER
 
 

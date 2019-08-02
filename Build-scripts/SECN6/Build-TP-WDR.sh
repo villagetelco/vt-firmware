@@ -9,7 +9,7 @@ REPO="vt-firmware"
 BRANCH="secn6"
 
 echo "Set up version strings"
-DIRVER="GA01.1-RC1"
+DIRVER="GA01.1"
 VER="SECN-6-TP-WDR-"$DIRVER
 
 
@@ -195,12 +195,12 @@ md5sum $BINDIR/*wdr$HWVER*-squash*sysupgrade.bin >> $BUILDDIR/builds/build-$DIR/
 #md5sum $BINDIR/*wdr$HWVER*-squash*factory.bin    >> $BUILDDIR/builds/build-$DIR/md5sums-$VER.txt
 echo ""
 
-echo  "Move files to build folder"
-mv $BINDIR/openwrt*wdr$HWVER*-squash*sysupgrade.bin $BUILDDIR/builds/build-$DIR
-#mv $BINDIR/openwrt*wdr$HWVER*-squash*factory.bin    $BUILDDIR/builds/build-$DIR
+echo  "Copy files to build folder"
+cp $BINDIR/openwrt*wdr$HWVER*-squash*sysupgrade.bin $BUILDDIR/builds/build-$DIR
+#cp $BINDIR/openwrt*wdr$HWVER*-squash*factory.bin    $BUILDDIR/builds/build-$DIR
 echo ""
 
-echo "Clean up unused files"
+#echo "Clean up unused files"
 #rm $BINDIR/openwrt-*
 echo ""
 
