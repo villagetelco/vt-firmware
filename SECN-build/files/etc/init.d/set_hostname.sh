@@ -19,4 +19,6 @@ uci commit uhttpd
 # Set the system hostname
 echo $HOSTNAME > /proc/sys/kernel/hostname
 
-
+# Put hostname in hosts file to ensure it can be resolved.
+sed -i '/127.0.0.1 localhost/d' /etc/hosts
+echo "127.0.0.1 localhost $HOSTNAME" >> /etc/hosts
