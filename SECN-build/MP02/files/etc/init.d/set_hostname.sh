@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Set the host name prefix
-HOST="MP2"
+HOST="MP02"
 
 # Build the hostname ($HOST-nnn) from the device IP address last octet
 OCTET_D=`uci get network.lan.ipaddr | cut -d = -f2 | cut -d . -f4`
@@ -19,4 +19,7 @@ uci commit uhttpd
 # Set the system hostname
 echo $HOSTNAME > /proc/sys/kernel/hostname
 
+# Put hostname in hosts file to ensure it can be resolved.
+sed -i '/127.0.0.1 localhost/d' /etc/hosts
+echo "127.0.0.1 localhost $HOSTNAME" >> /etc/hosts
 
