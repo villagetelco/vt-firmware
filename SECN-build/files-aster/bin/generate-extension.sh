@@ -22,10 +22,10 @@ cat > /etc/asterisk/lastoctet.extensions.conf << EOF
 
 ; This section is for placing a call using 1,2 or 3 digit dialling of last octet of MPs IP address.
 exten => _Z,1,Dial(SIP/4000@$OCTET123.$EXT)
-exten => _0Z,1,Dial(SIP/4000@$OCTET123.$EXT)
-exten => _00Z,1,Dial(SIP/4000@$OCTET123.$EXT)
+;exten => _0Z,1,Dial(SIP/4000@$OCTET123.$EXT)
+;exten => _00Z,1,Dial(SIP/4000@$OCTET123.$EXT)
 exten => _ZX,1,Dial(SIP/4000@$OCTET123.$EXT)
-exten => _0ZX,1,Dial(SIP/4000@$OCTET123.$EXT)
+;exten => _0ZX,1,Dial(SIP/4000@$OCTET123.$EXT)
 exten => _1XX,1,Dial(SIP/4000@$OCTET123.$EXT)
 exten => _2[0-4]X,1,Dial(SIP/4000@$OCTET123.$EXT)
 exten => _25[0-4],1,Dial(SIP/4000@$OCTET123.$EXT)
