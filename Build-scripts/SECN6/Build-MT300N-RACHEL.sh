@@ -9,7 +9,7 @@ REPO="vt-firmware"
 BRANCH="secn6"
 
 echo "Set up version strings"
-DIRVER="MT300N-RACHEL-RC3"
+DIRVER="MT300N-V2-RACHEL-RC4"
 VER="SECN-6-"$DIRVER
 
 
@@ -68,7 +68,7 @@ fi
 
 echo "Start build process"
 
-BINDIR="./bin/targets/ramips/mt7620"
+BINDIR="./bin/targets/ramips/mt76x8"
 BUILDDIR="./Builds/ramips"
 
 ###########################
@@ -93,7 +93,7 @@ echo "Source repo details: "$REPO $REPOID
 
 # Set up new directory name with date and version
 DATE=`date +%Y-%m-%d-%H:%M`
-DIR=$DATE"-MT300N-RACHEL-"$DIRVER
+DIR=$DATE-$DIRVER
 
 ###########################
 # Set up build directory

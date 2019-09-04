@@ -3,8 +3,8 @@
 
 # Set up network for MT300N
 
-	LANETH="eth1"
-	WANETH="eth0"
+	LANETH="eth0.1"
+	WANETH="eth0.2"
 
 uci set network.lan.ifname=$LANETH
 
