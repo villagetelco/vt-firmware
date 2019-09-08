@@ -32,7 +32,7 @@ config led 'led_wan'
     option mode 'link tx rx'
 
 config led 'led_lan'
-    option name 'WAN'
+    option name 'LAN'
     option sysfs 'gl-ar300m:green:wan'
     option trigger 'netdev'
     option dev 'eth1'     
