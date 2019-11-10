@@ -23,6 +23,7 @@ DEVICE_IP="0"
 AP_ISOL="0"
 COUNTRY=" "
 LANPORT_DISABLE="0"
+DNSFILTER_ENABLE="0"
 
 # Get Field-Value pairs from QUERY_STRING environment variable
 # set by the form GET action
@@ -110,6 +111,8 @@ if [ \$DIALOUT = "%23" ]; then
 	DIALOUT="#"
 fi
 
+# Fix ATH0_BSSID string colon characters - replace '%3A' with ':'
+ATH0_BSSID=\$(echo \$ATH0_BSSID | sed -e s/%3A/:/g)
 
 # If Master softphone mode is selected, then make sure Asterisk is enabled 
 if [ \$SOFTPH = "MASTER" ]; then
@@ -162,7 +165,7 @@ fi
 
 # Write br_lan network settings into /etc/config/network
 uci set network.lan.ipaddr=\$BR_IPADDR
-uci set network.lan.dns=\$BR_DNS
+#uci set network.lan.dns=\$BR_DNS
 uci set network.lan.gateway=\$BR_GATEWAY
 uci set network.lan.netmask=\$BR_NETMASK
 
@@ -226,9 +229,18 @@ uci set secn.dhcp.leaseterm=\$LEASETERM
 uci set secn.dhcp.domain=\$DOMAIN
 uci set secn.dhcp.subnet=\$OPTION_SUBNET
 uci set secn.dhcp.router=\$OPTION_ROUTER
-uci set secn.dhcp.dns=\$OPTION_DNS
-uci set secn.dhcp.dns2=\$OPTION_DNS2
 uci set secn.dhcp.device_ip=\$DEVICE_IP
+
+# Save DNS addresses only if DNS filter is not already enabled 
+DNSFILTER_ENABLE_OLD=`uci get secn.dnsfilter.enable`
+if [ \$DNSFILTER_ENABLE_OLD != "checked" ]; then
+	uci set secn.dhcp.dns=\$OPTION_DNS
+	uci set secn.dhcp.dns2=\$OPTION_DNS2
+	uci set secn.dnsfilter.landns=\$BR_DNS
+fi
+
+# Update the DNS Filter Enable setting
+uci set secn.dnsfilter.enable=\$DNSFILTER_ENABLE 
 
 # Save mesh settings to /etc/config/secn
 uci set secn.mesh.mesh_disable=\$MESH_DISABLE
