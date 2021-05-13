@@ -9,7 +9,7 @@ REPO="vt-firmware"
 BRANCH="secn6"
 
 echo "Set up version strings"
-DIRVER="GA01.1-RC1"
+DIRVER="GA01.1"
 VER="SECN-6-MP02-AWD-"$DIRVER
 
 
@@ -56,8 +56,8 @@ if [ ! -f ./already_configured ]; then
   mkdir ./Builds/
   mkdir ./Builds/ar71xx/
   mkdir ./Builds/ar71xx/builds
-  mkdir ./Builds/atheros/
-  mkdir ./Builds/atheros/builds
+  #mkdir ./Builds/atheros/
+  #mkdir ./Builds/atheros/builds
   echo "Initial set up completed. Continuing with build"
   echo ""
 else
@@ -75,7 +75,7 @@ BUILDDIR="./Builds/ar71xx"
 ###########################
 echo "Copy files from Git repo into build folder"
 rm -rf ./SECN-build/
-cp -rfp $GITREPO/$REPO/SECN-build/ .
+cp -rp $GITREPO/$REPO/SECN-build/ .
 cp -fp $GITREPO/$REPO/Build-scripts/FactoryRestore.sh  .
 cp -fp $GITREPO/$REPO/Build-scripts/GetGitVersions.sh  .
 
@@ -136,7 +136,7 @@ echo "Remove files directory"
 rm -rf ./files
 
 echo "Copy base files"
-cp -rf ./SECN-build/files     .  
+cp -rf ./SECN-build/files             .  
 
 echo "Copy additional files"
 cp -rf ./SECN-build/files-2/*         ./files  
@@ -146,7 +146,7 @@ cp -rf ./SECN-build/files-usbmodem/*  ./files
 
 echo "Overlay device specific files"
 cp -rf ./SECN-build/$1/files        .  
-cp -rf ./SECN-build/$1/files-awd/*  ./files  
+cp -rf ./SECN-build/$1/files-awd/*  ./files   
 echo ""
 
 echo "Build Factory Restore tar file"
@@ -177,8 +177,10 @@ echo ""
 
 echo "Run make for "$1 $2
 make -j1
-#make -j3
+#make
 #make -j1 V=s 2>&1 | tee ~/build.txt
+echo ""
+
 echo ""
 
 echo  "Rename files to add version info"
@@ -197,7 +199,7 @@ mv $BINDIR/openwrt*-squash*sysupgrade.bin $BUILDDIR/builds/build-$DIR
 echo ""
 
 echo "Clean up unused files"
-#rm $BINDIR/openwrt-*
+##rm $BINDIR/openwrt-*
 echo ""
 
 echo ""
@@ -215,7 +217,7 @@ echo "Start Device builds"
 echo " "
 echo '----------------------------'
 
-build_mp02 MP02FXS Duo
+build_mp02 MP02FXS Duo   # Note:  Build FXS first to ensure all packages get built!!
 build_mp02 MP02 Duo
 
 echo " "
