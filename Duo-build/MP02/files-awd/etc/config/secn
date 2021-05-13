@@ -45,6 +45,13 @@ config secn 'dhcp'
 	option dns2 '8.8.4.4'
 	option device_ip 'checked'
 
+config secn 'dnsfilter'
+	option enable '0'
+	option name 'OpenDNS'
+	option dns1 '208.67.222.123'
+	option dns2 '208.67.220.123'
+	option landns '8.8.8.8'
+
 config secn 'http'
 	option limitip '0'
 	option enssl '0'
